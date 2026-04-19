@@ -475,12 +475,27 @@ Sois direct, pas de réponses génériques.
     btn.textContent = 'Envoi...';
     btn.disabled = true;
 
-    const data = new FormData(document.getElementById('gateForm'));
+    const email = document.getElementById('gateEmail').value;
 
-    fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-      .then(r => r.json())
-      .then(() => showGuides())
-      .catch(() => showGuides()); // afficher les guides même si web3forms échoue
+    // 1. Web3forms — notification Gmail
+    const data = new FormData(document.getElementById('gateForm'));
+    const w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+
+    // 2. Beehiiv — abonnement automatique à la newsletter
+    const beehiivData = new FormData();
+    beehiivData.append('email', email);
+    beehiivData.append('publication_id', '50ba2a2f-b4b2-4c73-b353-133ac88aec19');
+    beehiivData.append('utm_source', 'bridge-instagram');
+    const bh = fetch('https://app.beehiiv.com/api/v1/subscriptions', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: beehiivData
+    });
+
+    // On affiche les guides dès que les deux requêtes sont parties
+    Promise.allSettled([w3, bh]).then(() => showGuides());
+    // Fallback : afficher après 2 sec max
+    setTimeout(showGuides, 2000);
   }
 
   function showGuides() {
