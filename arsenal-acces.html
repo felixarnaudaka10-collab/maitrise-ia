@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Arsenal Claude — Accès Complet · Maîtrise IA</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+      --text: #fff; --muted: #94a3b8; --dim: #64748b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-badge { display: flex; align-items: center; gap: 6px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.2); color: var(--green); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 100px; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* COVER */
+    .cover { text-align: center; padding: 56px 24px 48px; max-width: 640px; margin: 0 auto; }
+    .cover-welcome { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #fbbf24; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; }
+    .cover h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: -1px; margin-bottom: 14px; }
+    .cover h1 span { color: var(--purple-light); }
+    .cover-sub { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+    .cover-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 900; color: var(--purple-light); }
+    .stat-num.live { color: var(--yellow); }
+    .stat-label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    /* CATEGORIES NAV */
+    .cat-nav { max-width: 860px; margin: 0 auto; padding: 0 24px 40px; }
+    .cat-nav-inner { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-pill { background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 7px 16px; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--muted); transition: all 0.2s; cursor: pointer; }
+    .cat-pill:hover, .cat-pill.active { background: rgba(124,58,237,0.15); border-color: var(--purple); color: var(--purple-light); }
+
+    /* SECTIONS */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+    .section-head { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.05)); border: 1px solid rgba(124,58,237,0.2); border-radius: 14px; margin: 40px 0 16px; }
+    .section-head .ico { font-size: 24px; }
+    .section-head-info h2 { font-size: 17px; font-weight: 900; }
+    .section-head-info p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .section-badge { margin-left: auto; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .section-badge.purple { background: rgba(124,58,237,0.15); color: var(--purple-light); }
+    .section-badge.new { background: rgba(239,68,68,0.12); color: #fca5a5; }
+
+    /* GUIDE CARDS */
+    .guide-grid { display: grid; gap: 16px; }
+    .guide-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.2s; }
+    .guide-card:hover { border-color: rgba(124,58,237,0.45); }
+    .guide-top { padding: 22px 24px 16px; display: flex; align-items: flex-start; gap: 14px; }
+    .guide-num { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; font-weight: 900; font-size: 11px; width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .guide-meta { flex: 1; }
+    .guide-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; line-height: 1.3; }
+    .guide-desc { font-size: 13px; color: var(--muted); }
+    .guide-tag { font-size: 11px; font-weight: 700; background: rgba(59,130,246,0.1); color: #93c5fd; border: 1px solid rgba(59,130,246,0.2); padding: 3px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .guide-box-wrap { padding: 0 24px 20px; }
+    .guide-box { background: #0b0b1e; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px 44px; font-size: 13px; color: #c4b5fd; line-height: 1.8; white-space: pre-wrap; word-break: break-word; position: relative; }
+    .copy-btn { position: absolute; bottom: 10px; right: 12px; display: flex; align-items: center; gap: 5px; background: rgba(124,58,237,0.2); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .copy-btn:hover { background: rgba(124,58,237,0.4); }
+    .copy-btn.copied { background: rgba(34,197,94,0.2); color: var(--green); border-color: rgba(34,197,94,0.3); }
+    .guide-tip { margin: 0 24px 20px; background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.15); border-radius: 10px; padding: 10px 14px; display: flex; gap: 8px; font-size: 12px; color: #fbbf24; line-height: 1.6; }
+
+    /* NEWSLETTER (acheteurs aussi) */
+    .newsletter { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.06)); border: 1px solid rgba(124,58,237,0.25); border-radius: 20px; padding: 36px; margin: 48px 0; text-align: center; }
+    .newsletter h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+    .newsletter h3 span { color: var(--purple-light); }
+    .newsletter p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+    .nl-form { display: flex; gap: 10px; max-width: 380px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+    .nl-input { flex: 1; min-width: 200px; background: rgba(10,10,26,0.8); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif; outline: none; }
+    .nl-input:focus { border-color: var(--purple); }
+    .nl-btn { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .nl-success { display: none; color: var(--green); font-weight: 600; font-size: 14px; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 24px; color: var(--dim); font-size: 12px; border-top: 1px solid var(--border); }
+    footer a { color: var(--dim); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="https://www.maitrise-ia.pro" class="logo">
+    <div class="logo-icon">⚡</div>
+    <div class="logo-text">L'Arsenal <span>Claude</span></div>
+  </a>
+  <div class="nav-badge"><div class="dot"></div> Accès complet</div>
+</div>
+
+<div class="cover">
+  <div class="cover-welcome">🎉 Bienvenue dans l'Arsenal</div>
+  <h1>Tous tes <span>guides Claude</span><br>sont ici</h1>
+  <p class="cover-sub">Accès à vie, mises à jour chaque semaine automatiquement. Copie, colle, adapte — et gagne des heures chaque jour.</p>
+  <div class="cover-stats">
+    <div class="stat"><div class="stat-num">53+</div><div class="stat-label">Guides disponibles</div></div>
+    <div class="stat"><div class="stat-num live">+5</div><div class="stat-label">Cette semaine</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Catégories</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Mises à jour</div></div>
+  </div>
+</div>
+
+<!-- NAVIGATION CATÉGORIES -->
+<div class="cat-nav">
+  <div class="cat-nav-inner">
+    <a class="cat-pill active" href="#code">💻 Claude Code & Cowork</a>
+    <a class="cat-pill" href="#contenu">📱 Contenu</a>
+    <a class="cat-pill" href="#vente">💰 Copywriting</a>
+    <a class="cat-pill" href="#strategie">🎯 Stratégie</a>
+    <a class="cat-pill" href="#productivite">⚡ Productivité</a>
+    <a class="cat-pill" href="#automatisation">🤖 Automatisation</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== CLAUDE CODE & COWORK ===== -->
+  <div class="section-head" id="code">
+    <div class="ico">💻</div>
+    <div class="section-head-info">
+      <h2>Claude Code & Cowork</h2>
+      <p>Nouvelles fonctionnalités Claude — guides exclusifs</p>
+    </div>
+    <div class="section-badge new">🆕 Ajoutés cette semaine</div>
+  </div>
+  <div class="guide-grid">
+
+    <div class="guide-card">
+      <div class="guide-top">
+        <div class="guide-num">51</div>
+        <div class="guide-meta">
+          <div class="guide-title">Générer une app complète en 1 message</div>
+          <div class="guide-desc">Crée une mini-application fonctionnelle sans avoir besoin de coder.</div>
+        </div>
+        <div class="guide-tag">💻 Claude Code</div>
+      </div>
+      <div class="guide-box-wrap">
+        <div class="guide-box" id="g51">Tu es un développeur senior full-stack.
+
+Je veux créer une application web simple qui fait : [DÉCRIS LA FONCTION PRINCIPALE EN 1-2 PHRASES]
+
+Contraintes :
+- Technologies : HTML, CSS, JavaScript vanilla uniquement (pas de framework)
+- Tout dans un seul fichier HTML
+- Interface claire et moderne, fond sombre
+- Entièrement fonctionnel dès l'ouverture
+
+Fonctionnalités à inclure :
+1. [FONCTIONNALITÉ 1]
+2. [FONCTIONNALITÉ 2]
+3. [FONCTIONNALITÉ 3]
+
+Donne-moi le code complet, prêt à copier-coller et à ouvrir dans un navigateur.
+        <button class="copy-btn" onclick="copyGuide('g51', this)">📋 Copier</button></div>
+      </div>
+      <div class="guide-tip"><span>💡</span><div><strong>Exemple :</strong> "une app qui me permet de chronométrer mes sessions de travail avec des pauses Pomodoro" — et tu obtiens une app complète en 30 secondes.</div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top">
+        <div class="guide-num">52</div>
+        <div class="guide-meta">
+          <div class="guide-title">Automatiser la gestion de ses fichiers</div>
+          <div class="guide-desc">Trier, renommer, organiser des centaines de fichiers automatiquement avec Claude Cowork.</div>
+        </div>
+        <div class="guide-tag">🖥️ Cowork</div>
+      </div>
+      <div class="guide-box-wrap">
+        <div class="guide-box" id="g52">J'ai un dossier avec [NOMBRE] fichiers à organiser.
+
+Voici la situation actuelle :
+- Type de fichiers : [ex: photos, PDFs, captures d'écran, docs Word...]
+- Problème principal : [ex: tout est mélangé, noms incohérents, doublons...]
+- Résultat souhaité : [ex: classés par date, par projet, par type...]
+
+Aide-moi à :
+1. Définir une structure de dossiers logique pour mon activité
+2. Créer les règles de renommage (format date, projet, type)
+3. Identifier les doublons potentiels
+4. Me donner un plan d'action étape par étape
+
+Mon activité : [DÉCRIS EN 1 PHRASE]
+        <button class="copy-btn" onclick="copyGuide('g52', this)">📋 Copier</button></div>
+      </div>
+      <div class="guide-tip"><span>💡</span><div><strong>Astuce :</strong> Dans Cowork, après avoir obtenu le plan, demande à Claude d'exécuter directement les actions sur ton dossier.</div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top">
+        <div class="guide-num">53</div>
+        <div class="guide-meta">
+          <div class="guide-title">Créer un outil SaaS sans développeur</div>
+          <div class="guide-desc">Transformer une idée en outil web fonctionnel et partageable.</div>
+        </div>
+        <div class="guide-tag">💻 Claude Code</div>
+      </div>
+      <div class="guide-box-wrap">
+        <div class="guide-box" id="g53">Je veux construire un outil en ligne qui aide [MA CIBLE] à [RÉSOUDRE CE PROBLÈME].
+
+Description de l'outil :
+- Ce que l'utilisateur saisit : [INPUT — ex: texte, chiffres, URL...]
+- Ce que l'outil produit : [OUTPUT — ex: rapport, calcul, liste...]
+- Cas d'usage principal : [EXEMPLE CONCRET]
+
+Contraintes techniques :
+- Pas de backend ni de base de données
+- Tout doit fonctionner côté client (navigateur)
+- Fichier HTML unique, design professionnel
+- Mobile-friendly
+
+Génère l'outil complet avec le code HTML/CSS/JS prêt à déployer.
+        <button class="copy-btn" onclick="copyGuide('g53', this)">📋 Copier</button></div>
+      </div>
+      <div class="guide-tip"><span>💡</span><div><strong>Idées :</strong> Calculateur de tarif freelance, générateur de bio Instagram, outil de scoring prospect, générateur de titres YouTube...</div></div>
+    </div>
+
+  </div>
+
+  <!-- ===== CONTENU ===== -->
+  <div class="section-head" id="contenu">
+    <div class="ico">📱</div>
+    <div class="section-head-info">
+      <h2>Contenu & Réseaux Sociaux</h2>
+      <p>Crée du contenu viral sans jamais tomber à court d'idées</p>
+    </div>
+    <div class="section-badge purple">Guides 01–10</div>
+  </div>
+  <div class="guide-grid">
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">01</div><div class="guide-meta"><div class="guide-title">Script Reel Instagram viral</div><div class="guide-desc">Crée un script complet pour un Reel de 30-60 secondes avec hook, développement et CTA.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g01">Tu es expert en contenu Instagram viral dans la niche [TA NICHE].
+
+Crée-moi un script Reel de 45 secondes sur : [SUJET DE LA VIDÉO]
+
+Structure :
+- Hook (3 sec) : phrase qui stoppe le scroll
+- Problème (10 sec) : la douleur concrète
+- Solution (25 sec) : 3 conseils, chacun en 1 phrase
+- CTA (7 sec) : 1 action claire
+
+Mon audience : [TA CIBLE EN 1 PHRASE]
+Mon style : [ex: direct, éducatif, storytelling]
+
++ Donne 3 variantes de hook.
+      <button class="copy-btn" onclick="copyGuide('g01', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">02</div><div class="guide-meta"><div class="guide-title">30 idées de posts pour un mois entier</div><div class="guide-desc">Planifier ton calendrier éditorial mensuel en 5 minutes.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g02">Tu es stratège contenu Instagram.
+
+Génère 30 idées de posts pour [TA NICHE] sur [PLATEFORME].
+
+Pour chaque idée, donne :
+- Le type de post (Reel, carousel, post texte)
+- Le titre accrocheur
+- L'angle (éducatif, divertissant, personnel, preuve sociale...)
+- Le CTA suggéré
+
+Ma cible : [DÉCRIS EN 1 PHRASE]
+Mon style de contenu : [ex: vulgarisation, témoignages, tutoriels...]
+Ce que je vends : [TON OFFRE]
+      <button class="copy-btn" onclick="copyGuide('g02', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">03</div><div class="guide-meta"><div class="guide-title">Carousel éducatif en 7 slides</div><div class="guide-desc">Créer un carousel qui enseigne ET convertit.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g03">Tu es expert en contenu Instagram à fort engagement.
+
+Crée un carousel de 7 slides sur le thème : [TON SUJET]
+
+Structure slide par slide :
+- Slide 1 : titre accrocheur + promesse claire
+- Slides 2-6 : un point par slide (titre + 2-3 lignes max)
+- Slide 7 : récap + CTA fort
+
+Contraintes :
+- Maximum 30 mots par slide
+- Style : simple, impactant, lisible en 3 secondes
+- Chaque slide doit donner envie de passer à la suivante
+
+Ma cible : [TA CIBLE]
+      <button class="copy-btn" onclick="copyGuide('g03', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">04</div><div class="guide-meta"><div class="guide-title">Caption Instagram avec CTA optimisé</div><div class="guide-desc">Rédiger une légende qui génère de l'engagement et des clics.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g04">Tu es expert en copywriting Instagram.
+
+Rédige une caption pour ce post : [DÉCRIS TON POST EN 2-3 PHRASES]
+
+Format :
+- 1re phrase : hook (max 8 mots, doit apparaître avant le "voir plus")
+- Corps : développement en 4-6 lignes courtes avec des sauts de ligne
+- CTA : une seule demande claire (commenter / enregistrer / DM)
+- Emojis : utilisés avec parcimonie, 3-5 max
+
+Ton : [ex: inspirant, pragmatique, humoristique]
+Objectif de ce post : [ex: engagement, leads, ventes]
+      <button class="copy-btn" onclick="copyGuide('g04', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">05</div><div class="guide-meta"><div class="guide-title">Hook irrésistible — 10 variantes</div><div class="guide-desc">Créer des premières lignes qui stoppent le scroll.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g05">Tu es expert en hooks viraux pour les réseaux sociaux.
+
+Sujet de mon contenu : [TON SUJET]
+Plateforme : [Instagram / TikTok / YouTube / LinkedIn]
+Ma cible : [TA CIBLE]
+
+Génère 10 hooks différents en variant les angles :
+- 2 hooks "chiffre choc"
+- 2 hooks "question provocatrice"
+- 2 hooks "contre-intuitif"
+- 2 hooks "storytelling" (commence par "J'ai...")
+- 2 hooks "promesse directe"
+
+Chaque hook doit tenir en 10 mots max.
+      <button class="copy-btn" onclick="copyGuide('g05', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">06</div><div class="guide-meta"><div class="guide-title">Script YouTube structuré</div><div class="guide-desc">Rédiger un script YouTube qui retient l'audience jusqu'au bout.</div></div><div class="guide-tag">🎬 Vidéo</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g06">Tu es expert en scripting YouTube à fort taux de rétention.
+
+Crée un script de [DURÉE] minutes sur : [TON SUJET]
+
+Structure obligatoire :
+- Cold open (0-30 sec) : la promesse ou la scène d'accroche
+- Intro (30 sec - 2 min) : qui je suis + pourquoi regarder
+- Développement en [X] parties : titre + contenu + transition
+- Conclusion + CTA : like, commentaire, abonnement
+
+Mon style : [ex: tutoriel, vlog, analyse, opinion]
+Ma chaîne parle de : [TA NICHE]
+      <button class="copy-btn" onclick="copyGuide('g06', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">07</div><div class="guide-meta"><div class="guide-title">Newsletter hebdomadaire professionnelle</div><div class="guide-desc">Rédiger une newsletter engageante chaque semaine.</div></div><div class="guide-tag">📧 Email</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g07">Tu es expert en newsletters à fort taux d'ouverture et de clic.
+
+Rédige une newsletter sur le thème : [TON SUJET DE LA SEMAINE]
+
+Format :
+- Objet (5 variantes) : court, personnel, intriguant
+- Intro : 3 lignes max, commence par "tu" ou "je"
+- Corps : 1 idée principale développée en 200-300 mots, avec des sous-titres
+- Ressource de la semaine : 1 outil, article ou conseil actionnable
+- CTA final : 1 seule action
+
+Ton : [ex: ami expert, mentor, co-fondateur]
+Mes abonnés sont : [QUI EST TON AUDIENCE]
+      <button class="copy-btn" onclick="copyGuide('g07', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">08</div><div class="guide-meta"><div class="guide-title">Bio Instagram percutante</div><div class="guide-desc">Optimiser ta bio pour convertir les visiteurs en abonnés.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g08">Tu es expert en optimisation de profils Instagram.
+
+Crée 5 variantes de bio Instagram pour :
+
+Ce que je fais : [TON ACTIVITÉ EN 1 PHRASE]
+Ma cible : [QUI TU AIDES]
+Mon résultat promis : [CE QUE TU LEUR APPORTES]
+Mon CTA (lien en bio) : [ex: newsletter, site, calendly...]
+
+Chaque bio doit :
+- Tenir en 150 caractères max
+- Inclure un emoji stratégique
+- Avoir un CTA clair sur la dernière ligne
+- Être lisible en 3 secondes
+      <button class="copy-btn" onclick="copyGuide('g08', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">09</div><div class="guide-meta"><div class="guide-title">Transformer un post en 5 formats</div><div class="guide-desc">Multiplier un seul contenu sur tous les canaux.</div></div><div class="guide-tag">🔄 Multi-format</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g09">Tu es expert en réutilisation de contenu (content repurposing).
+
+Voici mon contenu original : [COLLE ICI TON POST, ARTICLE OU SCRIPT]
+
+Transforme ce contenu en 5 formats différents :
+1. Thread Twitter/X (10 tweets)
+2. Caption Instagram courte (150 mots max)
+3. Post LinkedIn professionnel
+4. Script Reel 45 secondes
+5. Email newsletter (200 mots)
+
+Garde le message principal intact mais adapte le ton et la structure à chaque plateforme.
+      <button class="copy-btn" onclick="copyGuide('g09', this)">📋 Copier</button></div></div>
+    </div>
+
+    <div class="guide-card">
+      <div class="guide-top"><div class="guide-num">10</div><div class="guide-meta"><div class="guide-title">Stratégie hashtags par niche</div><div class="guide-desc">Trouver les hashtags qui boostent vraiment la portée.</div></div><div class="guide-tag">📱 Contenu</div></div>
+      <div class="guide-box-wrap"><div class="guide-box" id="g10">Tu es expert en stratégie Instagram et en croissance organique.
+
+Génère une stratégie de hashtags pour :
+Niche : [TA NICHE]
+Type de contenu : [ex: tutoriel, inspiration, témoignage...]
+Taille de mon compte : [ex: moins de 5k / 5k-50k / +50k abonnés]
+
+Donne-moi :
+1. 5 hashtags de niche (100k-500k posts) — ciblés
+2. 5 hashtags de communauté (500k-1M posts) — engagement
+3. 5 hashtags généraux (1M-5M posts) — portée
+4. 2 hashtags de marque à créer pour moi
+5. Les hashtags à ÉVITER dans ma niche
+      <button class="copy-btn" onclick="copyGuide('g10', this)">📋 Copier</button></div></div>
+    </div>
+
+  </div>
+
+  <!-- ===== COPYWRITING ===== -->
+  <div class="section-head" id="vente">
+    <div class="ico">💰</div>
+    <div class="section-head-info">
+      <h2>Copywriting & Vente</h2>
+      <p>Des mots qui vendent, des emails qui convertissent</p>
+    </div>
+    <div class="section-badge purple">Guides 11–20</div>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">11</div><div class="guide-meta"><div class="guide-title">Page de vente complète</div><div class="guide-desc">Rédiger une page de vente qui convertit.</div></div><div class="guide-tag">💰 Vente</div></div><div class="guide-box-wrap"><div class="guide-box" id="g11">Tu es copywriter expert en pages de vente.
+
+Rédige une page de vente complète pour : [TON OFFRE]
+
+Infos :
+- Prix : [PRIX]
+- Cible : [QUI TU AIDES]
+- Problème résolu : [LE PROBLÈME PRINCIPAL]
+- Résultat promis : [CE QUE TU LIVRES]
+- Preuve sociale : [TÉMOIGNAGES / RÉSULTATS]
+- Garantie : [SI TU EN AS UNE]
+
+Structure AIDA+ :
+1. Headline : bénéfice principal
+2. Problème + agitation
+3. Solution (ton offre)
+4. Bénéfices (liste 5-7)
+5. Pour qui c'est / pour qui ce n'est pas
+6. Preuve sociale
+7. Offre + prix + garantie
+8. FAQ (5 objections)
+9. CTA final
+      <button class="copy-btn" onclick="copyGuide('g11', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">12</div><div class="guide-meta"><div class="guide-title">Séquence email de lancement (5 emails)</div><div class="guide-desc">Lancer une offre avec une séquence email complète.</div></div><div class="guide-tag">📧 Email</div></div><div class="guide-box-wrap"><div class="guide-box" id="g12">Tu es expert en séquences email de lancement.
+
+Crée une séquence de 5 emails pour lancer : [TON OFFRE]
+Prix : [PRIX] — Fenêtre de vente : [DURÉE, ex: 5 jours]
+
+Email 1 (J-5) : Teaser + histoire personnelle
+Email 2 (J-3) : Le problème en détail + coût de l'inaction
+Email 3 (J-1) : Présentation de l'offre + bénéfices
+Email 4 (Jour J) : Ouverture officielle + preuve sociale
+Email 5 (Dernier jour) : Urgence + fermeture
+
+Pour chaque email : objet (3 variantes), corps complet, CTA.
+Ma liste : [QUI SONT TES ABONNÉS]
+      <button class="copy-btn" onclick="copyGuide('g12', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">13</div><div class="guide-meta"><div class="guide-title">Email de relance client</div><div class="guide-desc">Relancer un prospect ou un devis sans harceler.</div></div><div class="guide-tag">📧 Email</div></div><div class="guide-box-wrap"><div class="guide-box" id="g13">Tu es expert en relance commerciale bienveillante.
+
+Contexte : [DÉCRIS LA SITUATION — ex: devis envoyé il y a X jours, prospect intéressé mais silence radio...]
+Mon offre : [CE QUE TU PROPOSES]
+Dernier contact : [DATE OU CONTEXTE]
+
+Écris 3 variantes d'email de relance :
+1. Ton neutre et professionnel
+2. Ton chaleureux et personnel
+3. Ton direct avec nouvelle valeur ajoutée
+
+Chaque email doit :
+- Faire maximum 100 mots
+- Ne pas être culpabilisant
+- Apporter quelque chose (info, ressource, question)
+- Avoir un CTA simple et sans pression
+      <button class="copy-btn" onclick="copyGuide('g13', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">14</div><div class="guide-meta"><div class="guide-title">Script d'appel de vente (20 min)</div><div class="guide-desc">Structurer un appel de découverte qui convertit.</div></div><div class="guide-tag">📞 Sales</div></div><div class="guide-box-wrap"><div class="guide-box" id="g14">Tu es expert en vente consultative et closing.
+
+Crée un script d'appel de 20 minutes pour vendre : [TON OFFRE À PRIX ÉLEVÉ]
+
+Structure minute par minute :
+- 0-2 min : brise-glace + agenda de l'appel
+- 2-7 min : découverte (5 questions ouvertes clés)
+- 7-12 min : présentation de la solution sur mesure
+- 12-16 min : levée des objections (liste les 5 principales)
+- 16-19 min : présentation du prix
+- 19-20 min : closing + prochaine étape
+
+Mon offre : [DESCRIPTION]
+Prix : [PRIX]
+Principales objections que j'entends : [LISTE-LES]
+      <button class="copy-btn" onclick="copyGuide('g14', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">15</div><div class="guide-meta"><div class="guide-title">Proposition commerciale B2B</div><div class="guide-desc">Rédiger une offre commerciale qui se démarque.</div></div><div class="guide-tag">💼 B2B</div></div><div class="guide-box-wrap"><div class="guide-box" id="g15">Tu es expert en proposals B2B qui convertissent.
+
+Rédige une proposition commerciale pour :
+Client : [NOM / TYPE D'ENTREPRISE]
+Besoin exprimé : [CE QUE LE CLIENT M'A DIT]
+Ma solution : [CE QUE JE PROPOSE]
+Investissement : [PRIX]
+Délai : [DURÉE]
+
+Structure :
+1. Résumé exécutif (1 page)
+2. Compréhension du besoin
+3. Ma solution détaillée
+4. Ce que ça leur apporte (ROI estimé)
+5. Investissement + ce qui est inclus
+6. Prochaines étapes
+7. À propos de moi + preuves sociales
+      <button class="copy-btn" onclick="copyGuide('g15', this)">📋 Copier</button></div></div></div>
+
+  </div>
+
+  <!-- ===== STRATÉGIE ===== -->
+  <div class="section-head" id="strategie">
+    <div class="ico">🎯</div>
+    <div class="section-head-info">
+      <h2>Stratégie Business</h2>
+      <p>Prends les bonnes décisions, construis sur des bases solides</p>
+    </div>
+    <div class="section-badge purple">Guides 21–30</div>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">21</div><div class="guide-meta"><div class="guide-title">Audit complet de son business</div><div class="guide-desc">Identifier les leviers de croissance inexploités.</div></div><div class="guide-tag">🎯 Stratégie</div></div><div class="guide-box-wrap"><div class="guide-box" id="g21">Tu es consultant business stratégique.
+
+Fais un audit de mon activité :
+Ce que je fais : [DÉCRIS TON ACTIVITÉ]
+Revenus actuels : [CHIFFRE OU FOURCHETTE]
+Ce qui marche bien : [TES POINTS FORTS]
+Ce qui ne marche pas : [TES POINTS FAIBLES]
+Mon objectif : [CE QUE TU VEUX ATTEINDRE]
+
+Donne-moi :
+1. Les 3 problèmes prioritaires à régler
+2. Les 3 opportunités que je n'exploite pas
+3. Les actions à faire cette semaine (quick wins)
+4. Les actions à planifier ce mois
+5. Ce que je dois arrêter immédiatement
+      <button class="copy-btn" onclick="copyGuide('g21', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">22</div><div class="guide-meta"><div class="guide-title">Trouver sa niche rentable</div><div class="guide-desc">Identifier le croisement entre compétences, passion et demande marché.</div></div><div class="guide-tag">🎯 Stratégie</div></div><div class="guide-box-wrap"><div class="guide-box" id="g22">Tu es expert en positionnement et in business development.
+
+Aide-moi à trouver ma niche idéale.
+
+Mes compétences / expertise : [LISTE TES COMPÉTENCES]
+Ce que j'aime faire : [TES PASSIONS / INTÉRÊTS]
+Ce pour quoi les gens me demandent conseil : [CE QU'ON TE DEMANDE]
+Ce que je veux éviter : [CE QUE TU NE VEUX PAS FAIRE]
+Budget mensuel visé : [OBJECTIF REVENU]
+
+Propose-moi 5 niches potentielles avec pour chacune :
+- Le positionnement exact
+- La cible précise
+- L'offre principale
+- Les revenus potentiels
+- Le niveau de concurrence estimé
+      <button class="copy-btn" onclick="copyGuide('g22', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">23</div><div class="guide-meta"><div class="guide-title">Construire son positionnement unique</div><div class="guide-desc">Se différencier dans un marché saturé.</div></div><div class="guide-tag">🎯 Stratégie</div></div><div class="guide-box-wrap"><div class="guide-box" id="g23">Tu es stratège en positionnement de marque personnelle.
+
+Mon marché : [TA NICHE]
+Ce que je fais : [TON OFFRE]
+Mes concurrents principaux : [LISTE 3 CONCURRENTS]
+Ce qu'ils font tous : [CE QUI EST COMMUN]
+Mon histoire / parcours : [CE QUI TE REND UNIQUE]
+
+Donne-moi :
+1. Mon angle de différenciation unique (en 1 phrase)
+2. Mon positionnement en 10 mots ("Je suis le/la X qui...")
+3. Les 3 messages à répéter constamment
+4. Comment intégrer ça dans ma bio, mes posts et mes offres
+5. Ce que je dois arrêter de dire car tout le monde le dit
+      <button class="copy-btn" onclick="copyGuide('g23', this)">📋 Copier</button></div></div></div>
+
+  </div>
+
+  <!-- ===== PRODUCTIVITÉ ===== -->
+  <div class="section-head" id="productivite">
+    <div class="ico">⚡</div>
+    <div class="section-head-info">
+      <h2>Productivité & Organisation</h2>
+      <p>Travaille moins, produis plus, délègue intelligemment</p>
+    </div>
+    <div class="section-badge purple">Guides 31–40</div>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">31</div><div class="guide-meta"><div class="guide-title">Créer une SOP de délégation</div><div class="guide-desc">Documenter une tâche pour la déléguer sans friction.</div></div><div class="guide-tag">⚡ Process</div></div><div class="guide-box-wrap"><div class="guide-box" id="g31">Tu es expert en documentation de processus et management.
+
+Aide-moi à créer une SOP (Standard Operating Procedure) pour : [NOM DE LA TÂCHE]
+
+Contexte :
+- Fréquence : [ex: quotidien, hebdomadaire]
+- Qui va faire ça : [ex: assistant, stagiaire, freelance]
+- Niveau de complexité : [simple / moyen / complexe]
+
+Structure la SOP avec :
+1. Objectif de la tâche (1 phrase)
+2. Pré-requis (accès, outils, informations nécessaires)
+3. Étapes numérotées et détaillées
+4. Critères de validation (comment savoir si c'est bien fait)
+5. Erreurs courantes à éviter
+6. Où poser des questions en cas de blocage
+      <button class="copy-btn" onclick="copyGuide('g31', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">32</div><div class="guide-meta"><div class="guide-title">Email professionnel difficile</div><div class="guide-desc">Rédiger un email délicat avec le bon ton.</div></div><div class="guide-tag">📧 Email</div></div><div class="guide-box-wrap"><div class="guide-box" id="g32">Tu es expert en communication professionnelle et gestion de situations délicates.
+
+Aide-moi à rédiger un email pour : [DÉCRIS LA SITUATION EN 2-3 PHRASES]
+
+Contexte :
+- Mon rôle : [QUI TU ES]
+- Destinataire : [QUI REÇOIT L'EMAIL]
+- Ce que je veux obtenir : [TON OBJECTIF]
+- Ce que je veux éviter : [CE QUE TU NE VEUX PAS]
+
+Donne-moi 3 versions :
+1. Ton ferme mais professionnel
+2. Ton bienveillant et empathique
+3. Ton direct et factuel
+
+Pour chaque version : objet + corps complet.
+      <button class="copy-btn" onclick="copyGuide('g32', this)">📋 Copier</button></div></div></div>
+
+  </div>
+
+  <!-- ===== AUTOMATISATION ===== -->
+  <div class="section-head" id="automatisation">
+    <div class="ico">🤖</div>
+    <div class="section-head-info">
+      <h2>Automatisation & Agents IA</h2>
+      <p>Construis des systèmes IA qui travaillent à ta place</p>
+    </div>
+    <div class="section-badge purple">Guides 41–50</div>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">41</div><div class="guide-meta"><div class="guide-title">Créer un agent IA conversationnel</div><div class="guide-desc">Construire le system prompt d'un agent Claude sur mesure.</div></div><div class="guide-tag">🤖 Agent</div></div><div class="guide-box-wrap"><div class="guide-box" id="g41">Tu es expert en conception d'agents IA avec Claude.
+
+Aide-moi à créer un system prompt pour un agent qui : [DÉCRIS LA FONCTION DE L'AGENT]
+
+L'agent doit :
+- Rôle : [QUI EST CET AGENT]
+- Public cible : [À QUI PARLE-T-IL]
+- Ton et style : [ex: professionnel, détendu, expert...]
+- Ce qu'il sait faire : [SES CAPACITÉS]
+- Ce qu'il ne fait PAS : [SES LIMITES]
+- Comment il répond aux questions hors sujet : [TA RÈGLE]
+
+Format : rédige directement le system prompt complet, prêt à copier-coller dans Claude.
+      <button class="copy-btn" onclick="copyGuide('g41', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">42</div><div class="guide-meta"><div class="guide-title">Agent IA de qualification prospects</div><div class="guide-desc">Automatiser la première étape de qualification client.</div></div><div class="guide-tag">🤖 Agent</div></div><div class="guide-box-wrap"><div class="guide-box" id="g42">Tu es expert en automatisation commerciale.
+
+Crée un agent IA qui qualifie mes prospects en DM / chat.
+
+Mon offre : [CE QUE TU VENDS]
+Prix : [FOURCHETTE DE PRIX]
+Cible idéale : [PROFIL DU BON CLIENT]
+Cible à exclure : [QUI N'EST PAS TA CIBLE]
+
+L'agent doit :
+1. Accueillir chaleureusement
+2. Poser 5 questions de qualification (propose-les)
+3. Identifier si le prospect est qualifié ou non
+4. Si oui : proposer un appel / envoyer vers un lien
+5. Si non : répondre poliment et ne pas insister
+
+Écris le system prompt complet + les 5 questions de qualification.
+      <button class="copy-btn" onclick="copyGuide('g42', this)">📋 Copier</button></div></div></div>
+
+    <div class="guide-card"><div class="guide-top"><div class="guide-num">43</div><div class="guide-meta"><div class="guide-title">Workflow Make/n8n sans code</div><div class="guide-desc">Concevoir un workflow d'automatisation sans code.</div></div><div class="guide-tag">⚙️ Workflow</div></div><div class="guide-box-wrap"><div class="guide-box" id="g43">Tu es expert en automatisation no-code avec Make et n8n.
+
+Je veux automatiser ce processus : [DÉCRIS LE PROCESSUS EN 3-4 ÉTAPES]
+
+Outils que j'utilise déjà : [ex: Gmail, Notion, Airtable, Stripe, Instagram...]
+Ce que je fais manuellement : [LA TÂCHE À AUTOMATISER]
+Fréquence : [ex: à chaque nouveau client / chaque matin / en temps réel]
+
+Conçois-moi :
+1. Le schéma du workflow étape par étape
+2. Les modules Make/n8n à utiliser
+3. Les points de décision (filtres / conditions)
+4. Les erreurs possibles et comment les gérer
+5. Le temps estimé pour le mettre en place
+      <button class="copy-btn" onclick="copyGuide('g43', this)">📋 Copier</button></div></div></div>
+
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <h3>Nouveaux guides chaque semaine — <span>ne les rate pas</span></h3>
+    <p>Je teste et sélectionne les meilleurs guides Claude chaque semaine. Reçois-les directement dans ta boîte mail.</p>
+    <form class="nl-form" id="nlForm" onsubmit="submitNl(event)">
+      <input type="hidden" name="access_key" value="038b1035-ecbd-4506-bd90-5a6421828169" />
+      <input type="hidden" name="subject" value="Nouvelle inscription newsletter — Arsenal acheteur" />
+      <input class="nl-input" type="email" name="email" placeholder="ton@email.com" required />
+      <button class="nl-btn" type="submit">S'inscrire →</button>
+    </form>
+    <div class="nl-success" id="nlSuccess">✓ C'est noté ! À bientôt dans ta boîte mail 🙌</div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Maîtrise IA · <a href="https://www.maitrise-ia.pro">maitrise-ia.pro</a> · <a href="https://www.instagram.com/monsieur.ia.2.1/" target="_blank">@monsieur.ia.2.1</a></p>
+</footer>
+
+<script>
+  function copyGuide(id, btn) {
+    const box = document.getElementById(id);
+    const text = box.childNodes[0].textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.innerHTML = '✓ Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = '📋 Copier'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  function submitEmail(e) {
+    e.preventDefault();
+    const form = document.getElementById('emailForm');
+    const success = document.getElementById('emailSuccess');
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) })
+      .then(r => r.json()).then(() => { form.style.display = 'none'; success.style.display = 'block'; })
+      .catch(() => { form.style.display = 'none'; success.style.display = 'block'; });
+  }
+
+  function submitNl(e) {
+    e.preventDefault();
+    const form = document.getElementById('nlForm');
+    const success = document.getElementById('nlSuccess');
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) })
+      .then(r => r.json()).then(() => { form.style.display = 'none'; success.style.display = 'block'; })
+      .catch(() => { form.style.display = 'none'; success.style.display = 'block'; });
+  }
+
+  // Nav pills actives au scroll
+  const sections = ['code','contenu','vente','strategie','productivite','automatisation'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.classList.toggle('active', pill.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
