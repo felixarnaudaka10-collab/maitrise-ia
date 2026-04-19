@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>50 Prompts Claude Pro — Maîtrise IA</title>
+  <meta name="description" content="50 prompts Claude testés et optimisés pour entrepreneurs. Contenu, vente, stratégie, automatisation. Résultats immédiats." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a;
+      --card: #13132a;
+      --card-hover: #1a1a38;
+      --border: #2a2a4a;
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-wrap { max-width: 1100px; margin: 0 auto; width: 100%; padding: 0 24px; position: sticky; top: 0; z-index: 100; background: rgba(10,10,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .logo-text { font-size: 18px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-cta { background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; transition: opacity .2s; }
+    .nav-cta:hover { opacity: .85; }
+
+    /* HERO */
+    .hero {
+      max-width: 760px; margin: 0 auto;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: var(--purple-light);
+      padding: 8px 16px; border-radius: 100px;
+      font-size: 13px; font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: var(--purple-light); }
+    .hero h1 .accent2 { color: var(--blue); }
+    .hero p {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--text-muted);
+      max-width: 560px; margin: 0 auto 36px;
+    }
+
+    /* PRICE BOX */
+    .price-box {
+      display: inline-flex; flex-direction: column; align-items: center;
+      background: var(--card);
+      border: 2px solid var(--purple);
+      border-radius: 20px;
+      padding: 32px 40px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .price-box::before {
+      content: "🔥 ACCÈS IMMÉDIAT";
+      position: absolute; top: -14px;
+      background: var(--purple);
+      color: white; font-size: 12px; font-weight: 800;
+      padding: 4px 14px; border-radius: 100px;
+    }
+    .price-old { color: var(--text-dim); font-size: 16px; text-decoration: line-through; margin-bottom: 4px; }
+    .price-main { font-size: 64px; font-weight: 900; color: var(--purple-light); line-height: 1; }
+    .price-main span { font-size: 28px; }
+    .price-label { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+    .btn-buy {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      font-size: 18px; font-weight: 800;
+      padding: 18px 48px;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-top: 24px;
+      transition: transform .2s, opacity .2s;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+    }
+    .btn-buy:hover { transform: translateY(-2px); opacity: .9; }
+    .guarantee { color: var(--text-dim); font-size: 13px; margin-top: 12px; }
+
+    /* WHAT'S INSIDE */
+    section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .section-label {
+      font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--purple-light); text-align: center; margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px); font-weight: 900;
+      text-align: center; margin-bottom: 48px;
+      letter-spacing: -0.5px;
+    }
+
+    /* CATEGORIES GRID */
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .cat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .cat-card:hover { border-color: var(--purple); transform: translateY(-3px); }
+    .cat-icon { font-size: 32px; margin-bottom: 14px; }
+    .cat-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .cat-count {
+      display: inline-block;
+      background: rgba(124,58,237,0.15);
+      color: var(--purple-light);
+      font-size: 12px; font-weight: 700;
+      padding: 3px 10px; border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .cat-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* PROMPT PREVIEW */
+    .preview-grid { display: grid; gap: 16px; }
+    .prompt-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .prompt-num {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white; font-weight: 800; font-size: 13px;
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .prompt-content { flex: 1; }
+    .prompt-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+    .prompt-desc { font-size: 13px; color: var(--text-muted); }
+    .prompt-tag {
+      display: inline-block;
+      background: rgba(59,130,246,0.1);
+      color: #93c5fd;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 100px;
+      margin-top: 8px;
+    }
+
+    /* FOR WHO */
+    .for-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .for-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+    .for-card .ico { font-size: 36px; margin-bottom: 12px; }
+    .for-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .for-card p { font-size: 13px; color: var(--text-muted); }
+
+    /* COMPARISON TABLE */
+    .comparison {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 1fr 100px 140px;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .cmp-row:last-child { border-bottom: none; }
+    .cmp-header { background: rgba(124,58,237,0.1); font-weight: 800; }
+    .cmp-label { font-size: 14px; color: var(--text-muted); }
+    .cmp-no { color: #ef4444; font-size: 20px; text-align: center; }
+    .cmp-yes { color: var(--green); font-size: 20px; text-align: center; }
+    .cmp-col-title { font-size: 13px; font-weight: 800; text-align: center; }
+    .cmp-col-title.highlight { color: var(--purple-light); }
+
+    /* TESTIMONIALS */
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .testi-stars { color: #f59e0b; font-size: 18px; margin-bottom: 14px; }
+    .testi-text { font-size: 15px; line-height: 1.7; margin-bottom: 20px; font-style: italic; color: var(--text-muted); }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--blue)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+    .testi-name { font-weight: 700; font-size: 14px; }
+    .testi-role { font-size: 12px; color: var(--text-dim); }
+
+    /* FAQ */
+    .faq-list { display: grid; gap: 12px; max-width: 700px; margin: 0 auto; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .faq-q { font-weight: 700; margin-bottom: 8px; }
+    .faq-a { font-size: 14px; color: var(--text-muted); }
+
+    /* CTA FINAL */
+    .cta-final {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(59,130,246,0.1));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 24px;
+      text-align: center;
+      padding: 64px 32px;
+      max-width: 680px;
+      margin: 0 auto 80px;
+    }
+    .cta-final h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; margin-bottom: 16px; }
+    .cta-final p { color: var(--text-muted); margin-bottom: 32px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 24px;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--purple-light); }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    @media (max-width: 600px) {
+      .cmp-row { grid-template-columns: 1fr 60px 100px; padding: 14px 16px; }
+      .price-main { font-size: 48px; }
+      .price-box { padding: 24px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">Maîtrise<span>IA</span></div>
+      </a>
+      <a href="#acheter" class="nav-cta">Obtenir le pack — 19€</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">⚡ Pack digital — Accès immédiat</div>
+    <h1>
+      <span class="accent">50 Prompts Claude Pro</span><br>
+      pour <span class="accent2">entrepreneurs</span>
+    </h1>
+    <p>Les prompts Claude les plus puissants pour créer du contenu, vendre, automatiser et scaler ton business. Testés, optimisés, prêts à l'emploi.</p>
+
+    <div id="acheter">
+      <div class="price-box">
+        <div class="price-old">Valeur réelle : 97€</div>
+        <div class="price-main"><span>€</span>19</div>
+        <div class="price-label">Paiement unique · Accès à vie</div>
+        <a href="https://gumroad.com/l/LIEN_ICI" target="_blank" class="btn-buy">
+          🚀 Obtenir le pack maintenant
+        </a>
+      </div>
+      <div class="guarantee">🔒 Paiement sécurisé · PDF livré instantanément par email</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CE QUE TU OBTIENS -->
+  <section>
+    <div class="section-label">Le pack complet</div>
+    <h2 class="section-title">5 catégories. 50 prompts. Des résultats immédiats.</h2>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon">📱</div>
+        <div class="cat-count">10 prompts</div>
+        <div class="cat-title">Contenu & Réseaux Sociaux</div>
+        <div class="cat-desc">Scripts Reels viraux, idées de posts pour 30 jours, carousels éducatifs, captions avec CTA, scripts YouTube. Publie chaque jour sans bloquer.</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">💰</div>
+        <div class="cat-count">10 prompts</div>
+        <div class="cat-title">Copywriting & Vente</div>
+        <div class="cat-desc">Pages de vente complètes, séquences email de lancement, scripts d'appel, propositions commerciales B2B. Vends mieux, vends plus.</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🎯</div>
+        <div class="cat-count">10 prompts</div>
+        <div class="cat-title">Stratégie Business</div>
+        <div class="cat-desc">Audit de ton business, positionnement unique, offre signature, analyse concurrencielle, pricing psychologique. Prends les bonnes décisions.</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">⚡</div>
+        <div class="cat-count">10 prompts</div>
+        <div class="cat-title">Productivité & Organisation</div>
+        <div class="cat-desc">SOPs pour déléguer, comptes-rendus de réunions, plans de projet, préparation de négociations, pitchs en 60 secondes. Gagne des heures.</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🤖</div>
+        <div class="cat-count">10 prompts</div>
+        <div class="cat-title">Automatisation & Agents IA</div>
+        <div class="cat-desc">Créer un agent IA conversationnel, system prompts, agents commerciaux, pipelines de contenu, assistants personnalisés. Délègue à l'IA.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PREVIEW -->
+  <section>
+    <div class="section-label">Aperçu du contenu</div>
+    <h2 class="section-title">Quelques prompts du pack</h2>
+    <div class="preview-grid">
+      <div class="prompt-card">
+        <div class="prompt-num">01</div>
+        <div class="prompt-content">
+          <div class="prompt-title">Générateur de script Reel viral</div>
+          <div class="prompt-desc">Crée un script de 30-60 secondes avec hook, tension narrative et CTA, adapté à ta niche et ton style de contenu.</div>
+          <div class="prompt-tag">📱 Contenu</div>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-num">14</div>
+        <div class="prompt-content">
+          <div class="prompt-title">Page de vente complète en 15 minutes</div>
+          <div class="prompt-desc">Structure une page de vente complète : headline, problème, solution, preuves, offre, FAQ, CTA. Prête à publier.</div>
+          <div class="prompt-tag">💰 Copywriting</div>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-num">27</div>
+        <div class="prompt-content">
+          <div class="prompt-title">Trouver sa niche rentable</div>
+          <div class="prompt-desc">Analyse méthodique pour identifier le croisement entre tes compétences, la demande marché et la rentabilité. Fini le flou.</div>
+          <div class="prompt-tag">🎯 Stratégie</div>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-num">41</div>
+        <div class="prompt-content">
+          <div class="prompt-title">Créer un agent IA sur mesure</div>
+          <div class="prompt-desc">Rédige les instructions complètes d'un agent Claude pour ton business : persona, règles, objectifs, exemples de réponses.</div>
+          <div class="prompt-tag">🤖 Automatisation</div>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-num">33</div>
+        <div class="prompt-content">
+          <div class="prompt-title">SOP de délégation IA</div>
+          <div class="prompt-desc">Génère une procédure étape par étape pour déléguer une tâche répétitive à l'IA ou à un collaborateur. Duplicable à l'infini.</div>
+          <div class="prompt-tag">⚡ Productivité</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- POUR QUI -->
+  <section>
+    <div class="section-label">Pour qui ?</div>
+    <h2 class="section-title">Ce pack est fait pour toi si...</h2>
+    <div class="for-grid">
+      <div class="for-card">
+        <div class="ico">🧑‍💼</div>
+        <h3>Entrepreneur solo</h3>
+        <p>Tu gères tout seul et tu veux produire 10x plus sans travailler 10x plus.</p>
+      </div>
+      <div class="for-card">
+        <div class="ico">📈</div>
+        <h3>Coach / Formateur</h3>
+        <p>Tu crées du contenu, tu vends des offres et tu veux des outils clé en main.</p>
+      </div>
+      <div class="for-card">
+        <div class="ico">💻</div>
+        <h3>Freelance / Consultant</h3>
+        <p>Tu travailles pour des clients et tu veux livrer des résultats plus rapidement.</p>
+      </div>
+      <div class="for-card">
+        <div class="ico">🏢</div>
+        <h3>Dirigeant PME</h3>
+        <p>Tu veux intégrer l'IA dans ton équipe sans passer par un prestataire.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPARISON -->
+  <section>
+    <div class="section-label">Comparaison</div>
+    <h2 class="section-title">Ce pack vs. prompts génériques</h2>
+    <div class="comparison">
+      <div class="cmp-row cmp-header">
+        <div class="cmp-label"></div>
+        <div class="cmp-col-title">Prompts gratuits</div>
+        <div class="cmp-col-title highlight">Ce pack</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Optimisés spécifiquement pour Claude</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Testés sur des cas business réels</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Organisés par objectif business</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Instructions claires pour chaque prompt</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Adaptés au marché francophone</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-label">Accès à vie + mises à jour</div>
+        <div class="cmp-no">✗</div>
+        <div class="cmp-yes">✓</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="section-label">Ils l'utilisent</div>
+    <h2 class="section-title">Ce que ça change dans leur quotidien</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Le prompt de page de vente m'a sauvé 4 heures de travail. J'ai eu un premier résultat exploitable en 10 minutes. Je ne comprends pas pourquoi j'ai attendu si longtemps."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sarah M.</div>
+            <div class="testi-role">Coach business</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Les prompts agents IA m'ont permis de créer mon assistant commercial en une après-midi. Depuis, je traite 3x plus de leads sans effort supplémentaire."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">T</div>
+          <div>
+            <div class="testi-name">Thomas R.</div>
+            <div class="testi-role">Consultant digital</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"J'ai utilisé le prompt de stratégie Instagram et en 2 semaines ma portée a doublé. Le contenu est plus cohérent, les hooks plus percutants. Simple et efficace."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div>
+            <div class="testi-name">Manon B.</div>
+            <div class="testi-role">Créatrice de contenu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FAQ -->
+  <section>
+    <div class="section-label">Questions fréquentes</div>
+    <h2 class="section-title">Tout ce que tu dois savoir</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Est-ce que ça fonctionne avec la version gratuite de Claude ?</div>
+        <div class="faq-a">Oui, tous les prompts fonctionnent avec Claude.ai gratuit. Avec Claude Pro ou Max tu obtiendras des résultats encore plus détaillés, mais ce n'est pas obligatoire.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Je suis débutant avec l'IA, c'est fait pour moi ?</div>
+        <div class="faq-a">Absolument. Chaque prompt est accompagné d'instructions claires et d'un exemple de résultat. Copie-colle, adapte tes infos, et c'est parti. Zéro compétence technique requise.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Comment je reçois le pack ?</div>
+        <div class="faq-a">Immédiatement après le paiement via Gumroad. Tu reçois un email avec le lien de téléchargement en PDF + accès à vie à toutes les mises à jour.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Pourquoi Claude et pas ChatGPT ?</div>
+        <div class="faq-a">Claude excelle sur les tâches de rédaction longue, de stratégie et de codage. Ces prompts exploitent ses spécificités : mémoire longue, mode artefacts, instructions précises. Les résultats sont nettement supérieurs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Est-ce qu'il y aura des mises à jour ?</div>
+        <div class="faq-a">Oui. Le pack sera régulièrement enrichi avec de nouveaux prompts. En achetant maintenant, tu as accès à toutes les versions futures au même prix.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <div class="badge" style="margin-bottom: 20px;">⚡ Accès immédiat</div>
+    <h2>Prêt à travailler 10x plus vite ?</h2>
+    <p>19€ pour arrêter de perdre des heures à chercher comment formuler tes demandes à l'IA.</p>
+    <div class="price-old" style="color: var(--text-dim); margin-bottom: 8px;">Valeur réelle : 97€</div>
+    <a href="https://gumroad.com/l/LIEN_ICI" target="_blank" class="btn-buy">
+      🚀 Obtenir les 50 prompts — 19€
+    </a>
+    <div class="guarantee" style="margin-top: 16px;">🔒 Paiement sécurisé · PDF livré instantanément</div>
+  </div>
+
+  <footer>
+    <p>© 2026 Maîtrise IA · <a href="index.html">Accueil</a> · <a href="accompagnement.html">Accompagnement</a> · <a href="delegation.html">Délégation</a></p>
+  </footer>
+
+</body>
+</html>
