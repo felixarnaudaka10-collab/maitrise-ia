@@ -703,7 +703,7 @@
       const data = collectData();
 
       // Submit via Web3Forms (remplace ACCESS_KEY par ta clé sur web3forms.com)
-      const ACCESS_KEY = 'REMPLACE_PAR_TA_CLE_WEB3FORMS';
+      const ACCESS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
 
       const formData = new FormData();
       formData.append('access_key', ACCESS_KEY);
@@ -719,7 +719,7 @@
         const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
         const json = await res.json();
 
-        if (json.success || ACCESS_KEY === 'REMPLACE_PAR_TA_CLE_WEB3FORMS') {
+        if (json.success) {
           // Show confirmation
           document.querySelector('.form-card').style.display = 'none';
           document.querySelector('.progress-wrap').style.display = 'none';
