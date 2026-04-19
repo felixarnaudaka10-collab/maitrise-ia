@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[TITRE DE LA PAGE] — Maîtrise IA</title>
+  <meta name="description" content="[DESCRIPTION META]" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+      --text: #fff; --muted: #94a3b8; --dim: #64748b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .hero { text-align: center; padding: 56px 24px 48px; max-width: 640px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 span { color: var(--purple-light); }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
+    .section { max-width: 700px; margin: 0 auto; padding: 0 24px 64px; }
+    .resource-intro { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px; }
+    .resource-intro h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .resource-intro p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .prompt-list { display: flex; flex-direction: column; gap: 16px; }
+    .prompt-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
+    .prompt-card:hover { border-color: var(--purple); }
+    .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .prompt-title { font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .prompt-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.25); padding: 4px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .prompt-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+    .prompt-box { background: #0d0d20; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; font-family: 'Inter', monospace; font-size: 13px; color: #c4b5fd; line-height: 1.7; white-space: pre-wrap; word-break: break-word; position: relative; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(124,58,237,0.2); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { background: rgba(124,58,237,0.4); }
+    .copy-btn.copied { background: rgba(34,197,94,0.2); color: var(--green); border-color: rgba(34,197,94,0.3); }
+    .separator { max-width: 700px; margin: 0 auto 48px; padding: 0 24px; display: flex; align-items: center; gap: 16px; }
+    .separator-line { flex: 1; height: 1px; background: var(--border); }
+    .separator-text { color: var(--dim); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+    .cta-block { max-width: 700px; margin: 0 auto; padding: 0 24px 80px; }
+    .cta-inner { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(59,130,246,0.08)); border: 1.5px solid rgba(124,58,237,0.3); border-radius: 24px; padding: 48px 32px; text-align: center; }
+    .cta-label { display: inline-block; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .cta-inner h2 { font-size: clamp(22px, 4vw, 32px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 14px; }
+    .cta-inner h2 span { color: var(--purple-light); }
+    .cta-inner p { color: var(--muted); font-size: 15px; max-width: 440px; margin: 0 auto 32px; line-height: 1.7; }
+    .offers { display: flex; flex-direction: column; gap: 12px; max-width: 480px; margin: 0 auto; }
+    .offer-card { background: rgba(10,10,26,0.6); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; color: inherit; transition: all 0.25s; }
+    .offer-card:hover { border-color: var(--purple); background: var(--card); transform: translateY(-1px); }
+    .offer-left { display: flex; align-items: center; gap: 12px; }
+    .offer-icon { font-size: 24px; flex-shrink: 0; }
+    .offer-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .offer-desc { font-size: 12px; color: var(--muted); }
+    .offer-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .offer-badge.yellow { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .offer-badge.purple { background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); }
+    .offer-badge.green { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+    .footer { text-align: center; padding: 24px; color: var(--dim); font-size: 13px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--dim); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://www.maitrise-ia.pro" class="logo">
+      <div class="logo-icon">🧠</div>
+      <div class="logo-text">Maîtrise <span>IA</span></div>
+    </a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge"><span class="dot"></span>[BADGE TEXT — ex: "Voici ce que je t'ai promis"]</div>
+    <h1>[TITRE PRINCIPAL] <span>[MOT CLÉ EN VIOLET]</span></h1>
+    <p>[SOUS-TITRE — ex: "Comme promis dans ma vidéo — copie-les directement"]</p>
+  </div>
+
+  <div class="section">
+    <div class="resource-intro">
+      <h2>💡 [TITRE INTRO — ex: "Comment les utiliser"]</h2>
+      <p>[TEXTE D'INTRO — ex: "Clique sur Copier sous chaque prompt..."]</p>
+    </div>
+
+    <div class="prompt-list">
+
+      <!-- DUPLIQUE CE BLOC POUR CHAQUE PROMPT / RESSOURCE -->
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">[NOM DU PROMPT]</div>
+          <div class="prompt-tag">[EMOJI] [CATÉGORIE]</div>
+        </div>
+        <div class="prompt-desc">[DESCRIPTION COURTE DU PROMPT]</div>
+        <div class="prompt-box" id="p1">[TEXTE DU PROMPT ICI — remplace les crochets par les vraies infos]
+        <button class="copy-btn" onclick="copyPrompt('p1', this)">Copier</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="separator">
+    <div class="separator-line"></div>
+    <div class="separator-text">[ACCROCHE — ex: "Et si tu voulais en avoir 50+ comme ça ?"]</div>
+    <div class="separator-line"></div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-inner">
+      <div class="cta-label">Aller plus loin</div>
+      <h2>[TITRE CTA] <span>[MOT EN VIOLET]</span></h2>
+      <p>[DESCRIPTION OFFRE]</p>
+
+      <div class="offers">
+        <a href="https://www.maitrise-ia.pro/prompts.html" class="offer-card">
+          <div class="offer-left">
+            <div class="offer-icon">⚡</div>
+            <div>
+              <div class="offer-title">L'Arsenal Claude</div>
+              <div class="offer-desc">50+ prompts · Mis à jour chaque semaine · Accès à vie</div>
+            </div>
+          </div>
+          <div class="offer-badge yellow">27€ une fois</div>
+        </a>
+
+        <a href="https://www.maitrise-ia.pro/accompagnement.html" class="offer-card">
+          <div class="offer-left">
+            <div class="offer-icon">🎯</div>
+            <div>
+              <div class="offer-title">Accompagnement individuel</div>
+              <div class="offer-desc">Intègre l'IA dans ton quotidien pro · Coaching personnalisé</div>
+            </div>
+          </div>
+          <div class="offer-badge purple">Sur mesure</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Maîtrise IA · <a href="https://www.maitrise-ia.pro">maitrise-ia.pro</a></p>
+  </div>
+
+  <script>
+    function copyPrompt(id, btn) {
+      const box = document.getElementById(id);
+      const text = box.childNodes[0].textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copié !';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
