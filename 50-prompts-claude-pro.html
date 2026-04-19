@@ -3,1379 +3,420 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>50 Prompts Claude Pro pour Entrepreneurs — Maîtrise IA</title>
+  <title>L'Arsenal Claude — Bibliothèque de Prompts · Maîtrise IA</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #fff; line-height: 1.6; padding: 40px 24px; }
-    .container { max-width: 820px; margin: 0 auto; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+      --text: #fff; --muted: #94a3b8; --dim: #64748b;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 0 0 60px; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-live { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #fca5a5; }
+    .dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     /* COVER */
-    .cover {
-      text-align: center;
-      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(59,130,246,0.1));
-      border: 1px solid rgba(124,58,237,0.3);
-      border-radius: 24px;
-      padding: 64px 32px;
-      margin-bottom: 48px;
-    }
+    .cover { text-align: center; padding: 56px 24px 48px; }
     .cover-badge {
-      display: inline-block;
-      background: rgba(124,58,237,0.2);
-      color: #a78bfa;
-      border: 1px solid rgba(124,58,237,0.3);
-      padding: 6px 16px; border-radius: 100px;
-      font-size: 13px; font-weight: 700;
-      margin-bottom: 24px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+      color: #fca5a5; padding: 7px 16px; border-radius: 100px;
+      font-size: 12px; font-weight: 700; margin-bottom: 24px;
     }
-    .cover h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; }
-    .cover h1 .accent { color: #a78bfa; }
-    .cover p { color: #94a3b8; font-size: 16px; max-width: 480px; margin: 0 auto 24px; }
-    .cover-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
-    .cover-meta-item { color: #64748b; font-size: 13px; }
-    .cover-meta-item span { color: #a78bfa; font-weight: 700; }
+    .cover h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 14px; }
+    .cover h1 span { color: var(--purple-light); }
+    .cover-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto 32px; }
+    .cover-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 900; color: var(--purple-light); }
+    .stat-num.live { color: var(--yellow); }
+    .stat-label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-    /* HOW TO USE */
-    .how-box {
-      background: #13132a;
-      border: 1px solid rgba(124,58,237,0.2);
-      border-radius: 16px;
-      padding: 28px 32px;
-      margin-bottom: 48px;
-    }
-    .how-box h2 { font-size: 18px; font-weight: 800; margin-bottom: 16px; color: #a78bfa; }
-    .how-steps { display: grid; gap: 12px; }
-    .how-step { display: flex; gap: 14px; align-items: flex-start; }
-    .how-step-num {
-      width: 28px; height: 28px; border-radius: 8px;
-      background: linear-gradient(135deg, #7c3aed, #3b82f6);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800; flex-shrink: 0;
-    }
-    .how-step-text { font-size: 14px; color: #94a3b8; padding-top: 4px; }
-    .how-step-text strong { color: #fff; }
+    /* SECTION */
+    .section-head { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.06)); border: 1px solid rgba(124,58,237,0.2); border-radius: 14px; margin: 40px 0 16px; }
+    .section-head .ico { font-size: 26px; }
+    .section-head-info h2 { font-size: 17px; font-weight: 900; }
+    .section-head-info p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .section-badge { margin-left: auto; background: rgba(124,58,237,0.15); color: var(--purple-light); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 6px; white-space: nowrap; }
+    .section-badge.new { background: rgba(239,68,68,0.12); color: #fca5a5; }
 
-    /* CATEGORY */
-    .category { margin-bottom: 56px; }
-    .cat-header {
-      display: flex; align-items: center; gap: 16px;
-      padding: 20px 24px;
-      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(59,130,246,0.08));
-      border: 1px solid rgba(124,58,237,0.25);
-      border-radius: 14px;
-      margin-bottom: 20px;
-    }
-    .cat-emoji { font-size: 32px; }
-    .cat-info h2 { font-size: 20px; font-weight: 900; }
-    .cat-info p { font-size: 13px; color: #94a3b8; margin-top: 4px; }
-    .cat-badge {
-      margin-left: auto;
-      background: rgba(124,58,237,0.2);
-      color: #a78bfa;
-      padding: 4px 12px; border-radius: 100px;
-      font-size: 12px; font-weight: 700; white-space: nowrap;
-    }
-
-    /* PROMPT */
-    .prompt {
-      background: #13132a;
-      border: 1px solid #2a2a4a;
-      border-radius: 14px;
-      margin-bottom: 16px;
-      overflow: hidden;
+    /* PROMPT ITEM */
+    .prompt-list { display: grid; gap: 8px; }
+    .prompt-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px;
       transition: border-color .2s;
     }
-    .prompt:hover { border-color: rgba(124,58,237,0.5); }
-    .prompt-header {
-      display: flex; align-items: center; gap: 14px;
-      padding: 18px 22px;
-      border-bottom: 1px solid #2a2a4a;
-    }
-    .prompt-num-badge {
-      background: linear-gradient(135deg, #7c3aed, #3b82f6);
-      color: white; font-weight: 900; font-size: 13px;
-      width: 34px; height: 34px; border-radius: 8px;
+    .prompt-item:hover { border-color: rgba(124,58,237,0.4); }
+    .prompt-num {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white; font-weight: 900; font-size: 12px;
+      width: 30px; height: 30px; border-radius: 7px;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .prompt-title { font-size: 16px; font-weight: 800; }
-    .prompt-use { font-size: 12px; color: #64748b; margin-top: 2px; }
-    .prompt-body { padding: 20px 22px; }
-    .prompt-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #7c3aed; margin-bottom: 10px; }
-    .prompt-text {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid #1e1e3a;
-      border-radius: 10px;
-      padding: 16px 18px;
-      font-size: 14px;
-      line-height: 1.8;
-      color: #e2e8f0;
-      font-family: 'Inter', sans-serif;
-      white-space: pre-wrap;
-    }
-    .prompt-tip {
-      margin-top: 14px;
-      display: flex; align-items: flex-start; gap: 8px;
-      background: rgba(34,197,94,0.08);
-      border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px; color: #86efac;
-    }
-    .prompt-tip .tip-icon { flex-shrink: 0; }
+    .prompt-info { flex: 1; min-width: 0; }
+    .prompt-name { font-size: 14px; font-weight: 700; }
+    .prompt-use { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prompt-tag { font-size: 11px; font-weight: 600; color: #93c5fd; background: rgba(59,130,246,0.1); padding: 2px 8px; border-radius: 6px; flex-shrink: 0; white-space: nowrap; }
 
-    /* BONUS */
-    .bonus-box {
-      background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(234,179,8,0.05));
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 16px;
-      padding: 28px 32px;
+    /* NEW BADGE */
+    .new-badge { background: rgba(239,68,68,0.12); color: #fca5a5; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; flex-shrink: 0; }
+
+    /* UNLOCK CTA */
+    .unlock-cta {
       margin-top: 48px;
-      text-align: center;
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(59,130,246,0.08));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 20px; padding: 40px 28px; text-align: center;
     }
-    .bonus-box h2 { font-size: 22px; font-weight: 900; color: #fbbf24; margin-bottom: 12px; }
-    .bonus-box p { color: #94a3b8; font-size: 15px; margin-bottom: 20px; }
-    .bonus-cta {
-      display: inline-block;
-      background: linear-gradient(135deg, #7c3aed, #3b82f6);
-      color: white; font-weight: 800; font-size: 16px;
-      padding: 14px 36px; border-radius: 10px;
-      text-decoration: none;
-    }
+    .unlock-cta h2 { font-size: clamp(20px, 3.5vw, 28px); font-weight: 900; margin-bottom: 10px; }
+    .unlock-cta p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+    .btn { display: inline-block; background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; font-weight: 800; font-size: 16px; padding: 16px 40px; border-radius: 12px; text-decoration: none; box-shadow: 0 6px 28px rgba(124,58,237,0.4); transition: transform .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-sm { display: inline-block; color: var(--muted); font-size: 13px; margin-top: 12px; text-decoration: underline; cursor: pointer; }
 
-    footer-doc {
-      display: block; text-align: center;
-      padding: 32px 0 16px;
-      color: #475569; font-size: 13px;
-    }
+    hr { border: none; border-top: 1px solid var(--border); margin: 48px 0 0; }
+    footer { text-align: center; padding: 24px; color: var(--dim); font-size: 12px; }
+    footer a { color: var(--dim); text-decoration: none; }
   </style>
 </head>
 <body>
+
+<div class="nav">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">⚡</div>
+    <div class="logo-text">Maîtrise<span>IA</span></div>
+  </a>
+  <div class="nav-live"><div class="dot"></div> Mis à jour cette semaine</div>
+</div>
+
 <div class="container">
-
-  <!-- COVER -->
   <div class="cover">
-    <div class="cover-badge">⚡ Maîtrise IA — Pack Prompts Claude Pro</div>
-    <h1><span class="accent">50 Prompts Claude Pro</span><br>pour Entrepreneurs</h1>
-    <p>Les prompts les plus puissants pour créer du contenu, vendre, automatiser et scaler ton business. Optimisés pour Claude, testés sur le terrain.</p>
-    <div class="cover-meta">
-      <div class="cover-meta-item"><span>50</span> prompts prêts à l'emploi</div>
-      <div class="cover-meta-item"><span>5</span> catégories business</div>
-      <div class="cover-meta-item"><span>100%</span> optimisés pour Claude</div>
-    </div>
-  </div>
-
-  <!-- COMMENT UTILISER -->
-  <div class="how-box">
-    <h2>💡 Comment utiliser ce pack</h2>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="how-step-num">1</div>
-        <div class="how-step-text"><strong>Ouvre Claude.ai</strong> (gratuit ou Pro, les deux fonctionnent)</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">2</div>
-        <div class="how-step-text"><strong>Copie le prompt</strong> de ton choix et colle-le dans la conversation</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">3</div>
-        <div class="how-step-text"><strong>Remplace les zones entre crochets</strong> [comme ça] par tes informations spécifiques</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">4</div>
-        <div class="how-step-text"><strong>Lance et affine</strong> — tu peux demander à Claude de modifier le ton, d'allonger ou de reformuler</div>
-      </div>
+    <div class="cover-badge"><div class="dot"></div> Bibliothèque vivante · Semaine du 14 avril 2026</div>
+    <h1>L'<span>Arsenal Claude</span><br>Bibliothèque de Prompts</h1>
+    <p class="cover-sub">Tous les prompts Claude testés et mis à jour chaque semaine. Organisés par outil, par métier, par situation.</p>
+    <div class="cover-stats">
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Prompts disponibles</div></div>
+      <div class="stat"><div class="stat-num live">+5</div><div class="stat-label">Cette semaine</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Catégories</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Mises à jour</div></div>
     </div>
   </div>
 
   <!-- ===== CATÉGORIE 1 : CONTENU ===== -->
-  <div class="category">
-    <div class="cat-header">
-      <div class="cat-emoji">📱</div>
-      <div class="cat-info">
-        <h2>Contenu & Réseaux Sociaux</h2>
-        <p>Crée du contenu viral sans jamais tomber à court d'idées</p>
-      </div>
-      <div class="cat-badge">Prompts 01–10</div>
+  <div class="section-head">
+    <div class="ico">📱</div>
+    <div class="section-head-info">
+      <h2>Contenu & Réseaux Sociaux</h2>
+      <p>Crée du contenu viral sans jamais tomber à court d'idées</p>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">01</div>
-        <div>
-          <div class="prompt-title">Script Reel Instagram viral</div>
-          <div class="prompt-use">Utilisation : créer un script complet pour un Reel de 30-60 secondes</div>
-        </div>
+    <div class="section-badge">Prompts 01–10</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item">
+      <div class="prompt-num">01</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Script Reel Instagram viral</div>
+        <div class="prompt-use">Créer un script complet pour un Reel de 30-60 secondes</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Tu es un expert en contenu Instagram spécialisé dans la niche [TA NICHE]. Crée un script complet pour un Reel de 30-60 secondes sur le sujet : [SUJET DU REEL].
-
-Le script doit inclure :
-- Un hook visuel et verbal percutant dans les 3 premières secondes (formule : question choc / statistique surprenante / affirmation contre-intuitive)
-- Un problème avec lequel l'audience s'identifie immédiatement
-- Une révélation ou astuce concrète et actionnable
-- Un CTA clair vers [TON OBJECTIF : lien en bio / commentaire / partage]
-
-Ton de voix : [direct/éducatif/inspirant/humoristique]
-Audience cible : [DÉCRIS TON AUDIENCE]
-
-Formate le script avec les indications de montage (texte à l'écran, timing, transitions).</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : demande ensuite à Claude "Donne-moi 5 variations du hook" pour tester plusieurs accroches.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">02</div>
-        <div>
-          <div class="prompt-title">30 idées de posts pour un mois entier</div>
-          <div class="prompt-use">Utilisation : planifier ton calendrier éditorial mensuel en 5 minutes</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">02</div>
+      <div class="prompt-info">
+        <div class="prompt-name">30 idées de posts pour un mois entier</div>
+        <div class="prompt-use">Planifier ton calendrier éditorial mensuel en 5 minutes</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je suis [TON MÉTIER] et je m'adresse à [TON AUDIENCE]. Mon positionnement : [CE QUI TE DIFFÉRENCIE].
-
-Génère 30 idées de posts Instagram pour un mois complet, en variant les formats :
-- 10 posts éducatifs (tips, tutoriels, "comment faire")
-- 8 posts d'autorité (résultats, études de cas, erreurs à éviter)
-- 7 posts d'engagement (questions, sondages, opinions clivantes)
-- 5 posts de vente (offre, témoignages, urgence)
-
-Pour chaque idée, donne : le format recommandé (Reel/Carousel/Post fixe), le hook d'accroche, et l'objectif business.
-
-Thèmes à couvrir : [LISTE 3-5 THÈMES CLÉS DE TA NICHE]</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : une fois les idées générées, demande "Développe l'idée numéro X en script complet."</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">03</div>
-        <div>
-          <div class="prompt-title">Carousel éducatif en 7 slides</div>
-          <div class="prompt-use">Utilisation : créer un carousel qui enseigne ET convertit</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">03</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Carousel éducatif en 7 slides</div>
+        <div class="prompt-use">Créer un carousel qui enseigne ET convertit</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Crée un carousel Instagram éducatif de 7 slides sur le sujet : [SUJET]
-
-Structure à respecter :
-- Slide 1 (Hook) : titre accrocheur qui donne envie de swiper
-- Slides 2-6 (Valeur) : une idée forte par slide, avec sous-titre explicatif et exemple concret
-- Slide 7 (CTA) : appel à l'action vers [TON OBJECTIF]
-
-Chaque slide : max 3 lignes de texte (lisible sur mobile).
-Ton : [PROFESSIONNEL / ACCESSIBLE / EXPERT]
-Audience : [DÉCRIS TON AUDIENCE]
-
-Ajoute aussi : la légende du post (150 mots max) avec hashtags.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : spécifie ta palette de couleurs pour que Claude suggère les éléments visuels à ajouter.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">04</div>
-        <div>
-          <div class="prompt-title">Caption Instagram avec CTA optimisé</div>
-          <div class="prompt-use">Utilisation : rédiger une légende qui génère de l'engagement et des clics</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">04</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Caption Instagram avec CTA optimisé</div>
+        <div class="prompt-use">Rédiger une légende qui génère de l'engagement et des clics</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Écris une caption Instagram pour un post sur : [SUJET DU POST]
-
-Le contenu visuel montre : [DÉCRIS LA PHOTO/VIDÉO]
-
-La caption doit :
-- Commencer par une phrase d'accroche forte (les 2 premières lignes visibles sans "voir plus")
-- Raconter une histoire courte ou partager une insight personnelle
-- Créer de l'identification avec [TON AUDIENCE]
-- Se terminer par un CTA vers [OBJECTIF : lien bio / commentaire / partage / sauvegarde]
-
-Longueur : 150-250 mots
-Ton : [AUTHENTIQUE / INSPIRANT / DIRECT]
-Inclure 10 hashtags pertinents en fin de texte.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : demande 3 versions (courte, moyenne, longue) et teste laquelle performe le mieux.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">05</div>
-        <div>
-          <div class="prompt-title">Hook irrésistible — 10 variantes</div>
-          <div class="prompt-use">Utilisation : créer des premières lignes qui stoppent le scroll</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">05</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Hook irrésistible — 10 variantes</div>
+        <div class="prompt-use">Créer des premières lignes qui stoppent le scroll</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Mon contenu parle de : [SUJET]
-Mon audience est : [QUI ILS SONT + LEUR PROBLÈME PRINCIPAL]
-
-Génère 10 hooks différents pour ce sujet, en utilisant ces 10 formules :
-1. La question rhétorique provocante
-2. La statistique choc
-3. L'affirmation contre-intuitive
-4. Le "Si tu fais X, arrête immédiatement"
-5. La confession personnelle
-6. Le résultat sans révéler le comment
-7. La comparaison avant/après
-8. Le secret qu'on ne dit pas
-9. L'erreur courante
-10. L'histoire en médias res (commencer au moment fort)
-
-Pour chaque hook, explique pourquoi il fonctionne psychologiquement.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : garde un fichier de tes meilleurs hooks pour les recycler sur différents formats.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">06</div>
-        <div>
-          <div class="prompt-title">Script YouTube structuré (10 minutes)</div>
-          <div class="prompt-use">Utilisation : rédiger un script YouTube qui retient l'audience jusqu'au bout</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">06</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Script YouTube structuré (10 minutes)</div>
+        <div class="prompt-use">Rédiger un script YouTube qui retient l'audience jusqu'au bout</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Crée un script complet pour une vidéo YouTube de 10 minutes sur : [SUJET]
-
-Structure obligatoire :
-- Hook (0-30s) : question ou promesse forte, pourquoi cette vidéo change tout
-- Intro (30s-1min) : qui je suis, pourquoi je suis légitime sur ce sujet
-- Partie 1 — Le problème (1-3min) : pourquoi c'est un vrai sujet, les erreurs classiques
-- Partie 2 — La solution (3-8min) : ta méthode, 3-5 étapes concrètes avec exemples
-- Partie 3 — Résultats (8-9min) : ce que ça change, témoignage ou cas concret
-- Outro (9-10min) : CTA vers [TON OBJECTIF], like/commentaire/abonnement
-
-Niveau : [DÉBUTANT / INTERMÉDIAIRE / AVANCÉ]
-Audience : [DÉCRIS TON AUDIENCE]</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : demande ensuite "Génère le titre YouTube optimisé SEO et la description avec les timestamps."</div>
-      </div>
+      <div class="prompt-tag">🎬 Vidéo</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">07</div>
-        <div>
-          <div class="prompt-title">Newsletter hebdomadaire professionnelle</div>
-          <div class="prompt-use">Utilisation : rédiger une newsletter engageante chaque semaine</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">07</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Newsletter hebdomadaire professionnelle</div>
+        <div class="prompt-use">Rédiger une newsletter engageante chaque semaine</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Rédige une newsletter de [300-500 / 500-800] mots sur : [SUJET DE CETTE SEMAINE]
-
-Structure :
-- Sujet d'email accrocheur (3 propositions)
-- Intro personnelle (2-3 lignes qui créent de la connexion)
-- Insight principal ou histoire de la semaine
-- 1 tip actionnable que le lecteur peut appliquer aujourd'hui
-- 1 ressource recommandée (outil, article, livre) avec justification
-- CTA vers [TON OBJECTIF : offre / contenu / appel]
-- Signature personnalisée
-
-Ton : [CONVERSATIONNEL / DIRECT / EXPERT]
-Audience : [DÉCRIS LES ABONNÉS]
-Thème récurrent de ta newsletter : [EX : IA, business, marketing]</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : crée un "Project" Claude dédié à ta newsletter pour qu'il mémorise ton style.</div>
-      </div>
+      <div class="prompt-tag">📧 Email</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">08</div>
-        <div>
-          <div class="prompt-title">Bio Instagram percutante</div>
-          <div class="prompt-use">Utilisation : optimiser ta bio pour convertir les visiteurs en abonnés</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">08</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Bio Instagram percutante</div>
+        <div class="prompt-use">Optimiser ta bio pour convertir les visiteurs en abonnés</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Crée 5 versions de bio Instagram pour le profil suivant :
-
-Nom/pseudo : [TON NOM]
-Métier : [CE QUE TU FAIS]
-Audience cible : [QUI TU AIDES]
-Résultat principal que tu offres : [CE QUE TU LEUR APPORTES]
-Ce qui te différencie : [TON UNICITÉ]
-CTA souhaité : [EX : lien vers site / lead magnet / offre]
-
-Contraintes : max 150 caractères, pas d'emojis génériques, une proposition de valeur claire, un CTA visible.
-
-Pour chaque version, explique la stratégie utilisée (autorité / résultat / curiosité / communauté).</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : teste chaque bio pendant 2 semaines et mesure le taux de clic sur ton lien.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">09</div>
-        <div>
-          <div class="prompt-title">Transformer un post en 5 formats différents</div>
-          <div class="prompt-use">Utilisation : multiplier un seul contenu sur tous les canaux</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">09</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Transformer un post en 5 formats différents</div>
+        <div class="prompt-use">Multiplier un seul contenu sur tous les canaux</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Voici mon contenu original : [COLLE TON POST / ARTICLE / IDÉE]
-
-Transforme ce contenu en 5 formats différents :
-1. Thread Twitter/X (8-10 tweets, chaque tweet percutant seul)
-2. Post LinkedIn (300 mots, ton professionnel, accroche forte)
-3. Script Reel Instagram (30 secondes, dynamique et visuel)
-4. Email pour ma liste (150 mots, personnel, avec CTA)
-5. Story Instagram (5 slides avec texte court et question finale)
-
-Adapte le ton et le format à chaque plateforme tout en gardant le message central identique.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : un seul bon contenu = 5 publications. Crée une fois, distribue partout.</div>
-      </div>
+      <div class="prompt-tag">🔄 Multi-format</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">10</div>
-        <div>
-          <div class="prompt-title">Stratégie hashtags par niche</div>
-          <div class="prompt-use">Utilisation : trouver les hashtags qui boostent vraiment la portée</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">10</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Stratégie hashtags par niche</div>
+        <div class="prompt-use">Trouver les hashtags qui boostent vraiment la portée</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je suis [TON MÉTIER] sur Instagram. Ma niche : [TA NICHE]. Mon niveau de compte : [MOINS DE 5K / 5K-50K / PLUS DE 50K] abonnés.
-
-Génère une stratégie de hashtags complète :
-- 5 hashtags très larges (1M+ posts) pour la visibilité
-- 10 hashtags moyens (100K-1M posts) pour l'équilibre
-- 10 hashtags de niche (10K-100K posts) pour cibler mon audience
-- 5 hashtags de communauté spécifiques à ma niche
-
-Explique pourquoi mixer ces tailles est stratégique et comment les alterner sur différents posts pour éviter le shadowban.
-
-Donne aussi 3 hashtags à absolument éviter dans ma niche.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : crée 3-4 "groupes" de hashtags différents et alterne-les pour chaque post.</div>
-      </div>
+      <div class="prompt-tag">📱 Contenu</div>
     </div>
   </div>
 
   <!-- ===== CATÉGORIE 2 : COPYWRITING ===== -->
-  <div class="category">
-    <div class="cat-header">
-      <div class="cat-emoji">💰</div>
-      <div class="cat-info">
-        <h2>Copywriting & Vente</h2>
-        <p>Des mots qui vendent, des emails qui convertissent</p>
-      </div>
-      <div class="cat-badge">Prompts 11–20</div>
+  <div class="section-head">
+    <div class="ico">💰</div>
+    <div class="section-head-info">
+      <h2>Copywriting & Vente</h2>
+      <p>Des mots qui vendent, des emails qui convertissent</p>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">11</div>
-        <div>
-          <div class="prompt-title">Page de vente complète</div>
-          <div class="prompt-use">Utilisation : rédiger une page de vente qui convertit</div>
-        </div>
+    <div class="section-badge">Prompts 11–20</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item">
+      <div class="prompt-num">11</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Page de vente complète</div>
+        <div class="prompt-use">Rédiger une page de vente qui convertit</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Rédige une page de vente complète pour :
-
-Produit/service : [NOM ET DESCRIPTION]
-Prix : [PRIX]
-Audience : [QUI TU CIBLES]
-Problème principal résolu : [LE PROBLÈME]
-Résultat promis : [LE BÉNÉFICE CLÉ]
-Preuves disponibles : [TÉMOIGNAGES, RÉSULTATS, CHIFFRES]
-
-Structure complète :
-1. Headline principale (bénéfice en 10 mots max)
-2. Sous-titre qui amplifie la promesse
-3. Section problème (agitation émotionnelle)
-4. Présentation de la solution
-5. Ce que ça contient (liste des bénéfices, pas des features)
-6. Pour qui c'est fait / pas fait
-7. Preuve sociale (témoignages)
-8. L'offre + bonus + garantie
-9. FAQ (5 objections levées)
-10. CTA final urgent
-
-Utilise la structure PAS (Problème-Agitation-Solution) et le copywriting persuasif.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : demande ensuite "Génère 5 titres alternatifs A/B à tester."</div>
-      </div>
+      <div class="prompt-tag">💰 Vente</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">12</div>
-        <div>
-          <div class="prompt-title">Séquence email de lancement (5 emails)</div>
-          <div class="prompt-use">Utilisation : lancer une offre avec une séquence email complète</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">12</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Séquence email de lancement (5 emails)</div>
+        <div class="prompt-use">Lancer une offre avec une séquence email complète</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Crée une séquence de 5 emails pour lancer [PRODUIT/SERVICE] à [PRIX] pour [AUDIENCE].
-
-Email 1 (J-7) — Anticipation : annoncer quelque chose d'excitant sans révéler quoi
-Email 2 (J-5) — Problème : raconter une histoire sur le problème que ça résout
-Email 3 (J-3) — Solution : révéler l'offre, expliquer ce que c'est et pour qui
-Email 4 (J-1) — Urgence douce : témoignage/résultat + rappel de la date de fermeture
-Email 5 (Dernier jour) — Urgence forte : "Ferme ce soir à minuit" + récap des bénéfices
-
-Pour chaque email :
-- Objet accrocheur (3 variantes)
-- Pré-header
-- Corps de l'email (150-250 mots)
-- CTA unique et clair</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : ajoute un email J+1 de "c'est fermé" pour les personnes qui ont manqué — ça convertit encore.</div>
-      </div>
+      <div class="prompt-tag">📧 Email</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">13</div>
-        <div>
-          <div class="prompt-title">Email de relance client (sans être lourd)</div>
-          <div class="prompt-use">Utilisation : relancer un prospect ou un devis sans harceler</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">13</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Email de relance client sans être lourd</div>
+        <div class="prompt-use">Relancer un prospect ou un devis sans harceler</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je dois relancer [NOM/PRÉNOM] concernant [CONTEXTE : devis envoyé / appel planifié / proposition faite] il y a [DURÉE].
-
-La situation : [CE QUI S'EST PASSÉ AVANT]
-Mon objectif avec cet email : [OBTENIR UN RDV / UNE RÉPONSE / SIGNER]
-
-Rédige 3 versions d'email de relance :
-1. Version "valeur ajoutée" : partager quelque chose d'utile avant de relancer
-2. Version "directe et courte" : aller droit au but en 3 lignes
-3. Version "humour/légèreté" : désarmer avec un peu d'autodérision
-
-Chaque email doit être max 100 mots, avec un seul CTA clair et un objet d'email non-agressif.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : la version "directe et courte" convertit le mieux. Les longs emails de relance sont ignorés.</div>
-      </div>
+      <div class="prompt-tag">📧 Email</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">14</div>
-        <div>
-          <div class="prompt-title">Script d'appel de vente (20 minutes)</div>
-          <div class="prompt-use">Utilisation : structurer un appel de découverte qui convertit</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">14</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Script d'appel de vente (20 minutes)</div>
+        <div class="prompt-use">Structurer un appel de découverte qui convertit</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Crée un script complet pour un appel de vente de 20 minutes pour vendre [TON OFFRE À PRIX] à [TON PROFIL CLIENT CIBLE].
-
-Structure minute par minute :
-- 0-2min : Brise-glace + cadrer l'appel ("Voilà comment ça va se passer")
-- 2-8min : Découverte (questions pour comprendre leur situation, problème, objectifs)
-- 8-12min : Présentation de la solution (adaptée à CE qu'ils ont dit)
-- 12-16min : Gestion des objections (top 5 objections et réponses)
-- 16-19min : L'offre et les modalités
-- 19-20min : Closing et prochaines étapes claires
-
-Inclus les questions de découverte exactes (10 questions max) et les formulations précises pour les transitions entre chaque partie.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : ne présente JAMAIS l'offre avant d'avoir bien écouté leurs problèmes. Le timing est crucial.</div>
-      </div>
+      <div class="prompt-tag">📞 Sales</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">15</div>
-        <div>
-          <div class="prompt-title">Proposition commerciale B2B professionnelle</div>
-          <div class="prompt-use">Utilisation : rédiger une offre commerciale qui se démarque</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">15</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Proposition commerciale B2B professionnelle</div>
+        <div class="prompt-use">Rédiger une offre commerciale qui se démarque</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Rédige une proposition commerciale professionnelle pour :
-
-Client : [NOM DE L'ENTREPRISE / SECTEUR]
-Leur problème identifié : [CE QUE TU AS COMPRIS DE LEUR SITUATION]
-Ta solution proposée : [CE QUE TU OFFRES]
-Budget estimé : [FOURCHETTE]
-Délai de livraison : [DURÉE]
-
-Structure :
-1. Page de garde (titre centré sur leur objectif, pas le tien)
-2. Compréhension de leur situation (montre que tu as écouté)
-3. La solution proposée (détaillée en étapes)
-4. Les livrables concrets
-5. Timeline et jalons
-6. Investissement et options
-7. Pourquoi nous / garanties
-8. Prochaines étapes claires
-
-Ton : [PROFESSIONNEL / CHALEUREUX / EXPERT]</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : commence toujours par "Compréhension de votre situation" — les clients achètent ceux qui les comprennent.</div>
-      </div>
+      <div class="prompt-tag">💼 B2B</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">16</div>
-        <div>
-          <div class="prompt-title">Offre irrésistible avec ancrage de prix</div>
-          <div class="prompt-use">Utilisation : structurer une offre qui fait dire "c'est donné"</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">16</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Offre irrésistible avec ancrage de prix</div>
+        <div class="prompt-use">Structurer une offre qui fait dire "c'est donné"</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Aide-moi à structurer une offre irrésistible pour [PRODUIT/SERVICE] à [PRIX].
-
-Ce que j'inclus actuellement : [LISTE CE QUE TU OFFRES]
-Mon audience : [QUI ACHÈTE]
-Le résultat principal : [CE QU'ILS OBTIENNENT]
-
-Travaille sur :
-1. La pile de valeur : comment présenter chaque élément avec une valeur perçue (ex : "Bonus X — Valeur 197€")
-2. L'ancrage de prix : comment montrer que 197€ est évident face à la valeur totale (ex : "valeur totale 847€")
-3. Le nom de l'offre : 5 propositions de noms qui vendent le résultat
-4. Les 3 bonus qui feraient dire "là c'est vraiment trop" à ton client idéal
-5. La garantie qui élimine le risque perçu
-
-Utilise les principes de Alex Hormozi ($100M Offers) pour la structure.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : l'ancrage de prix est le levier le plus puissant. Toujours montrer la "vraie valeur" avant le prix.</div>
-      </div>
+      <div class="prompt-tag">💰 Vente</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">17</div>
-        <div>
-          <div class="prompt-title">FAQ qui lève les objections</div>
-          <div class="prompt-use">Utilisation : anticiper toutes les objections et les neutraliser</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">17</div>
+      <div class="prompt-info">
+        <div class="prompt-name">FAQ qui lève les objections</div>
+        <div class="prompt-use">Anticiper toutes les objections et les neutraliser</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je vends [PRODUIT/SERVICE] à [PRIX] pour [AUDIENCE].
-
-Génère une FAQ complète qui anticipe et lève les 10 principales objections de mon audience, notamment :
-- "C'est trop cher"
-- "Je n'ai pas le temps"
-- "Ça va vraiment marcher pour moi ?"
-- "Et si ça ne fonctionne pas ?"
-- "Je suis débutant, c'est fait pour moi ?"
-
-Pour chaque objection :
-- La question telle qu'un client la poserait
-- Une réponse empathique qui valide d'abord l'objection
-- Un argument factuel ou une preuve
-- Une reformulation positive qui pousse à l'action
-
-Ajoute 5 autres objections spécifiques à [TA NICHE].</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : chaque objection non traitée = une vente perdue. Couvre-les toutes.</div>
-      </div>
+      <div class="prompt-tag">💰 Vente</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">18</div>
-        <div>
-          <div class="prompt-title">Témoignages clients à partir de résultats bruts</div>
-          <div class="prompt-use">Utilisation : transformer des feedbacks informels en preuves sociales percutantes</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">18</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Témoignages clients à partir de résultats bruts</div>
+        <div class="prompt-use">Transformer des feedbacks informels en preuves sociales</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Voici le retour brut d'un client : [COLLE LE MESSAGE/EMAIL/FEEDBACK BRUT]
-
-Son profil : [QUI IL EST, SON MÉTIER]
-Ce qu'il a acheté : [TON PRODUIT/SERVICE]
-Le résultat obtenu : [LE RÉSULTAT CONCRET]
-
-Transforme ce retour en 3 versions de témoignage optimisées pour :
-1. Page de vente (80-100 mots, focus résultat, citation entre guillemets)
-2. Instagram (60 mots max, format visuel, emoji possible)
-3. Email (50 mots, ton conversationnel, première personne)
-
-Chaque version doit mettre en avant le résultat concret, créer de l'identification et finir sur une note positive forte.
-
-Note : ne pas inventer de chiffres ou de résultats, utilise uniquement les informations fournies.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : envoie toujours un questionnaire post-achat pour collecter des témoignages structurés automatiquement.</div>
-      </div>
+      <div class="prompt-tag">⭐ Social proof</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">19</div>
-        <div>
-          <div class="prompt-title">Message de prospection LinkedIn (non-intrusif)</div>
-          <div class="prompt-use">Utilisation : prospecter sans passer pour un vendeur agressif</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">19</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Message de prospection LinkedIn</div>
+        <div class="prompt-use">Prospecter sans passer pour un vendeur agressif</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux contacter [PROFIL CIBLE : ex. dirigeants PME] sur LinkedIn pour leur proposer [CE QUE TU OFFRES].
-
-Informations sur le prospect : [CE QUE TU SAIS D'EUX : secteur, taille, poste, récente actualité...]
-Mon offre : [DESCRIPTION EN 1 PHRASE]
-Résultat que je peux apporter : [BÉNÉFICE CONCRET + CHIFFRE SI POSSIBLE]
-
-Génère 3 messages de prospection :
-1. Message de connexion (note d'invitation, max 300 caractères)
-2. Premier message après connexion (non-vendeur, valeur d'abord, max 150 mots)
-3. Message de suivi si pas de réponse après 5 jours (léger, sans pression)
-
-Règles : pas de "je voulais vous contacter", pas de pitch immédiat, toujours personnaliser avec un élément de leur profil.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : personnalise toujours avec quelque chose de spécifique à leur profil. Le taux de réponse triple.</div>
-      </div>
+      <div class="prompt-tag">💼 B2B</div>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">20</div>
-        <div>
-          <div class="prompt-title">Offre flash limitée dans le temps</div>
-          <div class="prompt-use">Utilisation : créer une urgence réelle pour booster les ventes</div>
-        </div>
+    <div class="prompt-item">
+      <div class="prompt-num">20</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Offre flash limitée dans le temps</div>
+        <div class="prompt-use">Créer une urgence réelle pour booster les ventes</div>
       </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux lancer une offre flash sur [PRODUIT/SERVICE], normalement à [PRIX NORMAL], pour [DURÉE : 24h/48h/72h].
-
-Prix de l'offre flash : [PRIX RÉDUIT ou BONUS AJOUTÉ]
-Raison de l'offre (doit être réelle) : [EX: anniversaire, lancement, fin de mois, nouveau palier]
-Canaux : [EMAIL + INSTAGRAM + SMS]
-
-Crée pour chaque canal :
-- Email d'annonce (objet + corps 150 mots)
-- Email de rappel à J-1
-- Email de dernière chance (H-4)
-- Post Instagram + story (texte + indications visuelles)
-
-Chaque message doit justifier l'urgence sans être manipulateur, avec un CTA unique vers [LIEN D'ACHAT].</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : l'urgence ne fonctionne que si elle est réelle. Ne prolonge jamais une offre "flash" — tu perdrais toute crédibilité.</div>
-      </div>
+      <div class="prompt-tag">💰 Vente</div>
     </div>
   </div>
 
   <!-- ===== CATÉGORIE 3 : STRATÉGIE ===== -->
-  <div class="category">
-    <div class="cat-header">
-      <div class="cat-emoji">🎯</div>
-      <div class="cat-info">
-        <h2>Stratégie Business</h2>
-        <p>Prends les bonnes décisions, construis sur des bases solides</p>
-      </div>
-      <div class="cat-badge">Prompts 21–30</div>
+  <div class="section-head">
+    <div class="ico">🎯</div>
+    <div class="section-head-info">
+      <h2>Stratégie Business</h2>
+      <p>Prends les bonnes décisions, construis sur des bases solides</p>
     </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">21</div>
-        <div><div class="prompt-title">Audit complet de son business</div><div class="prompt-use">Identifier les leviers de croissance inexploités</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Tu es un consultant business expert. Mène un audit complet de mon business :
-
-Secteur : [TON SECTEUR]
-Offres actuelles : [CE QUE TU VENDS + PRIX]
-CA mensuel approximatif : [CHIFFRE OU FOURCHETTE]
-Canaux d'acquisition : [COMMENT TU TROUVES TES CLIENTS]
-Points forts perçus : [CE QUI MARCHE BIEN]
-Points faibles perçus : [CE QUI NE MARCHE PAS]
-Objectif à 12 mois : [CE QUE TU VEUX ATTEINDRE]
-
-Analyse et donne-moi :
-1. Les 3 plus grosses opportunités inexploitées
-2. Les 3 freins principaux à ma croissance
-3. Le Quick Win le plus impactant à faire cette semaine
-4. La stratégie prioritaire pour les 90 prochains jours</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : refais cet audit tous les trimestres pour rester aligné sur tes priorités.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">22</div>
-        <div><div class="prompt-title">Trouver sa niche rentable</div><div class="prompt-use">Identifier le croisement entre compétences, passion et demande marché</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux trouver ma niche rentable. Voici mes informations :
-
-Compétences professionnelles : [LISTE]
-Expériences passées (emploi, business, projets) : [LISTE]
-Sujets sur lesquels je passe du temps sans qu'on me le demande : [LISTE]
-Audience que j'ai ou que je pourrais avoir facilement : [DÉCRIS-LA]
-Budget et capacité à investir : [CONTEXTE]
-
-Analyse ces informations et propose-moi :
-1. Les 5 niches les plus pertinentes pour moi, classées par potentiel
-2. Pour chaque niche : la demande réelle, la concurrence, la rentabilité estimée, les offres possibles
-3. La niche #1 recommandée avec le plan de validation en 30 jours
-4. Les signaux qui confirmeraient que j'ai trouvé la bonne niche</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : la niche parfaite est celle où tu peux être l'expert ET qui a des clients capables de payer.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">23</div>
-        <div><div class="prompt-title">Construire son positionnement unique</div><div class="prompt-use">Se différencier dans un marché saturé</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je suis [TON MÉTIER] dans le secteur [TON SECTEUR]. Mes concurrents directs sont : [LISTE 3-5 CONCURRENTS OU PROFILS TYPES].
-
-Aide-moi à construire mon positionnement unique :
-
-1. Analyse de la concurrence : quels messages, promesses et positionnements utilisent-ils ?
-2. Les angles de marché non exploités dans mon secteur
-3. Mon USP (Unique Selling Proposition) : la phrase qui résume pourquoi ME choisir
-4. Mon ICP (profil client idéal) ultra-précis : qui est ma meilleure cliente/client ?
-5. Ma promesse de marque en 1 phrase (<15 mots)
-6. Mon "Enemy" (ce contre quoi je me bats) pour polariser et attirer les bons clients
-7. Le territoire de contenu que je dois occuper sur les réseaux</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : un bon positionnement fait fuir certaines personnes — c'est le signe que ça fonctionne.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">24</div>
-        <div><div class="prompt-title">Plan de lancement de produit</div><div class="prompt-use">Lancer une nouvelle offre avec le maximum d'impact</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux lancer [PRODUIT/SERVICE] à [PRIX] dans [DÉLAI : 30/60/90 jours].
-
-Mon audience actuelle : [TAILLE ET CANAL : Instagram X abonnés, email X contacts, etc.]
-Budget marketing : [BUDGET OU 0€]
-Ressources disponibles : [CE QUE TU PEUX FAIRE : vidéos, emails, appels, ads...]
-
-Crée un plan de lancement complet semaine par semaine :
-- Phase 1 (Échauffement) : créer l'anticipation
-- Phase 2 (Pré-vente / Waitlist) : valider l'intérêt et les premiers acheteurs
-- Phase 3 (Lancement) : ouverture des ventes avec urgence
-- Phase 4 (Suivi) : onboarding et upsell
-
-Pour chaque semaine : les actions spécifiques, les contenus à créer, les KPIs à suivre.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : vends avant de créer — une pré-vente valide la demande et finance la production.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">25</div>
-        <div><div class="prompt-title">Pricing psychologique optimal</div><div class="prompt-use">Trouver le prix qui maximise les ventes ET la valeur perçue</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux fixer le prix de [PRODUIT/SERVICE]. Voici le contexte :
-
-Ce que ça inclut : [CONTENU DE L'OFFRE]
-Résultat que le client obtient : [BÉNÉFICE PRINCIPAL]
-Audience cible : [QUI ILS SONT, LEUR POUVOIR D'ACHAT]
-Prix des concurrents similaires : [FOURCHETTE]
-Mon positionnement : [PREMIUM / MID-MARKET / ACCESSIBLE]
-
-Analyse et recommande :
-1. La fourchette de prix psychologiquement optimal pour mon audience
-2. Les effets du prix actuel sur la valeur perçue
-3. La stratégie de pricing (one-shot / mensuel / pack / échelonné)
-4. Les 3 options de prix à présenter (bon / mieux / meilleur)
-5. Le prix d'ancrage à utiliser sur la page de vente
-6. Les risques d'un prix trop bas pour mon type d'offre</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : souvent, augmenter le prix augmente les conversions — les clients perçoivent plus de valeur.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">26</div>
-        <div><div class="prompt-title">Analyse concurrentielle approfondie</div><div class="prompt-use">Comprendre ton marché pour mieux te positionner</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux analyser la concurrence dans mon secteur : [TON SECTEUR / NICHE]
-
-Mes principaux concurrents : [NOMS OU PROFILS TYPES]
-
-Pour chaque concurrent, aide-moi à analyser :
-- Leur positionnement et message principal
-- Leurs offres et prix (si connus)
-- Leurs forces apparentes
-- Leurs faiblesses ou angles morts
-
-Ensuite, identifie :
-1. Les gaps dans le marché (ce que personne ne fait bien)
-2. Les demandes client non satisfaites (cherche dans les avis négatifs types)
-3. L'angle de différenciation le plus exploitable pour MOI
-4. La "Blue Ocean Strategy" possible dans mon secteur
-
-Base-toi sur ta connaissance du marché pour cette niche.</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : les avis négatifs des concurrents = l'or. C'est exactement ce que tu dois faire mieux.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">27</div>
-        <div><div class="prompt-title">Offre signature scalable</div><div class="prompt-use">Construire l'offre centrale de son business</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux créer mon offre signature — celle qui deviendra le coeur de mon business.
-
-Mon expertise : [CE QUE TU SAIS FAIRE MIEUX QUE LES AUTRES]
-Mon client idéal : [QUI IL EST, SON PROBLÈME N°1]
-Le résultat que je peux garantir : [CE QUE TU PEUX PROMETTRE]
-Format préféré : [ACCOMPAGNEMENT / FORMATION / DIGITAL / AGENCE / HYBRIDE]
-Objectif de CA mensuel : [MONTANT]
-
-Aide-moi à construire :
-1. Le nom de l'offre (5 propositions)
-2. La promesse centrale (1 phrase puissante)
-3. Le contenu de l'offre (modules, étapes, livrables)
-4. La durée et le format de livraison
-5. Le prix recommandé + justification
-6. Comment rendre cette offre scalable (groupe vs 1:1, digital, etc.)
-7. Les upsells et downsells naturels</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : une seule offre maîtrisée rapporte plus que 10 offres moyennes. Focus.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">28</div>
-        <div><div class="prompt-title">Règle des 80/20 business</div><div class="prompt-use">Identifier les 20% d'actions qui génèrent 80% des résultats</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux appliquer le principe de Pareto (80/20) à mon business pour arrêter de perdre du temps.
-
-Ce que je fais actuellement chaque semaine : [LISTE TOUTES TES ACTIVITÉS]
-Mes revenus viennent principalement de : [TES SOURCES DE CA]
-Ce qui me prend le plus de temps : [TES TÂCHES CHRONOPHAGES]
-Ce que j'aime faire et ce que j'évite : [ÊTRE HONNÊTE]
-
-Analyse et identifie :
-1. Le 20% d'actions qui génèrent 80% de mes revenus
-2. Le 80% de tâches à déléguer, automatiser ou éliminer
-3. Le "Focus unique" — la 1 chose sur laquelle me concentrer
-4. Un plan de délégation ou d'automatisation pour les tâches à faible valeur
-5. Mon agenda idéal pour une semaine de 40h avec un maximum d'impact</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : si tu pouvais faire seulement 1 chose cette semaine, laquelle aurait le plus d'impact ? Commence par là.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">29</div>
-        <div><div class="prompt-title">Vision business sur 12 mois</div><div class="prompt-use">Créer une feuille de route claire pour les 12 prochains mois</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux définir ma vision et ma feuille de route pour les 12 prochains mois.
-
-Situation actuelle : [OÙ TU EN ES : CA, offres, audience, équipe]
-Objectifs à 12 mois : [CE QUE TU VEUX ATTEINDRE : CA, liberté, impact, etc.]
-Contraintes : [BUDGET, TEMPS DISPONIBLE, RESSOURCES]
-Valeurs non-négociables : [CE QUE TU NE VEUX PAS FAIRE]
-
-Crée pour moi :
-1. La vision 12 mois (en 3 phrases inspirantes mais réalistes)
-2. Les 3 piliers stratégiques de l'année
-3. Les objectifs trimestriels (Q1, Q2, Q3, Q4)
-4. Les KPIs clés à suivre chaque mois
-5. Les 3 projets prioritaires à lancer dans les 90 premiers jours
-6. Les risques à anticiper et les plans B</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : relis cette vision chaque mois pour vérifier que tes actions sont alignées avec tes objectifs.</div>
-      </div>
-    </div>
-
-    <div class="prompt">
-      <div class="prompt-header">
-        <div class="prompt-num-badge">30</div>
-        <div><div class="prompt-title">Système d'acquisition clients prévisible</div><div class="prompt-use">Construire un flux régulier de nouveaux clients</div></div>
-      </div>
-      <div class="prompt-body">
-        <div class="prompt-label">Le prompt</div>
-        <div class="prompt-text">Je veux construire un système d'acquisition clients prévisible et répétable pour [TON BUSINESS].
-
-Offre principale : [TON OFFRE + PRIX]
-Canaux actuels : [CE QUE TU FAIS DÉJÀ]
-Budget disponible : [MENSUEL]
-Temps disponible pour le marketing : [H/SEMAINE]
-Objectif : [EX : 5 nouveaux clients/mois]
-
-Conçois mon système d'acquisition complet :
-1. Le canal d'acquisition principal recommandé pour mon profil (et pourquoi)
-2. L'entonnoir de conversion : de l'inconnu à l'acheteur (chaque étape)
-3. Le contenu à créer chaque semaine pour alimenter le système
-4. Les métriques à suivre (impressions → leads → appels → ventes)
-5. Le calendrier pour mettre en place le système en 30 jours
-6. L'investissement temps/argent pour chaque partie du système</div>
-        <div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : un seul canal maîtrisé > 5 canaux moyens. Choisit-en un et domine-le.</div>
-      </div>
-    </div>
+    <div class="section-badge">Prompts 21–30</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item"><div class="prompt-num">21</div><div class="prompt-info"><div class="prompt-name">Audit complet de son business</div><div class="prompt-use">Identifier les leviers de croissance inexploités</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">22</div><div class="prompt-info"><div class="prompt-name">Trouver sa niche rentable</div><div class="prompt-use">Identifier le croisement entre compétences, passion et demande marché</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">23</div><div class="prompt-info"><div class="prompt-name">Construire son positionnement unique</div><div class="prompt-use">Se différencier dans un marché saturé</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">24</div><div class="prompt-info"><div class="prompt-name">Plan de lancement de produit</div><div class="prompt-use">Lancer une nouvelle offre avec le maximum d'impact</div></div><div class="prompt-tag">🚀 Lancement</div></div>
+    <div class="prompt-item"><div class="prompt-num">25</div><div class="prompt-info"><div class="prompt-name">Pricing psychologique optimal</div><div class="prompt-use">Trouver le prix qui maximise les ventes et la valeur perçue</div></div><div class="prompt-tag">💰 Pricing</div></div>
+    <div class="prompt-item"><div class="prompt-num">26</div><div class="prompt-info"><div class="prompt-name">Analyse concurrentielle approfondie</div><div class="prompt-use">Comprendre ton marché pour mieux te positionner</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">27</div><div class="prompt-info"><div class="prompt-name">Offre signature scalable</div><div class="prompt-use">Construire l'offre centrale de ton business</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">28</div><div class="prompt-info"><div class="prompt-name">Règle des 80/20 business</div><div class="prompt-use">Identifier les 20% d'actions qui génèrent 80% des résultats</div></div><div class="prompt-tag">⚡ Productivité</div></div>
+    <div class="prompt-item"><div class="prompt-num">29</div><div class="prompt-info"><div class="prompt-name">Vision business sur 12 mois</div><div class="prompt-use">Créer une feuille de route claire pour les 12 prochains mois</div></div><div class="prompt-tag">🎯 Stratégie</div></div>
+    <div class="prompt-item"><div class="prompt-num">30</div><div class="prompt-info"><div class="prompt-name">Système d'acquisition clients prévisible</div><div class="prompt-use">Construire un flux régulier de nouveaux clients</div></div><div class="prompt-tag">📈 Croissance</div></div>
   </div>
 
   <!-- ===== CATÉGORIE 4 : PRODUCTIVITÉ ===== -->
-  <div class="category">
-    <div class="cat-header">
-      <div class="cat-emoji">⚡</div>
-      <div class="cat-info">
-        <h2>Productivité & Organisation</h2>
-        <p>Travaille moins, produis plus, délègue intelligemment</p>
-      </div>
-      <div class="cat-badge">Prompts 31–40</div>
+  <div class="section-head">
+    <div class="ico">⚡</div>
+    <div class="section-head-info">
+      <h2>Productivité & Organisation</h2>
+      <p>Travaille moins, produis plus, délègue intelligemment</p>
     </div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">31</div><div><div class="prompt-title">Créer une SOP de délégation</div><div class="prompt-use">Documenter une tâche pour la déléguer sans friction</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Crée une SOP (Standard Operating Procedure) complète pour déléguer la tâche suivante : [DÉCRIS LA TÂCHE EN DÉTAIL]
-
-Cette tâche doit être réalisée par : [UN FREELANCE / UN AGENT IA / UN COLLABORATEUR]
-Fréquence : [QUOTIDIENNE / HEBDOMADAIRE / À LA DEMANDE]
-Résultat attendu : [CE QUE ÇA DOIT PRODUIRE]
-
-Structure la SOP :
-1. Objectif de la tâche (1 phrase)
-2. Prérequis et accès nécessaires
-3. Étapes numérotées (ultra-détaillées, rien à deviner)
-4. Critères de qualité (comment savoir que c'est bien fait)
-5. Erreurs fréquentes à éviter
-6. Que faire si ça ne fonctionne pas (plan B)
-7. Temps estimé pour compléter la tâche</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : si tu ne peux pas documenter une tâche, tu ne peux pas la déléguer. Documente avant de déléguer.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">32</div><div><div class="prompt-title">Email professionnel difficile</div><div class="prompt-use">Rédiger un email délicat avec le bon ton</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je dois envoyer un email difficile sur le sujet suivant : [DÉCRIS LA SITUATION]
-
-Destinataire : [QUI EST LA PERSONNE : client, collaborateur, fournisseur, employé]
-Mon objectif avec cet email : [CE QUE TU VEUX OBTENIR]
-Le ton souhaité : [FERME / DIPLOMATIQUE / ASSERTIF / PROFESSIONNEL]
-Ce que je dois absolument dire : [LES POINTS NON-NÉGOCIABLES]
-Ce que je veux éviter de dire : [CE QUI SERAIT CONTRE-PRODUCTIF]
-
-Rédige 2 versions de cet email :
-1. Version directe (va droit au but, sans tourner autour)
-2. Version diplomatique (même message, mais formulé pour minimiser les tensions)
-
-Pour chaque version : objet de l'email + corps complet + signature.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : attends toujours 1h avant d'envoyer un email émotionnel. Relis à tête reposée.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">33</div><div><div class="prompt-title">Résumé actionnable d'un document long</div><div class="prompt-use">Extraire l'essentiel d'un rapport, livre ou article en 2 minutes</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Voici le document/texte que je veux analyser : [COLLE LE TEXTE ICI]
-
-Objectif : je dois [DÉCIS TON OBJECTIF : prendre une décision / présenter à mon équipe / l'appliquer dans mon business]
-
-Fournis-moi :
-1. Le résumé en 5 points essentiels (chaque point = 1 phrase)
-2. Les 3 insights les plus importants pour MON contexte business
-3. Les actions concrètes que je peux prendre dans les 7 prochains jours
-4. Les points qui méritent d'être approfondis (et pourquoi)
-5. Ce que ce document NE dit pas (angles morts ou limites)
-
-Format : bullet points, concis, directement actionnable. Pas de remplissage.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : utilise ce prompt pour traiter tes emails importants, rapports et articles chaque matin.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">34</div><div><div class="prompt-title">Plan de projet avec jalons et deadlines</div><div class="prompt-use">Structurer n'importe quel projet de A à Z</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je dois planifier le projet suivant : [DÉCRIS LE PROJET]
-
-Date de lancement souhaitée : [DATE]
-Ressources disponibles : [ÉQUIPE, BUDGET, OUTILS]
-Contraintes connues : [CE QUI POURRAIT BLOQUER]
-
-Crée un plan de projet complet :
-1. Les phases du projet (max 4-5 phases)
-2. Pour chaque phase : tâches spécifiques, responsable, deadline
-3. Le chemin critique (les tâches dont dépendent toutes les autres)
-4. Les jalons clés (milestones) avec dates
-5. Les risques identifiés et les plans de mitigation
-6. Le tableau de bord de suivi (quels indicateurs suivre chaque semaine)
-
-Format : timeline claire, semaine par semaine si le projet dure moins de 3 mois.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : identifie le chemin critique dès le début. Un retard sur ces tâches retarde tout le projet.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">35</div><div><div class="prompt-title">Compte-rendu de réunion structuré</div><div class="prompt-use">Transformer des notes brouillon en CR professionnel</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Voici mes notes brutes de la réunion : [COLLE TES NOTES]
-
-Participants : [LISTE DES PERSONNES]
-Durée : [DURÉE]
-Objectif de la réunion : [CE QUI ÉTAIT PRÉVU]
-
-Transforme ces notes en compte-rendu professionnel structuré :
-1. Résumé exécutif (3 lignes, lisible en 30 secondes)
-2. Décisions prises (liste numérotée)
-3. Actions à prendre (format : [RESPONSABLE] → [ACTION] → [DEADLINE])
-4. Points en suspens (ce qui n'a pas été résolu, et la prochaine étape)
-5. Prochaine réunion : date, objectif, participants
-
-Ton : professionnel, concis, orienté action. Pas de remplissage.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : envoie le CR dans les 2h qui suivent la réunion. Passé ce délai, les actions ne se font pas.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">36</div><div><div class="prompt-title">Préparer une négociation importante</div><div class="prompt-use">Entrer en négociation préparé et confiant</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je dois négocier [QUOI : prix, contrat, conditions, salaire...] avec [QUI : client, fournisseur, partenaire...].
-
-Ma position actuelle : [CE QUE JE PROPOSE / CE QUE J'AI]
-Ce que je veux idéalement : [MON OBJECTIF IDÉAL]
-Ce que j'accepterais minimum : [MA LIGNE ROUGE]
-Ce que je sais de leur position : [LEURS INTÉRÊTS ET CONTRAINTES]
-Mes arguments forts : [TES POINTS DE LEVIER]
-
-Prépare ma stratégie de négociation :
-1. Mon BATNA (meilleure alternative si pas d'accord)
-2. Les 5 arguments clés à présenter
-3. Les objections probables et mes réponses
-4. Les concessions que je peux faire (et dans quel ordre)
-5. Les questions à poser pour comprendre leurs priorités
-6. La formulation d'ouverture idéale</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : celui qui pose le plus de questions contrôle la négociation. Écoute plus que tu ne parles.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">37</div><div><div class="prompt-title">Mon agenda idéal (Deep Work)</div><div class="prompt-use">Construire une semaine type pour maximiser la productivité</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux construire mon agenda idéal pour maximiser ma productivité.
-
-Mon rôle : [CE QUE TU FAIS]
-Mes 3 tâches les plus importantes : [CE QUI A LE PLUS D'IMPACT BUSINESS]
-Mes tâches opérationnelles récurrentes : [LES TÂCHES QUOTIDIENNES INÉVITABLES]
-Mes contraintes : [RÉUNIONS FIXES, FAMILLE, CONTRAINTES PERSONNELLES]
-Mon pic d'énergie : [MATIN / APRÈS-MIDI / SOIR]
-Heures disponibles par semaine : [NOMBRE]
-
-Crée mon agenda hebdomadaire idéal :
-- Blocs de Deep Work (tâches à haute valeur, zéro interruption)
-- Blocs de Shallow Work (emails, appels, administratif)
-- Blocs de création de contenu
-- Blocs de vente / prospection
-- Temps de récupération et de réflexion
-
-Explique pourquoi tu as placé chaque type de tâche à ce moment de la journée.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : protège tes 2-3 premières heures de la journée pour le Deep Work. Ne les vends à personne.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">38</div><div><div class="prompt-title">Pitch de 60 secondes percutant</div><div class="prompt-use">Se présenter de façon mémorable en toutes circonstances</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux un pitch de 60 secondes pour me présenter dans différents contextes.
-
-Mon métier : [CE QUE TU FAIS]
-Pour qui : [TON AUDIENCE / CLIENT CIBLE]
-Résultat concret que j'apporte : [BÉNÉFICE MESURABLE]
-Ce qui me différencie : [TON UNICITÉ]
-Preuve / Credibilité : [UN CHIFFRE, RÉSULTAT OU RÉFÉRENCE]
-
-Crée 3 versions de pitch de 60 secondes :
-1. Version networking (décontractée, curiosité, question finale)
-2. Version business (résultat first, ROI, professionnel)
-3. Version Instagram/Reel (hook fort, tu parles à la caméra)
-
-Chaque pitch : max 150 mots, mémorisable, sans jargon, avec une question finale qui ouvre le dialogue.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : mémorise la structure, pas le script mot pour mot. Ça doit sonner naturel, pas récité.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">39</div><div><div class="prompt-title">Analyser ses dépenses business</div><div class="prompt-use">Identifier les économies possibles et optimiser les coûts</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Voici mes dépenses business mensuelles : [LISTE TES DÉPENSES AVEC MONTANTS]
-
-CA mensuel actuel : [MONTANT]
-Objectif de marge : [% OU MONTANT]
-
-Analyse et recommande :
-1. Les dépenses à conserver absolument (ROI évident)
-2. Les dépenses à questionner (ROI incertain)
-3. Les dépenses à supprimer immédiatement (gaspillage)
-4. Les investissements à envisager qui augmenteraient le CA
-5. Les abonnements qui pourraient être remplacés par des alternatives moins chères ou gratuites
-6. Le ratio dépenses/CA idéal pour mon type de business
-
-Calcule également mon "coût de la liberté" : combien je dois générer pour couvrir mes dépenses fixes + me rémunérer correctement.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : fais cet audit chaque trimestre. Les abonnements oubliés coûtent très cher sur 12 mois.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">40</div><div><div class="prompt-title">Système de gestion des priorités quotidiennes</div><div class="prompt-use">Ne jamais se noyer dans les tâches urgentes mais pas importantes</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un système simple pour gérer mes priorités chaque jour et ne plus me perdre dans des tâches qui n'avancent pas mes objectifs.
-
-Mon objectif business principal en ce moment : [TON FOCUS DES 90 PROCHAINS JOURS]
-Mes 3 projets actifs : [LISTE]
-Ce qui me distrait le plus : [TES DISTRACTIONS PRINCIPALES]
-Mon plus gros problème de productivité : [CE QUI NE FONCTIONNE PAS]
-
-Crée pour moi :
-1. Un système de priorisation quotidien (max 3 tâches importantes par jour)
-2. Un rituel du matin (15 min) pour démarrer en mode focus
-3. Un rituel du soir (10 min) pour faire le bilan et préparer le lendemain
-4. Une règle simple pour dire non aux distractions
-5. Le template de ma to-do quotidienne idéale
-
-Inspiré des méthodes : Deep Work (Cal Newport), GTD, ou autre méthode adaptée à mon profil.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : 3 tâches importantes par jour > 20 tâches urgentes. Choisis tes 3 chaque matin.</div></div></div>
+    <div class="section-badge">Prompts 31–40</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item"><div class="prompt-num">31</div><div class="prompt-info"><div class="prompt-name">Créer une SOP de délégation</div><div class="prompt-use">Documenter une tâche pour la déléguer sans friction</div></div><div class="prompt-tag">⚡ Process</div></div>
+    <div class="prompt-item"><div class="prompt-num">32</div><div class="prompt-info"><div class="prompt-name">Email professionnel difficile</div><div class="prompt-use">Rédiger un email délicat avec le bon ton</div></div><div class="prompt-tag">📧 Email</div></div>
+    <div class="prompt-item"><div class="prompt-num">33</div><div class="prompt-info"><div class="prompt-name">Résumé actionnable d'un document long</div><div class="prompt-use">Extraire l'essentiel d'un rapport ou article en 2 minutes</div></div><div class="prompt-tag">⚡ Productivité</div></div>
+    <div class="prompt-item"><div class="prompt-num">34</div><div class="prompt-info"><div class="prompt-name">Plan de projet avec jalons et deadlines</div><div class="prompt-use">Structurer n'importe quel projet de A à Z</div></div><div class="prompt-tag">📋 Projet</div></div>
+    <div class="prompt-item"><div class="prompt-num">35</div><div class="prompt-info"><div class="prompt-name">Compte-rendu de réunion structuré</div><div class="prompt-use">Transformer des notes brouillon en CR professionnel</div></div><div class="prompt-tag">⚡ Productivité</div></div>
+    <div class="prompt-item"><div class="prompt-num">36</div><div class="prompt-info"><div class="prompt-name">Préparer une négociation importante</div><div class="prompt-use">Entrer en négociation préparé et confiant</div></div><div class="prompt-tag">💼 Business</div></div>
+    <div class="prompt-item"><div class="prompt-num">37</div><div class="prompt-info"><div class="prompt-name">Mon agenda idéal (Deep Work)</div><div class="prompt-use">Construire une semaine type pour maximiser la productivité</div></div><div class="prompt-tag">⚡ Productivité</div></div>
+    <div class="prompt-item"><div class="prompt-num">38</div><div class="prompt-info"><div class="prompt-name">Pitch de 60 secondes percutant</div><div class="prompt-use">Se présenter de façon mémorable en toutes circonstances</div></div><div class="prompt-tag">🎤 Pitch</div></div>
+    <div class="prompt-item"><div class="prompt-num">39</div><div class="prompt-info"><div class="prompt-name">Analyser ses dépenses business</div><div class="prompt-use">Identifier les économies possibles et optimiser les coûts</div></div><div class="prompt-tag">💶 Finance</div></div>
+    <div class="prompt-item"><div class="prompt-num">40</div><div class="prompt-info"><div class="prompt-name">Système de gestion des priorités quotidiennes</div><div class="prompt-use">Ne jamais se noyer dans les tâches urgentes mais pas importantes</div></div><div class="prompt-tag">⚡ Productivité</div></div>
   </div>
 
   <!-- ===== CATÉGORIE 5 : AUTOMATISATION ===== -->
-  <div class="category">
-    <div class="cat-header">
-      <div class="cat-emoji">🤖</div>
-      <div class="cat-info">
-        <h2>Automatisation & Agents IA</h2>
-        <p>Construis des systèmes IA qui travaillent à ta place</p>
-      </div>
-      <div class="cat-badge">Prompts 41–50</div>
+  <div class="section-head">
+    <div class="ico">🤖</div>
+    <div class="section-head-info">
+      <h2>Automatisation & Agents IA</h2>
+      <p>Construis des systèmes IA qui travaillent à ta place</p>
     </div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">41</div><div><div class="prompt-title">Créer un agent IA conversationnel</div><div class="prompt-use">Construire le system prompt d'un agent Claude sur mesure</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un agent IA conversationnel Claude pour : [OBJECTIF DE L'AGENT : support client / qualification prospects / FAQ / assistant interne]
-
-Mon business : [SECTEUR, CE QUE TU VENDS]
-L'utilisateur de l'agent : [QUI VA INTERAGIR : clients / prospects / équipe]
-Cas d'usage principal : [LES 3-5 QUESTIONS/DEMANDES LES PLUS FRÉQUENTES]
-Ce que l'agent ne doit jamais faire : [TES LIMITES]
-Ton de voix : [PROFESSIONNEL / CHALEUREUX / EXPERT / ACCESSIBLE]
-
-Rédige le system prompt complet de cet agent, incluant :
-1. Son identité et son rôle
-2. Ses connaissances clés sur ton business
-3. La structure de ses réponses
-4. Ses règles de comportement
-5. Comment il gère les cas qu'il ne sait pas traiter
-6. 3 exemples de dialogues types (question → réponse idéale)</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : commence avec un cas d'usage simple (FAQ), puis enrichis progressivement l'agent.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">42</div><div><div class="prompt-title">Agent IA de qualification prospects</div><div class="prompt-use">Automatiser la première étape de qualification client</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un agent IA qui qualifie automatiquement mes prospects avant un appel.
-
-Mon offre : [TON SERVICE/PRODUIT À PRIX]
-Client idéal : [ICP : secteur, taille, profil, budget]
-Questions de qualification essentielles : [LES 5-7 CRITÈRES QUI FONT UN BON CLIENT]
-Ce qui disqualifie un prospect : [LES RED FLAGS]
-Prochaine étape souhaitée : [PRISE DE RDV / FORMULAIRE / EMAIL]
-
-Crée :
-1. Le system prompt de l'agent qualificateur
-2. La séquence de questions (ordre logique, naturel, pas d'interrogatoire)
-3. La logique de décision : qualifié → action A / non qualifié → action B
-4. Les messages de transition entre chaque question
-5. Le message de clôture pour les profils qualifiés (propose le RDV)
-6. Le message poli de redirection pour les profils non qualifiés</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : un agent qualificateur bien configuré peut te faire économiser 5h/semaine d'appels non qualifiés.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">43</div><div><div class="prompt-title">Workflow d'automatisation Make/n8n</div><div class="prompt-use">Concevoir un workflow d'automatisation sans code</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux automatiser le processus suivant : [DÉCRIS LE PROCESSUS ACTUEL, ÉTAPE PAR ÉTAPE]
-
-Outils que j'utilise : [LISTE TES OUTILS : CRM, email, formulaires, etc.]
-Déclencheur souhaité : [CE QUI LANCE L'AUTOMATISATION : nouveau lead, paiement, formulaire...]
-Résultat attendu : [CE QUI DOIT SE PASSER AUTOMATIQUEMENT]
-Niveau technique : [DÉBUTANT / INTERMÉDIAIRE]
-
-Conçois le workflow complet pour Make.com ou n8n :
-1. Le trigger (déclencheur)
-2. Les étapes du workflow (chaque module/noeud)
-3. Les conditions et filtres (si X alors Y)
-4. Les actions finales
-5. La gestion des erreurs
-6. Comment tester le workflow avant de le mettre en production
-
-Présente-le sous forme de schéma texte clair : [Trigger] → [Étape 1] → [Condition] → [Étape 2] → [Action finale]</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : commence par automatiser ce que tu fais manuellement plus de 5 fois par semaine.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">44</div><div><div class="prompt-title">System prompt agent commercial</div><div class="prompt-use">Créer un agent qui aide à vendre naturellement</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un agent IA commercial qui aide mes prospects à comprendre mon offre et les guide vers un achat ou une prise de RDV.
-
-Mon offre : [DÉCRIS TON OFFRE]
-Prix : [PRIX]
-Objections fréquentes : [LES 5 PRINCIPALES]
-Garanties offertes : [TES GARANTIES]
-Preuves sociales disponibles : [TÉMOIGNAGES, CHIFFRES]
-Appel à l'action final : [LIEN D'ACHAT OU PRISE DE RDV]
-
-Rédige le system prompt complet de l'agent commercial :
-1. Son identité (il est "l'assistant de [TON PRÉNOM]", pas un bot générique)
-2. Sa mission principale
-3. Comment il présente l'offre (structure claire)
-4. Comment il gère les objections (avec douceur, pas de pressure vente)
-5. Ses limites (ce qu'il renvoie vers un humain)
-6. Le CTA qu'il propose naturellement en fin de conversation</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : nomme ton agent avec un prénom humain. Le taux d'engagement monte drastiquement.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">45</div><div><div class="prompt-title">Déléguer sa boîte mail à un agent IA</div><div class="prompt-use">Gérer ses emails avec l'aide de l'IA</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux utiliser Claude pour gérer plus efficacement ma boîte email.
-
-Type d'emails que je reçois : [EX : demandes clients, prospects, partenaires, newsletters, admin]
-Ce que je veux automatiser : [EX : tri, réponses types, transfert, archivage]
-Mes emails les plus chronophages : [EX : réponses aux questions fréquentes]
-Mon ton dans les emails pro : [EXEMPLES OU DESCRIPTION]
-
-Crée pour moi :
-1. Un system prompt pour un "assistant email Claude" (à utiliser dans un Project Claude)
-2. Les 5 templates de réponse pour mes emails les plus fréquents
-3. Un système de tri et de priorisation (quoi traiter en 24h, quoi déléguer, quoi ignorer)
-4. La procédure pour traiter sa boîte mail en 30 min/jour maximum
-5. Les signaux qui indiquent qu'un email nécessite une réponse humaine vs automatique</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : crée un Project Claude "Email Assistant" et colle tes emails dedans pour avoir des brouillons instantanés.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">46</div><div><div class="prompt-title">Pipeline de contenu assisté par IA</div><div class="prompt-use">Produire du contenu régulier sans y passer sa vie</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un pipeline de production de contenu assisté par IA pour publier [FRÉQUENCE] par semaine sur [CANAUX : Instagram / YouTube / Newsletter / LinkedIn].
-
-Mon temps disponible pour le contenu : [H/SEMAINE]
-Mes points forts : [EX : à l'aise à l'oral, bonne plume, idées faciles]
-Ce qui me bloque : [EX : écrire les captions, trouver les idées, la cohérence]
-
-Conçois mon pipeline complet :
-1. La session de brainstorming hebdomadaire avec Claude (prompt inclus)
-2. La production : qui fait quoi (moi vs Claude)
-3. Le template de brief pour chaque format (Reel, carousel, post)
-4. Le calendrier éditorial type pour 4 semaines
-5. Le système de recyclage : comment un contenu devient 5 formats
-6. Les métriques à analyser chaque semaine pour améliorer le système</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : 1h de brainstorming Claude le lundi = contenu pour toute la semaine. Travaille par batch.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">47</div><div><div class="prompt-title">Agent FAQ pour le support client</div><div class="prompt-use">Automatiser les réponses aux questions récurrentes</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un agent FAQ pour répondre automatiquement aux questions de mes clients sur [PRODUIT/SERVICE].
-
-Les 15 questions les plus posées par mes clients : [LISTE-LES]
-Les informations clés sur mon offre : [PRIX, DÉLAIS, MODALITÉS, GARANTIES]
-Mon ton de communication : [EXEMPLE D'UN EMAIL QUE TU ENVERRAIS]
-Ce que l'agent ne doit jamais promettre : [TES LIMITES]
-Comment escalader vers un humain : [PROCÉDURE SI L'AGENT NE SAIT PAS]
-
-Construis :
-1. La base de connaissance de l'agent (Q&R structurées)
-2. Le system prompt complet
-3. Les phrases de transition entre les sujets
-4. La gestion des clients mécontents (ton et démarche)
-5. Le message de fin de conversation standard</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : intègre cet agent dans ton site via Typebot ou Voiceflow pour automatiser le support 24/7.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">48</div><div><div class="prompt-title">Rapport hebdomadaire automatisé</div><div class="prompt-use">Générer un rapport de performance en 5 minutes</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer un système pour générer mon rapport de performance hebdomadaire rapidement.
-
-Métriques que je suis : [LISTE TES KPIs : CA, leads, ventes, abonnés, portée...]
-Ce que je veux analyser : [CE QUI COMPTE VRAIMENT POUR TOI]
-Format souhaité : [POUR QUI : pour moi seul / pour une équipe / pour un investisseur]
-
-Crée :
-1. Le template de rapport hebdomadaire (que tu remplis en 10 min)
-2. Le prompt Claude pour analyser tes chiffres et générer les insights
-3. Les 3 questions à te poser chaque semaine pour progresser
-4. Un système de scoring simple (semaine verte / orange / rouge selon tes objectifs)
-5. Le format de présentation à ton équipe (si applicable)
-
-Voici mes chiffres de cette semaine : [COLLE TES DONNÉES]
-Analyse et génère mon rapport.</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : ce qui se mesure s'améliore. Un rapport hebdomadaire de 10 min change tout sur 12 mois.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">49</div><div><div class="prompt-title">Créer son assistant IA personnel</div><div class="prompt-use">Configurer un Claude personnalisé qui te connaît vraiment</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer mon assistant IA personnel sur Claude (via les Projects) qui me connaît parfaitement et m'aide au quotidien.
-
-Informations sur moi à intégrer :
-- Mon business : [DESCRIPTION]
-- Mes offres et prix : [LISTE]
-- Mon audience cible : [ICP]
-- Mon ton de communication : [EXEMPLES]
-- Mes valeurs et ce que je ne fais pas : [LIMITES]
-- Mes outils : [STACK TECH]
-- Mes objectifs actuels : [FOCUS DES 90 JOURS]
-
-Rédige le system prompt complet pour mon Project Claude "Assistant Personnel", incluant :
-1. Toutes mes informations business (il doit me connaître sans que je lui réexplique)
-2. Ses missions principales
-3. Son style de réponse (concis, structuré, orienté action)
-4. Les tâches récurrentes qu'il fait pour moi
-5. Comment il me challenge sur mes idées (avocat du diable bienveillant)</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : un Project Claude avec tes infos = économiser 10-15 min par conversation. Sur 30 jours, c'est des heures.</div></div></div>
-
-    <div class="prompt"><div class="prompt-header"><div class="prompt-num-badge">50</div><div><div class="prompt-title">Roadmap IA pour ton business</div><div class="prompt-use">Définir quoi automatiser en priorité pour le maximum d'impact</div></div></div><div class="prompt-body"><div class="prompt-label">Le prompt</div><div class="prompt-text">Je veux créer ma roadmap d'intégration de l'IA dans mon business pour les 6 prochains mois.
-
-Mon business actuel : [DESCRIPTION]
-Mes tâches manuelles les plus chronophages : [LISTE]
-Mon niveau technique IA : [DÉBUTANT / INTERMÉDIAIRE / AVANCÉ]
-Budget disponible pour les outils IA : [MENSUEL]
-Objectif principal : [GAGNER DU TEMPS / SCALER / RÉDUIRE LES COÛTS / AUGMENTER LA QUALITÉ]
-
-Crée ma roadmap complète :
-
-Mois 1-2 (Quick Wins) : les automatisations immédiates à mettre en place
-Mois 3-4 (Optimisation) : les agents et workflows plus avancés
-Mois 5-6 (Scaling) : les systèmes qui permettent de passer à l'échelle
-
-Pour chaque étape :
-- L'outil recommandé
-- Le temps d'implémentation estimé
-- L'impact business attendu
-- Le coût mensuel
-- Le ROI estimé en temps gagné</div><div class="prompt-tip"><span class="tip-icon">💡</span> Astuce : commence toujours par les Quick Wins pour te motiver et prouver la valeur avant d'investir dans des systèmes complexes.</div></div></div>
+    <div class="section-badge">Prompts 41–50</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item"><div class="prompt-num">41</div><div class="prompt-info"><div class="prompt-name">Créer un agent IA conversationnel</div><div class="prompt-use">Construire le system prompt d'un agent Claude sur mesure</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item"><div class="prompt-num">42</div><div class="prompt-info"><div class="prompt-name">Agent IA de qualification prospects</div><div class="prompt-use">Automatiser la première étape de qualification client</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item"><div class="prompt-num">43</div><div class="prompt-info"><div class="prompt-name">Workflow d'automatisation Make/n8n</div><div class="prompt-use">Concevoir un workflow d'automatisation sans code</div></div><div class="prompt-tag">⚙️ Workflow</div></div>
+    <div class="prompt-item"><div class="prompt-num">44</div><div class="prompt-info"><div class="prompt-name">System prompt agent commercial</div><div class="prompt-use">Créer un agent qui aide à vendre naturellement</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item"><div class="prompt-num">45</div><div class="prompt-info"><div class="prompt-name">Déléguer sa boîte mail à un agent IA</div><div class="prompt-use">Gérer ses emails avec l'aide de l'IA</div></div><div class="prompt-tag">📧 Email</div></div>
+    <div class="prompt-item"><div class="prompt-num">46</div><div class="prompt-info"><div class="prompt-name">Pipeline de contenu assisté par IA</div><div class="prompt-use">Produire du contenu régulier sans y passer sa vie</div></div><div class="prompt-tag">🔄 Pipeline</div></div>
+    <div class="prompt-item"><div class="prompt-num">47</div><div class="prompt-info"><div class="prompt-name">Agent FAQ pour le support client</div><div class="prompt-use">Automatiser les réponses aux questions récurrentes</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item"><div class="prompt-num">48</div><div class="prompt-info"><div class="prompt-name">Rapport hebdomadaire automatisé</div><div class="prompt-use">Générer un rapport de performance en 5 minutes</div></div><div class="prompt-tag">📊 Reporting</div></div>
+    <div class="prompt-item"><div class="prompt-num">49</div><div class="prompt-info"><div class="prompt-name">Créer son assistant IA personnel</div><div class="prompt-use">Configurer un Claude personnalisé qui te connaît vraiment</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item"><div class="prompt-num">50</div><div class="prompt-info"><div class="prompt-name">Roadmap IA pour ton business</div><div class="prompt-use">Définir quoi automatiser en priorité pour le maximum d'impact</div></div><div class="prompt-tag">🗺️ Roadmap</div></div>
   </div>
 
-  <!-- BONUS -->
-  <div class="bonus-box">
-    <h2>🎁 Tu veux aller plus loin ?</h2>
-    <p>Découvre l'accompagnement 1-1 ou le service de délégation IA complet pour intégrer l'IA dans tout ton business.</p>
-    <a href="https://maitrise-ia.pro" class="bonus-cta">Découvrir les offres →</a>
+  <!-- ===== NOUVEAUX : CLAUDE CODE ===== -->
+  <div class="section-head">
+    <div class="ico">💻</div>
+    <div class="section-head-info">
+      <h2>Claude Code & Cowork</h2>
+      <p>Nouvelles fonctionnalités Claude — prompts exclusifs</p>
+    </div>
+    <div class="section-badge new">🆕 Ajoutés cette semaine</div>
+  </div>
+  <div class="prompt-list">
+    <div class="prompt-item">
+      <div class="prompt-num">51</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Générer une app complète en 1 message</div>
+        <div class="prompt-use">Créer une mini-application fonctionnelle sans coder</div>
+      </div>
+      <div class="new-badge">NEW</div>
+      <div class="prompt-tag">💻 Claude Code</div>
+    </div>
+    <div class="prompt-item">
+      <div class="prompt-num">52</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Automatiser la gestion de ses fichiers</div>
+        <div class="prompt-use">Trier, renommer, organiser 1000 fichiers automatiquement</div>
+      </div>
+      <div class="new-badge">NEW</div>
+      <div class="prompt-tag">🖥️ Cowork</div>
+    </div>
+    <div class="prompt-item">
+      <div class="prompt-num">53</div>
+      <div class="prompt-info">
+        <div class="prompt-name">Créer un outil SaaS sans développeur</div>
+        <div class="prompt-use">Transformer une idée en outil web fonctionnel</div>
+      </div>
+      <div class="new-badge">NEW</div>
+      <div class="prompt-tag">💻 Claude Code</div>
+    </div>
   </div>
 
-  <footer-doc>
-    © 2026 Maîtrise IA · @monsieur.ia.2.1 · maitrise-ia.pro<br>
-    Ce document est réservé à l'usage personnel. Merci de ne pas le redistribuer.
-  </footer-doc>
+  <!-- UNLOCK CTA -->
+  <div class="unlock-cta">
+    <h2>Tu veux accéder aux prompts complets ?</h2>
+    <p>Chaque prompt affiché ici contient le texte exact à copier-coller, les instructions d'utilisation et un tip d'expert. Accès à vie + mises à jour chaque semaine.</p>
+    <a href="prompts.html" class="btn">🚀 Obtenir l'accès complet — 27€</a>
+    <br>
+    <span class="btn-sm" onclick="window.location='prompts.html'">En savoir plus sur l'Arsenal Claude →</span>
+  </div>
 
+  <hr>
+  <footer>
+    © 2026 Maîtrise IA · <a href="index.html">Accueil</a> · <a href="prompts.html">L'Arsenal Claude</a> · @monsieur.ia.2.1
+  </footer>
 </div>
 </body>
 </html>
