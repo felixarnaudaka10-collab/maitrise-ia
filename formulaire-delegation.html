@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maîtrise IA — Déposer mon projet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #1e1e40;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --text: #ffffff; --text-muted: #94a3b8; --text-dim: #475569;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px 16px 60px; }
+
+    /* HEADER */
+    .form-header { text-align: center; margin-bottom: 32px; }
+    .form-logo { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; text-decoration: none; color: var(--text); margin-bottom: 32px; }
+    .form-logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .form-logo span { color: var(--purple-light); }
+    .form-header h1 { font-size: clamp(22px, 5vw, 28px); font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .form-header p { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 380px; margin: 0 auto; }
+
+    /* PROGRESS */
+    .progress-bar { max-width: 480px; margin: 0 auto 32px; }
+    .progress-track { height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; margin-bottom: 12px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--blue)); border-radius: 100px; transition: width 0.4s ease; }
+    .progress-meta { display: flex; justify-content: space-between; align-items: center; }
+    .progress-step { font-size: 12px; color: var(--text-dim); }
+    .progress-label { font-size: 12px; font-weight: 700; color: var(--purple-light); }
+
+    /* FORM CARD */
+    .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; max-width: 480px; margin: 0 auto; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .step-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+
+    /* FIELDS */
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+    .field label .req { color: var(--purple-light); }
+    .field input, .field select, .field textarea {
+      width: 100%; background: #0f0f24; border: 1.5px solid var(--border);
+      border-radius: 12px; color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 15px; padding: 13px 16px; outline: none; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--purple); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-dim); }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { resize: vertical; min-height: 100px; }
+
+    /* RADIO / CHECKBOX */
+    .options-list { display: flex; flex-direction: column; gap: 8px; }
+    .option-item { display: flex; align-items: center; gap: 12px; background: #0f0f24; border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px; cursor: pointer; transition: all 0.2s; }
+    .option-item:hover { border-color: rgba(124,58,237,0.4); }
+    .option-item input[type="radio"], .option-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--purple); cursor: pointer; flex-shrink: 0; }
+    .option-item.selected { border-color: var(--purple); background: rgba(124,58,237,0.08); }
+    .option-item span { font-size: 14px; line-height: 1.4; }
+
+    /* NAVIGATION */
+    .form-nav { display: flex; gap: 12px; margin-top: 28px; }
+    .btn-back { flex: 1; padding: 14px; border: 1.5px solid var(--border); background: transparent; color: var(--text-muted); border-radius: 100px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+    .btn-back:hover { border-color: var(--purple); color: var(--text); }
+    .btn-next { flex: 2; padding: 14px 24px; background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; border: none; border-radius: 100px; font-size: 15px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; box-shadow: 0 0 24px rgba(124,58,237,0.3); }
+    .btn-next:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(124,58,237,0.5); }
+    .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS */
+    .success-screen { display: none; text-align: center; padding: 40px 20px; max-width: 480px; margin: 0 auto; }
+    .success-screen.visible { display: block; }
+    .success-icon { font-size: 56px; margin-bottom: 20px; }
+    .success-screen h2 { font-size: 26px; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .success-screen p { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 360px; margin: 0 auto 28px; }
+    .btn-home { display: inline-block; background: var(--card); border: 1px solid var(--border); color: var(--text-muted); padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="form-header">
+    <a href="delegation.html" class="form-logo">
+      <div class="form-logo-icon">🧠</div>
+      Maîtrise <span>IA</span>
+    </a>
+    <h1>Parle-moi de ton projet</h1>
+    <p>3 minutes. J'ai besoin de comprendre ton business pour te proposer la bonne solution.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+    </div>
+    <div class="progress-meta">
+      <div class="progress-step" id="progressStep">Étape 1 sur 4</div>
+      <div class="progress-label" id="progressLabel">Ton business</div>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" id="formCard">
+
+    <!-- ÉTAPE 1 : TON BUSINESS -->
+    <div class="step active" id="step1">
+      <div class="step-title">Ton business</div>
+      <div class="step-desc">Quelques infos de base pour qu'on puisse se parler.</div>
+
+      <div class="field">
+        <label>Prénom <span class="req">*</span></label>
+        <input type="text" id="prenom" placeholder="Ton prénom" />
+      </div>
+      <div class="field">
+        <label>Email professionnel <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="toi@tonentreprise.com" />
+      </div>
+      <div class="field">
+        <label>Numéro de téléphone <span class="req">*</span></label>
+        <input type="tel" id="tel" placeholder="+33 6 XX XX XX XX" />
+      </div>
+      <div class="field">
+        <label>Site web <span class="req">*</span></label>
+        <input type="url" id="site" placeholder="https://tonentreprise.com" />
+      </div>
+      <div class="field">
+        <label>Secteur d'activité <span class="req">*</span></label>
+        <input type="text" id="secteur" placeholder="Ex : E-commerce, SaaS, Immobilier, Conseil..." />
+      </div>
+      <div class="field">
+        <label>Taille de ton équipe <span class="req">*</span></label>
+        <div class="options-list" id="tailleOptions">
+          <label class="option-item"><input type="radio" name="taille" value="Solo / Freelance" /><span>Solo / Freelance</span></label>
+          <label class="option-item"><input type="radio" name="taille" value="2–10 personnes" /><span>2–10 personnes</span></label>
+          <label class="option-item"><input type="radio" name="taille" value="11–50 personnes" /><span>11–50 personnes</span></label>
+          <label class="option-item"><input type="radio" name="taille" value="50+ personnes" /><span>50+ personnes</span></label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-next" onclick="nextStep(1)">Continuer →</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2 : TES BESOINS IA -->
+    <div class="step" id="step2">
+      <div class="step-title">Tes besoins IA</div>
+      <div class="step-desc">On a besoin de comprendre où tu en es pour te proposer les bonnes solutions.</div>
+
+      <div class="field">
+        <label>Quels services t'intéressent ? <span class="req">*</span> <small style="font-weight:400">(plusieurs choix possibles)</small></label>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="services" value="Agent IA conversationnel (chatbot, support client)" /><span>Agent IA conversationnel (chatbot, support client)</span></label>
+          <label class="option-item"><input type="checkbox" name="services" value="Automatisation de workflows (mails, docs, reporting)" /><span>Automatisation de workflows (mails, docs, reporting)</span></label>
+          <label class="option-item"><input type="checkbox" name="services" value="Site web ou funnel de vente IA" /><span>Site web ou funnel de vente IA</span></label>
+          <label class="option-item"><input type="checkbox" name="services" value="Intégration IA dans mes outils existants" /><span>Intégration IA dans mes outils existants</span></label>
+          <label class="option-item"><input type="checkbox" name="services" value="Autre" /><span>Autre (précise ci-dessous)</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Quels outils utilises-tu actuellement ?</label>
+        <input type="text" id="outils" placeholder="Ex : Notion, HubSpot, Slack, Google Sheets, Shopify..." />
+      </div>
+      <div class="field">
+        <label>Quels sont tes principaux points de friction ? <span class="req">*</span></label>
+        <textarea id="friction" placeholder="Les tâches qui te prennent trop de temps, les process inefficaces, ce qui t'empêche de scaler..."></textarea>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(2)">← Retour</button>
+        <button class="btn-next" onclick="nextStep(2)">Continuer →</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3 : TON PROJET -->
+    <div class="step" id="step3">
+      <div class="step-title">Ton projet</div>
+      <div class="step-desc">Plus tu es précis, plus ma proposition sera pertinente.</div>
+
+      <div class="field">
+        <label>Décris ton projet idéal <span class="req">*</span></label>
+        <textarea id="projet" placeholder="Si on pouvait construire exactement ce que tu veux, à quoi ça ressemblerait ? Sois aussi précis que possible..." style="min-height: 130px;"></textarea>
+      </div>
+      <div class="field">
+        <label>Comment tu as trouvé Maîtrise IA ?</label>
+        <div class="options-list" id="sourceOptions">
+          <label class="option-item"><input type="radio" name="source" value="Instagram" /><span>Instagram</span></label>
+          <label class="option-item"><input type="radio" name="source" value="Bouche à oreille / recommandation" /><span>Bouche à oreille / recommandation</span></label>
+          <label class="option-item"><input type="radio" name="source" value="Google" /><span>Google</span></label>
+          <label class="option-item"><input type="radio" name="source" value="Autre" /><span>Autre</span></label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(3)">← Retour</button>
+        <button class="btn-next" onclick="nextStep(3)">Continuer →</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 4 : BUDGET & PLANNING -->
+    <div class="step" id="step4">
+      <div class="step-title">Budget & planning</div>
+      <div class="step-desc">Ces infos m'aident à calibrer ce qu'on peut construire ensemble.</div>
+
+      <div class="field">
+        <label>Délai souhaité <span class="req">*</span></label>
+        <div class="options-list" id="delaiOptions">
+          <label class="option-item"><input type="radio" name="delai" value="Le plus vite possible" /><span>Le plus vite possible</span></label>
+          <label class="option-item"><input type="radio" name="delai" value="Dans les 2 prochaines semaines" /><span>Dans les 2 prochaines semaines</span></label>
+          <label class="option-item"><input type="radio" name="delai" value="Dans le mois" /><span>Dans le mois</span></label>
+          <label class="option-item"><input type="radio" name="delai" value="Pas encore défini" /><span>Pas encore défini</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Budget envisagé <span class="req">*</span></label>
+        <div class="options-list" id="budgetOptions">
+          <label class="option-item"><input type="radio" name="budget" value="Moins de 1 000€ (pas réaliste pour du sur mesure)" /><span>Moins de 1 000€ <span style="color:var(--text-dim)">(pas réaliste pour du sur mesure)</span></span></label>
+          <label class="option-item"><input type="radio" name="budget" value="1 000€ – 3 000€" /><span>1 000€ – 3 000€</span></label>
+          <label class="option-item"><input type="radio" name="budget" value="3 000€ – 6 000€" /><span>3 000€ – 6 000€</span></label>
+          <label class="option-item"><input type="radio" name="budget" value="6 000€ – 15 000€" /><span>6 000€ – 15 000€</span></label>
+          <label class="option-item"><input type="radio" name="budget" value="15 000€+" /><span>15 000€+</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Un dernier mot ?</label>
+        <textarea id="message" placeholder="Quelque chose qu'on devrait savoir avant de te recontacter... (optionnel)" style="min-height:80px;"></textarea>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(4)">← Retour</button>
+        <button class="btn-next" id="submitBtn" onclick="submitForm()">Envoyer ma demande →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🚀</div>
+    <h2>Demande reçue !</h2>
+    <p>Je reviens vers toi sous 48h avec une analyse de ta situation et une proposition concrète. Garde un œil sur ta boîte mail.</p>
+    <a href="delegation.html" class="btn-home">← Retour à l'accueil</a>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+    const stepLabels = ['Ton business', 'Tes besoins IA', 'Ton projet', 'Budget & planning'];
+
+    function updateProgress(step) {
+      const pct = (step / totalSteps) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressStep').textContent = `Étape ${step} sur ${totalSteps}`;
+      document.getElementById('progressLabel').textContent = stepLabels[step - 1];
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + step).classList.add('active');
+      currentStep = step;
+      updateProgress(step);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+      showStep(from + 1);
+    }
+
+    function prevStep(from) {
+      showStep(from - 1);
+    }
+
+    function validateStep(step) {
+      if (step === 1) {
+        const prenom = document.getElementById('prenom').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const tel = document.getElementById('tel').value.trim();
+        const site = document.getElementById('site').value.trim();
+        const secteur = document.getElementById('secteur').value.trim();
+        const taille = document.querySelector('input[name="taille"]:checked');
+        if (!prenom || !email || !tel || !site || !secteur || !taille) {
+          alert('Merci de remplir tous les champs obligatoires.');
+          return false;
+        }
+      }
+      if (step === 2) {
+        const services = document.querySelectorAll('input[name="services"]:checked');
+        const friction = document.getElementById('friction').value.trim();
+        if (services.length === 0 || !friction) {
+          alert('Merci de sélectionner au moins un service et de décrire tes points de friction.');
+          return false;
+        }
+      }
+      if (step === 3) {
+        const projet = document.getElementById('projet').value.trim();
+        if (!projet) {
+          alert('Merci de décrire ton projet.');
+          return false;
+        }
+      }
+      if (step === 4) {
+        const delai = document.querySelector('input[name="delai"]:checked');
+        const budget = document.querySelector('input[name="budget"]:checked');
+        if (!delai || !budget) {
+          alert('Merci de sélectionner un délai et un budget.');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Option selection styling
+    document.addEventListener('change', function(e) {
+      if (e.target.type === 'radio') {
+        const name = e.target.name;
+        document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+          r.closest('.option-item').classList.toggle('selected', r.checked);
+        });
+      }
+      if (e.target.type === 'checkbox') {
+        e.target.closest('.option-item').classList.toggle('selected', e.target.checked);
+      }
+    });
+
+    async function submitForm() {
+      if (!validateStep(4)) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Envoi en cours...';
+      btn.disabled = true;
+
+      const services = [...document.querySelectorAll('input[name="services"]:checked')].map(c => c.value).join(', ');
+      const taille = document.querySelector('input[name="taille"]:checked')?.value || '';
+      const delai = document.querySelector('input[name="delai"]:checked')?.value || '';
+      const budget = document.querySelector('input[name="budget"]:checked')?.value || '';
+      const source = document.querySelector('input[name="source"]:checked')?.value || '';
+
+      const data = {
+        nom: document.getElementById('prenom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        tel: document.getElementById('tel').value.trim(),
+        site: document.getElementById('site').value.trim(),
+        secteur: document.getElementById('secteur').value.trim(),
+        taille, services,
+        outils: document.getElementById('outils').value.trim(),
+        friction: document.getElementById('friction').value.trim(),
+        projet: document.getElementById('projet').value.trim(),
+        source, delai, budget,
+        message: document.getElementById('message').value.trim()
+      };
+
+      const formData = new FormData();
+      formData.append('access_key', '038b1035-ecbd-4506-bd90-5a6421828169');
+      formData.append('subject', `Nouveau projet Délégation IA — ${data.nom}`);
+      formData.append('from_name', 'Maîtrise IA — Délégation');
+
+      const lines = [
+        `👤 Prénom : ${data.nom}`,
+        `📧 Email : ${data.email}`,
+        `📱 Téléphone : ${data.tel}`,
+        `🌐 Site web : ${data.site}`,
+        `🏢 Secteur : ${data.secteur}`,
+        `👥 Taille équipe : ${data.taille}`,
+        ``,
+        `🤖 Services intéressés : ${data.services}`,
+        `🛠️ Outils actuels : ${data.outils}`,
+        `⚠️ Points de friction : ${data.friction}`,
+        ``,
+        `🎯 Projet idéal : ${data.projet}`,
+        `📣 Source : ${data.source}`,
+        ``,
+        `⏱️ Délai souhaité : ${data.delai}`,
+        `💰 Budget envisagé : ${data.budget}`,
+        `💬 Message : ${data.message || '—'}`
+      ];
+      formData.append('message', lines.join('\n'));
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+        const json = await res.json();
+        if (json.success) {
+          document.getElementById('formCard').style.display = 'none';
+          document.getElementById('progressBar').style.display = 'none';
+          document.getElementById('successScreen').classList.add('visible');
+        } else {
+          btn.textContent = 'Envoyer ma demande →';
+          btn.disabled = false;
+          alert('Une erreur est survenue. Réessaie dans quelques instants.');
+        }
+      } catch (err) {
+        btn.textContent = 'Envoyer ma demande →';
+        btn.disabled = false;
+        alert('Erreur de connexion. Vérifie ta connexion internet et réessaie.');
+      }
+    }
+  </script>
+</body>
+</html>

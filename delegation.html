@@ -3,113 +3,375 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maîtrise IA — On automatise à ta place</title>
+  <title>Maîtrise IA — Délégation IA</title>
+  <meta name="description" content="On intègre l'IA dans ton business. Agents IA, automatisations, workflows sur mesure. Tu délègues, on livre." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --bg: #0a0a1a;
+      --bg2: #0d0d22;
       --card: #13132a;
+      --card2: #0f0f24;
       --border: #1e1e40;
-      --green: #22c55e;
       --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --purple-dark: #5b21b6;
       --blue: #3b82f6;
+      --blue-light: #93c5fd;
+      --green: #22c55e;
       --text: #ffffff;
       --text-muted: #94a3b8;
+      --text-dim: #475569;
+      --radius: 16px;
     }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,26,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
     }
-    .logo {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 18px; font-weight: 800;
-      margin-bottom: 48px;
-      text-decoration: none; color: var(--text);
+    .nav-logo { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; text-decoration: none; color: var(--text); }
+    .nav-logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .nav-logo span { color: var(--purple-light); }
+    .nav-cta { background: var(--purple); color: white; padding: 9px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--purple-dark); }
+
+    section { padding: 64px 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    /* HERO */
+    .hero { background: linear-gradient(180deg, #0d0d2e 0%, var(--bg) 100%); padding: 72px 20px 64px; text-align: center; }
+    .hero-scarcity {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.25);
+      color: var(--purple-light); font-size: 13px; font-weight: 600;
+      padding: 8px 16px; border-radius: 100px; margin-bottom: 24px;
     }
-    .logo-icon {
-      width: 36px; height: 36px;
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+    .scarcity-dot { width: 7px; height: 7px; background: var(--purple); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero h1 { font-size: clamp(30px, 8vw, 52px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; }
+    .hero h1 .accent { color: var(--purple-light); }
+    .hero-sub { font-size: 17px; color: var(--text-muted); max-width: 440px; margin: 0 auto 20px; line-height: 1.7; }
+    .hero-proof { display: inline-flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 20px; font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .hero-proof strong { color: var(--text); }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; padding: 16px 32px; border-radius: 100px; font-size: 16px; font-weight: 800; text-decoration: none; transition: all 0.2s; box-shadow: 0 0 32px rgba(124,58,237,0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(124,58,237,0.6); }
+    .hero-note { margin-top: 14px; font-size: 13px; color: var(--text-dim); }
+
+    /* STATS BAR */
+    .stats-bar { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 20px; }
+    .stats-bar-inner { max-width: 700px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 900; color: var(--purple-light); letter-spacing: -1px; display: block; }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+
+    /* BADGES */
+    .section-badge { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .badge-purple { color: var(--purple-light); border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.08); }
+    .badge-green { color: #86efac; border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.08); }
+    .badge-blue { color: var(--blue-light); border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.08); }
+
+    .section-title { font-size: clamp(24px, 6vw, 36px); font-weight: 900; line-height: 1.15; letter-spacing: -0.8px; margin-bottom: 16px; }
+    .section-title .highlight { color: var(--purple-light); }
+    .section-title .highlight-green { color: var(--green); }
+    .section-body { font-size: 16px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+
+    /* SERVICES */
+    .services-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+    .service-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 24px 22px; transition: all 0.25s; }
+    .service-card:hover { border-color: var(--purple); box-shadow: 0 4px 24px rgba(124,58,237,0.15); }
+    .service-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; background: rgba(124,58,237,0.12); }
+    .service-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple-light); margin-bottom: 10px; }
+    .service-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .service-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
+    .service-checks { list-style: none; }
+    .service-checks li { font-size: 13px; color: var(--text-muted); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+    .service-checks li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* WHY */
+    .why-section { background: linear-gradient(135deg, #0d0d2e, #12122a); }
+    .why-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .why-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; }
+    .why-icon { font-size: 26px; flex-shrink: 0; }
+    .why-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* FOUNDER */
+    .founder-section { background: linear-gradient(135deg, #0a0a20, #0f0f28); }
+    .founder-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
+    .metric-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+    .metric-num { font-size: 24px; font-weight: 900; color: var(--green); }
+    .metric-label { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+
+    /* CTA FINAL */
+    .cta-section { background: linear-gradient(180deg, var(--bg) 0%, #0d0d2e 100%); text-align: center; padding: 72px 20px; }
+    .btn-cta-main { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--purple), #6d28d9); color: white; padding: 18px 36px; border-radius: 100px; font-size: 17px; font-weight: 800; text-decoration: none; transition: all 0.2s; box-shadow: 0 0 40px rgba(124,58,237,0.5); margin-top: 8px; }
+    .btn-cta-main:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(124,58,237,0.7); }
+    .cta-note { margin-top: 16px; font-size: 13px; color: var(--text-dim); }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 20px; }
+    footer { padding: 24px 20px; text-align: center; font-size: 13px; color: var(--text-dim); }
+    footer a { color: var(--text-dim); text-decoration: none; }
+
+    .floating-cta { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 99; background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; padding: 14px 28px; border-radius: 100px; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 8px 32px rgba(124,58,237,0.5); white-space: nowrap; transition: all 0.2s; display: none; }
+    .floating-cta.visible { display: block; }
+    .floating-cta:hover { transform: translateX(-50%) translateY(-2px); }
+
+    @media (min-width: 640px) {
+      .stats-bar-inner { grid-template-columns: repeat(4, 1fr); }
+      .founder-metrics { grid-template-columns: repeat(4, 1fr); }
     }
-    .logo span { color: #a78bfa; }
-    .badge {
-      display: inline-block;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.3);
-      color: #86efac;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 6px 14px; border-radius: 100px;
-      margin-bottom: 24px;
-    }
-    h1 {
-      font-size: clamp(28px, 7vw, 44px);
-      font-weight: 900;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-    h1 span { color: var(--green); }
-    p {
-      font-size: 16px; color: var(--text-muted);
-      max-width: 440px; line-height: 1.7;
-      margin-bottom: 36px;
-    }
-    .soon-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 28px;
-      max-width: 420px;
-      margin-bottom: 32px;
-    }
-    .soon-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-    .soon-card p {
-      font-size: 14px; color: var(--text-muted);
-      margin-bottom: 0; line-height: 1.6;
-    }
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      color: #a78bfa; font-size: 14px; font-weight: 600;
-      text-decoration: none;
-      border: 1px solid rgba(124,58,237,0.3);
-      padding: 10px 20px; border-radius: 100px;
-      transition: all 0.2s;
-    }
-    .back-btn:hover { background: rgba(124,58,237,0.1); }
   </style>
 </head>
 <body>
-  <a href="index.html" class="logo">
-    <div class="logo-icon">🧠</div>
-    Maîtrise <span>IA</span>
-  </a>
 
-  <div class="badge">⚡ Délégation IA</div>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🧠</div>
+      Maîtrise <span>IA</span>
+    </a>
+    <a href="formulaire-delegation.html" class="nav-cta">Déposer un projet →</a>
+  </nav>
 
-  <h1>On automatise<br /><span>à ta place</span></h1>
+  <!-- ① HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-scarcity">
+        <div class="scarcity-dot"></div>
+        3 projets acceptés ce mois-ci
+      </div>
+      <h1>
+        On intègre l'IA<br />
+        dans <span class="accent">ton business.</span><br />
+        Tu délègues, on livre.
+      </h1>
+      <p class="hero-sub">
+        Agents IA sur mesure, automatisations Make / n8n, workflows complets. Tu nous décris le problème — on construit la solution.
+      </p>
+      <div class="hero-proof">
+        <span>🧠</span>
+        <span>Fondé par <strong>Arnaud</strong> · <strong>20+</strong> solutions livrées · <strong>100K+</strong> vues sur les réseaux</span>
+      </div>
+      <br />
+      <a href="formulaire-delegation.html" class="btn-primary">
+        Déposer mon projet →
+      </a>
+      <p class="hero-note">Gratuit · 3 min · Réponse sous 48h</p>
+    </div>
+  </section>
 
-  <p>Cette offre est en cours de préparation. En attendant, tu peux déjà postuler à notre accompagnement 1-on-1.</p>
-
-  <div class="soon-card">
-    <h2>🚀 Bientôt disponible</h2>
-    <p>On construit tes agents IA, automatisations et outils sur mesure. Tu nous délègues, on livre. Disponible très prochainement.</p>
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <span class="stat-num">20+</span>
+        <div class="stat-label">Solutions livrées<br />et en production</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">7j</span>
+        <div class="stat-label">Délai moyen pour<br />la première version</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">10K+</span>
+        <div class="stat-label">Communauté Instagram<br />dédiée à l'IA</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <div class="stat-label">Sur mesure<br />zéro template</div>
+      </div>
+    </div>
   </div>
 
-  <a href="accompagnement.html" class="back-btn">
-    ← Voir l'accompagnement 1-on-1
+  <!-- ② SERVICES -->
+  <section>
+    <div class="container">
+      <div class="section-badge badge-purple">Ce qu'on construit</div>
+      <h2 class="section-title">Des solutions IA qui <span class="highlight">tournent vraiment.</span></h2>
+      <p class="section-body">Pas des démos. Pas des POCs. Des outils en production qui te font gagner du temps et de l'argent dès le premier mois.</p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">🤖</div>
+          <div class="service-tag">Agent IA sur mesure</div>
+          <h3>Agents conversationnels</h3>
+          <p>Un agent IA qui répond à tes clients, qualifie tes prospects, gère le support — 24h/24, sans toi dans la boucle. Connecté à ta base de données, à ton CRM, à tes outils existants.</p>
+          <ul class="service-checks">
+            <li>Chatbot support / FAQ automatique</li>
+            <li>Agent de qualification de leads</li>
+            <li>Assistant interne pour ton équipe</li>
+            <li>Intégration WhatsApp, email, site web</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <div class="service-tag">Automatisation</div>
+          <h3>Workflows Make / n8n</h3>
+          <p>Les tâches répétitives qui te prennent des heures chaque semaine — on les automatise. Emails, reporting, relances, génération de contenu, transferts de données entre tous tes outils.</p>
+          <ul class="service-checks">
+            <li>Automatisation emails & relances commerciales</li>
+            <li>Reporting et tableaux de bord automatiques</li>
+            <li>Synchronisation CRM / Google Sheets / Notion</li>
+            <li>Pipelines de création de contenu automatisés</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <div class="service-tag">Site & Funnel IA</div>
+          <h3>Sites web & funnels de vente</h3>
+          <p>Landing pages, sales pages, funnels de candidature — conçus avec l'IA, optimisés pour convertir, déployés rapidement. Ce site entier a été construit en moins d'une heure.</p>
+          <ul class="service-checks">
+            <li>Sales page haute conversion</li>
+            <li>Funnel de qualification multi-étapes</li>
+            <li>Landing page produit ou offre</li>
+            <li>Déploiement et hébergement inclus</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🔗</div>
+          <div class="service-tag">Intégration</div>
+          <h3>IA dans tes outils existants</h3>
+          <p>Tu as déjà Notion, HubSpot, Airtable, Google Workspace ? On branche l'IA dessus pour les rendre 10x plus puissants — sans tout reconstruire de zéro.</p>
+          <ul class="service-checks">
+            <li>Intégrations API sur mesure</li>
+            <li>IA connectée à ton CRM ou ERP</li>
+            <li>Automatisation Notion / Airtable</li>
+            <li>Pont entre tous tes outils métier</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ③ POURQUOI NOUS -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-badge badge-blue">Pourquoi nous</div>
+      <h2 class="section-title">Pas une agence classique.<br /><span class="highlight">Des builders.</span></h2>
+      <p class="section-body">On utilise les mêmes outils qu'on te livre pour faire tourner notre propre business au quotidien. Ce n'est pas de la théorie — c'est ce qu'on pratique.</p>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🎯</div>
+          <div>
+            <h3>Expertise terrain</h3>
+            <p>J'automatise mon propre business avec les mêmes outils depuis plus d'un an. Chaque solution qu'on te livre, je l'ai testée sur moi d'abord. Zéro blabla — que des choses qui tournent en production.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <div>
+            <h3>Livraison rapide</h3>
+            <p>Première version fonctionnelle en 7 à 21 jours selon la complexité. Pas de "discovery phase" de 3 mois. Tu as un problème concret, on construit la solution rapidement.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🔧</div>
+          <div>
+            <h3>100% sur mesure</h3>
+            <p>Zéro template copié-collé. On part de ton activité, tes process, tes contraintes. Ce qu'on construit est pensé pour toi — pas pour un client imaginaire.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📊</div>
+          <div>
+            <h3>Résultats mesurables</h3>
+            <p>On livre des outils en production, pas des présentations. Temps gagné par semaine, coûts réduits, conversions améliorées — tout est mesurable dès le premier mois.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ④ FONDATEUR -->
+  <section class="founder-section">
+    <div class="container">
+      <div class="section-badge badge-green">Fondateur</div>
+      <h2 class="section-title">Derrière <span class="highlight-green">Maîtrise IA</span></h2>
+
+      <p class="section-body">
+        Je suis Arnaud — entrepreneur solopreneur. Je fais tourner un business complet avec l'IA comme seul collaborateur : création de contenu, ventes, automatisations, produits digitaux, relation client. Pas d'équipe. Juste les bons outils, bien configurés.
+      </p>
+      <p class="section-body">
+        J'ai automatisé une chaîne YouTube à 10 000 abonnés, construit des systèmes de contenu qui génèrent des centaines de milliers de vues, et livré plus de 20 solutions IA pour des entrepreneurs et business de toutes tailles. Ce site que tu lis a été construit en moins d'une heure avec l'IA — du code, du design, un funnel complet.
+      </p>
+      <p class="section-body">
+        Ce que je construis pour mes clients, c'est exactement ce que j'utilise moi-même. Tu ne payes pas pour de la théorie. Tu payes pour de l'exécution.
+      </p>
+
+      <div class="founder-metrics">
+        <div class="metric-card">
+          <div class="metric-num">20+</div>
+          <div class="metric-label">solutions IA livrées</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">10K+</div>
+          <div class="metric-label">abonnés Instagram</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">100K+</div>
+          <div class="metric-label">vues sur les réseaux</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">&lt;1h</div>
+          <div class="metric-label">pour ce site entier</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ⑤ CTA FINAL -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="section-title">Prêt à gagner du temps<br />et <span class="highlight">faire scaler ton business ?</span></h2>
+      <p class="section-body" style="text-align:center; max-width:440px; margin:0 auto 32px;">
+        Dépose ton projet en 3 minutes. On analyse ta situation, on identifie ce qui peut être automatisé en priorité, et si c'est un bon match — on démarre.
+      </p>
+      <a href="formulaire-delegation.html" class="btn-cta-main">
+        Déposer mon projet →
+      </a>
+      <p class="cta-note">Gratuit · 3 min · Sans engagement · Réponse sous 48h</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Maîtrise IA · <a href="index.html">Accueil</a> · <a href="accompagnement.html">Accompagnement</a> · maitrise-ia.com</p>
+  </footer>
+
+  <!-- FLOATING CTA -->
+  <a href="formulaire-delegation.html" class="floating-cta" id="floatingCta">
+    Déposer mon projet →
   </a>
+
+  <script>
+    const floatingCta = document.getElementById('floatingCta');
+    window.addEventListener('scroll', () => {
+      floatingCta.classList.toggle('visible', window.scrollY > 500);
+    });
+  </script>
+
 </body>
 </html>
