@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maîtrise IA — Accompagnement 1-on-1</title>
+  <meta name="description" content="Intègre l'IA dans ton quotidien pro avec un accompagnement individuel sur mesure. Résultats concrets, pas de théorie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a1a;
+      --bg2: #0d0d22;
+      --card: #13132a;
+      --card2: #0f0f24;
+      --border: #1e1e40;
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --purple-dark: #5b21b6;
+      --blue: #3b82f6;
+      --blue-light: #93c5fd;
+      --green: #22c55e;
+      --red: #ef4444;
+      --orange: #f97316;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #475569;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-logo span { color: var(--purple-light); }
+
+    .nav-cta {
+      background: var(--purple);
+      color: white;
+      padding: 9px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--purple-dark); }
+
+    /* ── SECTIONS ── */
+    section { padding: 64px 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(180deg, #0d0d2e 0%, var(--bg) 100%);
+      padding: 72px 20px 64px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: var(--purple-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 8vw, 48px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .accent { color: var(--purple-light); }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 0 32px rgba(124,58,237,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(124,58,237,0.6);
+    }
+
+    /* ── BADGE SECTION ── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .badge-red { color: #f87171; border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+    .badge-blue { color: var(--blue-light); border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.08); }
+    .badge-purple { color: var(--purple-light); border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.08); }
+    .badge-green { color: #86efac; border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.08); }
+
+    /* ── TYPOGRAPHY ── */
+    .section-title {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+    }
+
+    .section-title .highlight { color: var(--purple-light); }
+    .section-title .highlight-green { color: var(--green); }
+    .section-title .highlight-blue { color: var(--blue-light); }
+
+    .section-body {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* ── QUOTE BOX ── */
+    .quote-box {
+      background: var(--card);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 20px;
+      margin: 24px 0;
+    }
+
+    .quote-box p {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .quote-box cite {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--purple-light);
+    }
+
+    /* ── CARDS GRID ── */
+    .cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px;
+    }
+
+    .info-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── STADES ── */
+    .stade-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .stade-card.active {
+      border-color: var(--purple);
+      background: rgba(124,58,237,0.08);
+      box-shadow: 0 0 24px rgba(124,58,237,0.15);
+    }
+
+    .stade-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .stade-num {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      background: var(--card2);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .stade-card.active .stade-num {
+      background: var(--purple);
+      color: white;
+    }
+
+    .stade-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .stade-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: rgba(124,58,237,0.2);
+      color: var(--purple-light);
+      flex-shrink: 0;
+    }
+
+    .stade-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      padding-left: 44px;
+    }
+
+    /* ── DATA STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--blue-light);
+      letter-spacing: -1px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* ── COMPANY CARDS ── */
+    .company-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+
+    .company-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .company-stat {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--blue-light);
+    }
+
+    .company-details {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── JOB IMPACT CARDS ── */
+    .job-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 10px;
+    }
+
+    .job-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .job-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── ALERT BOX ── */
+    .alert-box {
+      background: rgba(239,68,68,0.06);
+      border: 1.5px solid rgba(239,68,68,0.2);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .alert-box p {
+      font-size: 15px;
+      font-style: italic;
+      color: #fca5a5;
+      line-height: 1.7;
+    }
+
+    /* ── PIVOT SECTION ── */
+    .pivot-section {
+      background: linear-gradient(135deg, #0d0d2e, #12122a);
+    }
+
+    .choice-card {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+
+    .choice-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .choice-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── OFFER SECTION ── */
+    .offer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .offer-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .offer-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .offer-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── PROOF SECTION ── */
+    .proof-section {
+      background: linear-gradient(135deg, #0a0a20, #0f0f28);
+    }
+
+    .proof-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-num {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #0d0d2e 100%);
+      text-align: center;
+      padding: 72px 20px;
+    }
+
+    .scarcity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .scarcity-dot {
+      width: 7px; height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .cta-choices {
+      text-align: left;
+      max-width: 500px;
+      margin: 32px auto;
+    }
+
+    .cta-choice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .cta-choice.bad { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); }
+    .cta-choice.good { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15); }
+
+    .cta-choice-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    .cta-choice p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    .btn-cta-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--purple), #6d28d9);
+      color: white;
+      padding: 18px 36px;
+      border-radius: 100px;
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 0 40px rgba(124,58,237,0.5);
+      margin-top: 8px;
+    }
+    .btn-cta-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 48px rgba(124,58,237,0.7);
+    }
+
+    .cta-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    footer a { color: var(--text-dim); text-decoration: none; }
+
+    /* ── FLOATING CTA ── */
+    .floating-cta {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.5);
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: none;
+    }
+
+    .floating-cta.visible { display: block; }
+    .floating-cta:hover { transform: translateX(-50%) translateY(-2px); }
+
+    @media (min-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .proof-metrics { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🧠</div>
+      Maîtrise <span>IA</span>
+    </a>
+    <a href="#formulaire" class="nav-cta">Postuler →</a>
+  </nav>
+
+  <!-- ① HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">⚡ Accompagnement 1-on-1</div>
+      <h1>
+        Dans 24 mois, il y aura<br />
+        deux types de personnes :<br />
+        <span class="accent">ceux qui pilotent l'IA,</span><br />
+        et ceux qu'elle a rendus<br />
+        accessoires.
+      </h1>
+      <p class="hero-sub">
+        De quel côté tu veux être ?
+      </p>
+      <a href="#formulaire" class="btn-primary">
+        Je veux maîtriser l'IA →
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ② LE CONSTAT -->
+  <section>
+    <div class="container">
+      <div class="section-badge badge-red">⚠ Le Constat</div>
+      <h2 class="section-title">Ce ne sont pas les ouvriers qui sont menacés.<br /><span class="highlight">Ce sont les diplômés.</span></h2>
+
+      <p class="section-body">
+        Si tu travailles sur ordinateur aujourd'hui — rédaction, marketing, gestion, code, finance, conseil — tu es dans la ligne de mire de l'IA. Pas dans 10 ans. Maintenant.
+      </p>
+      <p class="section-body">
+        Les pays les plus développés, avec les emplois les mieux payés, sont précisément ceux qui sont le plus exposés.
+      </p>
+
+      <div class="quote-box">
+        <p>« Pour le travail intellectuel courant, l'IA va tout simplement remplacer tout le monde. Ça va créer un chômage massif et une explosion des profits. »</p>
+        <cite>— Jeffrey Hinton, Prix Nobel 2024, surnommé le "parrain de l'IA"</cite>
+      </div>
+
+      <p class="section-body">
+        Anthropic, la société derrière Claude (valorisée 60 milliards de dollars), a analysé des millions d'interactions réelles. Résultat : les plus menacés ne sont pas les ouvriers. Ce sont les programmeurs, consultants, juristes, marketeurs — les profils qualifiés.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ③ LES 5 STADES -->
+  <section>
+    <div class="container">
+      <div class="section-badge badge-blue">Les 5 Stades de l'IA</div>
+      <h2 class="section-title">La majorité vit au stade 1.<br /><span class="highlight-blue">On est déjà au stade 2.</span></h2>
+
+      <p class="section-body">
+        Quand la plupart des gens pensent à l'IA, ils pensent à ChatGPT. Un outil à qui on pose une question. Ils se disent "ça ne va pas remplacer mon job". C'est le stade 1. Le niveau 0. On est déjà bien au-delà.
+      </p>
+
+      <div class="cards-stack">
+
+        <div class="stade-card">
+          <div class="stade-header">
+            <div class="stade-num">1</div>
+            <div class="stade-title">L'IA Simple — ChatGPT basique</div>
+          </div>
+          <p class="stade-body">On lui pose une question, elle répond. La majorité des gens en est encore là. C'est le niveau débutant.</p>
+        </div>
+
+        <div class="stade-card active">
+          <div class="stade-header">
+            <div class="stade-num">2</div>
+            <div class="stade-title">L'IA Agentique</div>
+            <div class="stade-tag">← ON EST LÀ</div>
+          </div>
+          <p class="stade-body">L'IA ne répond plus — elle agit. Elle navigue, clique, code, teste, corrige et livre le résultat. C'est le niveau où se jouent les vraies opportunités aujourd'hui.</p>
+        </div>
+
+        <div class="stade-card">
+          <div class="stade-header">
+            <div class="stade-num">3</div>
+            <div class="stade-title">Le Multi-Agent</div>
+          </div>
+          <p class="stade-body">Une équipe entière d'agents IA qui collaborent. Un qui recherche, un qui rédige, un qui supervise, un qui vérifie. Déjà déployé dans les grandes entreprises.</p>
+        </div>
+
+        <div class="stade-card">
+          <div class="stade-header">
+            <div class="stade-num">4</div>
+            <div class="stade-title">L'AGI</div>
+          </div>
+          <p class="stade-body">L'IA qui égale la cognition humaine dans tous les domaines. Sam Altman dit 2025-2030. La réalité sera probablement plus rapide.</p>
+        </div>
+
+        <div class="stade-card">
+          <div class="stade-header">
+            <div class="stade-num">5</div>
+            <div class="stade-title">La Super Intelligence</div>
+          </div>
+          <p class="stade-body">L'IA qui dépasse l'humanité entière. Pas un humain. L'humanité. L'horizon ultime.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ④ LES DONNÉES -->
+  <section>
+    <div class="container">
+      <div class="section-badge badge-red">Les Données</div>
+      <h2 class="section-title">Les licenciements ont <span class="highlight">déjà commencé.</span></h2>
+      <p class="section-body">Pas dans les petites startups. Dans les plus grandes entreprises du monde.</p>
+
+      <div class="company-card">
+        <div class="company-name">OpenAI</div>
+        <div class="company-stat">25 Mds$ de revenus</div>
+        <div class="company-details">700M utilisateurs/semaine · Valorisation 500 Mds$</div>
+      </div>
+
+      <div class="company-card">
+        <div class="company-name">Google Gemini</div>
+        <div class="company-stat">2 Mds d'utilisateurs</div>
+        <div class="company-details">Intégré dans toute la suite Google · Déploiement massif en entreprise</div>
+      </div>
+
+      <div class="company-card">
+        <div class="company-name">Microsoft Copilot</div>
+        <div class="company-stat">145M d'utilisateurs pro</div>
+        <div class="company-details">Intégré dans Word, Excel, Outlook · Remplacement direct de tâches humaines</div>
+      </div>
+
+      <h3 style="font-size:18px; font-weight:800; margin:32px 0 16px; letter-spacing:-0.3px;">Métiers déjà impactés</h3>
+
+      <div class="job-card">
+        <h4>✍️ Rédacteurs & marketeurs</h4>
+        <p>↓ 28% des emplois (étude Harvard). 81% des professionnels du marketing ont peur d'être remplacés dans les 2 prochaines années.</p>
+      </div>
+
+      <div class="job-card">
+        <h4>🎧 Service client</h4>
+        <p>Klarna : 1 chatbot IA = 700 agents humains remplacés. Temps de résolution : 2 minutes au lieu de 11. Économie : 40M$.</p>
+      </div>
+
+      <div class="job-card">
+        <h4>💻 Programmeurs</h4>
+        <p>46% du code déjà généré par IA. Devin (IA de dev) : 67% des tâches validées en production. Les devs les moins adaptables sont les premiers visés.</p>
+      </div>
+
+      <div class="job-card">
+        <h4>📊 Comptables & analystes</h4>
+        <p>Goldman Sachs parle de 300 millions d'emplois impactés dans le monde. Les analystes financiers junior sont parmi les plus exposés.</p>
+      </div>
+
+      <div class="alert-box">
+        <p>« En informatique, l'IA couvre 33% des tâches possibles aujourd'hui. Elle pourrait en couvrir 94%. Le tsunami n'a même pas commencé. »</p>
+      </div>
+
+      <div class="quote-box">
+        <p>« Pourquoi est-ce que je paye quelqu'un 50 000 € par an, alors qu'une IA peut faire le même travail, mieux, plus vite, 24h/24, pour une fraction du prix ? »</p>
+        <cite>— La question que ton patron se pose déjà</cite>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ⑤ LE PIVOT -->
+  <section class="pivot-section">
+    <div class="container">
+      <h2 class="section-title">Tu veux être <span class="highlight">remplacé</span>, ou <span class="highlight-green">irremplaçable</span> ?</h2>
+
+      <p class="section-body">
+        L'IA menace ceux qui l'ignorent. Mais elle est le meilleur allié de ceux qui la maîtrisent. Que tu sois entrepreneur, salarié, créateur ou freelance — la maîtriser aujourd'hui, c'est prendre 2 ans d'avance sur tout le monde.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">3x</div>
+          <div class="stat-label">plus de revenus par employé dans les entreprises qui intègrent l'IA</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">37%</div>
+          <div class="stat-label">de réduction des coûts opérationnels pour les PME qui automatisent</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10x</div>
+          <div class="stat-label">plus de productivité pour les créateurs et freelances qui utilisent l'IA</div>
+        </div>
+      </div>
+
+      <a href="#formulaire" class="btn-primary" style="display:inline-flex; margin-top:8px;">
+        Je veux maîtriser l'IA →
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ⑥ L'OFFRE -->
+  <section>
+    <div class="container">
+      <div class="section-badge badge-purple">L'Accompagnement</div>
+      <h2 class="section-title">Concrètement. Dans <span class="highlight">ton métier</span> ou ton business.</h2>
+
+      <p class="section-body">
+        Pas une formation théorique de 47 heures que tu ne finiras jamais. Un accompagnement 1-on-1 personnalisé où on implémente l'IA directement dans ton quotidien professionnel.
+      </p>
+
+      <div class="cards-stack">
+
+        <div class="offer-card">
+          <div class="offer-icon">🔍</div>
+          <div>
+            <h3>Audit de ton activité</h3>
+            <p>On analyse ton métier, tes tâches, tes points de friction. On identifie précisément où l'IA peut te faire gagner des heures chaque semaine. Pas du générique — du 100% adapté à toi.</p>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-icon">⚙️</div>
+          <div>
+            <h3>Setup complet de tes outils</h3>
+            <p>Installation et configuration des meilleurs outils IA selon ton profil : ChatGPT, Claude, Make, n8n, Zapier et bien d'autres. Tu repars avec un écosystème qui tourne.</p>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-icon">⚡</div>
+          <div>
+            <h3>Automatisations sur mesure</h3>
+            <p>On crée des automatisations pour tes tâches chronophages : génération de contenu, réponses email, analyse de données, gestion de projets. Adaptées à TON activité, pas à un template générique.</p>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <div class="offer-icon">🎯</div>
+          <div>
+            <h3>Suivi et montée en compétence</h3>
+            <p>La vraie valeur, c'est pas juste les heures gagnées — c'est les compétences que tu acquiers. Maîtriser l'IA aujourd'hui, c'est avoir une longueur d'avance indispensable dans le futur.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ⑦ LA PREUVE -->
+  <section class="proof-section">
+    <div class="container">
+      <div class="section-badge badge-green">✓ Ce n'est pas de la théorie</div>
+      <h2 class="section-title">J'ai mis l'IA au cœur de <span class="highlight-green">tout ce que je fais.</span></h2>
+
+      <p class="section-body">
+        J'ai construit une chaîne YouTube entièrement automatisée avec l'IA — de la recherche de sujets au montage. Résultat : <strong style="color:white">10 000 abonnés en quelques mois</strong>, sans sacrifier mon temps.
+      </p>
+      <p class="section-body">
+        Sur Instagram, j'ai appliqué les mêmes méthodes. <strong style="color:white">Plus de 100 000 vues en quelques jours</strong>. Pas parce que je suis meilleur que les autres — parce que ma force de production est 10x supérieure grâce à l'IA.
+      </p>
+      <p class="section-body">
+        J'ai généré des revenus en vendant des produits digitaux — créés, marketés et livrés avec l'IA comme copilote. Pas dans le futur. Aujourd'hui. Et c'est exactement ce que tu vas apprendre à faire.
+      </p>
+
+      <div class="proof-metrics">
+        <div class="metric-card">
+          <div class="metric-num">10K</div>
+          <div class="metric-label">abonnés YouTube en quelques mois</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">100K+</div>
+          <div class="metric-label">vues Instagram en quelques jours</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">100%</div>
+          <div class="metric-label">automatisé avec l'IA</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">10x</div>
+          <div class="metric-label">force de production vs concurrents</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ⑧ CTA FINAL -->
+  <section class="cta-section" id="formulaire">
+    <div class="container">
+      <h2 class="section-title">Le monde change à une vitesse que <span class="highlight">personne n'a jamais vue.</span></h2>
+
+      <p class="section-body" style="text-align:center; max-width:420px; margin:0 auto 32px;">
+        Tu as deux options devant toi.
+      </p>
+
+      <div class="cta-choices">
+        <div class="cta-choice bad">
+          <div class="cta-choice-icon">❌</div>
+          <p>Ne rien faire, espérer que ça ne te concerne pas, et te réveiller dans 12 mois en réalisant que tu aurais dû agir bien plus tôt.</p>
+        </div>
+        <div class="cta-choice good">
+          <div class="cta-choice-icon">✅</div>
+          <p>Prendre 5 minutes maintenant et commencer à transformer l'IA en ton plus grand avantage concurrentiel.</p>
+        </div>
+      </div>
+
+      <div class="scarcity-badge">
+        <div class="scarcity-dot"></div>
+        Je prends uniquement 5 personnes ce mois-ci
+      </div>
+
+      <br />
+
+      <a href="https://tally.so/r/XXXXXXX" target="_blank" class="btn-cta-main">
+        Remplir le formulaire de candidature →
+      </a>
+
+      <p class="cta-note">5 minutes · Gratuit · Sans engagement · Je te réponds sous 24h</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Maîtrise IA · <a href="index.html">Accueil</a> · maitrise-ia.com</p>
+  </footer>
+
+  <!-- FLOATING CTA -->
+  <a href="#formulaire" class="floating-cta" id="floatingCta">
+    Postuler maintenant →
+  </a>
+
+  <script>
+    // Show floating CTA after scrolling past hero
+    const floatingCta = document.getElementById('floatingCta');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        floatingCta.classList.add('visible');
+      } else {
+        floatingCta.classList.remove('visible');
+      }
+    });
+  </script>
+
+</body>
+</html>

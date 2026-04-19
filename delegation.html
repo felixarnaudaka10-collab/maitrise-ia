@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maîtrise IA — On automatise à ta place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a;
+      --card: #13132a;
+      --border: #1e1e40;
+      --green: #22c55e;
+      --purple: #7c3aed;
+      --blue: #3b82f6;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 18px; font-weight: 800;
+      margin-bottom: 48px;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo span { color: #a78bfa; }
+    .badge {
+      display: inline-block;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #86efac;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: clamp(28px, 7vw, 44px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    h1 span { color: var(--green); }
+    p {
+      font-size: 16px; color: var(--text-muted);
+      max-width: 440px; line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .soon-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+    .soon-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .soon-card p {
+      font-size: 14px; color: var(--text-muted);
+      margin-bottom: 0; line-height: 1.6;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #a78bfa; font-size: 14px; font-weight: 600;
+      text-decoration: none;
+      border: 1px solid rgba(124,58,237,0.3);
+      padding: 10px 20px; border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(124,58,237,0.1); }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🧠</div>
+    Maîtrise <span>IA</span>
+  </a>
+
+  <div class="badge">⚡ Délégation IA</div>
+
+  <h1>On automatise<br /><span>à ta place</span></h1>
+
+  <p>Cette offre est en cours de préparation. En attendant, tu peux déjà postuler à notre accompagnement 1-on-1.</p>
+
+  <div class="soon-card">
+    <h2>🚀 Bientôt disponible</h2>
+    <p>On construit tes agents IA, automatisations et outils sur mesure. Tu nous délègues, on livre. Disponible très prochainement.</p>
+  </div>
+
+  <a href="accompagnement.html" class="back-btn">
+    ← Voir l'accompagnement 1-on-1
+  </a>
+</body>
+</html>
