@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude peut monter tes vidéos — Guide complet — Maîtrise IA</title>
+  <meta name="description" content="Le guide complet pour créer et monter des vidéos avec Claude AI. Remotion, sous-titres animés, motion graphics — sans logiciel de montage." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a; --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6; --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --text: #fff; --muted: #94a3b8; --dim: #64748b; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-ig { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .hero { text-align: center; padding: 56px 24px 48px; max-width: 640px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 span { color: var(--purple-light); }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
+    .gate-section { max-width: 520px; margin: 0 auto; padding: 0 24px 64px; }
+    .gate-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 24px; padding: 40px 32px; text-align: center; }
+    .gate-icon { font-size: 40px; margin-bottom: 16px; }
+    .gate-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .gate-card p { color: var(--muted); font-size: 15px; margin-bottom: 28px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 12px; }
+    .gate-form input { background: #0d0d20; border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .gate-form input:focus { border-color: var(--purple); }
+    .gate-form input::placeholder { color: var(--dim); }
+    .gate-btn { background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; border: none; border-radius: 12px; padding: 15px 24px; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-note { font-size: 12px; color: var(--dim); margin-top: 8px; }
+    .section { max-width: 700px; margin: 0 auto; padding: 0 24px 64px; display: none; }
+    .resource-intro { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px; }
+    .resource-intro h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .resource-intro p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .guide-block { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+    .guide-block:hover { border-color: var(--purple); transition: border-color 0.2s; }
+    .guide-num { display: inline-block; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.25); font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; }
+    .guide-title { font-size: 17px; font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
+    .guide-desc { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .guide-tag { display: inline-block; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-top: 10px; }
+    .guide-tag.yellow { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.2); }
+    .guide-tag.red { background: rgba(239,68,68,0.1); color: #f87171; border-color: rgba(239,68,68,0.2); }
+    .tldr-box { background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2); border-radius: 16px; padding: 24px 28px; margin-bottom: 32px; }
+    .tldr-box h3 { font-size: 15px; font-weight: 800; color: var(--purple-light); margin-bottom: 12px; }
+    .tldr-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tldr-box li { font-size: 14px; color: var(--muted); line-height: 1.6; padding-left: 20px; position: relative; }
+    .tldr-box li::before { content: "→"; position: absolute; left: 0; color: var(--purple-light); font-weight: 700; }
+    .tldr-box li strong { color: var(--text); }
+    .separator { max-width: 700px; margin: 0 auto 48px; padding: 0 24px; display: none; align-items: center; gap: 16px; }
+    .separator-line { flex: 1; height: 1px; background: var(--border); }
+    .separator-text { color: var(--dim); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+    .accomp-block { max-width: 700px; margin: 0 auto; padding: 0 24px 40px; display: none; }
+    .accomp-inner { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.06)); border: 1.5px solid rgba(124,58,237,0.25); border-radius: 24px; padding: 40px 32px; }
+    .accomp-label { display: inline-block; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .accomp-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .accomp-inner h2 span { color: var(--purple-light); }
+    .accomp-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .accomp-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .accomp-step { display: flex; align-items: flex-start; gap: 14px; }
+    .step-num { width: 28px; height: 28px; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: var(--purple-light); flex-shrink: 0; margin-top: 2px; }
+    .step-text strong { font-size: 14px; font-weight: 700; color: var(--text); display: block; }
+    .step-text span { font-size: 13px; color: var(--muted); }
+    .accomp-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .accomp-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .accomp-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--purple-light); }
+    .accomp-stat span { font-size: 11px; color: var(--muted); }
+    .accomp-cta { text-align: center; }
+    .accomp-btn { display: inline-block; background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; text-decoration: none; border-radius: 14px; padding: 16px 32px; font-size: 16px; font-weight: 700; transition: opacity 0.2s; }
+    .accomp-btn:hover { opacity: 0.88; }
+    .accomp-note { margin-top: 10px; font-size: 12px; color: var(--dim); }
+    .footer { text-align: center; padding: 24px; color: var(--dim); font-size: 13px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--dim); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="https://www.maitrise-ia.pro" class="logo"><div class="logo-icon">&#129504;</div><div class="logo-text">Maîtrise <span>IA</span></div></a>
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="nav-ig">@monsieur.ia.2.1</a>
+  </nav>
+  <div class="hero">
+    <div class="hero-badge"><span class="dot"></span>Comme promis dans la vidéo</div>
+    <h1>Claude peut <span>monter tes vidéos</span> à ta place</h1>
+    <p>Le guide complet pour créer des vidéos sans logiciel de montage — sous-titres animés, motion graphics, découpe IA. Tout ça avec Claude.</p>
+  </div>
+  <div class="gate-section" id="gate-section">
+    <div class="gate-card">
+      <div class="gate-icon">&#127916;</div>
+      <h2>Accède au guide gratuitement</h2>
+      <p>Entre ton email pour débloquer le guide complet montage vidéo avec Claude — je t'envoie aussi les prochaines ressources dès qu'elles sortent.</p>
+      <form class="gate-form" id="gateForm" onsubmit="unlockGuides(event)">
+        <input type="hidden" name="access_key" value="038b1035-ecbd-4506-bd90-5a6421828169" />
+        <input type="hidden" name="subject" value="Nouvelle inscription — bridge page Montage Vidéo Claude" />
+        <input type="hidden" name="from_name" value="Maîtrise IA" />
+        <input type="email" name="email" id="gateEmail" placeholder="ton@email.com" required />
+        <button type="submit" class="gate-btn" id="gateSubmit">Débloquer le guide →</button>
+      </form>
+      <p class="gate-note">Zéro spam. Désabonnement en 1 clic.</p>
+    </div>
+  </div>
+  <div class="section" id="guides-section">
+    <div class="resource-intro"><h2>&#127916; Guide complet — Montage vidéo avec Claude</h2><p>Ce guide couvre tout : ce que Claude peut faire avec Remotion, comment l'installer, les deux workflows principaux, et comment prompt Claude pour obtenir des résultats précis.</p></div>
+    <div class="tldr-box"><h3>TL;DR — Ce qu'il faut retenir</h3><ul>
+      <li><strong>Remotion</strong> est un framework qui crée des vidéos en code React. Tu décris, Claude écrit le code, Remotion génère le MP4.</li>
+      <li>Le <strong>Remotion Agent Skill</strong> apprend à Claude comment écrire du code Remotion correctement. Tu l'installes une fois, ça change tout.</li>
+      <li>Deux workflows : <strong>incrustations et animations</strong> sur une vidéo propre, ou <strong>découpe assistée</strong> via transcription Whisper.</li>
+      <li>Ce qui marche très bien : <strong>sous-titres animés mot par mot</strong>, motion graphics, lower thirds, intros de logo.</li>
+      <li>Ce qui ne marche pas : suppression automatique des mots parasites frame-perfect. C'est une limite technique.</li>
+      <li>Ton fichier source doit être en <strong>H.264 MP4</strong>. Si tu filmes sur Mac ou iPhone, il faudra convertir d'abord.</li>
+      <li>Tout se rend <strong>en local</strong>. Aucun service cloud. Aucun frais à la minute.</li>
+    </ul></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 1</div><div class="guide-title">Qu'est-ce que Remotion et pourquoi ça change tout</div><div class="guide-desc">Les éditeurs classiques (Premiere, DaVinci) fonctionnent avec une timeline visuelle — intuitif mais 100% manuel. Remotion aborde la vidéo différemment : tout est du code React. Tu écris ce qui doit apparaître à chaque image, Remotion génère le MP4.<br /><br />L'avantage : si tu peux décrire une vidéo en français, et que Claude peut écrire le code React à ta place, tu contournes complètement la courbe d'apprentissage. C'est exactement ce que permet le Remotion Agent Skill.</div><span class="guide-tag">Fondamentaux</span></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 2</div><div class="guide-title">Ce que l'IA peut et ne peut pas faire</div><div class="guide-desc"><strong style="color:#22c55e">✓ Ce qui marche :</strong> sous-titres animés synchronisés, découpe de segments par timestamps, motion graphics et incrustations (lower thirds, titres animés, intros de logo).<br /><br /><strong style="color:#ef4444">✗ Ce qui ne marche pas :</strong> suppression automatique des mots parasites frame-perfect. L'IA traite la vidéo par images échantillonnées — ce n'est pas un problème de prompting, c'est une limite technique fondamentale.</div><span class="guide-tag yellow">Important à savoir</span></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 3</div><div class="guide-title">Installation — Les deux workflows</div><div class="guide-desc"><strong>Scénario A (recommandé) — Incrustations et Animations :</strong> Tu as une vidéo propre et tu veux ajouter des sous-titres, motion graphics ou effets par-dessus.<br /><br /><strong>Scénario B — Découpe assistée par IA :</strong> Tu as des rushs bruts, tu veux utiliser Whisper pour transcrire l'audio, puis Claude pour identifier les segments à garder.<br /><br />Dans les deux cas : installe Node.js, crée un projet Remotion avec <code style="background:#0d0d20;padding:2px 8px;border-radius:6px;font-size:13px;color:#a78bfa">npx create-video@latest</code>, puis installe le skill avec <code style="background:#0d0d20;padding:2px 8px;border-radius:6px;font-size:13px;color:#a78bfa">npx skills add remotion-dev/skills</code>.</div><span class="guide-tag">Setup</span></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 4</div><div class="guide-title">Ajouter des sous-titres et motion graphics</div><div class="guide-desc">Exemple de prompt qui fonctionne :<br /><br /><span style="display:block;background:#0d0d20;border:1px solid #2a2a4a;border-radius:10px;padding:14px 16px;font-size:13px;color:#c4b5fd;line-height:1.7;margin-top:8px;font-style:italic">"En utilisant le skill remotion-best-practices, prends la vidéo dans public/output.mp4 et ajoute des sous-titres animés mot par mot en police Inter blanche, 36px, centrés en bas de l'image, avec le mot actuel en jaune. Synchronise le timing avec l'audio."</span><br />Règle d'or : plus tu es précis sur la police, la taille, la couleur et la position — meilleur est le résultat.</div><span class="guide-tag">Pratique</span></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 5</div><div class="guide-title">Découpe assistée avec Whisper + Claude</div><div class="guide-desc">Installe Whisper : <code style="background:#0d0d20;padding:2px 8px;border-radius:6px;font-size:13px;color:#a78bfa">npx remotion whisper install</code><br />Transcris ta vidéo : <code style="background:#0d0d20;padding:2px 8px;border-radius:6px;font-size:13px;color:#a78bfa">npx remotion whisper transcribe public/output.mp4</code><br /><br />Donne ensuite le JSON de transcription à Claude et demande-lui de générer une liste des segments à garder/couper. Remotion rend uniquement les segments "keep" avec un fondu enchaîné de 3 images entre chacun.<br /><br /><strong style="color:#f59e0b">Note :</strong> les points de coupe ne sont pas toujours parfaits — prévois de les vérifier manuellement dans le JSON.</div><span class="guide-tag">Avancé</span></div>
+    <div class="guide-block"><div class="guide-num">PARTIE 6</div><div class="guide-title">Problèmes courants et solutions</div><div class="guide-desc" style="display:flex;flex-direction:column;gap:12px;">
+      <div><strong style="color:#fff">Vidéo ne se lit pas ou sous-titres désynchronisés</strong><br /><span style="color:#94a3b8">Convertis en H.264 : <code style="background:#0d0d20;padding:2px 6px;border-radius:4px;font-size:12px;color:#a78bfa">npx remotion ffmpeg -i source.mov -c:v libx264 -crf 23 output.mp4</code></span></div>
+      <div><strong style="color:#fff">Erreurs dans Remotion Studio</strong><br /><span style="color:#94a3b8">Mets à jour le skill : <code style="background:#0d0d20;padding:2px 6px;border-radius:4px;font-size:12px;color:#a78bfa">npx remotion skills update</code></span></div>
+      <div><strong style="color:#fff">Transcription Whisper trop lente</strong><br /><span style="color:#94a3b8">Utilise le modèle medium.en au lieu de large.</span></div>
+      <div><strong style="color:#fff">Dois-je connaître React ou JavaScript ?</strong><br /><span style="color:#94a3b8">Non. Claude écrit tout le code. Savoir lire un peu de code aide quand il y a un problème.</span></div>
+    </div><span class="guide-tag red">Dépannage</span></div>
+  </div>
+  <div class="separator" id="separator"><div class="separator-line"></div><div class="separator-text">Tu veux aller plus loin ?</div><div class="separator-line"></div></div>
+  <div class="accomp-block" id="accomp-block">
+    <div class="accomp-inner">
+      <div class="accomp-label">&#128640; Accompagnement IA</div>
+      <h2>Intègre Claude dans ton business <span>en 8 semaines</span></h2>
+      <p>Ce guide, c'est un début. Si tu veux vraiment maîtriser Claude — pas juste pour la vidéo, mais pour automatiser ton business entier — c'est ce qu'on fait dans l'accompagnement.</p>
+      <div class="accomp-steps">
+        <div class="accomp-step"><div class="step-num">1</div><div class="step-text"><strong>1 session collective par semaine</strong><span>Cas pratiques en live sur des situations réelles d'entrepreneurs</span></div></div>
+        <div class="accomp-step"><div class="step-num">2</div><div class="step-text"><strong>1 coaching perso 30 min par semaine</strong><span>On travaille directement sur ton business, ta situation, tes outils</span></div></div>
+        <div class="accomp-step"><div class="step-num">3</div><div class="step-text"><strong>Un système IA adapté à ce que tu fais</strong><span>Tu repars avec des automatisations qui tournent pendant que tu dors</span></div></div>
+      </div>
+      <div class="accomp-stats">
+        <div class="accomp-stat"><strong>8</strong><span>semaines</span></div>
+        <div class="accomp-stat"><strong>10</strong><span>places max</span></div>
+        <div class="accomp-stat"><strong>100%</strong><span>remote</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://maitrise-ia.pro/accompagnement" class="accomp-btn">Découvrir l'accompagnement →</a>
+        <p class="accomp-note">1 000€ — payable en 2 fois · Prochaine cohorte en cours</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><a href="https://maitrise-ia.pro">maitrise-ia.pro</a> · <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank">@monsieur.ia.2.1</a></div>
+  <script>
+    if (localStorage.getItem('mia_montage_unlocked') === '1') showGuides();
+    function unlockGuides(e) {
+      e.preventDefault();
+      const btn = document.getElementById('gateSubmit');
+      btn.textContent = 'Envoi...'; btn.disabled = true;
+      const email = document.getElementById('gateEmail').value;
+      const data = new FormData(document.getElementById('gateForm'));
+      const w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+      const bhData = new FormData();
+      bhData.append('email', email);
+      bhData.append('publication_id', '50ba2a2f-b4b2-4c73-b353-133ac88aec19');
+      bhData.append('utm_source', 'bridge-montage-video');
+      const bh = fetch('https://app.beehiiv.com/api/v1/subscriptions', { method: 'POST', mode: 'no-cors', body: bhData });
+      Promise.allSettled([w3, bh]).then(() => { localStorage.setItem('mia_montage_unlocked', '1'); showGuides(); });
+      setTimeout(showGuides, 2000);
+    }
+    function showGuides() {
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('guides-section').style.display = 'block';
+      document.getElementById('separator').style.display = 'flex';
+      document.getElementById('accomp-block').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
