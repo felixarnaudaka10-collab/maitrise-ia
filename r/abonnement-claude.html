@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les 10 habitudes qui tuent ton abonnement Claude — Maîtrise IA</title>
+  <meta name="description" content="La checklist complète : 10 habitudes à couper + 10 solutions pour aller 10x plus loin avec ton abonnement Claude." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+      --text: #fff; --muted: #94a3b8; --dim: #64748b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-ig { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .nav-ig:hover { color: var(--text); }
+    .hero { text-align: center; padding: 56px 24px 48px; max-width: 640px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 span { color: var(--purple-light); }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+    /* EMAIL GATE */
+    .gate-section { max-width: 520px; margin: 0 auto; padding: 0 24px 64px; }
+    .gate-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 24px; padding: 40px 32px; text-align: center; }
+    .gate-icon { font-size: 40px; margin-bottom: 16px; }
+    .gate-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .gate-card p { color: var(--muted); font-size: 15px; margin-bottom: 28px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 12px; }
+    .gate-form input { background: #0d0d20; border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .gate-form input:focus { border-color: var(--purple); }
+    .gate-form input::placeholder { color: var(--dim); }
+    .gate-btn { background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; border: none; border-radius: 12px; padding: 15px 24px; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-note { font-size: 12px; color: var(--dim); margin-top: 8px; }
+
+    /* GUIDES */
+    .section { max-width: 700px; margin: 0 auto; padding: 0 24px 64px; display: none; }
+    .resource-intro { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px; }
+    .resource-intro h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .resource-intro p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .prompt-list { display: flex; flex-direction: column; gap: 16px; }
+    .prompt-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
+    .prompt-card:hover { border-color: var(--purple); }
+    .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .prompt-title { font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .prompt-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.25); padding: 4px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .prompt-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+    .prompt-box { background: #0d0d20; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; font-family: 'Inter', monospace; font-size: 13px; color: #c4b5fd; line-height: 1.7; white-space: pre-wrap; word-break: break-word; position: relative; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(124,58,237,0.2); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { background: rgba(124,58,237,0.4); }
+    .copy-btn.copied { background: rgba(34,197,94,0.2); color: var(--green); border-color: rgba(34,197,94,0.3); }
+
+    /* OFFERS */
+    .separator { max-width: 700px; margin: 0 auto 48px; padding: 0 24px; display: none; align-items: center; gap: 16px; }
+    .separator-line { flex: 1; height: 1px; background: var(--border); }
+    .separator-text { color: var(--dim); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+
+    /* ACCOMPAGNEMENT */
+    .accomp-block { max-width: 700px; margin: 0 auto; padding: 0 24px 40px; display: none; }
+    .accomp-inner { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.06)); border: 1.5px solid rgba(124,58,237,0.25); border-radius: 24px; padding: 40px 32px; }
+    .accomp-label { display: inline-block; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .accomp-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .accomp-inner h2 span { color: var(--purple-light); }
+    .accomp-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .accomp-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .accomp-step { display: flex; align-items: flex-start; gap: 14px; }
+    .step-num { width: 28px; height: 28px; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: var(--purple-light); flex-shrink: 0; margin-top: 2px; }
+    .step-text strong { font-size: 14px; font-weight: 700; color: var(--text); display: block; }
+    .step-text span { font-size: 13px; color: var(--muted); }
+    .accomp-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .accomp-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .accomp-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--purple-light); }
+    .accomp-stat span { font-size: 11px; color: var(--muted); }
+    .accomp-cta { text-align: center; }
+    .accomp-btn { display: inline-block; background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; text-decoration: none; border-radius: 14px; padding: 16px 32px; font-size: 16px; font-weight: 700; transition: opacity 0.2s; }
+    .accomp-btn:hover { opacity: 0.88; }
+    .accomp-note { margin-top: 10px; font-size: 12px; color: var(--dim); }
+
+    /* ARSENAL */
+    .arsenal-block { max-width: 700px; margin: 0 auto; padding: 0 24px 40px; display: none; }
+    .arsenal-inner { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(239,68,68,0.05)); border: 1.5px solid rgba(245,158,11,0.2); border-radius: 24px; padding: 40px 32px; }
+    .arsenal-label { display: inline-block; background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .arsenal-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .arsenal-inner h2 span { color: #fbbf24; }
+    .arsenal-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .arsenal-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .arsenal-cat { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); color: #fbbf24; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+    .arsenal-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .arsenal-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .arsenal-stat strong { display: block; font-size: 22px; font-weight: 900; color: #fbbf24; }
+    .arsenal-stat span { font-size: 11px; color: var(--muted); }
+
+    /* DÉLÉGATION */
+    .deleg-block { max-width: 700px; margin: 0 auto; padding: 0 24px 80px; display: none; }
+    .deleg-inner { background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(16,185,129,0.04)); border: 1.5px solid rgba(34,197,94,0.2); border-radius: 24px; padding: 40px 32px; }
+    .deleg-label { display: inline-block; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .deleg-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .deleg-inner h2 span { color: var(--green); }
+    .deleg-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .deleg-types { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .deleg-type { background: rgba(10,10,26,0.5); border: 1px solid rgba(34,197,94,0.12); border-radius: 12px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+    .deleg-type strong { color: var(--text); font-weight: 700; }
+    .deleg-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .deleg-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .deleg-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--green); }
+    .deleg-stat span { font-size: 11px; color: var(--muted); }
+
+    .footer { text-align: center; padding: 24px; color: var(--dim); font-size: 13px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--dim); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://www.maitrise-ia.pro" class="logo">
+      <div class="logo-icon">🧠</div>
+      <div class="logo-text">Maîtrise <span>IA</span></div>
+    </a>
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="nav-ig">@monsieur.ia.2.1</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge"><span class="dot"></span>Comme promis dans la vidéo</div>
+    <h1>La checklist complète <span>abonnement Claude</span></h1>
+    <p>10 habitudes à couper + 10 solutions concrètes. Copie-les directement.</p>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div class="gate-section" id="gate-section">
+    <div class="gate-card">
+      <div class="gate-icon">🔒</div>
+      <h2>Accède aux ressources gratuitement</h2>
+      <p>Entre ton email pour débloquer la checklist complète — je t'enverrai aussi les prochaines ressources dès qu'elles sortent.</p>
+      <form class="gate-form" id="gateForm" onsubmit="unlockGuides(event)">
+        <input type="hidden" name="access_key" value="038b1035-ecbd-4506-bd90-5a6421828169" />
+        <input type="hidden" name="subject" value="Nouvelle inscription — bridge page abonnement Claude" />
+        <input type="hidden" name="from_name" value="Maîtrise IA" />
+        <input type="email" name="email" id="gateEmail" placeholder="ton@email.com" required />
+        <button type="submit" class="gate-btn" id="gateSubmit">Débloquer la checklist →</button>
+      </form>
+      <p class="gate-note">Zéro spam. Désabonnement en 1 clic.</p>
+    </div>
+  </div>
+
+  <!-- GUIDES (hidden until email submitted) -->
+  <div class="section" id="guides-section">
+    <div class="resource-intro">
+      <h2>💡 Comment utiliser ces ressources</h2>
+      <p>Clique sur <strong>Copier</strong> sous chaque guide pour copier le texte exact. Colle-le directement dans Claude ou garde-le dans un doc de référence.</p>
+    </div>
+
+    <div class="prompt-list">
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">Les 10 habitudes qui tuent ton abonnement Claude</div>
+          <div class="prompt-tag">⚡ Checklist</div>
+        </div>
+        <div class="prompt-desc">La liste complète des erreurs que 95% des utilisateurs font — dont les 5 de la vidéo + 5 que personne ne mentionne jamais.</div>
+        <div class="prompt-box" id="p1">HABITUDE 1 — Tu envoies un 2e message pour corriger
+→ Édite ton message original et régénère. Coupe 80% des tokens.
+
+HABITUDE 2 — Tes conversations dépassent 30 messages
+→ Au message 20-25, demande un résumé de contexte, ouvre un nouveau chat, colle. Coût remis à zéro.
+
+HABITUDE 3 — Tu envoies 3 messages pour 3 questions
+→ Groupe tout en 1 seul prompt. 3x moins de tokens, souvent une meilleure réponse.
+
+HABITUDE 4 — Tu uploades le même PDF dans chaque chat
+→ Utilise les Projets Claude. 1 seul upload, mis en cache, utilisé partout, pour toujours.
+
+HABITUDE 5 — Tu n'as jamais configuré ta mémoire
+→ Ouvre Paramètres → Mémoire. Stocke ton rôle, style, préférences. Claude s'en souvient partout.
+
+HABITUDE 6 — Tu demandes à Claude de "reformuler" quand t'es pas satisfait
+→ Utilise le bouton Régénérer. Même résultat, 0 token supplémentaire.
+
+HABITUDE 7 — Tu colles des textes bruts de 5000 mots pour "analyser"
+→ Résume ou extrait uniquement la partie pertinente avant de coller. Claude lit tout, tu paies tout.
+
+HABITUDE 8 — Tu réexpliques ton contexte à chaque nouveau chat
+→ Crée un Projet Claude avec tes instructions permanentes. Plus jamais besoin de réexpliquer.
+
+HABITUDE 9 — Tu génères des variantes une par une
+→ Demande "donne-moi 5 variantes" dans un seul message. 5x plus rapide, même coût.
+
+HABITUDE 10 — Tu n'utilises pas les artifacts pour le code et les docs
+→ Active les artifacts. Claude génère dans une fenêtre séparée, ça n'alourdit pas le contexte.
+        <button class="copy-btn" onclick="copyPrompt('p1', this)">Copier</button></div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">Le prompt de remise à zéro parfait</div>
+          <div class="prompt-tag">🔄 Productivité</div>
+        </div>
+        <div class="prompt-desc">Colle ce prompt à la fin d'une longue conversation pour créer un résumé parfait à coller dans un nouveau chat — sans rien perdre.</div>
+        <div class="prompt-box" id="p2">Résume notre conversation en mode "passation de contexte" pour que je puisse repartir dans un nouveau chat sans rien perdre.
+
+Format exact :
+🎯 Objectif du projet : [1-2 phrases]
+✅ Décisions prises : [liste des choix validés]
+📋 Prochaines étapes : [liste priorisée de ce qui reste à faire]
+⚠️ Points d'attention : [pièges identifiés, contraintes, choses à ne pas oublier]
+📎 Infos clés : [données chiffrées, noms, liens, références importantes]
+
+Règles :
+- Maximum 400 mots
+- Sois factuel, pas de blabla
+- Priorité aux infos qu'on ne retrouve pas facilement ailleurs
+        <button class="copy-btn" onclick="copyPrompt('p2', this)">Copier</button></div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">Le template de mémoire Claude à configurer une fois</div>
+          <div class="prompt-tag">🧠 Mémoire</div>
+        </div>
+        <div class="prompt-desc">Copie ce template, remplis les crochets avec tes infos, et colle-le dans Paramètres → Mémoire. Claude se souviendra de tout ça dans chaque conversation.</div>
+        <div class="prompt-box" id="p3">Je m'appelle [Prénom]. Je suis [rôle / métier].
+
+MON STYLE DE COMMUNICATION :
+- Langue : français, tutoiement
+- Ton : [direct et concis / formel / créatif / autre]
+- Longueur des réponses : [courtes et précises / détaillées / structurées avec titres]
+
+MES PROJETS EN COURS :
+- [Projet 1 : description en 1 phrase]
+- [Projet 2 : description en 1 phrase]
+
+CE QUE TU DOIS TOUJOURS FAIRE :
+- [Ex : commencer par un résumé de 1 ligne avant d'expliquer]
+- [Ex : proposer 3 options quand tu fais des suggestions]
+- [Ex : signaler si ma demande est floue avant de répondre]
+
+CE QUE TU NE DOIS JAMAIS FAIRE :
+- [Ex : ajouter des disclaimers inutiles]
+- [Ex : répéter ma question avant de répondre]
+- [Ex : utiliser des listes à puces pour tout]
+
+MES OUTILS HABITUELS :
+- [Ex : Claude Projects, Notion, VS Code, etc.]
+        <button class="copy-btn" onclick="copyPrompt('p3', this)">Copier</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="separator" id="sep-block">
+    <div class="separator-line"></div>
+    <div class="separator-text">Tu veux aller encore plus loin ?</div>
+    <div class="separator-line"></div>
+  </div>
+
+  <!-- ACCOMPAGNEMENT -->
+  <div class="accomp-block" id="accomp-block">
+    <div class="accomp-inner">
+      <div class="accomp-label">🎯 Accompagnement individuel</div>
+      <h2>Intègre l'IA dans ton quotidien <span>sans te perdre</span></h2>
+      <p>Tu vois le potentiel de Claude mais tu perds du temps à tâtonner seul. En 4 semaines, on construit ensemble un système IA qui s'adapte exactement à ton activité.</p>
+      <div class="accomp-steps">
+        <div class="accomp-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Audit de ton activité</strong><span>On identifie les 3 tâches où l'IA peut te faire gagner le plus de temps immédiatement.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Construction de tes outils</strong><span>On crée tes prompts sur mesure, ta mémoire Claude, tes projets — tout configuré pour toi.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Automatisation des répétitifs</strong><span>On automatise ce qui te prend du temps sans valeur ajoutée de ta part.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Autonomie totale</strong><span>Tu sais exactement comment utiliser Claude dans chaque situation de ton métier.</span></div>
+        </div>
+      </div>
+      <div class="accomp-stats">
+        <div class="accomp-stat"><strong>4h</strong><span>gagnées / semaine en moyenne</span></div>
+        <div class="accomp-stat"><strong>4 sem.</strong><span>pour voir les résultats</span></div>
+        <div class="accomp-stat"><strong>100%</strong><span>sur mesure</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://www.maitrise-ia.pro/accompagnement.html" class="accomp-btn">Découvrir l'accompagnement →</a>
+        <div class="accomp-note">Places limitées · Entretien découverte gratuit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARSENAL -->
+  <div class="arsenal-block" id="arsenal-block">
+    <div class="arsenal-inner">
+      <div class="arsenal-label">⚡ L'Arsenal Claude</div>
+      <h2>50+ guides prêts à copier-coller, <span>mis à jour chaque semaine</span></h2>
+      <p>Tout ce que tu as vu dans mes vidéos, organisé par situation. Tu cherches, tu copies, tu utilises. C'est tout.</p>
+      <div class="arsenal-cats">
+        <span class="arsenal-cat">📱 Contenu Instagram</span>
+        <span class="arsenal-cat">✍️ Copywriting</span>
+        <span class="arsenal-cat">📊 Stratégie business</span>
+        <span class="arsenal-cat">⚙️ Automatisation</span>
+        <span class="arsenal-cat">💻 Claude Code & Cowork</span>
+      </div>
+      <div class="arsenal-stats">
+        <div class="arsenal-stat"><strong>50+</strong><span>guides disponibles</span></div>
+        <div class="arsenal-stat"><strong>+5</strong><span>ajouts par semaine</span></div>
+        <div class="arsenal-stat"><strong>∞</strong><span>accès à vie</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://felixarnaud.gumroad.com/l/herfp" target="_blank" class="accomp-btn" style="background:linear-gradient(135deg,#f59e0b,#ef4444);box-shadow:0 6px 28px rgba(245,158,11,0.3);">Obtenir l'Arsenal Claude — 27€ →</a>
+        <div class="accomp-note">Paiement unique · Accès immédiat · Mises à jour incluses à vie</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉLÉGATION -->
+  <div class="deleg-block" id="deleg-block">
+    <div class="deleg-inner">
+      <div class="deleg-label">🤖 Délégation IA</div>
+      <h2>Tu veux que ce soit fait, <span>pas juste expliqué</span></h2>
+      <p>Tu n'as pas le temps d'apprendre à tout faire toi-même. Je prends en charge tes projets IA de A à Z — de l'idée au déploiement.</p>
+      <div class="deleg-types">
+        <div class="deleg-type"><strong>Automatisation de processus</strong> — emails, reporting, traitement de données, workflows récurrents</div>
+        <div class="deleg-type"><strong>Création d'outils internes</strong> — dashboards, générateurs de contenu, bases de connaissances IA</div>
+        <div class="deleg-type"><strong>Intégration Claude dans ton équipe</strong> — configuration, formation, mise en place des bonnes pratiques</div>
+        <div class="deleg-type"><strong>Projets sur mesure</strong> — tu décris le problème, je construis la solution</div>
+      </div>
+      <div class="deleg-stats">
+        <div class="deleg-stat"><strong>-90%</strong><span>de temps sur les tâches répétitives</span></div>
+        <div class="deleg-stat"><strong>0</strong><span>ligne de code à écrire pour toi</span></div>
+        <div class="deleg-stat"><strong>7j</strong><span>pour les premiers livrables</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://www.maitrise-ia.pro/accompagnement.html" class="accomp-btn" style="background:linear-gradient(135deg,#16a34a,#059669);box-shadow:0 6px 28px rgba(34,197,94,0.25);">Discuter de ton projet →</a>
+        <div class="accomp-note">Appel découverte gratuit · Devis sous 48h</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Maîtrise IA · <a href="https://www.maitrise-ia.pro">maitrise-ia.pro</a></p>
+  </div>
+
+  <script>
+    // Check if already unlocked
+    if (localStorage.getItem('mia_unlocked') === '1') showGuides();
+
+    function unlockGuides(e) {
+      e.preventDefault();
+      const btn = document.getElementById('gateSubmit');
+      btn.textContent = 'Envoi...';
+      btn.disabled = true;
+      const email = document.getElementById('gateEmail').value;
+
+      // 1. Web3forms
+      const data = new FormData(document.getElementById('gateForm'));
+      const w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+
+      // 2. Beehiiv
+      const bhData = new FormData();
+      bhData.append('email', email);
+      bhData.append('publication_id', '50ba2a2f-b4b2-4c73-b353-133ac88aec19');
+      bhData.append('utm_source', 'bridge-abonnement');
+      const bh = fetch('https://app.beehiiv.com/api/v1/subscriptions', { method: 'POST', mode: 'no-cors', body: bhData });
+
+      Promise.allSettled([w3, bh]).then(() => showGuides());
+      setTimeout(showGuides, 2000);
+    }
+
+    function showGuides() {
+      localStorage.setItem('mia_unlocked', '1');
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('guides-section').style.display = 'block';
+      document.getElementById('sep-block').style.display = 'flex';
+      document.getElementById('accomp-block').style.display = 'block';
+      document.getElementById('arsenal-block').style.display = 'block';
+      document.getElementById('deleg-block').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyPrompt(id, btn) {
+      const box = document.getElementById(id);
+      const text = box.childNodes[0].textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copié !';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
