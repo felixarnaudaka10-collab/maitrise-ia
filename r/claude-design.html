@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Design — Comment ça marche et comment le prendre en main — Maîtrise IA</title>
+  <meta name="description" content="Le guide complet pour démarrer avec Claude Design : accès, premiers prototypes, prompts qui marchent, workflow idée → code." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a1a; --card: #13132a; --border: #2a2a4a;
+      --purple: #7c3aed; --purple-light: #a78bfa; --blue: #3b82f6;
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+      --text: #fff; --muted: #94a3b8; --dim: #64748b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .nav { background: rgba(10,10,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--blue)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .logo-text { font-size: 15px; font-weight: 800; }
+    .logo-text span { color: var(--purple-light); }
+    .nav-ig { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .nav-ig:hover { color: var(--text); }
+    .hero { text-align: center; padding: 56px 24px 48px; max-width: 640px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 span { color: var(--purple-light); }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+    /* EMAIL GATE */
+    .gate-section { max-width: 520px; margin: 0 auto; padding: 0 24px 64px; }
+    .gate-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 24px; padding: 40px 32px; text-align: center; }
+    .gate-icon { font-size: 40px; margin-bottom: 16px; }
+    .gate-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .gate-card p { color: var(--muted); font-size: 15px; margin-bottom: 28px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 12px; }
+    .gate-form input { background: #0d0d20; border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; color: var(--text); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .gate-form input:focus { border-color: var(--purple); }
+    .gate-form input::placeholder { color: var(--dim); }
+    .gate-btn { background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; border: none; border-radius: 12px; padding: 15px 24px; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .gate-btn:hover { opacity: 0.9; }
+    .gate-note { font-size: 12px; color: var(--dim); margin-top: 8px; }
+
+    /* GUIDES */
+    .section { max-width: 700px; margin: 0 auto; padding: 0 24px 64px; display: none; }
+    .resource-intro { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 32px; }
+    .resource-intro h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .resource-intro p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .prompt-list { display: flex; flex-direction: column; gap: 16px; }
+    .prompt-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
+    .prompt-card:hover { border-color: var(--purple); }
+    .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .prompt-title { font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .prompt-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.25); padding: 4px 10px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .prompt-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+    .prompt-box { background: #0d0d20; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; font-family: 'Inter', monospace; font-size: 13px; color: #c4b5fd; line-height: 1.7; white-space: pre-wrap; word-break: break-word; position: relative; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(124,58,237,0.2); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { background: rgba(124,58,237,0.4); }
+    .copy-btn.copied { background: rgba(34,197,94,0.2); color: var(--green); border-color: rgba(34,197,94,0.3); }
+
+    .separator { max-width: 700px; margin: 0 auto 48px; padding: 0 24px; display: none; align-items: center; gap: 16px; }
+    .separator-line { flex: 1; height: 1px; background: var(--border); }
+    .separator-text { color: var(--dim); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+
+    /* ACCOMPAGNEMENT */
+    .accomp-block { max-width: 700px; margin: 0 auto; padding: 0 24px 40px; display: none; }
+    .accomp-inner { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.06)); border: 1.5px solid rgba(124,58,237,0.25); border-radius: 24px; padding: 40px 32px; }
+    .accomp-label { display: inline-block; background: rgba(124,58,237,0.15); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .accomp-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .accomp-inner h2 span { color: var(--purple-light); }
+    .accomp-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .accomp-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .accomp-step { display: flex; align-items: flex-start; gap: 14px; }
+    .step-num { width: 28px; height: 28px; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: var(--purple-light); flex-shrink: 0; margin-top: 2px; }
+    .step-text strong { font-size: 14px; font-weight: 700; color: var(--text); display: block; }
+    .step-text span { font-size: 13px; color: var(--muted); }
+    .accomp-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .accomp-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .accomp-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--purple-light); }
+    .accomp-stat span { font-size: 11px; color: var(--muted); }
+    .accomp-cta { text-align: center; }
+    .accomp-btn { display: inline-block; background: linear-gradient(135deg, var(--purple), #5b21b6); color: #fff; text-decoration: none; border-radius: 14px; padding: 16px 32px; font-size: 16px; font-weight: 700; transition: opacity 0.2s; }
+    .accomp-btn:hover { opacity: 0.88; }
+    .accomp-note { margin-top: 10px; font-size: 12px; color: var(--dim); }
+
+    .arsenal-block { max-width: 700px; margin: 0 auto; padding: 0 24px 40px; display: none; }
+    .arsenal-inner { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(239,68,68,0.05)); border: 1.5px solid rgba(245,158,11,0.2); border-radius: 24px; padding: 40px 32px; }
+    .arsenal-label { display: inline-block; background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .arsenal-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .arsenal-inner h2 span { color: #fbbf24; }
+    .arsenal-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .arsenal-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .arsenal-cat { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); color: #fbbf24; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+    .arsenal-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .arsenal-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .arsenal-stat strong { display: block; font-size: 22px; font-weight: 900; color: #fbbf24; }
+    .arsenal-stat span { font-size: 11px; color: var(--muted); }
+
+    .deleg-block { max-width: 700px; margin: 0 auto; padding: 0 24px 80px; display: none; }
+    .deleg-inner { background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(16,185,129,0.04)); border: 1.5px solid rgba(34,197,94,0.2); border-radius: 24px; padding: 40px 32px; }
+    .deleg-label { display: inline-block; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .deleg-inner h2 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
+    .deleg-inner h2 span { color: var(--green); }
+    .deleg-inner > p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .deleg-types { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .deleg-type { background: rgba(10,10,26,0.5); border: 1px solid rgba(34,197,94,0.12); border-radius: 12px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+    .deleg-type strong { color: var(--text); font-weight: 700; }
+    .deleg-stats { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .deleg-stat { background: rgba(10,10,26,0.5); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 100px; text-align: center; }
+    .deleg-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--green); }
+    .deleg-stat span { font-size: 11px; color: var(--muted); }
+
+    .footer { text-align: center; padding: 24px; color: var(--dim); font-size: 13px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--dim); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://www.maitrise-ia.pro" class="logo">
+      <div class="logo-icon">🧠</div>
+      <div class="logo-text">Maîtrise <span>IA</span></div>
+    </a>
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="nav-ig">@monsieur.ia.2.1</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge"><span class="dot"></span>Comme promis dans la vidéo</div>
+    <h1>Claude Design — <span>le guide pour démarrer</span></h1>
+    <p>Comment accéder, tes premiers prototypes, les prompts qui marchent. Copie-les directement.</p>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div class="gate-section" id="gate-section">
+    <div class="gate-card">
+      <div class="gate-icon">🎨</div>
+      <h2>Accède aux guides gratuitement</h2>
+      <p>Entre ton email pour débloquer le guide complet Claude Design — je t'envoie aussi les prochaines ressources dès qu'elles sortent.</p>
+      <form class="gate-form" id="gateForm" onsubmit="unlockGuides(event)">
+        <input type="hidden" name="access_key" value="038b1035-ecbd-4506-bd90-5a6421828169" />
+        <input type="hidden" name="subject" value="Nouvelle inscription — bridge page Claude Design" />
+        <input type="hidden" name="from_name" value="Maîtrise IA" />
+        <input type="email" name="email" id="gateEmail" placeholder="ton@email.com" required />
+        <button type="submit" class="gate-btn" id="gateSubmit">Débloquer les guides →</button>
+      </form>
+      <p class="gate-note">Zéro spam. Désabonnement en 1 clic.</p>
+    </div>
+  </div>
+
+  <!-- GUIDES -->
+  <div class="section" id="guides-section">
+    <div class="resource-intro">
+      <h2>🎨 Comment utiliser ces guides</h2>
+      <p>Clique sur <strong>Copier</strong> sous chaque guide et colle directement dans Claude Design. Les prompts sont prêts à l'emploi — remplace juste les crochets par tes infos.</p>
+    </div>
+
+    <div class="prompt-list">
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">Comment accéder à Claude Design et faire ton premier prototype</div>
+          <div class="prompt-tag">🚀 Démarrage</div>
+        </div>
+        <div class="prompt-desc">Le guide étape par étape pour accéder à Claude Design et générer ton premier prototype en moins de 5 minutes.</div>
+        <div class="prompt-box" id="p1">ÉTAPE 1 — Accès
+→ Va sur claude.ai/design
+→ Disponible pour les abonnés Pro, Max, Team et Enterprise
+→ Si tu es sur le bon plan, le menu "Design" apparaît dans la barre de navigation
+
+ÉTAPE 2 — Crée ton premier projet
+→ Clique sur "New Design Project"
+→ Donne un nom à ton projet (ex : "App méditation", "Landing page portfolio")
+
+ÉTAPE 3 — Décris ce que tu veux en langage normal
+→ Pas besoin de jargon technique
+→ Exemple : "Crée-moi une app mobile de méditation, couleurs nature (vert sauge, beige), typographie zen et épurée, interface minimaliste"
+→ Claude génère un prototype complet et cliquable
+
+ÉTAPE 4 — Ajuste avec précision
+→ Clique sur n'importe quel élément pour le sélectionner
+→ Modifie les textes directement à la main
+→ Utilise les curseurs pour couleurs, espacement, typographie en temps réel
+→ Commente une zone précise pour que Claude la modifie
+
+ÉTAPE 5 — Exporte ou connecte à Claude Code
+→ Bouton "Send to Claude Code" pour passer directement au développement
+→ Ou exporte en : PDF · HTML · PowerPoint · Canva
+→ Partage un lien cliquable directement depuis l'interface
+        <button class="copy-btn" onclick="copyPrompt('p1', this)">Copier</button></div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">5 prompts Claude Design qui donnent les meilleurs résultats</div>
+          <div class="prompt-tag">✍️ Prompts</div>
+        </div>
+        <div class="prompt-desc">Les structures de prompts testées pour générer des designs propres du premier coup — pour 5 cas d'usage différents.</div>
+        <div class="prompt-box" id="p2">── APP MOBILE ──
+"Crée une app mobile [type d'app]. Style visuel : [minimaliste / coloré / corporate / dark mode]. Couleurs principales : [couleurs]. L'écran principal doit montrer [contenu clé]. Navigation en bas avec 4 onglets : [liste]."
+
+── LANDING PAGE ──
+"Crée une landing page pour [produit/service]. Cible : [audience]. Ton : [professionnel / amical / urgent]. Structure : hero avec accroche + 3 bénéfices + témoignages + CTA final. Couleur dominante : [couleur]."
+
+── DASHBOARD ──
+"Crée un dashboard pour [contexte : e-commerce / SaaS / analytics]. Affiche en priorité : [métrique 1], [métrique 2], [métrique 3]. Style : dark mode / light mode. Inclus un graphique [type] et une table de données."
+
+── PRÉSENTATION ──
+"Crée une présentation de [X] slides sur [sujet]. Slide 1 : titre accrocheur. Slides 2-[X-1] : [structure souhaitée]. Slide finale : CTA / conclusion. Style : [corporate / créatif / minimaliste]. Couleurs : [palette]."
+
+── RÉSEAUX SOCIAUX ──
+"Crée un template de post Instagram [format carré/story] pour [marque/sujet]. Style cohérent avec [description de la charte]. Texte principal : [message]. Inclus un espace pour logo en [position]."
+        <button class="copy-btn" onclick="copyPrompt('p2', this)">Copier</button></div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-title">Le workflow complet : de l'idée au code en une conversation</div>
+          <div class="prompt-tag">⚡ Workflow</div>
+        </div>
+        <div class="prompt-desc">Le process exact pour passer de zéro à un prototype fonctionnel et codé sans changer d'outil — utilisé par les équipes qui compressent une semaine de travail en une conversation.</div>
+        <div class="prompt-box" id="p3">PHASE 1 — Brief (2 min)
+Avant d'ouvrir Claude Design, réponds à ces 4 questions :
+• Quel est l'objectif principal de ce projet ?
+• Qui sont les utilisateurs ?
+• Quels sont les 3 écrans/sections indispensables ?
+• As-tu une charte graphique existante ? (couleurs, typos, logo)
+
+PHASE 2 — Génération du prototype (5-10 min)
+1. Ouvre claude.ai/design → New Project
+2. Colle ton brief complet en une seule fois
+3. Si tu as une charte : upload tes fichiers (CSS, PDF brand guide, captures)
+   → Claude applique automatiquement tes couleurs et typos
+4. Laisse Claude générer sans l'interrompre
+5. Fais une première passe de retours en commentant les zones précises
+
+PHASE 3 — Itération (5-10 min)
+• Pour modifier : "Change la couleur du bouton CTA en [couleur]"
+• Pour restructurer : "Déplace le bloc témoignages avant le pricing"
+• Pour le ton : "Rends le texte du hero plus direct et percutant"
+• Utilise les curseurs visuels pour les ajustements fins
+
+PHASE 4 — Vers le code (1 clic)
+• Si tu as Claude Code : bouton "Send to Claude Code"
+  → De l'idée au prototype au code, sans changer d'outil
+• Sans Claude Code :
+  → Export HTML pour intégrer directement
+  → Export Canva pour retouches en équipe
+  → Lien de partage pour validation client
+
+RÉSULTAT : ce qui prenait 1 semaine avec Figma + dev → 1 conversation.
+        <button class="copy-btn" onclick="copyPrompt('p3', this)">Copier</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="separator" id="sep-block">
+    <div class="separator-line"></div>
+    <div class="separator-text">Tu veux aller encore plus loin ?</div>
+    <div class="separator-line"></div>
+  </div>
+
+  <!-- ACCOMPAGNEMENT -->
+  <div class="accomp-block" id="accomp-block">
+    <div class="accomp-inner">
+      <div class="accomp-label">🎯 Accompagnement individuel</div>
+      <h2>Intègre Claude Design dans <span>ton workflow en 4 semaines</span></h2>
+      <p>Tu vois le potentiel mais tu veux être sûr de l'utiliser correctement dans ton activité. En 4 semaines, on construit ensemble un système IA complet adapté à ce que tu fais.</p>
+      <div class="accomp-steps">
+        <div class="accomp-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Audit de tes besoins</strong><span>On identifie où Claude Design (et les autres outils Claude) te font gagner le plus de temps.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Tes prompts sur mesure</strong><span>On crée des templates de prompts adaptés exactement à ton secteur et tes projets habituels.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Workflow idée → livrable</strong><span>On construit ton process de A à Z : brief → design → code → export → client.</span></div>
+        </div>
+        <div class="accomp-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Autonomie totale</strong><span>Tu sais utiliser tous les outils Claude dans chaque situation de ton métier. Sans jamais bloquer.</span></div>
+        </div>
+      </div>
+      <div class="accomp-stats">
+        <div class="accomp-stat"><strong>4h</strong><span>gagnées / semaine en moyenne</span></div>
+        <div class="accomp-stat"><strong>4 sem.</strong><span>pour voir les résultats</span></div>
+        <div class="accomp-stat"><strong>100%</strong><span>sur mesure</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://www.maitrise-ia.pro/accompagnement.html" class="accomp-btn">Réserver un appel découverte →</a>
+        <div class="accomp-note">Entretien gratuit · Places limitées</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARSENAL -->
+  <div class="arsenal-block" id="arsenal-block">
+    <div class="arsenal-inner">
+      <div class="arsenal-label">⚡ L'Arsenal Claude</div>
+      <h2>50+ guides Claude prêts à copier-coller, <span>mis à jour chaque semaine</span></h2>
+      <p>Tout ce que tu as vu dans mes vidéos — Claude Design, Claude Code, Cowork, copywriting, stratégie — organisé par situation. Tu cherches, tu copies, tu utilises.</p>
+      <div class="arsenal-cats">
+        <span class="arsenal-cat">🎨 Claude Design</span>
+        <span class="arsenal-cat">💻 Claude Code</span>
+        <span class="arsenal-cat">📱 Contenu Instagram</span>
+        <span class="arsenal-cat">✍️ Copywriting</span>
+        <span class="arsenal-cat">⚙️ Automatisation</span>
+      </div>
+      <div class="arsenal-stats">
+        <div class="arsenal-stat"><strong>50+</strong><span>guides disponibles</span></div>
+        <div class="arsenal-stat"><strong>+5</strong><span>ajouts par semaine</span></div>
+        <div class="arsenal-stat"><strong>∞</strong><span>accès à vie</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://felixarnaud.gumroad.com/l/herfp" target="_blank" class="accomp-btn" style="background:linear-gradient(135deg,#f59e0b,#ef4444);box-shadow:0 6px 28px rgba(245,158,11,0.3);">Obtenir l'Arsenal Claude — 27€ →</a>
+        <div class="accomp-note">Paiement unique · Accès immédiat · Mises à jour incluses à vie</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉLÉGATION -->
+  <div class="deleg-block" id="deleg-block">
+    <div class="deleg-inner">
+      <div class="deleg-label">🤖 Délégation IA</div>
+      <h2>Tu veux que ce soit fait, <span>pas juste expliqué</span></h2>
+      <p>Je prends en charge tes projets de design et de développement IA de A à Z. Tu décris ce que tu veux, je livre.</p>
+      <div class="deleg-types">
+        <div class="deleg-type"><strong>Prototypes et interfaces</strong> — de ton brief au prototype cliquable livré en 48h</div>
+        <div class="deleg-type"><strong>De l'idée au code</strong> — Claude Design + Claude Code, je gère le pipeline complet</div>
+        <div class="deleg-type"><strong>Intégration dans ton équipe</strong> — je configure les outils, forme les équipes, mets en place les workflows</div>
+        <div class="deleg-type"><strong>Projets sur mesure</strong> — automatisation, outils internes, dashboards, générateurs de contenu</div>
+      </div>
+      <div class="deleg-stats">
+        <div class="deleg-stat"><strong>48h</strong><span>pour les premiers livrables</span></div>
+        <div class="deleg-stat"><strong>0</strong><span>ligne de code à écrire pour toi</span></div>
+        <div class="deleg-stat"><strong>-90%</strong><span>de temps sur les répétitifs</span></div>
+      </div>
+      <div class="accomp-cta">
+        <a href="https://www.maitrise-ia.pro/accompagnement.html" class="accomp-btn" style="background:linear-gradient(135deg,#16a34a,#059669);box-shadow:0 6px 28px rgba(34,197,94,0.25);">Discuter de ton projet →</a>
+        <div class="accomp-note">Appel découverte gratuit · Devis sous 48h</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Maîtrise IA · <a href="https://www.maitrise-ia.pro">maitrise-ia.pro</a></p>
+  </div>
+
+  <script>
+    if (localStorage.getItem('mia_unlocked') === '1') showGuides();
+
+    function unlockGuides(e) {
+      e.preventDefault();
+      const btn = document.getElementById('gateSubmit');
+      btn.textContent = 'Envoi...';
+      btn.disabled = true;
+      const email = document.getElementById('gateEmail').value;
+
+      const data = new FormData(document.getElementById('gateForm'));
+      const w3 = fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+
+      const bhData = new FormData();
+      bhData.append('email', email);
+      bhData.append('publication_id', '50ba2a2f-b4b2-4c73-b353-133ac88aec19');
+      bhData.append('utm_source', 'bridge-claude-design');
+      const bh = fetch('https://app.beehiiv.com/api/v1/subscriptions', { method: 'POST', mode: 'no-cors', body: bhData });
+
+      Promise.allSettled([w3, bh]).then(() => showGuides());
+      setTimeout(showGuides, 2000);
+    }
+
+    function showGuides() {
+      localStorage.setItem('mia_unlocked', '1');
+      document.getElementById('gate-section').style.display = 'none';
+      document.getElementById('guides-section').style.display = 'block';
+      document.getElementById('sep-block').style.display = 'flex';
+      document.getElementById('accomp-block').style.display = 'block';
+      document.getElementById('arsenal-block').style.display = 'block';
+      document.getElementById('deleg-block').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copyPrompt(id, btn) {
+      const box = document.getElementById(id);
+      const text = box.childNodes[0].textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copié !';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
