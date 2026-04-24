@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formation — Automatise ta boîte avec Claude · Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #1d1d1f; --gray: #6e6e73; --light: #f5f5f7; --border: #e0e0e0; --white: #ffffff; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; color: var(--black); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 0.5px solid var(--border); background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+    .nav-back { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--black); }
+    .nav-cta { background: var(--black); color: var(--white); padding: 9px 22px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+    .hero { text-align: center; padding: 88px 48px 72px; max-width: 760px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: var(--black); color: var(--white); font-size: 11px; font-weight: 600; padding: 5px 14px; border-radius: 20px; margin-bottom: 24px; letter-spacing: 0.5px; }
+    .hero h1 { font-size: 56px; font-weight: 700; line-height: 1.08; letter-spacing: -2px; margin-bottom: 20px; }
+    .hero p { font-size: 18px; color: var(--gray); line-height: 1.65; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .hero-price .price-num { font-size: 32px; color: var(--gray); font-weight: 500; margin-bottom: 4px; }
+    .hero-price .price-sub { font-size: 15px; color: var(--gray); margin-bottom: 32px; }
+    .btn-black { background: var(--black); color: var(--white); padding: 16px 36px; border-radius: 28px; font-size: 16px; font-weight: 600; display: inline-block; transition: opacity 0.2s; }
+    .btn-black:hover { opacity: 0.8; }
+    .hero-note { font-size: 13px; color: var(--gray); margin-top: 14px; }
+    hr { border: none; border-top: 0.5px solid var(--border); }
+    .section { max-width: 760px; margin: 0 auto; padding: 72px 48px; }
+    .section-tag { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; }
+    .section h2 { font-size: 36px; font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.2; }
+    .section p { font-size: 16px; color: var(--gray); line-height: 1.7; }
+    .modules { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+    .module { background: var(--light); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px; }
+    .module-num { font-size: 12px; font-weight: 600; color: #aeaeb2; min-width: 28px; padding-top: 2px; }
+    .module-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.2px; }
+    .module-content p { font-size: 14px; color: var(--gray); line-height: 1.5; }
+    .included { background: var(--light); padding: 72px 48px; }
+    .included-inner { max-width: 760px; margin: 0 auto; }
+    .included-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
+    .included-item { background: var(--white); border-radius: 16px; padding: 24px; border: 0.5px solid var(--border); }
+    .included-icon { font-size: 24px; margin-bottom: 12px; }
+    .included-item h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .included-item p { font-size: 13px; color: var(--gray); line-height: 1.55; }
+    .cta-final { background: var(--black); color: var(--white); text-align: center; padding: 88px 48px; }
+    .cta-final h2 { font-size: 40px; font-weight: 700; letter-spacing: -1.2px; margin-bottom: 12px; }
+    .cta-final p { font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+    .btn-white { background: var(--white); color: var(--black); padding: 16px 36px; border-radius: 28px; font-size: 16px; font-weight: 600; display: inline-block; transition: opacity 0.2s; }
+    .btn-white:hover { opacity: 0.88; }
+    .cta-note { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 16px; }
+    footer { padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gray); border-top: 0.5px solid var(--border); flex-wrap: wrap; gap: 12px; }
+    footer a { color: var(--gray); }
+    footer a:hover { color: var(--black); }
+    @media (max-width: 720px) {
+      nav { padding: 16px 20px; } .hero { padding: 56px 24px 48px; } .hero h1 { font-size: 36px; letter-spacing: -1px; } .section { padding: 52px 24px; } .included { padding: 52px 24px; } .included-grid { grid-template-columns: 1fr; } .cta-final { padding: 64px 24px; } .cta-final h2 { font-size: 30px; } footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Mr.IA</a>
+  <a href="index.html" class="nav-back">← Retour</a>
+  <a href="#acheter" class="nav-cta">Liste d'attente →</a>
+</nav>
+<section class="hero">
+  <div class="hero-badge">FORMATION</div>
+  <h1>Automatise ta boîte avec Claude.</h1>
+  <p>Les méthodes, prompts et workflows pour automatiser ton activité — sans coder, sans agence.</p>
+  <div class="hero-price">
+    <div class="price-num">Bientôt disponible</div>
+    <div class="price-sub">Prix de lancement : 297 € · Accès à vie</div>
+  </div>
+  <a href="#acheter" class="btn-black">Rejoindre la liste d'attente →</a>
+  <p class="hero-note">Sois notifié en premier au lancement</p>
+</section>
+<hr>
+<div class="section">
+  <div class="section-tag">Programme</div>
+  <h2>Ce que tu vas apprendre</h2>
+  <p>De zéro à un système d'automatisation complet — à ton rythme.</p>
+  <div class="modules">
+    <div class="module"><div class="module-num">01</div><div class="module-content"><h3>Comprendre Claude et l'automatisation</h3><p>Pourquoi Claude est l'outil idéal pour automatiser. Les bases.</p></div></div>
+    <div class="module"><div class="module-num">02</div><div class="module-content"><h3>Identifier tes process à automatiser</h3><p>Cartographie ton activité et repère ce qui peut être automatisé.</p></div></div>
+    <div class="module"><div class="module-num">03</div><div class="module-content"><h3>Construire tes premiers workflows</h3><p>Claude + Make.com ou Zapier : on construit les automatisations clés.</p></div></div>
+    <div class="module"><div class="module-num">04</div><div class="module-content"><h3>Prompts avancés pour l'automatisation</h3><p>Les templates de prompts prêts à l'emploi, adaptés à ton secteur.</p></div></div>
+    <div class="module"><div class="module-num">05</div><div class="module-content"><h3>Déployer et scaler ton système</h3><p>Comment faire évoluer tes automatisations avec ton activité.</p></div></div>
+  </div>
+</div>
+<hr>
+<div class="included">
+  <div class="included-inner">
+    <div class="section-tag">Ce qui est inclus</div>
+    <h2 style="font-size:36px; font-weight:700; letter-spacing:-1px; margin-bottom:8px;">Tout ce qu'il te faut.</h2>
+    <div class="included-grid">
+      <div class="included-item"><div class="included-icon">🎬</div><h3>Modules vidéo</h3><p>Cours complets en vidéo, clairs et directs.</p></div>
+      <div class="included-item"><div class="included-icon">📋</div><h3>Prompts copier-coller</h3><p>Les prompts prêts à l'emploi que j'utilise.</p></div>
+      <div class="included-item"><div class="included-icon">⚙️</div><h3>Templates de workflows</h3><p>Les automatisations prêtes à déployer sur Make.com.</p></div>
+      <div class="included-item"><div class="included-icon">💬</div><h3>Communauté privée</h3><p>Accès au groupe privé pour poser tes questions.</p></div>
+    </div>
+  </div>
+</div>
+<div class="cta-final" id="acheter">
+  <h2>La formation arrive bientôt.</h2>
+  <p>Rejoins la liste — tu seras notifié en premier et auras le meilleur tarif.</p>
+  <div style="margin: 32px auto; max-width: 400px;">
+    <form onsubmit="handleWaitlist(event)" style="display:flex;flex-direction:column;gap:10px;">
+      <input type="email" id="waitlist-email" placeholder="ton@email.com" required style="padding:14px 16px;border-radius:12px;border:none;font-size:15px;outline:none;font-family:inherit;text-align:center;" />
+      <button type="submit" class="btn-white" id="waitlist-btn">Rejoindre la liste d'attente →</button>
+    </form>
+    <p id="waitlist-confirm" style="display:none;margin-top:16px;color:#4ade80;font-size:14px;">✓ Tu es sur la liste ! Je te préviens au lancement.</p>
+  </div>
+  <p class="cta-note">Prix de lancement : 297 € · Accès à vie · Mises à jour incluses</p>
+</div>
+<script>
+async function handleWaitlist(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlist-email').value.trim();
+  const btn = document.getElementById('waitlist-btn');
+  btn.textContent = 'Envoi...'; btn.disabled = true;
+  try {
+    await fetch('https://api.web3forms.com/submit', {
+      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({ access_key:'038b1035-ecbd-4506-bd90-5a6421828169', email, subject:'Nouveau inscrit liste attente formation', from_name:'Mr.IA' })
+    });
+  } catch(err) {}
+  document.getElementById('waitlist-confirm').style.display = 'block';
+  document.querySelector('form').style.display = 'none';
+}
+</script>
+<footer>
+  <a href="index.html">← Mr.IA</a>
+  <div style="display:flex; gap:24px;">
+    <a href="mentorat.html">Mentorat</a>
+    <a href="https://instagram.com/monsieur.ia.2.1">Instagram</a>
+  </div>
+</footer>
+</body>
+</html>
