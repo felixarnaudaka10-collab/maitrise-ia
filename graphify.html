@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Graphify — Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 52px 44px;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 20px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #000; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 24px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #000;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f5f5f7;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      color: #1d1d1f;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
+    #form-section input[type="email"]:focus { border-color: #1d1d1f; background: #fff; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #000000;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: #1d1d1f; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #aeaeb2;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .proof strong { color: #1d1d1f; }
+    #confirm-section { display: none; }
+    .check-icon { font-size: 44px; margin-bottom: 16px; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-sub { font-size: 14px; color: #6e6e73; margin-bottom: 28px; line-height: 1.6; }
+    .guide {
+      background: #f5f5f7;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .guide-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #6e6e73; margin-bottom: 16px; }
+    .guide-section { margin-bottom: 16px; }
+    .guide-section:last-child { margin-bottom: 0; }
+    .guide-section-title { font-size: 13px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .guide-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+    .guide-bullet {
+      width: 18px; height: 18px; background: #000; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .guide-text { font-size: 13px; color: #1d1d1f; line-height: 1.5; }
+    .guide-text code {
+      background: #e5e5ea; padding: 1px 6px; border-radius: 5px;
+      font-family: 'SF Mono', 'Menlo', monospace; font-size: 12px; color: #1d1d1f;
+    }
+    .btn-link {
+      display: block; width: 100%; padding: 15px;
+      background: #000000; color: #fff;
+      font-size: 15px; font-weight: 600; border-radius: 12px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; letter-spacing: -0.1px; margin-bottom: 10px;
+    }
+    .btn-link:hover { background: #1d1d1f; }
+    .btn-secondary-link {
+      display: block; width: 100%; padding: 13px;
+      background: transparent; color: #1d1d1f;
+      font-size: 14px; font-weight: 600;
+      border: 1.5px solid #e5e5e5; border-radius: 12px;
+      text-decoration: none; text-align: center;
+      transition: all 0.2s; letter-spacing: -0.1px; margin-bottom: 10px;
+    }
+    .btn-secondary-link:hover { border-color: #1d1d1f; }
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+
+  <div id="form-section">
+    <span class="icon">⚡</span>
+    <h1>L'outil qui divise tes tokens<br><em>par 70</em></h1>
+    <p class="subtitle">Entre ton email — je t'envoie le lien + le guide d'installation en 2 minutes.</p>
+    <div class="stat">🔥 71x moins de tokens · gratuit · open source</div>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="btn-primary" id="submit-btn">Recevoir le lien →</button>
+    </form>
+    <div class="proof">
+      <span>⚡</span>
+      <span><strong>Claude Code</strong> · économise des milliers de tokens par session</span>
+    </div>
+  </div>
+
+  <div id="confirm-section">
+    <div class="check-icon">✅</div>
+    <p class="confirm-title">Voilà Graphify</p>
+    <p class="confirm-sub">L'outil open source qui construit une carte complète de ton projet — et fait économiser jusqu'à 71x les tokens à Claude Code.</p>
+
+    <div class="guide">
+      <div class="guide-title">Installation · 2 minutes</div>
+
+      <div class="guide-section">
+        <div class="guide-section-title">⚡ Étape 1 — Installer Graphify</div>
+        <div class="guide-item">
+          <div class="guide-bullet">1</div>
+          <div class="guide-text">Ouvre ton terminal et tape : <code>pip install graphifyy && graphify install</code></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet">2</div>
+          <div class="guide-text">Graphify s'installe comme un skill dans Claude Code. Une seule fois.</div>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <div class="guide-section-title">🗺️ Étape 2 — Cartographier ton projet</div>
+        <div class="guide-item">
+          <div class="guide-bullet">1</div>
+          <div class="guide-text">Dans Claude Code, tape : <code>/graphify</code></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet">2</div>
+          <div class="guide-text">Il analyse ton projet entier — fonctions, fichiers, dépendances, architecture — et construit un knowledge graph complet.</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet">3</div>
+          <div class="guide-text">À la prochaine session : Claude navigue dans la carte au lieu de tout relire. <strong>71x moins de tokens.</strong></div>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <div class="guide-section-title">📊 Résultats concrets</div>
+        <div class="guide-item">
+          <div class="guide-bullet">→</div>
+          <div class="guide-text">Sur un projet moyen : économie de <strong>48 000+ tokens</strong> par session</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet">→</div>
+          <div class="guide-text">Compatible : code (13 langages), PDFs, images, Markdown</div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-bullet">→</div>
+          <div class="guide-text">Gratuit. Open source. Pas de base de données, pas de setup complexe.</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://graphify.net" target="_blank" class="btn-link">🔗 Accéder à Graphify →</a>
+    <a href="https://github.com/safishamsi/graphify" target="_blank" class="btn-secondary-link">GitHub — code source</a>
+    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-secondary-link">📞 Réserver un audit gratuit</a>
+    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+  </div>
+</div>
+
+<script>
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Envoi...';
+    btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          email: email,
+          subject: 'Nouveau lead — Graphify Claude Code',
+          from_name: 'Maîtrise IA',
+          source: window.location.href
+        })
+      });
+    } catch (err) { console.warn('Form error:', err); }
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>
