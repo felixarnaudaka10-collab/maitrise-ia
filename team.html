@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>5 Skills Claude Code — Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #7c3aed; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #7c3aed;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 26px;
+    }
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f5f5f7;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      color: #1d1d1f;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
+    #form-section input[type="email"]:focus { border-color: #7c3aed; background: #fff; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #7c3aed;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: #6d28d9; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #aeaeb2;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .proof strong { color: #1d1d1f; }
+
+    /* ── Confirm section ── */
+    #confirm-section { display: none; }
+    .check-icon { font-size: 44px; margin-bottom: 14px; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-sub { font-size: 14px; color: #6e6e73; margin-bottom: 26px; line-height: 1.6; }
+
+    /* Skill cards */
+    .skills-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; text-align: left; }
+    .skill-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f5f5f7;
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: #1d1d1f;
+      border: 1px solid #e5e5e5;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .skill-card:hover { border-color: #7c3aed; background: #faf5ff; }
+    .skill-num-badge {
+      width: 32px; height: 32px;
+      background: #7c3aed;
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .skill-info { flex: 1; }
+    .skill-name { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 2px; }
+    .skill-desc { font-size: 12px; color: #6e6e73; }
+    .skill-stars { font-size: 12px; color: #6e6e73; font-weight: 600; }
+    .skill-arrow { font-size: 16px; color: #aeaeb2; flex-shrink: 0; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0;
+      color: #aeaeb2; font-size: 12px; font-weight: 600;
+    }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
+
+    /* CTA buttons */
+    .btn-cta {
+      display: block; width: 100%; padding: 15px;
+      background: #7c3aed; color: #fff;
+      font-size: 15px; font-weight: 600; border-radius: 12px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 10px;
+      letter-spacing: -0.1px;
+    }
+    .btn-cta:hover { background: #6d28d9; }
+    .btn-secondary {
+      display: block; width: 100%; padding: 13px;
+      background: transparent; color: #1d1d1f;
+      font-size: 14px; font-weight: 600;
+      border: 1.5px solid #e5e5e5; border-radius: 12px;
+      text-decoration: none; text-align: center;
+      transition: all 0.2s; margin-bottom: 10px;
+    }
+    .btn-secondary:hover { border-color: #7c3aed; color: #7c3aed; }
+
+    /* Offre box */
+    .offre-box {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      border: 1px solid #e9d5ff;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .offre-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7c3aed; margin-bottom: 8px; }
+    .offre-title { font-size: 16px; font-weight: 800; color: #1d1d1f; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .offre-desc { font-size: 13px; color: #6e6e73; line-height: 1.5; }
+
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+
+  <!-- ── FORM ── -->
+  <div id="form-section">
+    <span class="icon">⚡</span>
+    <h1>5 skills Claude pour<br><em>remplacer ton équipe</em></h1>
+    <p class="subtitle">Entre ton email — je t'envoie les 5 liens d'installation directement.</p>
+    <div class="stat">🟣 5 outils · gratuits · open source</div>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="btn-primary" id="submit-btn">Recevoir les liens →</button>
+    </form>
+    <div class="proof">
+      <span>🔒</span>
+      <span>Aucun spam. <strong>Juste les liens.</strong></span>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM ── -->
+  <div id="confirm-section">
+    <div class="check-icon">✅</div>
+    <p class="confirm-title">Voilà tes 5 skills</p>
+    <p class="confirm-sub">Clique sur chaque outil pour accéder au repo GitHub et lancer l'installation.</p>
+
+    <div class="skills-list">
+
+      <a href="https://github.com/ohmycloud/ohmycloud" target="_blank" class="skill-card">
+        <div class="skill-num-badge">1</div>
+        <div class="skill-info">
+          <div class="skill-name">OhMyCloud</div>
+          <div class="skill-desc">19 agents · 36 skills · autodélègue tout</div>
+          <div class="skill-stars">⭐ 29 000 étoiles</div>
+        </div>
+        <div class="skill-arrow">→</div>
+      </a>
+
+      <a href="https://github.com/ai-sales-team/ai-sales-team" target="_blank" class="skill-card">
+        <div class="skill-num-badge">2</div>
+        <div class="skill-info">
+          <div class="skill-name">AI Sales Team</div>
+          <div class="skill-desc">Prospection → Qualification → Outreach → PDF</div>
+          <div class="skill-stars">Pipeline 100% automatisé</div>
+        </div>
+        <div class="skill-arrow">→</div>
+      </a>
+
+      <a href="https://github.com/ai-agency/command-center" target="_blank" class="skill-card">
+        <div class="skill-num-badge">3</div>
+        <div class="skill-info">
+          <div class="skill-name">AI Agency Command Center</div>
+          <div class="skill-desc">5 équipes IA · Marketing, Sales, Légal, SEO…</div>
+          <div class="skill-stars">1 commande = 1 agence complète</div>
+        </div>
+        <div class="skill-arrow">→</div>
+      </a>
+
+      <a href="https://github.com/ai-marketing/marketing-suite" target="_blank" class="skill-card">
+        <div class="skill-num-badge">4</div>
+        <div class="skill-info">
+          <div class="skill-name">AI Marketing Suite</div>
+          <div class="skill-desc">15 skills · Audit, copies, mails, campagnes pub</div>
+          <div class="skill-stars">⭐ 1 400 étoiles · Rapports PDF clients</div>
+        </div>
+        <div class="skill-arrow">→</div>
+      </a>
+
+      <a href="https://github.com/alireza-resvani/claude-skills" target="_blank" class="skill-card">
+        <div class="skill-num-badge">5</div>
+        <div class="skill-info">
+          <div class="skill-name">Bibliothèque Alireza Resvani</div>
+          <div class="skill-desc">232 skills — Engineering, Marketing, Produit…</div>
+          <div class="skill-stars">⭐ 5 200 étoiles</div>
+        </div>
+        <div class="skill-arrow">→</div>
+      </a>
+
+    </div>
+
+    <div class="divider">Tu veux aller plus loin ?</div>
+
+    <div class="offre-box">
+      <div class="offre-label">Audit gratuit · 30 min</div>
+      <div class="offre-title">Je t'analyse comment automatiser ton business avec Claude</div>
+      <div class="offre-desc">On regarde ensemble ce que tu peux déléguer à l'IA — et je te donne un plan d'action concret, sans jargon.</div>
+    </div>
+
+    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-cta">📞 Réserver mon audit gratuit →</a>
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+
+    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+  </div>
+</div>
+
+<script>
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Envoi...';
+    btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          email: email,
+          subject: 'Nouveau lead — 5 Skills Claude Code',
+          from_name: 'Maîtrise IA',
+          source: window.location.href
+        })
+      });
+    } catch (err) { console.warn('Form error:', err); }
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>
