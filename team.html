@@ -169,7 +169,7 @@
     }
     .btn-secondary:hover { border-color: #7c3aed; color: #7c3aed; }
 
-    /* Offre box */
+    /* Offre box — audit */
     .offre-box {
       background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
       border: 1px solid #e9d5ff;
@@ -181,6 +181,44 @@
     .offre-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7c3aed; margin-bottom: 8px; }
     .offre-title { font-size: 16px; font-weight: 800; color: #1d1d1f; margin-bottom: 6px; letter-spacing: -0.3px; }
     .offre-desc { font-size: 13px; color: #6e6e73; line-height: 1.5; }
+
+    /* Prompts box — dark card style */
+    .prompts-box {
+      background: #16141f;
+      border: 1px solid #2a2440;
+      border-radius: 18px;
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .prompts-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #2a2440; color: #f59e0b;
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .prompts-title {
+      font-size: 20px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.4px;
+    }
+    .prompts-title em { font-style: normal; color: #f59e0b; }
+    .prompts-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 14px; }
+    .prompts-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .prompts-tag {
+      background: #2a2440; border: 1px solid #3d3560;
+      color: #f59e0b; font-size: 12px; font-weight: 700;
+      padding: 6px 13px; border-radius: 20px;
+    }
+    .btn-prompts {
+      display: block; width: 100%; padding: 15px;
+      background: #f59e0b; color: #fff;
+      font-size: 15px; font-weight: 700; border-radius: 12px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 6px;
+      letter-spacing: -0.1px;
+    }
+    .btn-prompts:hover { background: #d97706; }
+    .prompts-note { font-size: 12px; color: #6b7280; text-align: center; }
 
     .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
   </style>
@@ -271,6 +309,21 @@
       <div class="offre-label">Audit gratuit · 30 min</div>
       <div class="offre-title">Je t'analyse comment automatiser ton business avec Claude</div>
       <div class="offre-desc">On regarde ensemble ce que tu peux déléguer à l'IA — et je te donne un plan d'action concret, sans jargon.</div>
+    </div>
+
+    <!-- Prompts box -->
+    <div class="prompts-box">
+      <div class="prompts-badge">⚡ ACCÈS IMMÉDIAT</div>
+      <div class="prompts-title">50 prompts Claude <em>prêts à l'emploi</em></div>
+      <div class="prompts-desc">Organisés par usage — contenu, prospection, organisation, analyse, rédaction. Tu copies, tu colles, ça marche. Aucune connaissance technique requise.</div>
+      <div class="prompts-tags">
+        <div class="prompts-tag">Contenu & réseaux</div>
+        <div class="prompts-tag">Prospection & emails</div>
+        <div class="prompts-tag">Organisation & productivité</div>
+        <div class="prompts-tag">Analyse & décision</div>
+      </div>
+      <a href="https://www.maitrise-ia.pro/prompts" target="_blank" class="btn-prompts">Voir le pack de prompts →</a>
+      <div class="prompts-note">Accès immédiat · Une seule fois</div>
     </div>
 
     <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-cta">📞 Réserver mon audit gratuit →</a>
