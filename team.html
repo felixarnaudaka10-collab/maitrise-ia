@@ -220,6 +220,34 @@
     .btn-prompts:hover { background: #d97706; }
     .prompts-note { font-size: 12px; color: #6b7280; text-align: center; }
 
+    /* Formation box — dark purple */
+    .formation-box {
+      background: #0f0d1a; border: 1px solid #2e2650;
+      border-radius: 18px; padding: 22px 20px; margin-bottom: 20px; text-align: left;
+    }
+    .formation-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #1e1a30; color: #a78bfa;
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .formation-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
+    .formation-title em { font-style: normal; color: #a78bfa; }
+    .formation-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+    .formation-checks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .formation-check { display: flex; align-items: flex-start; gap: 12px; }
+    .check-bullet { width: 24px; height: 24px; border-radius: 50%; background: #2e2650; color: #a78bfa; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .check-content { flex: 1; }
+    .check-title { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .check-sub { font-size: 12px; color: #6b7280; line-height: 1.5; }
+    .formation-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+    .formation-stat { background: #1a1628; border: 1px solid #2e2650; border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .formation-stat-num { font-size: 22px; font-weight: 900; color: #a78bfa; }
+    .formation-stat-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-top: 2px; }
+    .btn-formation { display: block; width: 100%; padding: 15px; background: #7c3aed; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-formation:hover { background: #6d28d9; }
+    .formation-note { font-size: 12px; color: #6b7280; text-align: center; }
+
     .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
   </style>
 </head>
@@ -324,6 +352,43 @@
       </div>
       <a href="https://www.maitrise-ia.pro/prompts" target="_blank" class="btn-prompts">Voir le pack de prompts →</a>
       <div class="prompts-note">Accès immédiat · Une seule fois</div>
+    </div>
+
+    <!-- Formation box -->
+    <div class="formation-box">
+      <div class="formation-badge">🚀 ACCOMPAGNEMENT INTENSIF</div>
+      <div class="formation-title">Dans 8 semaines, <em>Claude travaille pour toi</em></div>
+      <div class="formation-desc">Ces outils t'ont montré ce que Claude peut faire. Maintenant imagine ça appliqué à tout ton quotidien — création de contenu, organisation, prospection, automatisations.</div>
+      <div class="formation-checks">
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu gagnes des heures chaque semaine</div>
+            <div class="check-sub">Les tâches répétitives que tu fais encore à la main ? Claude les prend en charge.</div>
+          </div>
+        </div>
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu repars avec un système qui tourne</div>
+            <div class="check-sub">Pas des théories. Des outils concrets, opérationnels, calibrés pour ce que tu fais.</div>
+          </div>
+        </div>
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu es accompagné, pas laissé seul</div>
+            <div class="check-sub">On avance ensemble, à ton rythme, sur ta situation réelle. 100% remote.</div>
+          </div>
+        </div>
+      </div>
+      <div class="formation-stats">
+        <div class="formation-stat"><div class="formation-stat-num">8</div><div class="formation-stat-label">semaines</div></div>
+        <div class="formation-stat"><div class="formation-stat-num">10</div><div class="formation-stat-label">places max</div></div>
+        <div class="formation-stat"><div class="formation-stat-num">100%</div><div class="formation-stat-label">remote</div></div>
+      </div>
+      <a href="https://www.maitrise-ia.pro/formulaire" target="_blank" class="btn-formation">Je veux en savoir plus →</a>
+      <div class="formation-note">Places limitées · Prochaine cohorte en cours</div>
     </div>
 
     <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-cta">📞 Réserver mon audit gratuit →</a>
