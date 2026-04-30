@@ -9,7 +9,11 @@
     :root { --black: #1d1d1f; --gray: #6e6e73; --light: #f5f5f7; --border: #e0e0e0; --white: #ffffff; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; color: var(--black); background: var(--white); line-height: 1.5; }
     a { text-decoration: none; color: inherit; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; }
+    .top-banner { background: var(--black); color: var(--white); text-align: center; padding: 10px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.1px; position: sticky; top: 0; z-index: 101; }
+    .top-banner a { color: var(--white); display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+    .top-banner a:hover { opacity: 0.75; }
+    .top-banner-arrow { font-size: 15px; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; border-bottom: 0.5px solid var(--border); position: sticky; top: 37px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; }
     .nav-logo { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
     .nav-links { display: flex; gap: 32px; font-size: 14px; color: var(--gray); }
     .nav-links a:hover { color: var(--black); }
@@ -107,6 +111,10 @@
   </style>
 </head>
 <body>
+
+  <div class="top-banner">
+    <a href="/prompts">⚡ L'Arsenal Claude — 53 prompts à 27€ · Accès immédiat <span class="top-banner-arrow">→</span></a>
+  </div>
 
   <nav>
     <span class="nav-logo">Mr.IA</span>
