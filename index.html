@@ -38,6 +38,19 @@
     .step-num { font-size: 12px; font-weight: 600; color: #aeaeb2; margin-bottom: 14px; }
     .step h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.3px; }
     .step p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+    /* ===== ARSENAL BANNER ===== */
+    .arsenal-banner { background: var(--black); color: var(--white); padding: 64px 48px; }
+    .arsenal-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+    .arsenal-left { flex: 1; min-width: 280px; }
+    .arsenal-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+    .arsenal-title { font-size: 32px; font-weight: 700; letter-spacing: -0.8px; margin-bottom: 14px; line-height: 1.15; }
+    .arsenal-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.65; max-width: 460px; }
+    .arsenal-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .arsenal-price { font-size: 52px; font-weight: 700; letter-spacing: -2px; }
+    .arsenal-price-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .btn-arsenal { background: var(--white); color: var(--black); padding: 14px 30px; border-radius: 24px; font-size: 14px; font-weight: 600; display: inline-block; transition: opacity 0.2s; white-space: nowrap; margin-top: 8px; }
+    .btn-arsenal:hover { opacity: 0.88; }
+    /* ========================= */
     .offers-section { padding: 80px 48px; background: var(--light); }
     .offers-inner { max-width: 900px; margin: 0 auto; }
     .offers-header { text-align: center; margin-bottom: 48px; }
@@ -71,109 +84,165 @@
     footer a { color: var(--gray); }
     footer a:hover { color: var(--black); }
     hr { border: none; border-top: 0.5px solid var(--border); }
-    @media (max-width: 720px) { nav { padding: 16px 20px; } .nav-links { display: none; } .hero { padding: 64px 24px 56px; } .hero h1 { font-size: 40px; letter-spacing: -1.5px; } .hero p { font-size: 16px; } .stats { gap: 32px; padding: 32px 24px; } .section { padding: 56px 24px; } .section h2 { font-size: 30px; } .steps { grid-template-columns: 1fr; } .offers-section { padding: 56px 24px; } .offers-grid { grid-template-columns: 1fr; } .cta-final { padding: 64px 24px; } .cta-final h2 { font-size: 32px; } footer { padding: 20px 24px; flex-direction: column; text-align: center; } }
+    @media (max-width: 720px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 64px 24px 56px; }
+      .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
+      .hero p { font-size: 16px; }
+      .stats { gap: 32px; padding: 32px 24px; }
+      .section { padding: 56px 24px; }
+      .section h2 { font-size: 30px; }
+      .steps { grid-template-columns: 1fr; }
+      .arsenal-banner { padding: 48px 24px; }
+      .arsenal-inner { flex-direction: column; gap: 32px; }
+      .arsenal-right { align-items: flex-start; }
+      .arsenal-price { font-size: 40px; }
+      .offers-section { padding: 56px 24px; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .cta-final { padding: 64px 24px; }
+      .cta-final h2 { font-size: 32px; }
+      footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
-<nav>
-  <span class="nav-logo">Mr.IA</span>
-  <div class="nav-links">
-    <a href="#comment">Comment ça marche</a>
-    <a href="#offres">Offres</a>
-    <a href="formation.html">Formation</a>
-    <a href="mentorat.html">Mentorat</a>
+
+  <nav>
+    <span class="nav-logo">Mr.IA</span>
+    <div class="nav-links">
+      <a href="#comment">Comment ça marche</a>
+      <a href="#offres">Offres</a>
+      <a href="formation.html">Formation</a>
+      <a href="mentorat.html">Mentorat</a>
+    </div>
+    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="nav-cta">Audit gratuit →</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">👤 Arnaud Aka · @monsieur.ia.2.1</div>
+    <h1>Fini les agences.<br><span class="muted">Automatise ta boîte<br>toi-même.</span></h1>
+    <p>Fini les agences à 3 000 €. Automatise ton activité avec Claude — je t'accompagne de A à Z.</p>
+    <div class="hero-btns">
+      <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-black">Réserver un audit gratuit →</a>
+      <a href="#comment" class="btn-ghost">Comment ça marche</a>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">0 €</div><div class="stat-label">d'agence nécessaire</div></div>
+    <div class="stat"><div class="stat-num">A → Z</div><div class="stat-label">accompagnement sur mesure</div></div>
+    <div class="stat"><div class="stat-num">+30</div><div class="stat-label">entreprises automatisées</div></div>
   </div>
-  <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="nav-cta">Audit gratuit →</a>
-</nav>
-<section class="hero">
-  <div class="hero-badge">👤 Arnaud Aka · @monsieur.ia.2.1</div>
-  <h1>Fini les agences.<br><span class="muted">Automatise ta boîte<br>toi-même.</span></h1>
-  <p>Fini les agences à 3 000 €. Automatise ton activité avec Claude — je t'accompagne de A à Z.</p>
-  <div class="hero-btns">
-    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-black">Réserver un audit gratuit →</a>
-    <a href="#comment" class="btn-ghost">Comment ça marche</a>
+
+  <hr>
+
+  <div class="section">
+    <div class="section-tag">Le problème</div>
+    <h2>Tu dépensais une fortune pour automatiser.</h2>
+    <p>Les agences facturaient 3 000 à 4 000 € pour des systèmes que tu ne comprenais pas, que tu ne pouvais pas modifier seul, et dont tu dépendais entièrement. Claude a tout changé.</p>
   </div>
-</section>
-<div class="stats">
-  <div class="stat"><div class="stat-num">0 €</div><div class="stat-label">d'agence nécessaire</div></div>
-  <div class="stat"><div class="stat-num">A → Z</div><div class="stat-label">accompagnement sur mesure</div></div>
-  <div class="stat"><div class="stat-num">+30</div><div class="stat-label">entreprises automatisées</div></div>
-</div>
-<hr>
-<div class="section">
-  <div class="section-tag">Le problème</div>
-  <h2>Tu dépensais une fortune pour automatiser.</h2>
-  <p>Les agences facturaient 3 000 à 4 000 € pour des systèmes que tu ne comprenais pas, que tu ne pouvais pas modifier seul, et dont tu dépendais entièrement. Claude a tout changé.</p>
-</div>
-<hr>
-<div class="section" id="comment">
-  <div class="section-tag">La solution</div>
-  <h2>Maintenant tu construis toi-même — avec moi à côté.</h2>
-  <p>Je t'accompagne de A à Z pour automatiser ton activité avec Claude. On identifie tes process, je fais le plan, et on construit ensemble.</p>
-  <div class="steps">
-    <div class="step"><div class="step-num">01</div><h3>Audit découverte</h3><p>On identifie ensemble ce que tu veux automatiser dans ton activité. 30 minutes, gratuit.</p></div>
-    <div class="step"><div class="step-num">02</div><h3>Plan sur mesure</h3><p>Je construis un plan d'automatisation adapté à ton business et tes outils existants.</p></div>
-    <div class="step"><div class="step-num">03</div><h3>On construit ensemble</h3><p>Formation ou session de travail : tu apprends en faisant et repars autonome.</p></div>
+
+  <hr>
+
+  <div class="section" id="comment">
+    <div class="section-tag">La solution</div>
+    <h2>Maintenant tu construis toi-même — avec moi à côté.</h2>
+    <p>Je t'accompagne de A à Z pour automatiser ton activité avec Claude. On identifie tes process, je fais le plan, et on construit ensemble.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Audit découverte</h3><p>On identifie ensemble ce que tu veux automatiser dans ton activité. 30 minutes, gratuit.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Plan sur mesure</h3><p>Je construis un plan d'automatisation adapté à ton business et tes outils existants.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>On construit ensemble</h3><p>Formation ou session de travail : tu apprends en faisant et repars autonome.</p></div>
+    </div>
   </div>
-</div>
-<hr>
-<div class="offers-section" id="offres">
-  <div class="offers-inner">
-    <div class="offers-header"><span class="section-tag">Les offres</span><h2>Choisis ton niveau d'accompagnement</h2></div>
-    <div class="offers-grid">
-      <div class="offer-card">
-        <span class="offer-badge badge-free">Gratuit</span>
-        <h3>Audit découverte</h3>
-        <p class="offer-desc">On regarde ensemble tes process et j'identifie ce qui peut être automatisé avec Claude.</p>
-        <div class="offer-price">0 €</div><p class="offer-sub">30 minutes · Sans engagement</p>
-        <ul class="offer-features">
-          <li><span class="check">✓</span> Analyse de tes process</li>
-          <li><span class="check">✓</span> Recommandations personnalisées</li>
-          <li><span class="check">✓</span> Plan d'action clair</li>
-        </ul>
-        <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="offer-btn offer-btn-ghost">Réserver mon audit →</a>
+
+  <!-- ===== ARSENAL CLAUDE ===== -->
+  <div class="arsenal-banner">
+    <div class="arsenal-inner">
+      <div class="arsenal-left">
+        <div class="arsenal-label">⚡ Starter — Commence ici</div>
+        <div class="arsenal-title">L'Arsenal Claude.<br>Ta bibliothèque de prompts.</div>
+        <div class="arsenal-desc">53 prompts Claude testés, prêts à copier-coller. Automatisation, copywriting, contenu Instagram, stratégie. Mis à jour chaque semaine. Pour commencer maintenant, sans engagement.</div>
       </div>
-      <div class="offer-card featured">
-        <span class="offer-badge badge-popular">Le plus choisi</span>
-        <h3>Formation</h3>
-        <p class="offer-desc">Apprends à automatiser ton activité avec Claude à ton rythme. Méthodes, outils et prompts prêts à l'emploi.</p>
-        <div class="offer-price">297 € <span>/ accès à vie</span></div><p class="offer-sub">Accès immédiat · Mises à jour incluses</p>
-        <ul class="offer-features">
-          <li><span class="check">✓</span> Modules vidéo complets</li>
-          <li><span class="check">✓</span> Prompts copier-coller</li>
-          <li><span class="check">✓</span> Workflows prêts à déployer</li>
-          <li><span class="check">✓</span> Accès communauté privée</li>
-        </ul>
-        <a href="formation.html" class="offer-btn offer-btn-black">Accéder à la formation →</a>
-      </div>
-      <div class="offer-card">
-        <span class="offer-badge badge-premium">Premium</span>
-        <h3>Mentorat</h3>
-        <p class="offer-desc">Accompagnement personnalisé de A à Z pour automatiser ton activité.</p>
-        <div class="offer-price" style="font-size:18px;color:#6e6e73;font-weight:500">À partir de 997 €</div><p class="offer-sub">Sur mesure · Places limitées</p>
-        <ul class="offer-features">
-          <li><span class="check">✓</span> Audit + plan personnalisé</li>
-          <li><span class="check">✓</span> Sessions de travail ensemble</li>
-          <li><span class="check">✓</span> Accès direct par message</li>
-          <li><span class="check">✓</span> Formation incluse</li>
-        </ul>
-        <a href="mentorat.html" class="offer-btn offer-btn-ghost">Voir le mentorat →</a>
+      <div class="arsenal-right">
+        <div class="arsenal-price">27 €</div>
+        <div class="arsenal-price-sub">Accès à vie · Paiement unique</div>
+        <a href="/prompts" class="btn-arsenal">Accéder à l'Arsenal →</a>
       </div>
     </div>
   </div>
-</div>
-<div class="cta-final" id="audit">
-  <h2>Prêt à automatiser ta boîte ?</h2>
-  <p>Réserve un audit gratuit de 30 minutes. On regarde ensemble ce qu'on peut automatiser.</p>
-  <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-white">Réserver mon audit gratuit →</a>
-</div>
-<footer>
-  <span>© 2026 Mr.IA — Arnaud Aka</span>
-  <div style="display:flex; gap: 24px;">
-    <a href="formation.html">Formation</a>
-    <a href="mentorat.html">Mentorat</a>
-    <a href="https://instagram.com/monsieur.ia.2.1">Instagram</a>
+  <!-- =========================== -->
+
+  <div class="offers-section" id="offres">
+    <div class="offers-inner">
+      <div class="offers-header">
+        <span class="section-tag">Les offres</span>
+        <h2>Choisis ton niveau d'accompagnement</h2>
+      </div>
+      <div class="offers-grid">
+
+        <div class="offer-card">
+          <span class="offer-badge badge-free">Gratuit</span>
+          <h3>Audit découverte</h3>
+          <p class="offer-desc">On regarde ensemble tes process et j'identifie ce qui peut être automatisé avec Claude.</p>
+          <div class="offer-price">0 €</div>
+          <p class="offer-sub">30 minutes · Sans engagement</p>
+          <ul class="offer-features">
+            <li><span class="check">✓</span> Analyse de tes process</li>
+            <li><span class="check">✓</span> Recommandations personnalisées</li>
+            <li><span class="check">✓</span> Plan d'action clair</li>
+          </ul>
+          <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="offer-btn offer-btn-ghost">Réserver mon audit →</a>
+        </div>
+
+        <div class="offer-card featured">
+          <span class="offer-badge badge-popular">Le plus choisi</span>
+          <h3>Formation</h3>
+          <p class="offer-desc">Apprends à automatiser ton activité avec Claude à ton rythme. Méthodes, outils et prompts prêts à l'emploi.</p>
+          <div class="offer-price">297 € <span>/ accès à vie</span></div>
+          <p class="offer-sub">Accès immédiat · Mises à jour incluses</p>
+          <ul class="offer-features">
+            <li><span class="check">✓</span> Modules vidéo complets</li>
+            <li><span class="check">✓</span> Prompts copier-coller</li>
+            <li><span class="check">✓</span> Workflows prêts à déployer</li>
+            <li><span class="check">✓</span> Accès communauté privée</li>
+          </ul>
+          <a href="formation.html" class="offer-btn offer-btn-black">Accéder à la formation →</a>
+        </div>
+
+        <div class="offer-card">
+          <span class="offer-badge badge-premium">Premium</span>
+          <h3>Mentorat</h3>
+          <p class="offer-desc">Accompagnement personnalisé de A à Z pour automatiser ton activité.</p>
+          <div class="offer-price" style="font-size:18px;color:#6e6e73;font-weight:500">À partir de 997 €</div>
+          <p class="offer-sub">Sur mesure · Places limitées</p>
+          <ul class="offer-features">
+            <li><span class="check">✓</span> Audit + plan personnalisé</li>
+            <li><span class="check">✓</span> Sessions de travail ensemble</li>
+            <li><span class="check">✓</span> Accès direct par message</li>
+            <li><span class="check">✓</span> Formation incluse</li>
+          </ul>
+          <a href="mentorat.html" class="offer-btn offer-btn-ghost">Voir le mentorat →</a>
+        </div>
+
+      </div>
+    </div>
   </div>
-</footer>
+
+  <div class="cta-final" id="audit">
+    <h2>Prêt à automatiser ta boîte ?</h2>
+    <p>Réserve un audit gratuit de 30 minutes. On regarde ensemble ce qu'on peut automatiser.</p>
+    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-white">Réserver mon audit gratuit →</a>
+  </div>
+
+  <footer>
+    <span>© 2026 Mr.IA — Arnaud Aka</span>
+    <div style="display:flex; gap: 24px;">
+      <a href="formation.html">Formation</a>
+      <a href="mentorat.html">Mentorat</a>
+      <a href="https://instagram.com/monsieur.ia.2.1">Instagram</a>
+    </div>
+  </footer>
+
 </body>
 </html>
