@@ -106,47 +106,85 @@
     .proof strong { color: #1d1d1f; }
 
     /* ── Confirm section ── */
-    #confirm-section { display: none; }
-    .check-icon { font-size: 44px; margin-bottom: 14px; }
-    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
-    .confirm-sub { font-size: 14px; color: #6e6e73; margin-bottom: 26px; line-height: 1.6; }
+    #confirm-section { display: none; text-align: left; }
 
-    /* Guide étapes */
-    .guide-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; text-align: left; }
-    .guide-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
+    .confirm-header { text-align: center; margin-bottom: 28px; }
+    .check-icon { font-size: 44px; margin-bottom: 14px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-intro { font-size: 14px; color: #6e6e73; line-height: 1.65; }
+
+    /* Obtenir box */
+    .obtain-box {
       background: #f5f5f7;
-      border-radius: 14px;
-      padding: 14px 16px;
       border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
     }
-    .guide-num {
-      width: 32px; height: 32px;
-      background: #C9A84C;
-      color: #fff;
-      border-radius: 50%;
+    .obtain-title {
+      font-size: 13px; font-weight: 800; color: #1d1d1f;
+      margin-bottom: 12px; letter-spacing: -0.2px;
+    }
+    .obtain-list { display: flex; flex-direction: column; gap: 10px; }
+    .obtain-item {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .obtain-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #C9A84C; color: #fff;
+      font-size: 11px; font-weight: 900;
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .obtain-text { font-size: 13px; color: #3d3d3f; line-height: 1.5; font-weight: 500; }
+
+    /* Step cards */
+    .step-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .step-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .step-num-badge {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #C9A84C; color: #fff;
+      font-size: 14px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .guide-body { flex: 1; }
-    .guide-title { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 3px; }
-    .guide-desc { font-size: 12px; color: #6e6e73; line-height: 1.5; }
+    .step-card-title { font-size: 15px; font-weight: 800; color: #1d1d1f; line-height: 1.3; letter-spacing: -0.3px; }
+    .step-desc { font-size: 13px; color: #6e6e73; line-height: 1.6; margin-bottom: 14px; }
 
-    /* Prompt box */
+    /* Sub-steps */
+    .sub-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .sub-step { display: flex; align-items: flex-start; gap: 10px; }
+    .sub-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #f0e8d5; color: #A68A3E;
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .sub-text { font-size: 13px; color: #3d3d3f; line-height: 1.5; }
+    .sub-text a { color: #C9A84C; font-weight: 700; text-decoration: none; }
+    .sub-text a:hover { text-decoration: underline; }
+
+    /* Prompt / code box */
     .prompt-box {
       background: #0d0d14;
-      border: 1px solid rgba(201,168,76,.35);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 24px;
-      text-align: left;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
     }
     .prompt-label {
       font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-      color: #E2C66B; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+      color: #E2C66B; margin-bottom: 10px;
     }
     .prompt-text {
       font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
@@ -154,15 +192,24 @@
     }
     .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
     .prompt-text .url { color: #34d399; }
-    .prompt-text .str { color: #fbbf24; }
-    .prompt-copy-hint {
-      font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px;
+
+    /* Result aside */
+    .result-aside {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
     }
+    .result-aside-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .result-aside-text { font-size: 12px; color: #166534; line-height: 1.6; font-weight: 500; }
 
     /* Divider */
     .divider {
       display: flex; align-items: center; gap: 12px;
-      margin: 20px 0;
+      margin: 24px 0 20px;
       color: #aeaeb2; font-size: 12px; font-weight: 600;
     }
     .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
@@ -174,7 +221,6 @@
       font-size: 15px; font-weight: 600; border-radius: 12px;
       text-decoration: none; text-align: center;
       transition: background 0.2s; margin-bottom: 10px;
-      letter-spacing: -0.1px;
     }
     .btn-cta:hover { background: #A68A3E; }
     .btn-secondary {
@@ -187,14 +233,10 @@
     }
     .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
 
-    /* Prompts box — dark card style */
+    /* Prompts box */
     .prompts-box {
-      background: #16141f;
-      border: 1px solid #2a2440;
-      border-radius: 18px;
-      padding: 22px 20px;
-      margin-bottom: 20px;
-      text-align: left;
+      background: #16141f; border: 1px solid #2a2440;
+      border-radius: 18px; padding: 22px 20px; margin-bottom: 16px;
     }
     .prompts-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -202,40 +244,18 @@
       font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
       padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
     }
-    .prompts-title {
-      font-size: 20px; font-weight: 900; color: #fff; line-height: 1.2;
-      margin-bottom: 10px; letter-spacing: -0.4px;
-    }
+    .prompts-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.4px; }
     .prompts-title em { font-style: normal; color: #f59e0b; }
     .prompts-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 14px; }
     .prompts-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .prompts-tag {
-      background: #2a2440; border: 1px solid #3d3560;
-      color: #f59e0b; font-size: 12px; font-weight: 700;
-      padding: 6px 13px; border-radius: 20px;
-    }
-    .btn-prompts {
-      display: block; width: 100%; padding: 15px;
-      background: #f59e0b; color: #fff;
-      font-size: 15px; font-weight: 700; border-radius: 12px;
-      text-decoration: none; text-align: center;
-      transition: background 0.2s; margin-bottom: 6px;
-      letter-spacing: -0.1px;
-    }
+    .prompts-tag { background: #2a2440; border: 1px solid #3d3560; color: #f59e0b; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 20px; }
+    .btn-prompts { display: block; width: 100%; padding: 15px; background: #f59e0b; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
     .btn-prompts:hover { background: #d97706; }
     .prompts-note { font-size: 12px; color: #6b7280; text-align: center; }
 
-    /* Formation box — dark purple */
-    .formation-box {
-      background: #0f0d1a; border: 1px solid #2e2650;
-      border-radius: 18px; padding: 22px 20px; margin-bottom: 20px; text-align: left;
-    }
-    .formation-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #1e1a30; color: #E2C66B;
-      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
-    }
+    /* Formation box */
+    .formation-box { background: #0f0d1a; border: 1px solid #2e2650; border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
+    .formation-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1a30; color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
     .formation-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
     .formation-title em { font-style: normal; color: #E2C66B; }
     .formation-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
@@ -253,7 +273,7 @@
     .btn-formation:hover { background: #A68A3E; }
     .formation-note { font-size: 12px; color: #6b7280; text-align: center; }
 
-    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
   </style>
 </head>
 <body>
@@ -278,46 +298,99 @@
 
   <!-- ── CONFIRM ── -->
   <div id="confirm-section">
-    <div class="check-icon">✅</div>
-    <p class="confirm-title">Voilà le guide complet</p>
-    <p class="confirm-sub">3 étapes, 3 minutes — et Claude Code fait tout le SEO à ta place.</p>
 
-    <!-- Guide étapes -->
-    <div class="guide-steps">
-      <div class="guide-step">
-        <div class="guide-num">1</div>
-        <div class="guide-body">
-          <div class="guide-title">Installe le skill Claude SEO</div>
-          <div class="guide-desc">Va sur GitHub, copie l'URL du skill "Claude SEO", colle dans Claude Code. Installé en 30 secondes.</div>
+    <div class="confirm-header">
+      <span class="check-icon">✅</span>
+      <p class="confirm-title">Voilà le guide complet</p>
+      <p class="confirm-intro">Claude Code a rendu l'optimisation SEO accessible à n'importe qui. Voici comment dépasser tes concurrents sur Google en 3 étapes, sans payer une agence, sans connaître le SEO technique.</p>
+    </div>
+
+    <!-- Ce que tu vas obtenir -->
+    <div class="obtain-box">
+      <div class="obtain-title">🎯 Ce que tu vas obtenir</div>
+      <div class="obtain-list">
+        <div class="obtain-item">
+          <div class="obtain-dot">✓</div>
+          <div class="obtain-text">Un rapport SEO complet de ton site en moins de 3 minutes</div>
         </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-num">2</div>
-        <div class="guide-body">
-          <div class="guide-title">Lance l'audit avec une commande</div>
-          <div class="guide-desc">Tape <strong>/SEO ton-site.com</strong> — 5 agents analysent tout en parallèle et génèrent le rapport complet.</div>
+        <div class="obtain-item">
+          <div class="obtain-dot">✓</div>
+          <div class="obtain-text">Les mots-clés gagnants de ta niche identifiés automatiquement par 5 agents IA</div>
         </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-num">3</div>
-        <div class="guide-body">
-          <div class="guide-title">Laisse l'agent tout corriger</div>
-          <div class="guide-desc">Donne le rapport à Claude Code — il crée un agent qui corrige balises, structure, mots-clés et contenu automatiquement.</div>
+        <div class="obtain-item">
+          <div class="obtain-dot">✓</div>
+          <div class="obtain-text">Un plan d'action SEO configuré par Claude à ta place, sans toucher une ligne de code</div>
         </div>
       </div>
     </div>
 
-    <!-- Prompt box -->
-    <div class="prompt-box">
-      <div class="prompt-label">📋 La commande exacte</div>
-      <div class="prompt-text"><span class="cmd">/SEO</span> <span class="url">ton-site.com</span>
+    <!-- Étape 1 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num-badge">1</div>
+        <div class="step-card-title">Installe le skill Claude SEO depuis GitHub</div>
+      </div>
+      <p class="step-desc">Le skill SEO est open-source et gratuit. Claude Code l'installe pour toi en une seule commande.</p>
+      <div class="sub-steps">
+        <div class="sub-step">
+          <div class="sub-num">1</div>
+          <div class="sub-text">Va sur le repo GitHub : <a href="https://github.com/AgriciDaniel/claude-seo" target="_blank">github.com/AgriciDaniel/claude-seo</a></div>
+        </div>
+        <div class="sub-step">
+          <div class="sub-num">2</div>
+          <div class="sub-text">Copie l'URL complète du repo</div>
+        </div>
+        <div class="sub-step">
+          <div class="sub-num">3</div>
+          <div class="sub-text">Ouvre Claude Code et colle ce prompt :</div>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">📋 Prompt à copier</div>
+        <div class="prompt-text"><span class="cmd">Installe ce skill Claude Code :</span>
+<span class="url">https://github.com/AgriciDaniel/claude-seo</span></div>
+      </div>
+      <div class="result-aside">
+        <div class="result-aside-icon">✅</div>
+        <div class="result-aside-text">Claude installe le skill automatiquement. Tu vois une confirmation dans le terminal. Tu es prêt pour l'étape 2.</div>
+      </div>
+    </div>
 
-<span class="cmd">Puis une fois le rapport généré :</span>
+    <!-- Étape 2 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num-badge">2</div>
+        <div class="step-card-title">Lance l'analyse SEO de ton site</div>
+      </div>
+      <p class="step-desc">Active le skill en tapant "/seo" dans Claude Code, puis donne-lui l'URL de ton site. Claude lance 5 agents en parallèle qui analysent tes pages et cherchent les mots-clés gagnants.</p>
+      <div class="prompt-box">
+        <div class="prompt-label">📋 Commande à taper</div>
+        <div class="prompt-text"><span class="cmd">/seo audit</span> <span class="url">"url de ton site web"</span></div>
+      </div>
+      <div class="result-aside">
+        <div class="result-aside-icon">✅</div>
+        <div class="result-aside-text">Tu reçois un rapport SEO complet avec les mots-clés prioritaires, les pages à optimiser et les opportunités de contenu inexploitées.</div>
+      </div>
+    </div>
 
-<span class="cmd">Prends ce rapport SEO et crée un agent
-qui corrige automatiquement tous les
-problèmes identifiés sur mon site.</span></div>
-      <div class="prompt-copy-hint">← copie ça directement dans Claude Code</div>
+    <!-- Étape 3 -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num-badge">3</div>
+        <div class="step-card-title">Laisse Claude tout configurer à ta place</div>
+      </div>
+      <p class="step-desc">Donne le plan SEO à Claude et demande-lui de l'implémenter. Il crée un agent dédié qui configure tout automatiquement.</p>
+      <div class="prompt-box">
+        <div class="prompt-label">📋 Prompt à copier</div>
+        <div class="prompt-text"><span class="cmd">Implémente ce plan SEO sur mon site.
+Crée un agent qui configure tout
+automatiquement : méta-descriptions,
+titres H1/H2, maillage interne.</span></div>
+      </div>
+      <div class="result-aside">
+        <div class="result-aside-icon">✅</div>
+        <div class="result-aside-text">Ton site est optimisé sans que tu aies eu à comprendre le SEO technique. Ce que les agences facturent des milliers d'euros, tu viens de le faire en quelques minutes.</div>
+      </div>
     </div>
 
     <div class="divider">Tu veux aller plus loin ?</div>
