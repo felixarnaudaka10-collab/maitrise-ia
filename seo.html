@@ -469,10 +469,10 @@ titres H1/H2, maillage interne.</span></div>
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          email: email,
           subject: 'Nouveau lead — SEO Guide Claude Code',
           from_name: 'Maîtrise IA',
-          source: window.location.href
+          replyto: email,
+          message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
         })
       });
     } catch (err) { console.warn('Form error:', err); }

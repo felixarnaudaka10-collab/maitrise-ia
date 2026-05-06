@@ -48,13 +48,13 @@
       color: #1d1d1f;
       letter-spacing: -0.5px;
     }
-    h1 em { font-style: normal; color: #7c3aed; font-weight: 800; }
+    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
     .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
     .stat {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #7c3aed;
+      background: #C9A84C;
       color: #fff;
       font-size: 13px;
       font-weight: 700;
@@ -76,12 +76,12 @@
       font-family: inherit;
     }
     #form-section input[type="email"]::placeholder { color: #aeaeb2; }
-    #form-section input[type="email"]:focus { border-color: #7c3aed; background: #fff; }
+    #form-section input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
     .btn-primary {
       display: block;
       width: 100%;
       padding: 15px;
-      background: #7c3aed;
+      background: #C9A84C;
       color: #fff;
       font-size: 15px;
       font-weight: 600;
@@ -92,7 +92,7 @@
       font-family: inherit;
       letter-spacing: -0.1px;
     }
-    .btn-primary:hover { background: #6d28d9; }
+    .btn-primary:hover { background: #A68A3E; }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
     .proof {
       display: flex;
@@ -124,7 +124,7 @@
     }
     .guide-num {
       width: 32px; height: 32px;
-      background: #7c3aed;
+      background: #C9A84C;
       color: #fff;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -181,12 +181,12 @@
     /* CTA buttons */
     .btn-cta {
       display: block; width: 100%; padding: 15px;
-      background: #7c3aed; color: #fff;
+      background: #C9A84C; color: #fff;
       font-size: 15px; font-weight: 600; border-radius: 12px;
       text-decoration: none; text-align: center;
       transition: background 0.2s; margin-bottom: 10px;
     }
-    .btn-cta:hover { background: #6d28d9; }
+    .btn-cta:hover { background: #A68A3E; }
     .btn-secondary {
       display: block; width: 100%; padding: 13px;
       background: transparent; color: #1d1d1f;
@@ -195,7 +195,7 @@
       text-decoration: none; text-align: center;
       transition: all 0.2s; margin-bottom: 10px;
     }
-    .btn-secondary:hover { border-color: #7c3aed; color: #7c3aed; }
+    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
 
     /* Prompts box */
     .prompts-box {
@@ -251,8 +251,8 @@
     .formation-stat { background: #1a1628; border: 1px solid #2e2650; border-radius: 12px; padding: 12px 8px; text-align: center; }
     .formation-stat-num { font-size: 22px; font-weight: 900; color: #a78bfa; }
     .formation-stat-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-top: 2px; }
-    .btn-formation { display: block; width: 100%; padding: 15px; background: #7c3aed; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
-    .btn-formation:hover { background: #6d28d9; }
+    .btn-formation { display: block; width: 100%; padding: 15px; background: #C9A84C; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-formation:hover { background: #A68A3E; }
     .formation-note { font-size: 12px; color: #6b7280; text-align: center; }
 
     .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; }
@@ -423,10 +423,10 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          email: email,
           subject: 'Nouveau lead — Guide Vidéo Claude Code',
           from_name: 'Maîtrise IA',
-          source: window.location.href
+          replyto: email,
+          message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
         })
       });
     } catch (err) { console.warn('Form error:', err); }
