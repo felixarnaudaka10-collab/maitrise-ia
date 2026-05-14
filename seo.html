@@ -253,25 +253,27 @@
     .btn-prompts:hover { background: #d97706; }
     .prompts-note { font-size: 12px; color: #6b7280; text-align: center; }
 
-    /* Formation box */
-    .formation-box { background: #0f0d1a; border: 1px solid #2e2650; border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
-    .formation-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1a30; color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .formation-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
-    .formation-title em { font-style: normal; color: #E2C66B; }
-    .formation-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
-    .formation-checks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-    .formation-check { display: flex; align-items: flex-start; gap: 12px; }
-    .check-bullet { width: 24px; height: 24px; border-radius: 50%; background: #2e2650; color: #E2C66B; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
-    .check-content { flex: 1; }
-    .check-title { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
-    .check-sub { font-size: 12px; color: #6b7280; line-height: 1.5; }
-    .formation-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
-    .formation-stat { background: #1a1628; border: 1px solid #2e2650; border-radius: 12px; padding: 12px 8px; text-align: center; }
-    .formation-stat-num { font-size: 22px; font-weight: 900; color: #E2C66B; }
-    .formation-stat-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-top: 2px; }
-    .btn-formation { display: block; width: 100%; padding: 15px; background: #C9A84C; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
-    .btn-formation:hover { background: #A68A3E; }
-    .formation-note { font-size: 12px; color: #6b7280; text-align: center; }
+    /* Skool box */
+    .skool-box { background: #0a0f0a; border: 1px solid rgba(74,197,94,.25); border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
+    .skool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,197,94,.12); border: 1px solid rgba(74,197,94,.25); color: #4ac55e; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .skool-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
+    .skool-title em { font-style: normal; color: #4ac55e; }
+    .skool-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+    .skool-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .skool-check { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 600; }
+    .btn-skool { display: block; width: 100%; padding: 15px; background: #4ac55e; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-skool:hover { background: #3aad4d; }
+    .skool-note { font-size: 12px; color: #6b7280; text-align: center; }
+
+    /* Audit box */
+    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
+    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .audit-title { font-size: 20px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
+    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
+    .btn-audit:hover { background: #333; }
+    .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; }
+    .btn-whatsapp:hover { background: #1da851; }
 
     .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
   </style>
@@ -410,44 +412,29 @@ titres H1/H2, maillage interne.</span></div>
       <div class="prompts-note">Accès immédiat · Une seule fois</div>
     </div>
 
-    <!-- Formation box -->
-    <div class="formation-box">
-      <div class="formation-badge">🚀 ACCOMPAGNEMENT INTENSIF</div>
-      <div class="formation-title">Dans 8 semaines, <em>Claude travaille pour toi</em></div>
-      <div class="formation-desc">Ce guide t'a montré comment automatiser ton SEO. Maintenant imagine Claude appliqué à tout ton business — contenu, prospection, organisation, automatisations.</div>
-      <div class="formation-checks">
-        <div class="formation-check">
-          <div class="check-bullet">✓</div>
-          <div class="check-content">
-            <div class="check-title">Tu gagnes des heures chaque semaine</div>
-            <div class="check-sub">Les tâches répétitives que tu fais encore à la main ? Claude les prend en charge.</div>
-          </div>
-        </div>
-        <div class="formation-check">
-          <div class="check-bullet">✓</div>
-          <div class="check-content">
-            <div class="check-title">Tu repars avec un système qui tourne</div>
-            <div class="check-sub">Pas des théories. Des outils concrets, opérationnels, calibrés pour ce que tu fais.</div>
-          </div>
-        </div>
-        <div class="formation-check">
-          <div class="check-bullet">✓</div>
-          <div class="check-content">
-            <div class="check-title">Tu es accompagné, pas laissé seul</div>
-            <div class="check-sub">On avance ensemble, à ton rythme, sur ta situation réelle. 100% remote.</div>
-          </div>
-        </div>
+    <!-- Skool community box -->
+    <div class="skool-box">
+      <div class="skool-badge">🟢 COMMUNAUTÉ GRATUITE</div>
+      <div class="skool-title">Rejoins le <em>Claude Business Lab</em></div>
+      <div class="skool-desc">Une communauté d'entrepreneurs qui intègrent Claude dans leur business. On partage nos réussites, nos workflows, nos astuces. Je poste des tutos et des vidéos de formation en accès direct.</div>
+      <div class="skool-checks">
+        <div class="skool-check">✓ Workflows concrets partagés chaque semaine</div>
+        <div class="skool-check">✓ Vidéos de formation exclusives</div>
+        <div class="skool-check">✓ Entraide entre entrepreneurs qui avancent</div>
       </div>
-      <div class="formation-stats">
-        <div class="formation-stat"><div class="formation-stat-num">8</div><div class="formation-stat-label">semaines</div></div>
-        <div class="formation-stat"><div class="formation-stat-num">10</div><div class="formation-stat-label">places max</div></div>
-        <div class="formation-stat"><div class="formation-stat-num">100%</div><div class="formation-stat-label">remote</div></div>
-      </div>
-      <a href="https://www.maitrise-ia.pro/formulaire" target="_blank" class="btn-formation">Je veux en savoir plus →</a>
-      <div class="formation-note">Places limitées · Prochaine cohorte en cours</div>
+      <a href="https://www.skool.com/claude-business-lab-5890" target="_blank" class="btn-skool">Rejoindre la communauté gratuite →</a>
+      <div class="skool-note">Accès gratuit · Communauté privée · Arnaud présent</div>
     </div>
 
-    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-cta">📞 Réserver mon audit gratuit →</a>
+    <!-- Audit box -->
+    <div class="audit-box">
+      <div class="audit-badge">⚡ ON AUTOMATISE TOUTE TA BOÎTE</div>
+      <div class="audit-title">Tes process. Ton contenu. Ta prospection.</div>
+      <div class="audit-desc">Tu passes encore des heures sur des tâches que Claude pourrait faire en 2 minutes ? On cartographie ensemble ce qui peut être automatisé dans ton business, et on met ça en place.</div>
+      <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-audit">📞 Réserver un audit gratuit →</a>
+      <a href="https://wa.me/33786940245" target="_blank" class="btn-whatsapp">💬 Me contacter sur WhatsApp</a>
+    </div>
+
     <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
 
     <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
