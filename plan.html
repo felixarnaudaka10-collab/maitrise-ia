@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finir n'importe quel projet avec Claude — Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 26px;
+    }
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f5f5f7;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      color: #1d1d1f;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
+    #form-section input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: #A68A3E; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #aeaeb2;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .proof strong { color: #1d1d1f; }
+
+    /* ── Confirm section ── */
+    #confirm-section { display: none; text-align: left; }
+    .confirm-header { text-align: center; margin-bottom: 28px; }
+    .check-icon { font-size: 44px; margin-bottom: 14px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-intro { font-size: 14px; color: #6e6e73; line-height: 1.65; }
+
+    /* Guide étapes */
+    .guide-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .guide-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: #f5f5f7; border-radius: 14px; padding: 14px 16px; border: 1px solid #e5e5e5;
+    }
+    .guide-num {
+      width: 32px; height: 32px; background: #C9A84C; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .guide-body { flex: 1; }
+    .guide-title { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 3px; }
+    .guide-desc { font-size: 12px; color: #6e6e73; line-height: 1.5; }
+
+    /* Prompt box */
+    .prompt-box {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 20px; margin-bottom: 24px;
+    }
+    .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #E2C66B; margin-bottom: 12px; }
+    .prompt-text { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap; }
+    .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
+    .prompt-copy-hint { font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0 20px; color: #aeaeb2; font-size: 12px; font-weight: 600;
+    }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
+
+    /* ── 50 Spécialistes IA box — primary CTA ── */
+    .specialistes-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .specialistes-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .specialistes-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
+      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .specialistes-stars { color: #C9A84C; font-size: 13px; margin-bottom: 4px; }
+    .specialistes-rating { font-size: 11px; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+    .specialistes-title {
+      font-size: 21px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.5px;
+    }
+    .specialistes-title em { font-style: normal; color: #E2C66B; }
+    .specialistes-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .specialistes-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
+    .specialistes-item {
+      background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.15);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .specialistes-item-icon { font-size: 16px; margin-bottom: 4px; }
+    .specialistes-item-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); }
+    .btn-specialistes {
+      display: block; width: 100%; padding: 16px;
+      background: #C9A84C; color: #fff;
+      font-size: 15px; font-weight: 800; border-radius: 14px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .btn-specialistes:hover { background: #A68A3E; }
+    .specialistes-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
+
+    /* Formation box */
+    .formation-box { background: #0f0d1a; border: 1px solid #2e2650; border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
+    .formation-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1a30; color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .formation-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
+    .formation-title em { font-style: normal; color: #E2C66B; }
+    .formation-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+    .formation-checks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .formation-check { display: flex; align-items: flex-start; gap: 12px; }
+    .check-bullet { width: 24px; height: 24px; border-radius: 50%; background: #2e2650; color: #E2C66B; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .check-content { flex: 1; }
+    .check-title { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .check-sub { font-size: 12px; color: #6b7280; line-height: 1.5; }
+    .formation-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+    .formation-stat { background: #1a1628; border: 1px solid #2e2650; border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .formation-stat-num { font-size: 22px; font-weight: 900; color: #E2C66B; }
+    .formation-stat-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-top: 2px; }
+    .btn-formation { display: block; width: 100%; padding: 15px; background: #C9A84C; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-formation:hover { background: #A68A3E; }
+    .formation-note { font-size: 12px; color: #6b7280; text-align: center; }
+
+    /* CTA buttons */
+    .btn-cta { display: block; width: 100%; padding: 15px; background: #C9A84C; color: #fff; font-size: 15px; font-weight: 600; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
+    .btn-cta:hover { background: #A68A3E; }
+    .btn-secondary { display: block; width: 100%; padding: 13px; background: transparent; color: #1d1d1f; font-size: 14px; font-weight: 600; border: 1.5px solid #e5e5e5; border-radius: 12px; text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
+    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
+
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+
+  <!-- ── FORM ── -->
+  <div id="form-section">
+    <span class="icon">⚡</span>
+    <h1>Finir n'importe quel projet<br>avec <em>une seule commande</em></h1>
+    <p class="subtitle">Entre ton email — je t'envoie le guide complet pour utiliser <strong>/ultra plan</strong> et le mode auto avec Claude.</p>
+    <div class="stat">🤖 Gratuit · /ultra plan · Mode auto</div>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="btn-primary" id="submit-btn">Recevoir le guide →</button>
+    </form>
+    <div class="proof">
+      <span>🔒</span>
+      <span>Aucun spam. <strong>Juste le guide.</strong></span>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM ── -->
+  <div id="confirm-section">
+    <div class="confirm-header">
+      <span class="check-icon">✅</span>
+      <p class="confirm-title">Voilà le guide complet</p>
+      <p class="confirm-intro">3 étapes pour finir n'importe quel projet en mode auto — Claude et Codex font tout le travail à ta place.</p>
+    </div>
+
+    <div class="guide-steps">
+      <div class="guide-step">
+        <div class="guide-num">1</div>
+        <div class="guide-body">
+          <div class="guide-title">Tape /ultra plan dans Claude</div>
+          <div class="guide-desc">Claude te pose une série de questions sur ton projet. Tu réponds — il génère un plan d'exécution complet.</div>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-num">2</div>
+        <div class="guide-body">
+          <div class="guide-title">Colle le plan dans Codex</div>
+          <div class="guide-desc">Codex relit le plan et propose des corrections. Le tien reviendra probablement avec une dizaine d'améliorations.</div>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-num">3</div>
+        <div class="guide-body">
+          <div class="guide-title">Recolle dans Claude → mode auto → tu t'en vas</div>
+          <div class="guide-desc">Claude exécute l'intégralité du projet tout seul pendant que toi tu fais autre chose.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      <div class="prompt-label">📋 Les commandes exactes</div>
+      <div class="prompt-text"><span class="cmd">Étape 1 — dans Claude :</span>
+/ultra plan
+
+<span class="cmd">Étape 2 — dans Codex :</span>
+Relis ce plan et propose toutes
+les corrections et améliorations
+nécessaires avant exécution.
+
+<span class="cmd">Étape 3 — dans Claude :</span>
+Voici le plan corrigé. Accepte-le
+et active le mode auto pour exécuter
+chaque étape automatiquement.</div>
+      <div class="prompt-copy-hint">← copie ça directement dans Claude</div>
+    </div>
+
+    <div class="divider">Tu veux aller plus loin ?</div>
+
+    <!-- 50 Spécialistes IA — CTA principal -->
+    <div class="specialistes-box">
+      <div class="specialistes-glow"></div>
+      <div class="specialistes-badge">⭐ NOUVEAU</div>
+      <div class="specialistes-stars">★★★★★</div>
+      <div class="specialistes-rating">4.9 · Entrepreneurs francophones</div>
+      <div class="specialistes-title">Transformez Claude en une<br><em>équipe IA haute performance</em></div>
+      <div class="specialistes-desc">50 spécialistes autonomes à installer dans Claude. Un pour chaque partie de ton business — ils bossent en automatique sur des workflows complets.</div>
+      <div class="specialistes-grid">
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">📱</div>
+          <div class="specialistes-item-label">Réseaux sociaux</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">✍️</div>
+          <div class="specialistes-item-label">Copywriter</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">📊</div>
+          <div class="specialistes-item-label">Stratège business</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">🎯</div>
+          <div class="specialistes-item-label">Coach commercial</div>
+        </div>
+      </div>
+      <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-specialistes">Découvrir les 50 spécialistes →</a>
+      <div class="specialistes-note">Un paiement unique · Pas d'abonnement · Résultats dès le premier message</div>
+    </div>
+
+    <!-- Formation box -->
+    <div class="formation-box">
+      <div class="formation-badge">🚀 ACCOMPAGNEMENT INTENSIF</div>
+      <div class="formation-title">Dans 8 semaines, <em>Claude travaille pour toi</em></div>
+      <div class="formation-desc">Ce guide t'a montré comment automatiser un projet. Maintenant imagine Claude appliqué à tout ton business — contenu, prospection, organisation, automatisations.</div>
+      <div class="formation-checks">
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu gagnes des heures chaque semaine</div>
+            <div class="check-sub">Les tâches répétitives que tu fais encore à la main ? Claude les prend en charge.</div>
+          </div>
+        </div>
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu repars avec un système qui tourne</div>
+            <div class="check-sub">Pas des théories. Des outils concrets, opérationnels, calibrés pour ce que tu fais.</div>
+          </div>
+        </div>
+        <div class="formation-check">
+          <div class="check-bullet">✓</div>
+          <div class="check-content">
+            <div class="check-title">Tu es accompagné, pas laissé seul</div>
+            <div class="check-sub">On avance ensemble, à ton rythme, sur ta situation réelle. 100% remote.</div>
+          </div>
+        </div>
+      </div>
+      <div class="formation-stats">
+        <div class="formation-stat"><div class="formation-stat-num">8</div><div class="formation-stat-label">semaines</div></div>
+        <div class="formation-stat"><div class="formation-stat-num">10</div><div class="formation-stat-label">places max</div></div>
+        <div class="formation-stat"><div class="formation-stat-num">100%</div><div class="formation-stat-label">remote</div></div>
+      </div>
+      <a href="https://www.maitrise-ia.pro/formulaire" target="_blank" class="btn-formation">Je veux en savoir plus →</a>
+      <div class="formation-note">Places limitées · Prochaine cohorte en cours</div>
+    </div>
+
+    <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-cta">📞 Réserver mon audit gratuit →</a>
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+
+    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+  </div>
+</div>
+
+<script>
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+  const STORAGE_KEY = 'mia_plan_submitted';
+
+  // Si déjà soumis, afficher directement le guide
+  if (localStorage.getItem(STORAGE_KEY)) {
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Envoi...';
+    btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nouveau lead — Guide Ultra Plan Claude',
+          from_name: 'Maîtrise IA',
+          replyto: email,
+          message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
+        })
+      });
+    } catch (err) { console.warn('Form error:', err); }
+    localStorage.setItem(STORAGE_KEY, '1');
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>
