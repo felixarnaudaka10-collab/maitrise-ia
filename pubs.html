@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automatise tes pubs Meta avec Claude — Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 26px;
+    }
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f5f5f7;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      color: #1d1d1f;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
+    #form-section input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: #A68A3E; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #aeaeb2;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .proof strong { color: #1d1d1f; }
+
+    /* ── Confirm section ── */
+    #confirm-section { display: none; text-align: left; }
+    .confirm-header { text-align: center; margin-bottom: 28px; }
+    .check-icon { font-size: 44px; margin-bottom: 14px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-intro { font-size: 14px; color: #6e6e73; line-height: 1.65; }
+
+    /* Ce que tu vas obtenir */
+    .obtenir-box {
+      background: #f5f5f7; border: 1px solid #e5e5e5;
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 24px;
+    }
+    .obtenir-title { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .obtenir-list { display: flex; flex-direction: column; gap: 8px; }
+    .obtenir-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #3d3d3f; line-height: 1.5; }
+    .obtenir-dot { color: #C9A84C; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
+    /* Guide étapes */
+    .guide-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .guide-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: #f5f5f7; border-radius: 14px; padding: 14px 16px; border: 1px solid #e5e5e5;
+    }
+    .guide-num {
+      width: 32px; height: 32px; background: #C9A84C; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .guide-body { flex: 1; }
+    .guide-title { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 3px; }
+    .guide-desc { font-size: 12px; color: #6e6e73; line-height: 1.55; }
+    .guide-result {
+      margin-top: 8px; padding: 8px 10px;
+      background: rgba(201,168,76,.08); border-left: 3px solid #C9A84C;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px; color: #6e6e73; line-height: 1.5;
+    }
+    .guide-result strong { color: #C9A84C; }
+
+    /* Prompt box */
+    .prompt-box {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 20px; margin-bottom: 24px;
+    }
+    .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #E2C66B; margin-bottom: 12px; }
+    .prompt-text { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap; }
+    .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
+    .prompt-copy-hint { font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0 20px; color: #aeaeb2; font-size: 12px; font-weight: 600;
+    }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
+
+    /* 50 Spécialistes IA box */
+    .specialistes-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .specialistes-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .specialistes-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
+      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .specialistes-stars { color: #C9A84C; font-size: 13px; margin-bottom: 4px; }
+    .specialistes-rating { font-size: 11px; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+    .specialistes-title {
+      font-size: 21px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.5px;
+    }
+    .specialistes-title em { font-style: normal; color: #E2C66B; }
+    .specialistes-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .specialistes-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
+    .specialistes-item {
+      background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.15);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .specialistes-item-icon { font-size: 16px; margin-bottom: 4px; }
+    .specialistes-item-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); }
+    .btn-specialistes {
+      display: block; width: 100%; padding: 16px;
+      background: #C9A84C; color: #fff;
+      font-size: 15px; font-weight: 800; border-radius: 14px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .btn-specialistes:hover { background: #A68A3E; }
+    .specialistes-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
+
+    /* Skool box */
+    .skool-box { background: #0a0f0a; border: 1px solid rgba(74,197,94,.25); border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
+    .skool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,197,94,.12); border: 1px solid rgba(74,197,94,.25); color: #4ac55e; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .skool-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
+    .skool-title em { font-style: normal; color: #4ac55e; }
+    .skool-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+    .skool-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .skool-check { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 600; }
+    .btn-skool { display: block; width: 100%; padding: 15px; background: #4ac55e; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-skool:hover { background: #3aad4d; }
+    .skool-note { font-size: 12px; color: #6b7280; text-align: center; }
+
+    /* Audit box */
+    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
+    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .audit-title { font-size: 20px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
+    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
+    .btn-audit:hover { background: #333; }
+    .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; }
+    .btn-whatsapp:hover { background: #1da851; }
+
+    .btn-secondary { display: block; width: 100%; padding: 13px; background: transparent; color: #1d1d1f; font-size: 14px; font-weight: 600; border: 1.5px solid #e5e5e5; border-radius: 12px; text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
+    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
+
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+
+  <!-- ── FORM ── -->
+  <div id="form-section">
+    <span class="icon">🎯</span>
+    <h1>Tes pubs Meta tournent<br><em>toutes seules</em></h1>
+    <p class="subtitle">Entre ton email — je t'envoie le guide complet pour mettre en place le pipeline pub autonome avec Claude.</p>
+    <div class="stat">🤖 Gratuit · Claude Cowork · Zéro agence</div>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="btn-primary" id="submit-btn">Recevoir le guide →</button>
+    </form>
+    <div class="proof">
+      <span>🔒</span>
+      <span>Aucun spam. <strong>Juste le guide.</strong></span>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM ── -->
+  <div id="confirm-section">
+    <div class="confirm-header">
+      <span class="check-icon">✅</span>
+      <p class="confirm-title">Voilà le guide complet</p>
+      <p class="confirm-intro">5 étapes pour automatiser ton pipeline pub Meta — de l'analyse des concurrents jusqu'au lancement des campagnes. Zéro intervention humaine.</p>
+    </div>
+
+    <div class="obtenir-box">
+      <div class="obtenir-title">Ce que le système fait pour toi</div>
+      <div class="obtenir-list">
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Analyse les pubs de tes concurrents (Meta Ads Library)</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Génère tes visuels pub automatiquement via Higgsfield</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Lance tes campagnes directement dans Meta Ads Manager</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Lit tes métriques en temps réel et scale les gagnantes</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Tourne automatiquement le jour que tu décides</div>
+      </div>
+    </div>
+
+    <div class="guide-steps">
+
+      <div class="guide-step">
+        <div class="guide-num">1</div>
+        <div class="guide-body">
+          <div class="guide-title">Ouvre Claude Cowork et connecte les MCPs</div>
+          <div class="guide-desc">Dans Claude Cowork, clique sur Connecteurs. Active le MCP Higgsfield (génération de visuels) et le MCP Meta (accès au Gestionnaire de pub). Les deux sont nécessaires pour que la boucle fonctionne.</div>
+          <div class="guide-result"><strong>Résultat :</strong> Claude a maintenant accès à tes outils pub en direct.</div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">2</div>
+        <div class="guide-body">
+          <div class="guide-title">Demande l'analyse des pubs concurrentes</div>
+          <div class="guide-desc">Donne à Claude le nom de tes concurrents ou ta niche. Il va directement puller leurs pubs actives depuis la bibliothèque Meta Ads — créas, durée de diffusion, estimation de budget. Tu vois leur stratégie complète en quelques secondes.</div>
+          <div class="guide-result"><strong>Résultat :</strong> Un rapport complet sur ce que tes concurrents diffusent en ce moment.</div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">3</div>
+        <div class="guide-body">
+          <div class="guide-title">Claude génère tes visuels via Higgsfield</div>
+          <div class="guide-desc">Sur la base de cette analyse, Claude se connecte à Higgsfield et génère plusieurs variations de visuels publicitaires. Il adapte le style, le message et le format à ce qui performe dans ta niche. Aucun brief, aucun designer.</div>
+          <div class="guide-result"><strong>Résultat :</strong> 3 à 5 créas pub prêtes, basées sur ce qui marche chez tes concurrents.</div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">4</div>
+        <div class="guide-body">
+          <div class="guide-title">Lancement automatique dans Meta Ads Manager</div>
+          <div class="guide-desc">Claude se connecte au Gestionnaire de pub Meta via le MCP. Il crée la campagne, configure le ciblage, upload les visuels et publie. Il lit ensuite tes métriques en temps réel — impressions, CPC, ROAS — et scale les annonces qui performent.</div>
+          <div class="guide-result"><strong>Résultat :</strong> Campagne lancée et optimisée sans que tu ouvres Meta.</div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-num">5</div>
+        <div class="guide-body">
+          <div class="guide-title">Programme le process en automatique</div>
+          <div class="guide-desc">Utilise le Planificateur de Claude Cowork pour que l'ensemble du pipeline tourne automatiquement. Tu choisis le jour, la fréquence. Claude analyse, crée, lance et optimise sans intervention.</div>
+          <div class="guide-result"><strong>Résultat :</strong> La boucle entière tourne seule, le jour que tu veux.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prompt-box">
+      <div class="prompt-label">💬 Les prompts exacts</div>
+      <div class="prompt-text"><span class="cmd">Étape 2 — analyse concurrents :</span>
+Analyse les pubs actives de [nom concurrent]
+dans la bibliothèque Meta Ads. Donne-moi
+les créas, les formats, la durée de diffusion
+et une estimation du budget mensuel.
+
+<span class="cmd">Étape 3 — génération visuels :</span>
+Sur la base de cette analyse, génère
+3 variations de visuels pub via Higgsfield
+adaptées à ma niche [ta niche].
+
+<span class="cmd">Étape 4 — lancement :</span>
+Crée et lance une campagne Meta Ads
+avec ces visuels. Budget [X]€/jour.
+Cible : [description audience].
+Lis les métriques après 24h et scale
+les annonces avec un ROAS supérieur à 2.</div>
+      <div class="prompt-copy-hint">← copie directement dans Claude Cowork</div>
+    </div>
+
+    <div class="divider">Tu veux aller plus loin ?</div>
+
+    <!-- 50 Spécialistes IA — CTA principal -->
+    <div class="specialistes-box">
+      <div class="specialistes-glow"></div>
+      <div class="specialistes-badge">⭐ NOUVEAU</div>
+      <div class="specialistes-stars">★★★★★</div>
+      <div class="specialistes-rating">4.9 · Entrepreneurs francophones</div>
+      <div class="specialistes-title">Transformez Claude en une<br><em>équipe IA haute performance</em></div>
+      <div class="specialistes-desc">50 spécialistes autonomes à installer dans Claude. Un pour chaque partie de ton business — ils bossent en automatique sur des workflows complets.</div>
+      <div class="specialistes-grid">
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">📱</div>
+          <div class="specialistes-item-label">Réseaux sociaux</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">🎯</div>
+          <div class="specialistes-item-label">Pub & Meta Ads</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">✍️</div>
+          <div class="specialistes-item-label">Copywriter</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">📊</div>
+          <div class="specialistes-item-label">Stratège business</div>
+        </div>
+      </div>
+      <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-specialistes">Découvrir les 50 spécialistes →</a>
+      <div class="specialistes-note">Un paiement unique · Pas d'abonnement · Résultats dès le premier message</div>
+    </div>
+
+    <!-- Skool community box -->
+    <div class="skool-box">
+      <div class="skool-badge">🟢 COMMUNAUTÉ GRATUITE</div>
+      <div class="skool-title">Rejoins le <em>Claude Business Lab</em></div>
+      <div class="skool-desc">Une communauté d'entrepreneurs qui intègrent Claude dans leur business. On partage nos réussites, nos workflows, nos astuces. Je poste des tutos et des vidéos de formation en accès direct.</div>
+      <div class="skool-checks">
+        <div class="skool-check">✓ Workflows concrets partagés chaque semaine</div>
+        <div class="skool-check">✓ Vidéos de formation exclusives</div>
+        <div class="skool-check">✓ Entraide entre entrepreneurs qui avancent</div>
+      </div>
+      <a href="https://www.skool.com/claude-business-lab-5890" target="_blank" class="btn-skool">Rejoindre la communauté gratuite →</a>
+      <div class="skool-note">Accès gratuit · Communauté privée · Arnaud présent</div>
+    </div>
+
+    <!-- Audit box -->
+    <div class="audit-box">
+      <div class="audit-badge">⚡ ON AUTOMATISE TOUTE TA BOÎTE</div>
+      <div class="audit-title">Tes process. Ton contenu. Ta prospection.</div>
+      <div class="audit-desc">Tu passes encore des heures sur des tâches que Claude pourrait faire en 2 minutes ? On cartographie ensemble ce qui peut être automatisé dans ton business, et on met ça en place.</div>
+      <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-audit">📞 Réserver un audit gratuit →</a>
+      <a href="https://wa.me/33786940245" target="_blank" class="btn-whatsapp">💬 Me contacter sur WhatsApp</a>
+    </div>
+
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+
+    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+  </div>
+</div>
+
+<script>
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+  const STORAGE_KEY = 'mia_pubs_submitted';
+
+  if (localStorage.getItem(STORAGE_KEY)) {
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Envoi...';
+    btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nouveau lead — Guide Pubs Meta Claude',
+          from_name: 'Maîtrise IA',
+          replyto: email,
+          message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
+        })
+      });
+      localStorage.setItem(STORAGE_KEY, '1');
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('confirm-section').style.display = 'block';
+    } catch {
+      btn.textContent = 'Recevoir le guide →';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
