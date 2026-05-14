@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reel — Claude tue les agences de pub Meta</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;}
+.stage{width:540px;height:540px;position:relative;overflow:hidden;background:#0a0a0a;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px;opacity:0;pointer-events:none;transition:opacity .35s;}
+.slide.active{opacity:1;pointer-events:auto;}
+.progress{width:540px;height:3px;background:#222;}
+.progress-fill{height:100%;background:#C9A84C;width:0%;transition:width linear;}
+.nav{display:flex;gap:12px;margin-top:14px;}
+.nav button{background:#222;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.nav button:hover{background:#333;}
+.dots{display:flex;gap:7px;align-items:center;margin-top:10px;}
+.dot{width:7px;height:7px;border-radius:50%;background:#333;transition:background .3s;cursor:pointer;}
+.dot.active{background:#C9A84C;}
+
+/* ══ S0 HOOK ══ */
+#s0{background:#0a0a0a;padding:0;}
+.s0-halo{position:absolute;width:420px;height:320px;border-radius:50%;background:radial-gradient(ellipse,rgba(201,168,76,.16) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-52%);opacity:0;animation:glowIn 1s ease forwards;animation-delay:.3s;}
+.s0-logo{display:flex;align-items:center;gap:9px;position:absolute;top:36px;left:50%;transform:translateX(-50%);white-space:nowrap;opacity:0;animation:fadeDown .5s ease forwards;animation-delay:.15s;}
+.s0-asterisk{font-size:24px;color:#E2C66B;}
+.s0-brand{font-size:16px;font-weight:800;color:#E2C66B;letter-spacing:.5px;}
+
+.s0-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);display:flex;flex-direction:column;align-items:center;width:100%;gap:4px;}
+.s0-line-top{font-size:16px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.3px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:.5s;text-align:center;}
+.s0-blink-wrap{position:relative;}
+.s0-connector{font-size:14px;font-weight:700;color:rgba(255,255,255,.35);opacity:0;animation:fadeUp .4s ease forwards;animation-delay:.9s;}
+
+@keyframes neonBlink1{
+  0%{opacity:0;color:#C9A84C;text-shadow:none;}
+  8%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  16%{opacity:0;text-shadow:none;}
+  24%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  32%{opacity:0;text-shadow:none;}
+  40%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  48%{opacity:0;text-shadow:none;}
+  56%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  100%{opacity:1;color:#C9A84C;text-shadow:0 0 16px #C9A84C,0 0 30px #C9A84C;}
+}
+@keyframes neonBlink2{
+  0%{opacity:0;color:#C9A84C;text-shadow:none;}
+  8%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  16%{opacity:0;text-shadow:none;}
+  24%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  32%{opacity:0;text-shadow:none;}
+  40%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  48%{opacity:0;text-shadow:none;}
+  56%{opacity:1;color:#C9A84C;text-shadow:0 0 20px #C9A84C,0 0 40px #C9A84C,0 0 80px #C9A84C;}
+  100%{opacity:1;color:#C9A84C;text-shadow:0 0 16px #C9A84C,0 0 30px #C9A84C;}
+}
+.s0-blink{font-size:90px;font-weight:900;letter-spacing:-4px;line-height:1;opacity:0;}
+.s0-blink.anim{animation:neonBlink1 1.8s ease forwards;animation-delay:.1s;}
+.s0-blink2{font-size:50px;font-weight:900;letter-spacing:-2px;line-height:1;opacity:0;}
+.s0-blink2.anim{animation:neonBlink2 1.8s ease forwards;animation-delay:1.3s;}
+.s0-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:13px;font-weight:700;padding:7px 16px;border-radius:20px;margin-top:12px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:1.5s;}
+.s0-badge em{font-style:normal;color:#E2C66B;}
+.s0-sub{position:absolute;bottom:46px;left:0;right:0;text-align:center;font-size:14px;color:rgba(255,255,255,.38);font-weight:500;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:2.0s;}
+
+/* ══ CONTENT SLIDES ══ */
+.content-slide{background:#0f0f0f;}
+.slide-label{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:8px;opacity:0;}
+.slide-label.anim{animation:fadeUp .45s ease forwards;}
+.slide-title{font-size:25px;font-weight:900;color:#fff;letter-spacing:-0.8px;line-height:1.2;text-align:center;margin-bottom:16px;opacity:0;}
+.slide-title.anim{animation:fadeUp .45s ease forwards;animation-delay:.12s;}
+.slide-title em{font-style:normal;color:#E2C66B;}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:11px;width:100%;}
+.step{display:flex;align-items:center;gap:13px;opacity:0;}
+.step.anim{animation:slideR .42s cubic-bezier(.34,1.56,.64,1) forwards;}
+.step-num{width:32px;height:32px;border-radius:50%;background:#C9A84C;color:#1a1200;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0;}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:800;color:#fff;line-height:1.3;}
+.step-desc{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;}
+.step-tag{display:inline-block;font-size:11px;font-weight:700;color:#C9A84C;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);padding:2px 9px;border-radius:8px;margin-top:4px;}
+
+/* Agents — S2 */
+.agents{display:flex;flex-direction:column;gap:7px;width:100%;margin-top:14px;}
+.agent{display:flex;align-items:center;gap:10px;opacity:0;}
+.agent.anim{animation:slideR .4s cubic-bezier(.34,1.56,.64,1) forwards;}
+.agent-dot{width:7px;height:7px;border-radius:50%;background:#C9A84C;flex-shrink:0;}
+.agent-text{font-size:12px;color:rgba(255,255,255,.75);font-weight:600;}
+.agent-badge{font-size:10px;font-weight:800;color:#C9A84C;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);padding:2px 8px;border-radius:6px;margin-left:auto;}
+
+/* Code block — S2 */
+.code-block{background:#0d0d14;border:1px solid rgba(201,168,76,.35);border-radius:14px;padding:16px;width:100%;text-align:left;opacity:0;}
+.code-block.anim{animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.1s;}
+.code-label{font-size:10px;font-weight:700;letter-spacing:2px;color:#C9A84C;text-transform:uppercase;margin-bottom:10px;}
+.code-text{font-family:'SF Mono','Menlo','Consolas',monospace;font-size:12px;color:#e2e8f0;line-height:1.8;}
+.code-text .cmd{color:#E2C66B;font-weight:700;}
+
+/* Result boxes — S3 */
+.agent-result{display:flex;flex-direction:column;gap:10px;width:100%;}
+.ar-box{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:14px 16px;opacity:0;}
+.ar-box.anim{animation:bounceIn .45s cubic-bezier(.34,1.56,.64,1) forwards;}
+.ar-icon{font-size:20px;margin-bottom:6px;}
+.ar-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:3px;}
+.ar-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;}
+.ar-arrow{text-align:center;font-size:18px;color:#C9A84C;opacity:0;}
+.ar-arrow.anim{animation:fadeUp .3s ease forwards;}
+.key-stat{font-size:14px;font-weight:700;color:#fff;text-align:center;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:12px 20px;border-radius:12px;opacity:0;line-height:1.5;margin-top:2px;}
+.key-stat.anim{animation:fadeUp .45s ease forwards;}
+.key-stat span{color:#E2C66B;}
+
+/* Auto slide — S4 */
+.auto-flow{display:flex;flex-direction:column;gap:8px;width:100%;}
+.auto-row{display:flex;align-items:center;gap:10px;opacity:0;}
+.auto-row.anim{animation:slideR .42s cubic-bezier(.34,1.56,.64,1) forwards;}
+.auto-pill{display:flex;align-items:center;gap:8px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:11px 14px;flex:1;}
+.auto-icon{font-size:18px;flex-shrink:0;}
+.auto-body{flex:1;}
+.auto-label{font-size:12px;font-weight:800;color:#fff;}
+.auto-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
+.auto-arr{font-size:14px;color:#C9A84C;}
+
+/* CTA — S5 */
+#s5{background:#0a0a0a;}
+.cta-pre{font-size:16px;font-weight:600;color:rgba(255,255,255,.5);text-align:center;margin-bottom:6px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:.15s;}
+.cta-word{font-size:82px;font-weight:900;color:#C9A84C;letter-spacing:-3px;line-height:1;text-shadow:0 0 24px rgba(201,168,76,.4);opacity:0;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.3s;}
+.cta-sub{font-size:14px;color:rgba(255,255,255,.55);text-align:center;margin-top:12px;line-height:1.8;opacity:0;animation:fadeUp .45s ease forwards;animation-delay:.55s;}
+.cta-sub strong{color:#fff;}
+.cta-condition{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:9px 18px;border-radius:20px;margin-top:14px;opacity:0;animation:fadeUp .45s ease forwards;animation-delay:.75s;}
+.cta-condition em{font-style:normal;color:#E2C66B;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes glowIn{from{opacity:0;}to{opacity:1;}}
+@keyframes popIn{0%{opacity:0;transform:scale(.7);}60%{opacity:1;transform:scale(1.06);}100%{opacity:1;transform:scale(1);}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.8) translateY(8px);}60%{opacity:1;transform:scale(1.05) translateY(-3px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+@keyframes slideR{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- S0 — HOOK -->
+  <div class="slide active" id="s0">
+    <div class="s0-halo"></div>
+    <div class="s0-logo"><span class="s0-asterisk">✳</span><span class="s0-brand">Claude Cowork</span></div>
+    <div class="s0-center">
+      <div class="s0-line-top">vient de tuer les</div>
+      <div class="s0-blink-wrap"><div class="s0-blink anim">CLAUDE</div></div>
+      <div class="s0-connector">agences de pub</div>
+      <div class="s0-blink-wrap"><div class="s0-blink2 anim">META ADS</div></div>
+      <div class="s0-badge">💀 <em>Tout automatique · Zéro agence</em></div>
+    </div>
+    <div class="s0-sub">Je te montre la boucle complète</div>
+  </div>
+
+  <!-- S1 — Setup Cowork + MCPs -->
+  <div class="slide content-slide" id="s1">
+    <div class="slide-label">Le setup · 2 minutes</div>
+    <div class="slide-title">Claude Cowork<br>+ <em>2 MCPs connectés</em></div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Ouvre Claude Cowork</div>
+          <div class="step-desc">Va dans Connecteurs</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Active Higgsfield MCP</div>
+          <div class="step-desc">Génération de visuels pub automatique</div>
+          <div class="step-tag">🎨 Créas en quelques secondes</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Active Meta MCP</div>
+          <div class="step-desc">Accès direct au Gestionnaire de pub</div>
+          <div class="step-tag">🚀 Lancement sans ouvrir Meta</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 — Analyse concurrents -->
+  <div class="slide content-slide" id="s2">
+    <div class="slide-label">Étape 1 · En temps réel</div>
+    <div class="slide-title">Claude <em>pull les pubs</em><br>de tes concurrents</div>
+    <div class="code-block">
+      <div class="code-label">📋 Tu dis à Claude</div>
+      <div class="code-text">
+        <span class="cmd">Analyse les pubs actives</span><br>
+        de [concurrent] dans la<br>
+        bibliothèque Meta Ads
+      </div>
+    </div>
+    <div class="agents">
+      <div class="agent"><div class="agent-dot"></div><div class="agent-text">Créas actives en ce moment</div><div class="agent-badge">Récupéré</div></div>
+      <div class="agent"><div class="agent-dot"></div><div class="agent-text">Budget mensuel estimé</div><div class="agent-badge">Récupéré</div></div>
+      <div class="agent"><div class="agent-dot"></div><div class="agent-text">Formats qui performent</div><div class="agent-badge">Récupéré</div></div>
+      <div class="agent"><div class="agent-dot"></div><div class="agent-text">Durée de diffusion</div><div class="agent-badge">Récupéré</div></div>
+    </div>
+  </div>
+
+  <!-- S3 — Visuels + Lancement -->
+  <div class="slide content-slide" id="s3">
+    <div class="slide-label">Étapes 2 & 3 · Automatique</div>
+    <div class="slide-title" style="margin-bottom:14px;"><em>Visuels créés</em><br>Campagne lancée</div>
+    <div class="agent-result">
+      <div class="ar-box">
+        <div class="ar-icon">🎨</div>
+        <div class="ar-title">Higgsfield génère les créas</div>
+        <div class="ar-desc">Basé sur l'analyse concurrents — visuels, formats, messages. Pas de brief, pas de designer.</div>
+      </div>
+      <div class="ar-arrow">↓</div>
+      <div class="ar-box">
+        <div class="ar-icon">🚀</div>
+        <div class="ar-title">Meta MCP lance la campagne</div>
+        <div class="ar-desc">Ciblage, budget, upload des visuels, publication. Claude lit les métriques en temps réel.</div>
+      </div>
+    </div>
+    <div class="key-stat"><span>Zéro clic</span> dans Meta Ads Manager.</div>
+  </div>
+
+  <!-- S4 — Scale + Automation -->
+  <div class="slide content-slide" id="s4">
+    <div class="slide-label">La boucle complète</div>
+    <div class="slide-title" style="margin-bottom:16px;">Scale + <em>100% automatisé</em></div>
+    <div class="auto-flow">
+      <div class="auto-row">
+        <div class="auto-pill">
+          <div class="auto-icon">🔍</div>
+          <div class="auto-body"><div class="auto-label">Analyse concurrents</div><div class="auto-sub">Meta Ads Library</div></div>
+        </div>
+        <div class="auto-arr">→</div>
+      </div>
+      <div class="auto-row">
+        <div class="auto-pill">
+          <div class="auto-icon">🎨</div>
+          <div class="auto-body"><div class="auto-label">Génération visuels</div><div class="auto-sub">Higgsfield MCP</div></div>
+        </div>
+        <div class="auto-arr">→</div>
+      </div>
+      <div class="auto-row">
+        <div class="auto-pill">
+          <div class="auto-icon">🚀</div>
+          <div class="auto-body"><div class="auto-label">Lancement + Scale</div><div class="auto-sub">Meta MCP · ROAS > 2</div></div>
+        </div>
+        <div class="auto-arr">→</div>
+      </div>
+      <div class="auto-row">
+        <div class="auto-pill">
+          <div class="auto-icon">🔄</div>
+          <div class="auto-body"><div class="auto-label">Recommence seul</div><div class="auto-sub">Le jour que tu décides</div></div>
+        </div>
+        <div class="auto-arr">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5 — CTA -->
+  <div class="slide" id="s5">
+    <div class="cta-pre">Commente le mot</div>
+    <div class="cta-word">PUBS</div>
+    <div class="cta-sub">Je t'envoie le <strong>guide complet</strong><br>pour mettre ça en place</div>
+    <div class="cta-condition">🔒 Réservé aux <em>abonnés</em> de mon compte</div>
+  </div>
+
+</div>
+
+<div class="progress"><div class="progress-fill" id="pbar"></div></div>
+<div class="dots" id="dots"></div>
+<div class="nav">
+  <button onclick="prev()">← Préc</button>
+  <button onclick="next()">Suiv →</button>
+</div>
+
+<script>
+const SLIDES=['s0','s1','s2','s3','s4','s5'];
+const DURATIONS=[7500,8500,9000,8500,9000,8000];
+let cur=0,timer=null;
+const ANIMS={
+  s1:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.step',delay:420,stagger:170}],
+  s2:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.code-block',delay:380},{sel:'.agent',delay:520,stagger:120}],
+  s3:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.ar-box',delay:400,stagger:220},{sel:'.ar-arrow',delay:580},{sel:'.key-stat',delay:900}],
+  s4:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.auto-row',delay:420,stagger:160}],
+};
+const dotsEl=document.getElementById('dots');
+SLIDES.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsEl.appendChild(d);});
+function resetSlide(id){document.getElementById(id).querySelectorAll('.slide-label,.slide-title,.step,.code-block,.agent,.ar-box,.ar-arrow,.key-stat,.auto-row').forEach(e=>{e.classList.remove('anim');void e.offsetWidth;});}
+function runAnims(id){const defs=ANIMS[id];if(!defs)return;const el=document.getElementById(id);defs.forEach(def=>{[...el.querySelectorAll(def.sel)].forEach((e,i)=>{setTimeout(()=>e.classList.add('anim'),def.delay+(def.stagger?i*def.stagger:0));});});}
+function startProgress(dur){const bar=document.getElementById('pbar');bar.style.transition='none';bar.style.width='0%';void bar.offsetWidth;bar.style.transition=`width ${dur}ms linear`;bar.style.width='100%';}
+function goTo(idx){
+  clearTimeout(timer);
+  document.getElementById(SLIDES[cur]).classList.remove('active');
+  resetSlide(SLIDES[cur]);
+  cur=idx;
+  const el=document.getElementById(SLIDES[cur]);
+  el.classList.add('active');
+  if(cur===0){
+    ['.s0-halo','.s0-logo','.s0-line-top','.s0-connector','.s0-badge','.s0-sub'].forEach(s=>{const e=el.querySelector(s);if(!e)return;const a=e.style.animation;e.style.animation='none';void e.offsetWidth;e.style.animation=a;});
+    const blink=el.querySelector('.s0-blink');blink.classList.remove('anim');void blink.offsetWidth;setTimeout(()=>blink.classList.add('anim'),10);
+    const blink2=el.querySelector('.s0-blink2');blink2.classList.remove('anim');void blink2.offsetWidth;setTimeout(()=>blink2.classList.add('anim'),10);
+  }
+  runAnims(SLIDES[cur]);
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  startProgress(DURATIONS[cur]);
+  if(cur<SLIDES.length-1)timer=setTimeout(()=>goTo(cur+1),DURATIONS[cur]);
+}
+function next(){goTo(Math.min(cur+1,SLIDES.length-1));}
+function prev(){goTo(Math.max(cur-1,0));}
+startProgress(DURATIONS[0]);
+timer=setTimeout(()=>goTo(1),DURATIONS[0]);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
+</script>
+</body>
+</html>
