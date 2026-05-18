@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 Agents Finance Claude — Monsieur IA</title>
+<style>
+
+:root {
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.2);
+  --bg: #0A0A0C;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --green: #00E676;
+  --red: #FF3B5C;
+  --text: #FFFFFF;
+  --muted: rgba(255,255,255,0.55);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 60px 24px 48px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 240px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: clamp(32px, 8vw, 48px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title span {
+  color: var(--gold);
+  display: block;
+  text-shadow: 0 0 40px rgba(201,168,76,0.4);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 400px;
+  margin: 0 auto 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── RESULT STAT ── */
+.result-stat {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 16px;
+  padding: 16px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.result-number {
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.result-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── AGENTS CARDS ── */
+.section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.agent-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.agent-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.agent-card:nth-child(1) { border-left: 3px solid var(--green); }
+.agent-card:nth-child(2) { border-left: 3px solid var(--gold); }
+.agent-card:nth-child(3) { border-left: 3px solid #6EE7F7; }
+
+.agent-num {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 2px;
+  min-width: 28px;
+  padding-top: 2px;
+}
+
+.agent-body { flex: 1; }
+
+.agent-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.agent-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.agent-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── PROMPT PREVIEW ── */
+.prompt-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.prompt-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 12px;
+  padding: 18px 20px;
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  position: relative;
+}
+
+.prompt-box::before {
+  content: '> CLAUDE';
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.prompt-blur-wrap {
+  position: relative;
+  margin-top: 10px;
+}
+
+.prompt-blur {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.7;
+  filter: blur(4px);
+  user-select: none;
+}
+
+.prompt-unlock-msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ── FORM ── */
+.form-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+
+.form-card {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.form-sub {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.form-input::placeholder { color: rgba(255,255,255,0.3); }
+.form-input:focus { border-color: rgba(201,168,76,0.5); }
+
+.form-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #C9A84C, #E8C66A, #C9A84C);
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0A0A0C;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.form-btn:hover  { opacity: 0.9; }
+.form-btn:active { transform: scale(0.98); }
+
+.form-privacy {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* ── SUCCESS ── */
+.success-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 20px 0 10px;
+}
+
+.success-state.visible { display: flex; }
+
+.success-icon { font-size: 40px; }
+.success-title { font-size: 20px; font-weight: 900; color: #fff; }
+.success-sub   { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 320px; }
+
+/* ── DIVIDER ── */
+.divider {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  padding: 0 20px;
+}
+
+.divider-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ── CTA BLOCKS ── */
+.cta-blocks {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Specialistes */
+.specialistes-box {
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.specialistes-box:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+.specialistes-badge {
+  font-size: 28px;
+  min-width: 44px;
+  text-align: center;
+}
+.specialistes-text { flex: 1; }
+.specialistes-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+.specialistes-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.specialistes-arrow {
+  font-size: 20px;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+/* Skool */
+.skool-box {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.skool-box:hover { border-color: rgba(34,197,94,0.5); transform: translateY(-1px); }
+
+.skool-icon { font-size: 26px; min-width: 44px; text-align: center; }
+.skool-text { flex: 1; }
+.skool-title { font-size: 14px; font-weight: 800; color: #4ade80; margin-bottom: 3px; }
+.skool-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.skool-arrow { font-size: 18px; color: #4ade80; opacity: 0.7; }
+
+/* Audit */
+.audit-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.audit-box:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+.audit-icon  { font-size: 26px; min-width: 44px; text-align: center; }
+.audit-text  { flex: 1; }
+.audit-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.audit-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.audit-arrow { font-size: 18px; color: rgba(255,255,255,0.4); }
+
+/* Instagram */
+.ig-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s;
+}
+.ig-box:hover { border-color: rgba(255,255,255,0.15); }
+
+.ig-icon  { font-size: 24px; min-width: 44px; text-align: center; }
+.ig-text  { flex: 1; }
+.ig-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+.ig-desc  { font-size: 11px; color: rgba(255,255,255,0.35); }
+.ig-arrow { font-size: 16px; color: rgba(255,255,255,0.25); }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">⚡ Anthropic · 10 nouveaux agents</div>
+  <h1 class="hero-title">
+    CLAUDE TUE
+    <span>LA FINANCE</span>
+  </h1>
+  <p class="hero-sub">3 agents qui analysent vos rapports, préparent votre brief marché et mettent à jour votre portefeuille — automatiquement.</p>
+
+  <div class="result-stat">
+    <div class="result-number">3 agents</div>
+    <div class="result-label">Gratuits · Disponibles maintenant</div>
+  </div>
+</div>
+
+<!-- AGENT CARDS -->
+<div class="section">
+  <div class="section-title">Les 3 agents Claude</div>
+  <div class="agent-cards">
+    <div class="agent-card">
+      <div class="agent-num">01</div>
+      <div class="agent-body">
+        <div class="agent-name">EARNINGS DECODER</div>
+        <div class="agent-desc">Analyse n'importe quel rapport trimestriel en 30 secondes. Revenue, EPS, guidance : verdict clair, pas de blabla.</div>
+        <div class="agent-tags">
+          <span class="tag">RAPPORTS Q</span>
+          <span class="tag">EPS</span>
+          <span class="tag">GUIDANCE</span>
+        </div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">02</div>
+      <div class="agent-body">
+        <div class="agent-name">MORNING BRIEF</div>
+        <div class="agent-desc">Chaque matin, un brief personnalisé sur les marchés qui impactent votre portefeuille. Prêt avant votre café.</div>
+        <div class="agent-tags">
+          <span class="tag">MARCHÉS GLOBAUX</span>
+          <span class="tag">RÉSUMÉ 60s</span>
+          <span class="tag">ALERTES</span>
+        </div>
+      </div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-num">03</div>
+      <div class="agent-body">
+        <div class="agent-name">DOSSIER EXCEL</div>
+        <div class="agent-desc">Un prompt, votre portefeuille mis à jour avec P&L, performances et recommandations exportables en tableau.</div>
+        <div class="agent-tags">
+          <span class="tag">PORTFOLIO P&L</span>
+          <span class="tag">EXCEL</span>
+          <span class="tag">ANALYSE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMPT PREVIEW -->
+<div class="prompt-section">
+  <div class="prompt-label">Aperçu · Prompt Agent 01</div>
+  <div class="prompt-box">
+    Tu es un analyste financier senior. Analyse ce rapport trimestriel et donne-moi : [1] Chiffres clés vs estimations [2] Points forts et signaux d'alarme [3] Verdict d'investissement clair
+    <div class="prompt-blur-wrap">
+      <div class="prompt-blur">Prends les données suivantes et structure-les avec les métriques de croissance YoY, les marges opérationnelles et la guidance forward. Compare aux consensus Bloomberg. Génère un score de confiance de 0 à 10 avec justification.</div>
+      <div class="prompt-unlock-msg">🔒 Abonne-toi pour débloquer</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-section" id="form-section">
+  <div class="form-card">
+    <div id="form-state">
+      <div class="form-title">Reçois les 3 agents gratuitement</div>
+      <div class="form-sub">Accès immédiat · Aucune carte requise</div>
+      <form id="lead-form">
+        <input type="text"  class="form-input" id="field-name"  name="name"  placeholder="Ton prénom" required>
+        <input type="email" class="form-input" id="field-email" name="email" placeholder="Ton email" required>
+        <button type="submit" class="form-btn" id="submit-btn">
+          ⚡ Je veux les 3 agents Finance →
+        </button>
+        <div class="form-privacy">🔒 Pas de spam. Désabonnement en 1 clic.</div>
+      </form>
+    </div>
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✅</div>
+      <div class="success-title">C'est parti !</div>
+      <div class="success-sub">Vérifie ta boîte mail dans les prochaines minutes. Les 3 agents t'attendent.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider" style="margin-top:36px">
+  <div class="divider-line">Plus de ressources</div>
+</div>
+
+<!-- CTA BLOCKS -->
+<div class="cta-blocks">
+  <a href="https://maitrise-ia.vercel.app/specialistes" class="specialistes-box">
+    <div class="specialistes-badge">🏅</div>
+    <div class="specialistes-text">
+      <div class="specialistes-title">50 Spécialistes IA — Accès complet</div>
+      <div class="specialistes-desc">50 experts autonomes qui automatisent ton business. Finance, marketing, sales, contenu…</div>
+    </div>
+    <div class="specialistes-arrow">›</div>
+  </a>
+
+  <a href="https://wa.me/33600000000" target="_blank" class="audit-box">
+    <div class="audit-icon">📋</div>
+    <div class="audit-text">
+      <div class="audit-title">Audit IA Gratuit — 30 min avec Arnaud</div>
+      <div class="audit-desc">On analyse ensemble comment l'IA peut automatiser ton business. Places limitées.</div>
+    </div>
+    <div class="audit-arrow">›</div>
+  </a>
+
+  <a href="https://www.instagram.com/monsieur.ia" target="_blank" class="ig-box">
+    <div class="ig-icon">📲</div>
+    <div class="ig-text">
+      <div class="ig-title">@monsieur.ia sur Instagram</div>
+      <div class="ig-desc">Tips Claude quotidiens · Nouveautés Anthropic</div>
+    </div>
+    <div class="ig-arrow">›</div>
+  </a>
+</div>
+
+<script>
+const STORAGE_KEY = 'mia_finance_submitted';
+const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+
+// Skip form if already submitted
+if (localStorage.getItem(STORAGE_KEY) === 'true') {
+  showSuccess(false);
+}
+
+document.getElementById('lead-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+
+  const name  = document.getElementById('field-name').value.trim();
+  const email = document.getElementById('field-email').value.trim();
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: 'Nouveau lead — 3 Agents Finance Claude',
+        name,
+        email,
+        keyword: 'FINANCE'
+      })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem(STORAGE_KEY, 'true');
+      showSuccess(true);
+    } else {
+      throw new Error('API error');
+    }
+  } catch(err) {
+    btn.textContent = '⚡ Je veux les 3 agents Finance →';
+    btn.disabled = false;
+    alert('Une erreur est survenue, réessaie dans quelques instants.');
+  }
+});
+
+function showSuccess(animate) {
+  document.getElementById('form-state').style.display = 'none';
+  const s = document.getElementById('success-state');
+  s.classList.add('visible');
+}
+</script>
+
+</body>
+</html>
