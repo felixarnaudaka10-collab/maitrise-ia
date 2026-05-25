@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Certified Architect — La seule certif IA qui vaut vraiment quelque chose · Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: #f5f5f7;
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-card-num {
+      font-size: 22px;
+      font-weight: 900;
+      color: #C9A84C;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-card-label {
+      font-size: 11px;
+      color: #6e6e73;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .obtenir-box {
+      background: #f5f5f7; border: 1px solid #e5e5e5;
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 24px;
+      text-align: left;
+    }
+    .obtenir-title { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .obtenir-list { display: flex; flex-direction: column; gap: 8px; }
+    .obtenir-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #3d3d3f; line-height: 1.5; }
+    .obtenir-dot { color: #C9A84C; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .certif-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 20px;
+      padding: 22px 20px;
+      margin-bottom: 24px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .certif-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .certif-badge-row {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
+      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .certif-name {
+      font-size: 20px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.3px;
+    }
+    .certif-name em { font-style: normal; color: #E2C66B; }
+    .certif-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .certif-points { display: flex; flex-direction: column; gap: 9px; }
+    .certif-point {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.5;
+    }
+    .certif-point-dot { color: #E2C66B; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .claude-box {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 20px; margin-bottom: 24px;
+      text-align: left;
+    }
+    .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #E2C66B; margin-bottom: 12px; }
+    .prompt-text { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap; }
+    .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
+    .prompt-copy-hint { font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px; }
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0 20px; color: #aeaeb2; font-size: 12px; font-weight: 600;
+    }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
+    .specialistes-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+    .specialistes-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .specialistes-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
+      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .specialistes-stars { color: #C9A84C; font-size: 13px; margin-bottom: 4px; }
+    .specialistes-rating { font-size: 11px; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+    .specialistes-title {
+      font-size: 21px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.5px;
+    }
+    .specialistes-title em { font-style: normal; color: #E2C66B; }
+    .specialistes-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .specialistes-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
+    .specialistes-item {
+      background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.15);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .specialistes-item-icon { font-size: 16px; margin-bottom: 4px; }
+    .specialistes-item-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); }
+    .btn-specialistes {
+      display: block; width: 100%; padding: 16px;
+      background: #C9A84C; color: #fff;
+      font-size: 15px; font-weight: 800; border-radius: 14px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .btn-specialistes:hover { background: #A68A3E; }
+    .specialistes-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
+    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
+    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .audit-title { font-size: 19px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
+    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 0; }
+    .btn-audit:hover { background: #333; }
+    .btn-secondary { display: block; width: 100%; padding: 13px; background: transparent; color: #1d1d1f; font-size: 14px; font-weight: 600; border: 1.5px solid #e5e5e5; border-radius: 12px; text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
+    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+  <span class="icon">🏆</span>
+  <h1>La seule certif IA qui vaut<br><em>vraiment quelque chose</em></h1>
+  <p class="subtitle">Elle coûte 99$, dure 2 heures et évalue ta vraie capacité à construire des systèmes IA. Les entreprises la connaissent — et elles l'exigent.</p>
+  <div class="stat">💎 Cloud Certified Architect</div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-card-num">99$</div>
+      <div class="stat-card-label">Coût de l'examen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-num">2h</div>
+      <div class="stat-card-label">Durée surveillée</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-num">∞</div>
+      <div class="stat-card-label">Opportunités ouvertes</div>
+    </div>
+  </div>
+  <div class="obtenir-box">
+    <div class="obtenir-title">Pourquoi cette certif est différente</div>
+    <div class="obtenir-list">
+      <div class="obtenir-item"><span class="obtenir-dot">→</span> Elle ne teste pas la théorie — elle évalue ta capacité à <strong>construire de vrais systèmes IA</strong></div>
+      <div class="obtenir-item"><span class="obtenir-dot">→</span> L'examen est surveillé via logiciel spécial : impossible de tricher, donc impossible à dévaluer</div>
+      <div class="obtenir-item"><span class="obtenir-dot">→</span> Les recruteurs et entreprises tech la reconnaissent comme une preuve concrète de compétence</div>
+      <div class="obtenir-item"><span class="obtenir-dot">→</span> Plusieurs mois de préparation recommandés — ce qui filtre les gens sérieux</div>
+    </div>
+  </div>
+  <div class="certif-box">
+    <div class="certif-glow"></div>
+    <div class="certif-badge-row">☁️ CLOUD CERTIFIED ARCHITECT</div>
+    <div class="certif-name">Ce que tu vas <em>vraiment apprendre</em></div>
+    <div class="certif-desc">Ce n'est pas une certif marketing. Elle couvre les fondamentaux réels de l'architecture IA en production.</div>
+    <div class="certif-points">
+      <div class="certif-point"><span class="certif-point-dot">→</span> Concevoir des pipelines de données IA à grande échelle</div>
+      <div class="certif-point"><span class="certif-point-dot">→</span> Déployer et monitorer des modèles en production</div>
+      <div class="certif-point"><span class="certif-point-dot">→</span> Sécuriser et optimiser les systèmes cloud IA</div>
+      <div class="certif-point"><span class="certif-point-dot">→</span> Construire des architectures scalables avec les outils cloud majeurs</div>
+    </div>
+  </div>
+  <div class="claude-box">
+    <div class="prompt-label">💬 Prompt — Prépare-toi avec Claude</div>
+    <div class="prompt-text"><span class="cmd">Tu es mon coach certif Cloud Certified Architect.</span>
+Je veux passer cet examen en [X mois].
+Crée-moi un plan de révision semaine par
+semaine, identifie mes lacunes sur ce sujet :
+[décris ton niveau actuel].
+Génère aussi 10 questions d'entraînement
+sur l'architecture IA en production.</div>
+    <div class="prompt-copy-hint">← colle directement dans Claude · adapte les [crochets]</div>
+  </div>
+  <div class="divider">Tu veux aller plus loin ?</div>
+  <div class="specialistes-box">
+    <div class="specialistes-glow"></div>
+    <div class="specialistes-badge">⭐ 50 SPÉCIALISTES IA</div>
+    <div class="specialistes-stars">★★★★★</div>
+    <div class="specialistes-rating">4.9 · Entrepreneurs francophones</div>
+    <div class="specialistes-title">Transforme Claude en une<br><em>équipe IA haute performance</em></div>
+    <div class="specialistes-desc">50 spécialistes autonomes à installer dans Claude. Un pour chaque partie de ton business — ils bossent en automatique sur des workflows complets.</div>
+    <div class="specialistes-grid">
+      <div class="specialistes-item">
+        <div class="specialistes-item-icon">🏗️</div>
+        <div class="specialistes-item-label">Architecture IA</div>
+      </div>
+      <div class="specialistes-item">
+        <div class="specialistes-item-icon">🎯</div>
+        <div class="specialistes-item-label">Stratège business</div>
+      </div>
+      <div class="specialistes-item">
+        <div class="specialistes-item-icon">⚙️</div>
+        <div class="specialistes-item-label">Automatisation</div>
+      </div>
+      <div class="specialistes-item">
+        <div class="specialistes-item-icon">📱</div>
+        <div class="specialistes-item-label">Réseaux sociaux</div>
+      </div>
+    </div>
+    <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-specialistes">Découvrir les 50 spécialistes →</a>
+    <div class="specialistes-note">Un paiement unique · Pas d'abonnement · Résultats dès le premier message</div>
+  </div>
+  <div class="audit-box">
+    <div class="audit-badge">⚡ AUTOMATISATION</div>
+    <div class="audit-title">Tu veux automatiser ton business avec l'IA ?</div>
+    <div class="audit-desc">On cartographie ensemble les process qui peuvent tourner tout seuls avec Claude et les bons outils. Un appel de 30 min pour identifier ce qui te fait perdre du temps.</div>
+    <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-audit">📞 Je veux automatiser mon business →</a>
+  </div>
+  <div class="audit-box" style="margin-bottom: 16px;">
+    <div class="audit-badge">🎓 FORMATION</div>
+    <div class="audit-title">Tu veux te former à l'IA ou former ton équipe ?</div>
+    <div class="audit-desc">Formation individuelle ou pour toute ton entreprise. On adapte le programme à ton secteur et à tes objectifs — de la prise en main à l'intégration avancée de l'IA.</div>
+    <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-audit">🎓 Je veux me former à l'IA →</a>
+  </div>
+  <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+  <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+</div>
+</body>
+</html>
