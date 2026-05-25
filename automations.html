@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 10 automations Claude — Les prompts | Monsieur IA</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --orange: #FF6B2B;
+    --orange-light: #FF8C5A;
+    --orange-glow: rgba(255, 107, 43, 0.15);
+    --orange-border: rgba(255, 107, 43, 0.3);
+    --text: #F0F0F0;
+    --text-muted: #888;
+    --text-dim: #555;
+    --white: #ffffff;
+    --green: #00C853;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #0f0f0f 0%, #1a0d00 50%, #0a0a0a 100%);
+    border-bottom: 1px solid var(--orange-border);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(255,107,43,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange-glow);
+    border: 1px solid var(--orange-border);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 46px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--orange);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .intro {
+    padding: 40px 0 20px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .intro p strong { color: var(--orange); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 50px 0 24px;
+  }
+
+  .section-num {
+    background: var(--orange);
+    color: #000;
+    font-size: 12px;
+    font-weight: 900;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  .section-header h2 span { color: var(--orange); }
+
+  .auto-card {
+    background: var(--bg2);
+    border: 1px solid #222;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .auto-card:hover { border-color: var(--orange-border); }
+
+  .auto-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 22px 0;
+  }
+
+  .auto-number {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: var(--orange);
+    background: var(--orange-glow);
+    border: 1px solid var(--orange-border);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .auto-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .auto-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .auto-gain {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 200, 83, 0.08);
+    border: 1px solid rgba(0, 200, 83, 0.2);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin: 10px 0;
+  }
+
+  .auto-gain::before { content: '↑'; }
+
+  .prompt-container {
+    padding: 0 22px 22px;
+    margin-top: 16px;
+  }
+
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .prompt-label::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF6B2B'%3E%3Cpath d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z'/%3E%3C/svg%3E") no-repeat center/contain;
+  }
+
+  .prompt-box {
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid var(--orange);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #e0e0e0;
+    position: relative;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--orange-glow);
+    border: 1px solid var(--orange-border);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+
+  .copy-btn:hover { background: rgba(255,107,43,0.25); }
+  .copy-btn.copied { color: var(--green); border-color: rgba(0,200,83,0.3); background: rgba(0,200,83,0.08); }
+
+  .cta-section {
+    background: linear-gradient(135deg, #0f0f0f, #1a0d00);
+    border: 1px solid var(--orange-border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    margin: 60px 0 40px;
+  }
+
+  .cta-section h2 {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .cta-section h2 span { color: var(--orange); }
+
+  .cta-section p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange);
+    color: #000;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--orange-border);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-secondary:hover { background: var(--orange-glow); }
+
+  footer {
+    border-top: 1px solid #1a1a1a;
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  footer a { color: var(--orange); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 26px; }
+    .auto-title { font-size: 16px; }
+    .prompt-box { font-size: 12px; }
+    .cta-section { padding: 28px 20px; }
+    .hero-stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">✦ Guide pratique — Copie-colle ces prompts</div>
+  <h1>Les <span>10 automations</span> Claude<br>qui vont changer ta semaine</h1>
+  <p class="hero-sub">Des prompts prêts à l'emploi. Tu copies, tu colles dans Claude, et tu gagnes des heures chaque semaine.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">10</span><span class="stat-label">Automations</span></div>
+    <div class="stat"><span class="stat-num">10+h</span><span class="stat-label">Économisées/sem</span></div>
+    <div class="stat"><span class="stat-num">0€</span><span class="stat-label">Pour commencer</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <p>Chaque automation = <strong>un prompt à copier directement dans Claude</strong>. Adapte les parties entre crochets à ta situation, et c'est parti.</p>
+  </div>
+
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Les <span>4 automations principales</span> — haut impact</h2>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 01</div>
+      <div>
+        <div class="auto-title">📧 Triage email du matin</div>
+        <div class="auto-desc">Chaque matin, Claude lit tous tes emails et te fait un résumé priorisé. Il classe par urgence, identifie ce qui nécessite une réponse aujourd'hui, ce qui peut attendre, et ce qui peut être ignoré.</div>
+        <div class="auto-gain">+73% de clarté décisionnelle — moins de temps à scroller ta boîte</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p1">Voici mes emails du jour [colle tes emails].
+
+Fais-moi un triage :
+1) Urgent — réponse aujourd'hui
+2) Important — peut attendre
+3) À archiver
+
+Pour chaque urgent, propose une réponse courte.<button class="copy-btn" onclick="copyPrompt('p1', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 02</div>
+      <div>
+        <div class="auto-title">🤝 Research avant meetings</div>
+        <div class="auto-desc">Avant chaque réunion ou appel client, Claude prépare une fiche de contexte. Il résume qui est la personne/l'entreprise, quels sont les enjeux probables, et te prépare 3-5 questions pertinentes à poser.</div>
+        <div class="auto-gain">45 minutes de préparation économisées par meeting</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p2">J'ai un meeting avec [nom / entreprise] demain.
+Voici ce que je sais sur eux : [contexte].
+
+Prépare-moi :
+1) Un résumé de leur situation
+2) Leurs enjeux probables
+3) 5 questions à poser pour avancer.<button class="copy-btn" onclick="copyPrompt('p2', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 03</div>
+      <div>
+        <div class="auto-title">📅 Brief du lundi</div>
+        <div class="auto-desc">Chaque lundi matin, Claude génère ton plan de semaine. À partir de tes objectifs, de tes projets en cours et de tes priorités, il structure ta semaine jour par jour avec les 3 tâches les plus importantes chaque jour.</div>
+        <div class="auto-gain">1h d'organisation économisée chaque lundi matin</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p3">Voici mes projets en cours : [liste].
+Voici mes objectifs de la semaine : [objectifs].
+
+Crée mon brief du lundi :
+- Planning jour par jour
+- 3 tâches prioritaires par jour
+- Ce que je dois absolument finir avant vendredi.<button class="copy-btn" onclick="copyPrompt('p3', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 04</div>
+      <div>
+        <div class="auto-title">🔄 Repurposing de contenu</div>
+        <div class="auto-desc">Tu filmes une vidéo ou tu écris un post, et Claude le transforme en 7 formats différents : post LinkedIn, thread X, newsletter, caption Instagram, script Reel, email, et article de blog. 1 idée = 7 contenus publiables.</div>
+        <div class="auto-gain">1 contenu → 7 formats publiables immédiatement</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p4">Voici ma vidéo/post original : [colle le contenu ou la transcription].
+
+Transforme-le en 7 formats :
+1) Post LinkedIn
+2) Thread X
+3) Newsletter
+4) Caption Instagram
+5) Script Reel 60 sec
+6) Email liste
+7) Intro article blog
+
+Garde mon ton et mes expressions.<button class="copy-btn" onclick="copyPrompt('p4', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Les <span>6 autres automations</span> — à déployer dès aujourd'hui</h2>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 05</div>
+      <div>
+        <div class="auto-title">💼 Devis &amp; propositions commerciales</div>
+        <div class="auto-desc">Tu donnes les infos d'un prospect et Claude rédige une proposition commerciale complète et professionnelle en 2 minutes. Plus besoin de repartir de zéro à chaque fois.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p5">Voici le contexte client : [nom, secteur, problème exprimé, budget approximatif].
+
+Rédige une proposition commerciale complète avec :
+- Accroche
+- Problème identifié
+- Solution proposée
+- Livrables
+- Prix
+- Prochaine étape.<button class="copy-btn" onclick="copyPrompt('p5', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 06</div>
+      <div>
+        <div class="auto-title">💬 Réponses SAV / service client</div>
+        <div class="auto-desc">Claude analyse le message d'un client et rédige une réponse professionnelle, empathique et efficace. Idéal pour les e-commerçants, freelances, ou toute personne qui gère des clients.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p6">Voici le message de mon client : [message].
+
+Rédige une réponse professionnelle et empathique qui :
+1) Reconnaît le problème
+2) Propose une solution concrète
+3) Rassure sur la suite
+
+Ton : chaleureux mais professionnel.<button class="copy-btn" onclick="copyPrompt('p6', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 07</div>
+      <div>
+        <div class="auto-title">📄 Synthèse de documents / rapports</div>
+        <div class="auto-desc">Tu colles un PDF, un rapport, un contrat ou un long document, et Claude te sort les points clés en 30 secondes. Fini de lire 40 pages pour trouver les 5 infos importantes.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p7">Voici le document : [colle le texte].
+
+Fais-moi une synthèse en :
+1) 5 points clés à retenir
+2) Décisions à prendre ou actions à faire
+3) Points de vigilance ou risques identifiés.<button class="copy-btn" onclick="copyPrompt('p7', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 08</div>
+      <div>
+        <div class="auto-title">🎬 Génération de scripts vidéo</div>
+        <div class="auto-desc">Tu donnes un sujet, une cible et un format (Reel, YouTube, TikTok), et Claude écrit le script complet avec hook, développement et CTA. Idéal pour les créateurs de contenu qui manquent de temps.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p8">Je veux faire une vidéo sur [sujet] pour [plateforme].
+Ma cible : [description].
+Durée : [X secondes/minutes].
+
+Écris le script complet avec :
+- Hook percutant
+- 3 points principaux
+- CTA final
+
+Style : [dynamique / pédagogique / storytelling].<button class="copy-btn" onclick="copyPrompt('p8', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 09</div>
+      <div>
+        <div class="auto-title">📊 Analyse de données / tableaux</div>
+        <div class="auto-desc">Tu colles un tableau Excel ou des données brutes, et Claude les analyse, identifie les tendances, les anomalies, et te donne des conclusions actionnables. Plus besoin d'être analyste pour comprendre ses chiffres.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p9">Voici mes données : [colle tableau ou chiffres].
+
+Analyse-les et dis-moi :
+1) Les tendances principales
+2) Ce qui est anormal ou surprenant
+3) Les 3 actions concrètes que je devrais prendre en fonction de ces données.<button class="copy-btn" onclick="copyPrompt('p9', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="auto-card">
+    <div class="auto-header">
+      <div class="auto-number">AUTO 10</div>
+      <div>
+        <div class="auto-title">💡 Brainstorming / génération d'idées</div>
+        <div class="auto-desc">Tu bloques sur une décision, un nom de produit, une stratégie ou une idée de contenu, et Claude génère 20 idées en 10 secondes. Il joue le rôle d'un consultant créatif disponible 24h/24.</div>
+      </div>
+    </div>
+    <div class="prompt-container">
+      <div class="prompt-label">Prompt à copier</div>
+      <div class="prompt-box" id="p10">J'ai besoin d'idées pour [sujet précis].
+Contexte : [ton secteur, ta cible, tes contraintes].
+
+Génère 20 idées variées, du plus classique au plus créatif.
+Pour chaque idée, une phrase d'explication.<button class="copy-btn" onclick="copyPrompt('p10', this)">Copier</button></div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Tu veux aller <span>encore plus loin</span> ?</h2>
+    <p>Automatise ton business entier avec Claude — ou forme ton équipe à utiliser ces outils au quotidien.</p>
+    <div class="cta-buttons">
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-primary">
+        🚀 J'automatise ma boîte — appel gratuit
+      </a>
+      <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-secondary">
+        ✦ 70 Spécialistes IA — accès complet
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Créé par <a href="https://www.instagram.com/monsieur.ia" target="_blank">@monsieur.ia</a> — Automatise ton business avec Claude</p>
+</footer>
+
+<script>
+function copyPrompt(id, btn) {
+  const box = document.getElementById(id);
+  const text = box.innerText.replace('Copier', '').replace('Copié ✓', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copié ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copier';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
