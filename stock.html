@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude + Bourse : le guide Smart Money — Monsieur IA</title>
+<style>
+
+:root {
+  --green: #00E676;
+  --green-dim: rgba(0,230,118,0.15);
+  --bg: #060d08;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --gold: #C9A84C;
+  --text: #FFFFFF;
+  --muted: rgba(255,255,255,0.55);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 60px 24px 48px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 260px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,230,118,0.10) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: clamp(30px, 8vw, 46px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title span {
+  color: var(--green);
+  display: block;
+  text-shadow: 0 0 40px rgba(0,230,118,0.35);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 420px;
+  margin: 0 auto 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── STAT ── */
+.result-stat {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,230,118,0.07);
+  border: 1px solid rgba(0,230,118,0.3);
+  border-radius: 16px;
+  padding: 16px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.result-number {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.result-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── SOURCE CARDS ── */
+.section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.source-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.source-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.source-card:nth-child(1) { border-left: 3px solid var(--green); }
+.source-card:nth-child(2) { border-left: 3px solid #6EE7F7; }
+.source-card:nth-child(3) { border-left: 3px solid var(--gold); }
+
+.source-num {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 2px;
+  min-width: 28px;
+  padding-top: 2px;
+}
+
+.source-body { flex: 1; }
+
+.source-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.source-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.source-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── TUTO STEPS ── */
+.tuto-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.tuto-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.step-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,230,118,0.15);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.step-num {
+  background: rgba(0,230,118,0.12);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-body { flex: 1; }
+
+.step-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.step-desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── PROMPT BOX ── */
+.prompt-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.prompt-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.prompt-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,230,118,0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  position: relative;
+}
+
+.prompt-box::before {
+  content: '> CLAUDE PROMPT';
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+
+/* ── SIGNAL VERDICT ── */
+.verdict-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.verdict-card {
+  background: rgba(0,230,118,0.05);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.verdict-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.verdict-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.signal-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signal-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.signal-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.signal-dot.bullish { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.signal-dot.bearish { background: #ff3b5c; box-shadow: 0 0 6px #ff3b5c; }
+.signal-dot.neutral { background: #f0b429; box-shadow: 0 0 6px #f0b429; }
+
+.signal-label { color: var(--muted); flex: 1; }
+.signal-value { font-weight: 700; color: #fff; }
+
+.verdict-footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,230,118,0.1);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  padding: 0 20px;
+}
+
+.divider-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ── CTA BLOCKS ── */
+.cta-blocks {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cta-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+/* Specialistes (doré) */
+.specialistes-box {
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.specialistes-box:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+.specialistes-badge { font-size: 28px; min-width: 44px; text-align: center; }
+.specialistes-text  { flex: 1; }
+.specialistes-title { font-size: 15px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
+.specialistes-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.specialistes-arrow { font-size: 20px; color: var(--gold); opacity: 0.7; }
+
+/* Prestation (vert) */
+.prestation-box {
+  background: rgba(0,230,118,0.07);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.prestation-box:hover { border-color: rgba(0,230,118,0.5); transform: translateY(-1px); }
+
+.prestation-icon  { font-size: 26px; min-width: 44px; text-align: center; }
+.prestation-text  { flex: 1; }
+.prestation-title { font-size: 14px; font-weight: 800; color: var(--green); margin-bottom: 3px; }
+.prestation-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.prestation-arrow { font-size: 18px; color: var(--green); opacity: 0.7; }
+
+/* Formation (gris) */
+.formation-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.formation-box:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+.formation-icon  { font-size: 26px; min-width: 44px; text-align: center; }
+.formation-text  { flex: 1; }
+.formation-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.formation-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.formation-arrow { font-size: 18px; color: rgba(255,255,255,0.4); }
+
+/* Instagram */
+.ig-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s;
+}
+.ig-box:hover { border-color: rgba(255,255,255,0.15); }
+
+.ig-icon  { font-size: 24px; min-width: 44px; text-align: center; }
+.ig-text  { flex: 1; }
+.ig-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+.ig-desc  { font-size: 11px; color: rgba(255,255,255,0.35); }
+.ig-arrow { font-size: 16px; color: rgba(255,255,255,0.25); }
+
+/* ── FOOTER ── */
+.footer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+}
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">⚡ Claude · Smart Money · Bourse</div>
+  <h1 class="hero-title">
+    CLAUDE VIENT DE CHANGER
+    <span>LA BOURSE</span>
+  </h1>
+  <p class="hero-sub">Comment utiliser Claude pour analyser les trades des politiciens américains, les mouvements des whales et les positions de BlackRock — en quelques secondes.</p>
+
+  <div class="result-stat">
+    <div class="result-number">3 sources</div>
+    <div class="result-label">Smart Money · Guide complet</div>
+  </div>
+</div>
+
+<!-- SOURCE CARDS -->
+<div class="section">
+  <div class="section-title">Les 3 sources que Claude analyse</div>
+  <div class="source-cards">
+    <div class="source-card">
+      <div class="source-num">01</div>
+      <div class="source-body">
+        <div class="source-name">WHALES ON-CHAIN</div>
+        <div class="source-desc">Les wallets qui bougent des millions avant les gros mouvements. Claude lit les données on-chain et identifie les patterns d'accumulation silencieuse.</div>
+        <div class="source-tags">
+          <span class="tag">BTC</span>
+          <span class="tag">ETH</span>
+          <span class="tag">ACCUMULATION</span>
+        </div>
+      </div>
+    </div>
+    <div class="source-card">
+      <div class="source-num">02</div>
+      <div class="source-body">
+        <div class="source-name">CONGRÈS — STOCK ACT</div>
+        <div class="source-desc">Les élus américains doivent déclarer leurs trades sous 45 jours. Pelosi, Tuberville, McCaul : Claude analyse leurs achats avant toi.</div>
+        <div class="source-tags">
+          <span class="tag">NVDA</span>
+          <span class="tag">TSLA</span>
+          <span class="tag">STOCK ACT</span>
+        </div>
+      </div>
+    </div>
+    <div class="source-card">
+      <div class="source-num">03</div>
+      <div class="source-body">
+        <div class="source-name">BLACKROCK 13F FILINGS</div>
+        <div class="source-desc">Chaque trimestre, BlackRock publie ses positions obligatoirement. Claude extrait les entrées et sorties significatives depuis les filings SEC.</div>
+        <div class="source-tags">
+          <span class="tag">13F SEC</span>
+          <span class="tag">POSITIONS</span>
+          <span class="tag">INSTITUTIONNEL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TUTO STEPS -->
+<div class="tuto-section">
+  <div class="tuto-label">Comment faire — Step by step</div>
+  <div class="step-cards">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Ouvre Claude.ai et crée un nouveau projet</div>
+        <div class="step-desc">Va sur claude.ai → New Project. Donne-lui un nom : "Analyse Bourse". Les projets conservent le contexte entre les sessions.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Colle le prompt Smart Money ci-dessous</div>
+        <div class="step-desc">Utilise le prompt exact de la section suivante. Il donne à Claude son rôle d'analyste et la structure d'output attendue.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Copie-colle les données sources</div>
+        <div class="step-desc">Whale Alert (Twitter/X), quiverquant.com pour les trades du Congrès, SEC EDGAR pour les 13F de BlackRock. Claude fait le reste.</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Lis le signal global et décide</div>
+        <div class="step-desc">Claude t'affiche un verdict clair : HAUSSIER · NEUTRE · BAISSIER avec les raisons. Tu gardes le contrôle, lui fait l'analyse.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMPT PREVIEW -->
+<div class="prompt-section">
+  <div class="prompt-label">Prompt Smart Money — Claude</div>
+  <div class="prompt-box">
+    Tu es un analyste Smart Money senior. Analyse les données suivantes et donne-moi : [1] Mouvements whales significatifs [2] Trades déclarés par les élus US (STOCK Act) [3] Variations positions BlackRock
+
+    Classe chaque signal en HAUSSIER / NEUTRE / BAISSIER avec un score de conviction de 1 à 5. Compare avec les 30 derniers jours. Identifie les confluences entre les 3 sources. Génère un SIGNAL GLOBAL avec justification en 2-3 phrases maximum. Format de sortie structuré avec emojis de couleur.
+  </div>
+</div>
+
+<!-- VERDICT EXEMPLE -->
+<div class="verdict-section">
+  <div class="verdict-card">
+    <div class="verdict-label">Exemple · Analyse Claude</div>
+    <div class="verdict-title">Résultat d'une analyse type</div>
+    <div class="signal-rows">
+      <div class="signal-row">
+        <div class="signal-dot bullish"></div>
+        <div class="signal-label">Whales Bitcoin</div>
+        <div class="signal-value">+2.4M BTC accumulés</div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-dot bullish"></div>
+        <div class="signal-label">Pelosi — NVDA</div>
+        <div class="signal-value">Achat +500K</div>
+      </div>
+      <div class="signal-dot neutral" style="display:none"></div>
+      <div class="signal-row">
+        <div class="signal-dot neutral"></div>
+        <div class="signal-label">BlackRock 13F</div>
+        <div class="signal-value">Position stable SPY</div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-dot bearish"></div>
+        <div class="signal-label">Crenshaw — META</div>
+        <div class="signal-value">Vente -100K</div>
+      </div>
+    </div>
+    <div class="verdict-footer">🟢 SIGNAL GLOBAL — HAUSSIER</div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider" style="margin-top:8px">
+  <div class="divider-line">Passer à la vitesse supérieure</div>
+</div>
+
+<!-- CTA BLOCKS -->
+<div class="cta-blocks">
+
+  <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="specialistes-box">
+    <div class="specialistes-badge">🏅</div>
+    <div class="specialistes-text">
+      <div class="specialistes-title">50 Spécialistes IA — Accès complet</div>
+      <div class="specialistes-desc">50 experts autonomes qui bossent pour ton business. Finance, bourse, sales, marketing, contenu… tout automatisé.</div>
+    </div>
+    <div class="specialistes-arrow">›</div>
+  </a>
+
+  <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="prestation-box">
+    <div class="prestation-icon">⚡</div>
+    <div class="prestation-text">
+      <div class="prestation-title">J'automatise ma boîte</div>
+      <div class="prestation-desc">Arnaud configure les workflows Claude directement dans ton business. Tu n'as rien à faire — c'est fait pour toi.</div>
+    </div>
+    <div class="prestation-arrow">›</div>
+  </a>
+
+  <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="formation-box">
+    <div class="formation-icon">🎓</div>
+    <div class="formation-text">
+      <div class="formation-title">Former mon entreprise à l'IA</div>
+      <div class="formation-desc">Arnaud intervient dans tes locaux pour former tes équipes à Claude. Workshops, process, outils — clé en main. Appel découverte gratuit.</div>
+    </div>
+    <div class="formation-arrow">›</div>
+  </a>
+
+  <a href="https://www.instagram.com/monsieur.ia" target="_blank" class="ig-box">
+    <div class="ig-icon">📲</div>
+    <div class="ig-text">
+      <div class="ig-title">@monsieur.ia sur Instagram</div>
+      <div class="ig-desc">Tips Claude quotidiens · Nouveautés Anthropic · Smart Money</div>
+    </div>
+    <div class="ig-arrow">›</div>
+  </a>
+
+</div>
+
+<div class="footer">
+  © 2026 Monsieur IA · Arnaud Aka · @monsieur.ia
+</div>
+
+</body>
+</html>
