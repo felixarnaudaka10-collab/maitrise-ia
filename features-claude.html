@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Features Claude que personne ne te montre — Monsieur IA</title>
+<style>
+
+:root {
+  --purple: #9B59F6;
+  --purple-dim: rgba(155,89,246,0.15);
+  --purple-glow: rgba(155,89,246,0.08);
+  --bg: #0a0a0f;
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --text: #FFFFFF;
+  --muted: rgba(255,255,255,0.55);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 60px 24px 48px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 300px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(155,89,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 span {
+  color: var(--purple);
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-pill {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stat-pill span {
+  color: var(--purple);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── SECTION ── */
+.section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.section-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* ── FEATURE CARDS ── */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 22px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.feature-card:hover {
+  border-color: rgba(155,89,246,0.3);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.feature-number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--purple);
+}
+
+.feature-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-name {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.feature-tagline {
+  font-size: 12px;
+  color: var(--purple);
+  font-weight: 600;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: rgba(155,89,246,0.1);
+  border: 1px solid rgba(155,89,246,0.2);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(155,89,246,0.9);
+}
+
+.feature-exclusive {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,193,7,0.12);
+  border: 1px solid rgba(255,193,7,0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFC107;
+  margin-top: 10px;
+}
+
+/* ── CTA CALENDLY ── */
+.cta-box {
+  background: linear-gradient(135deg, rgba(155,89,246,0.12), rgba(155,89,246,0.04));
+  border: 1px solid rgba(155,89,246,0.3);
+  border-radius: 20px;
+  padding: 36px 28px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.cta-box h2 {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.cta-box p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 360px;
+  margin: 0 auto 24px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--purple);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+  width: 100%;
+  max-width: 340px;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--purple);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(155,89,246,0.35);
+  text-decoration: none;
+  transition: background 0.2s;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 10px;
+}
+
+.btn-secondary:hover {
+  background: var(--purple-dim);
+}
+
+/* ── SCORE BLOCK ── */
+.score-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.score-block h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.score-block p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.score-item {
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.25);
+  border-radius: 10px;
+  padding: 10px 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--purple);
+}
+
+.score-item span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+.footer a {
+  color: rgba(155,89,246,0.6);
+  text-decoration: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Tips & Tricks Claude ⚡</div>
+  <div class="hero-badge">⚡ Guide Gratuit — Monsieur IA</div>
+  <h1>5 Features Claude que <span>90% des gens ignorent</span></h1>
+  <p class="hero-sub">Tu perds 3 heures par semaine sans le savoir. Ces 5 fonctions changent tout — en moins de 10 minutes.</p>
+  <div class="stat-row">
+    <div class="stat-pill"><span>90%</span> sous-utilisent Claude</div>
+    <div class="stat-pill">5 features <span>en 10 min</span></div>
+    <div class="stat-pill"><span>-3h/sem</span> à récupérer</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-label">Le Guide Complet</div>
+  <div class="section-title">Les 5 features, expliquées simplement</div>
+  <div class="section-sub">Sauvegarde cette page — tu y reviendras.</div>
+
+  <div class="feature-list">
+
+    <!-- Feature 1 -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <div class="feature-number">1</div>
+        <div class="feature-icon">➕</div>
+        <div class="feature-info">
+          <div class="feature-name">Le Menu Plus</div>
+          <div class="feature-tagline">Importe n'importe quoi dans la conversation</div>
+        </div>
+      </div>
+      <p class="feature-desc">
+        Ce petit <strong>➕</strong> en bas de Claude, c'est une porte d'entrée vers tout. Tu peux importer des fichiers, des PDFs, des tableaux de données, des images — et Claude les analyse directement. Fini le copier-coller manuel.
+      </p>
+      <div class="feature-tags">
+        <span class="tag">Fichiers</span>
+        <span class="tag">PDF</span>
+        <span class="tag">Images</span>
+        <span class="tag">Données</span>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <div class="feature-number">2</div>
+        <div class="feature-icon">🎭</div>
+        <div class="feature-info">
+          <div class="feature-name">Les Styles de réponse</div>
+          <div class="feature-tagline">Claude s'adapte à ton métier, pas l'inverse</div>
+        </div>
+      </div>
+      <p class="feature-desc">
+        Claude peut écrire comme un juriste, un commercial, un expert technique — ou comme un ami. Dans les paramètres, tu choisis ton style par défaut. Résultat : zéro mise en forme à corriger, ton adapté dès le premier essai.
+      </p>
+      <div class="feature-tags">
+        <span class="tag">Juridique</span>
+        <span class="tag">Commercial</span>
+        <span class="tag">Concis</span>
+        <span class="tag">Créatif</span>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <div class="feature-number">3</div>
+        <div class="feature-icon">🧠</div>
+        <div class="feature-info">
+          <div class="feature-name">La Mémoire</div>
+          <div class="feature-tagline">Claude te connaît. Enfin.</div>
+        </div>
+      </div>
+      <p class="feature-desc">
+        Claude retient tes préférences, ton entreprise, ta façon de travailler — d'une conversation à l'autre. Plus besoin de te réintroduire à chaque session. Et bonus exclusif en France :
+      </p>
+      <div class="feature-exclusive">🚨 EXCLU FR — Tu peux importer tes conversations ChatGPT dans Claude ✅</div>
+      <div class="feature-tags" style="margin-top:12px">
+        <span class="tag">Mémoire persistante</span>
+        <span class="tag">Import ChatGPT</span>
+        <span class="tag">Contexte auto</span>
+      </div>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <div class="feature-number">4</div>
+        <div class="feature-icon">📁</div>
+        <div class="feature-info">
+          <div class="feature-name">Les Projects</div>
+          <div class="feature-tagline">1 client = 1 espace dédié</div>
+        </div>
+      </div>
+      <p class="feature-desc">
+        Les Projects, c'est des dossiers intelligents dans Claude. Chacun a ses propres instructions, ses propres fichiers, sa propre mémoire. Tu crées un Project par client, par équipe, par projet. Claude devient un vrai collaborateur, pas juste un chatbot.
+      </p>
+      <div class="feature-tags">
+        <span class="tag">Organisation</span>
+        <span class="tag">Multi-clients</span>
+        <span class="tag">Instructions dédiées</span>
+        <span class="tag">Fichiers partagés</span>
+      </div>
+    </div>
+
+    <!-- Feature 5 -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <div class="feature-number">5</div>
+        <div class="feature-icon">⚡</div>
+        <div class="feature-info">
+          <div class="feature-name">Extended Thinking</div>
+          <div class="feature-tagline">Claude réfléchit vraiment, en profondeur</div>
+        </div>
+      </div>
+      <p class="feature-desc">
+        Active l'Extended Thinking — et Claude ne répond plus "vite". Il raisonne, explore les angles, anticipe les erreurs, avant de te donner une réponse. Pour les décisions stratégiques, les analyses complexes, les problèmes qui méritent mieux qu'une réponse en 3 secondes : c'est une autre dimension.
+      </p>
+      <div class="feature-tags">
+        <span class="tag">Raisonnement profond</span>
+        <span class="tag">Stratégie</span>
+        <span class="tag">Analyse</span>
+        <span class="tag">Décisions complexes</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SCORE + CTA -->
+<section class="section">
+  <div class="score-block">
+    <h3>Tu en connaissais combien ?</h3>
+    <p>Commente ton score sous la vidéo ↓</p>
+    <div class="score-grid">
+      <div class="score-item">0<span>Débutant</span></div>
+      <div class="score-item">1<span>Curieux</span></div>
+      <div class="score-item">2<span>Solide</span></div>
+      <div class="score-item">3<span>Avancé</span></div>
+      <div class="score-item">5<span>Expert</span></div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Tu veux automatiser ton entreprise avec Claude ?</h2>
+    <p>Réserve un audit IA gratuit de 30 min — on regarde ensemble ce qui est possible pour toi.</p>
+    <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-primary">
+      🎯 Réserver mon audit IA gratuit
+    </a>
+    <br>
+    <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-secondary">
+      Découvrir les 70 Spécialistes IA Claude →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Créé par <strong>Monsieur IA</strong> · @monsieur.ia.2.1 · <a href="https://calendly.com/arnaud-monsieur-ia/30min">Prendre RDV</a></p>
+</footer>
+
+</body>
+</html>
