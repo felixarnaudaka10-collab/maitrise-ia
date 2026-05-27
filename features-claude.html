@@ -10,9 +10,10 @@
   --purple: #9B59F6;
   --purple-dim: rgba(155,89,246,0.15);
   --purple-glow: rgba(155,89,246,0.08);
-  --bg: #0a0a0f;
+  --bg: #060610;
   --card: rgba(255,255,255,0.04);
   --border: rgba(255,255,255,0.08);
+  --gold: #C9A84C;
   --text: #FFFFFF;
   --muted: rgba(255,255,255,0.55);
 }
@@ -40,7 +41,7 @@ body {
   content: '';
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 300px;
+  height: 260px;
   background: radial-gradient(ellipse at 50% 0%, rgba(155,89,246,0.12) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
@@ -48,132 +49,81 @@ body {
 
 .hero-eyebrow {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 4px;
   color: var(--purple);
+  text-transform: uppercase;
   margin-bottom: 16px;
   position: relative;
-  z-index: 1;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.hero h1 {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.hero h1 span { color: var(--purple); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.stat-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.pill {
   background: var(--purple-dim);
   border: 1px solid rgba(155,89,246,0.3);
   border-radius: 20px;
   padding: 6px 14px;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--purple);
-  margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
-}
-
-.hero h1 {
-  font-size: clamp(26px, 6vw, 38px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 18px;
-  position: relative;
-  z-index: 1;
-}
-
-.hero h1 span {
+  font-weight: 700;
   color: var(--purple);
 }
 
-.hero-sub {
-  font-size: 16px;
-  color: var(--muted);
-  max-width: 420px;
-  margin: 0 auto 32px;
-  position: relative;
-  z-index: 1;
-}
-
-.stat-row {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-  position: relative;
-  z-index: 1;
-}
-
-.stat-pill {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.stat-pill span {
-  color: var(--purple);
-}
-
-/* ── DIVIDER ── */
-.divider {
-  height: 1px;
-  background: var(--border);
+/* ── SECTION TITLE ── */
+.section-title {
   max-width: 600px;
   margin: 0 auto;
-}
-
-/* ── SECTION ── */
-.section {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 48px 24px;
-}
-
-.section-label {
+  padding: 0 20px 16px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--purple);
-  margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: 22px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.section-sub {
-  font-size: 14px;
+  letter-spacing: 4px;
   color: var(--muted);
-  margin-bottom: 28px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 /* ── FEATURE CARDS ── */
-.feature-list {
+.features {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-bottom: 48px;
 }
 
 .feature-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 22px 22px 20px;
+  background: rgba(155,89,246,0.05);
+  border: 1px solid rgba(155,89,246,0.2);
+  border-radius: 20px;
+  padding: 24px 22px;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.2s;
-}
-
-.feature-card:hover {
-  border-color: rgba(155,89,246,0.3);
 }
 
 .feature-card::before {
@@ -181,216 +131,284 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--purple), transparent);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.feature-card:hover::before {
-  opacity: 1;
+  background: linear-gradient(90deg, transparent, var(--purple), transparent);
+  opacity: 0.5;
 }
 
 .feature-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
-  margin-bottom: 12px;
-}
-
-.feature-number {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  background: var(--purple-dim);
-  border: 1px solid rgba(155,89,246,0.3);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--purple);
-}
-
-.feature-icon {
-  font-size: 22px;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-
-.feature-info {
-  flex: 1;
-}
-
-.feature-name {
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 2px;
-}
-
-.feature-tagline {
-  font-size: 12px;
-  color: var(--purple);
-  font-weight: 600;
-}
-
-.feature-desc {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 14px;
-}
-
-.feature-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag {
-  background: rgba(155,89,246,0.1);
-  border: 1px solid rgba(155,89,246,0.2);
-  border-radius: 6px;
-  padding: 3px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(155,89,246,0.9);
-}
-
-.feature-exclusive {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255,193,7,0.12);
-  border: 1px solid rgba(255,193,7,0.25);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #FFC107;
-  margin-top: 10px;
-}
-
-/* ── CTA CALENDLY ── */
-.cta-box {
-  background: linear-gradient(135deg, rgba(155,89,246,0.12), rgba(155,89,246,0.04));
-  border: 1px solid rgba(155,89,246,0.3);
-  border-radius: 20px;
-  padding: 36px 28px;
-  text-align: center;
-  margin-top: 8px;
-}
-
-.cta-box h2 {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.25;
-  margin-bottom: 12px;
-}
-
-.cta-box p {
-  font-size: 14px;
-  color: var(--muted);
-  max-width: 360px;
-  margin: 0 auto 24px;
-}
-
-.btn-primary {
-  display: inline-block;
-  background: var(--purple);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 14px 28px;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: opacity 0.2s, transform 0.15s;
-  width: 100%;
-  max-width: 340px;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  display: inline-block;
-  background: transparent;
-  color: var(--purple);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 12px;
-  border: 1px solid rgba(155,89,246,0.35);
-  text-decoration: none;
-  transition: background 0.2s;
-  width: 100%;
-  max-width: 340px;
-  margin-top: 10px;
-}
-
-.btn-secondary:hover {
-  background: var(--purple-dim);
-}
-
-/* ── SCORE BLOCK ── */
-.score-block {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.score-block h3 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.score-block p {
-  font-size: 13px;
-  color: var(--muted);
   margin-bottom: 16px;
 }
 
-.score-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+.feature-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--purple);
+  letter-spacing: 2px;
+  min-width: 30px;
+}
+
+.feature-icon {
+  font-size: 26px;
+}
+
+.feature-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.feature-badge {
+  margin-left: auto;
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.4);
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--purple);
+  white-space: nowrap;
+}
+
+/* EXCLUSIVE callout */
+.exclusive-callout {
+  background: rgba(255,59,48,0.1);
+  border: 1px solid rgba(255,59,48,0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.score-item {
-  background: var(--purple-dim);
-  border: 1px solid rgba(155,89,246,0.25);
-  border-radius: 10px;
-  padding: 10px 4px;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--purple);
+/* STEPS */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.score-item span {
-  display: block;
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 500;
-  margin-top: 2px;
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
 }
+
+.step-num {
+  min-width: 22px;
+  height: 22px;
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--purple);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+.step-text strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.feature-result {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--purple);
+  border-radius: 0 10px 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.feature-result strong { color: var(--purple); font-style: normal; }
+
+/* ── SCORE BLOCK ── */
+.score-block {
+  max-width: 600px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+
+.score-card {
+  background: var(--purple-dim);
+  border: 1px solid rgba(155,89,246,0.3);
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.score-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.score-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.score-grid {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.score-item {
+  background: rgba(155,89,246,0.15);
+  border: 1px solid rgba(155,89,246,0.35);
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-width: 52px;
+}
+
+.score-num {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--purple);
+  display: block;
+}
+
+.score-label {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── CTA BLOCKS ── */
+.cta-blocks {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cta-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+/* Specialistes (doré) */
+.specialistes-box {
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.specialistes-box:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+.specialistes-badge { font-size: 28px; min-width: 44px; text-align: center; }
+.specialistes-text  { flex: 1; }
+.specialistes-title { font-size: 15px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
+.specialistes-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.specialistes-arrow { font-size: 20px; color: var(--gold); opacity: 0.7; }
+
+/* Prestation (vert) */
+.prestation-box {
+  background: rgba(0,230,118,0.07);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.prestation-box:hover { border-color: rgba(0,230,118,0.5); transform: translateY(-1px); }
+
+.prestation-icon  { font-size: 26px; min-width: 44px; text-align: center; }
+.prestation-text  { flex: 1; }
+.prestation-title { font-size: 14px; font-weight: 800; color: #00E676; margin-bottom: 3px; }
+.prestation-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.prestation-arrow { font-size: 18px; color: #00E676; opacity: 0.7; }
+
+/* Formation (gris) */
+.formation-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.formation-box:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+.formation-icon  { font-size: 26px; min-width: 44px; text-align: center; }
+.formation-text  { flex: 1; }
+.formation-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.formation-desc  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.formation-arrow { font-size: 18px; color: rgba(255,255,255,0.4); }
+
+/* Instagram */
+.ig-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color 0.2s;
+}
+.ig-box:hover { border-color: rgba(255,255,255,0.15); }
+
+.ig-icon  { font-size: 24px; min-width: 44px; text-align: center; }
+.ig-text  { flex: 1; }
+.ig-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+.ig-desc  { font-size: 11px; color: rgba(255,255,255,0.35); }
+.ig-arrow { font-size: 16px; color: rgba(255,255,255,0.25); }
 
 /* ── FOOTER ── */
 .footer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
   text-align: center;
-  padding: 32px 24px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.25);
-}
-
-.footer a {
-  color: rgba(155,89,246,0.6);
-  text-decoration: none;
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
 }
 
 </style>
@@ -398,169 +416,248 @@ body {
 <body>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-eyebrow">Tips & Tricks Claude ⚡</div>
-  <div class="hero-badge">⚡ Guide Gratuit — Monsieur IA</div>
-  <h1>5 Features Claude que <span>90% des gens ignorent</span></h1>
-  <p class="hero-sub">Tu perds 3 heures par semaine sans le savoir. Ces 5 fonctions changent tout — en moins de 10 minutes.</p>
-  <div class="stat-row">
-    <div class="stat-pill"><span>90%</span> sous-utilisent Claude</div>
-    <div class="stat-pill">5 features <span>en 10 min</span></div>
-    <div class="stat-pill"><span>-3h/sem</span> à récupérer</div>
+<div class="hero">
+  <div class="hero-eyebrow">@monsieur.ia.2.1</div>
+  <h1>5 Features Claude que<br><span>90% des gens ignorent</span></h1>
+  <p class="hero-sub">Le guide complet pour maîtriser les fonctionnalités cachées de Claude et transformer ton workflow.</p>
+  <div class="stat-pills">
+    <div class="pill">⚡ 5 features</div>
+    <div class="pill">🚀 +10x productivité</div>
+    <div class="pill">🇫🇷 Exclusif FR</div>
   </div>
-</section>
-
-<div class="divider"></div>
+</div>
 
 <!-- FEATURES -->
-<section class="section">
-  <div class="section-label">Le Guide Complet</div>
-  <div class="section-title">Les 5 features, expliquées simplement</div>
-  <div class="section-sub">Sauvegarde cette page — tu y reviendras.</div>
+<div class="section-title">Les 5 Features</div>
 
-  <div class="feature-list">
+<div class="features">
 
-    <!-- Feature 1 -->
-    <div class="feature-card">
-      <div class="feature-header">
-        <div class="feature-number">1</div>
-        <div class="feature-icon">➕</div>
-        <div class="feature-info">
-          <div class="feature-name">Le Menu Plus</div>
-          <div class="feature-tagline">Importe n'importe quoi dans la conversation</div>
-        </div>
+  <!-- Feature 1 -->
+  <div class="feature-card">
+    <div class="feature-header">
+      <div class="feature-num">01</div>
+      <div class="feature-icon">➕</div>
+      <div class="feature-name">Le Menu Plus</div>
+      <div class="feature-badge">Upload tout</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Dans le chat Claude, regarde la barre de saisie en bas. Tu vois l'icône <strong>➕ à gauche</strong> du champ de texte ? Clique dessus.</div>
       </div>
-      <p class="feature-desc">
-        Ce petit <strong>➕</strong> en bas de Claude, c'est une porte d'entrée vers tout. Tu peux importer des fichiers, des PDFs, des tableaux de données, des images — et Claude les analyse directement. Fini le copier-coller manuel.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Fichiers</span>
-        <span class="tag">PDF</span>
-        <span class="tag">Images</span>
-        <span class="tag">Données</span>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Un menu s'ouvre avec plusieurs options : <strong>Fichiers & Photos</strong>, <strong>Google Drive</strong>, <strong>Google Docs</strong>. Tu peux uploader directement depuis ton Drive sans quitter Claude.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Tu peux envoyer des <strong>PDF, images, Excel, Word, CSV</strong> — Claude les lit, les analyse, et te répond dessus en quelques secondes.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Cas d'usage : upload un contrat → demande "quels sont les points à risque ?". Upload une facture → demande "extrais les montants en tableau". Upload un rapport 50 pages → demande un résumé exécutif.</div>
       </div>
     </div>
-
-    <!-- Feature 2 -->
-    <div class="feature-card">
-      <div class="feature-header">
-        <div class="feature-number">2</div>
-        <div class="feature-icon">🎭</div>
-        <div class="feature-info">
-          <div class="feature-name">Les Styles de réponse</div>
-          <div class="feature-tagline">Claude s'adapte à ton métier, pas l'inverse</div>
-        </div>
-      </div>
-      <p class="feature-desc">
-        Claude peut écrire comme un juriste, un commercial, un expert technique — ou comme un ami. Dans les paramètres, tu choisis ton style par défaut. Résultat : zéro mise en forme à corriger, ton adapté dès le premier essai.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Juridique</span>
-        <span class="tag">Commercial</span>
-        <span class="tag">Concis</span>
-        <span class="tag">Créatif</span>
-      </div>
-    </div>
-
-    <!-- Feature 3 -->
-    <div class="feature-card">
-      <div class="feature-header">
-        <div class="feature-number">3</div>
-        <div class="feature-icon">🧠</div>
-        <div class="feature-info">
-          <div class="feature-name">La Mémoire</div>
-          <div class="feature-tagline">Claude te connaît. Enfin.</div>
-        </div>
-      </div>
-      <p class="feature-desc">
-        Claude retient tes préférences, ton entreprise, ta façon de travailler — d'une conversation à l'autre. Plus besoin de te réintroduire à chaque session. Et bonus exclusif en France :
-      </p>
-      <div class="feature-exclusive">🚨 EXCLU FR — Tu peux importer tes conversations ChatGPT dans Claude ✅</div>
-      <div class="feature-tags" style="margin-top:12px">
-        <span class="tag">Mémoire persistante</span>
-        <span class="tag">Import ChatGPT</span>
-        <span class="tag">Contexte auto</span>
-      </div>
-    </div>
-
-    <!-- Feature 4 -->
-    <div class="feature-card">
-      <div class="feature-header">
-        <div class="feature-number">4</div>
-        <div class="feature-icon">📁</div>
-        <div class="feature-info">
-          <div class="feature-name">Les Projects</div>
-          <div class="feature-tagline">1 client = 1 espace dédié</div>
-        </div>
-      </div>
-      <p class="feature-desc">
-        Les Projects, c'est des dossiers intelligents dans Claude. Chacun a ses propres instructions, ses propres fichiers, sa propre mémoire. Tu crées un Project par client, par équipe, par projet. Claude devient un vrai collaborateur, pas juste un chatbot.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Organisation</span>
-        <span class="tag">Multi-clients</span>
-        <span class="tag">Instructions dédiées</span>
-        <span class="tag">Fichiers partagés</span>
-      </div>
-    </div>
-
-    <!-- Feature 5 -->
-    <div class="feature-card">
-      <div class="feature-header">
-        <div class="feature-number">5</div>
-        <div class="feature-icon">⚡</div>
-        <div class="feature-info">
-          <div class="feature-name">Extended Thinking</div>
-          <div class="feature-tagline">Claude réfléchit vraiment, en profondeur</div>
-        </div>
-      </div>
-      <p class="feature-desc">
-        Active l'Extended Thinking — et Claude ne répond plus "vite". Il raisonne, explore les angles, anticipe les erreurs, avant de te donner une réponse. Pour les décisions stratégiques, les analyses complexes, les problèmes qui méritent mieux qu'une réponse en 3 secondes : c'est une autre dimension.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Raisonnement profond</span>
-        <span class="tag">Stratégie</span>
-        <span class="tag">Analyse</span>
-        <span class="tag">Décisions complexes</span>
-      </div>
-    </div>
-
+    <div class="feature-result"><strong>Résultat :</strong> Fini le copier-coller. Tu travailles avec tes vrais documents directement dans Claude.</div>
   </div>
-</section>
 
-<div class="divider"></div>
+  <!-- Feature 2 -->
+  <div class="feature-card">
+    <div class="feature-header">
+      <div class="feature-num">02</div>
+      <div class="feature-icon">🎭</div>
+      <div class="feature-name">Les Styles</div>
+      <div class="feature-badge">Ton IA, ta voix</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Va dans les <strong>paramètres Claude</strong> (icône en haut à droite ou via ton profil) → section <strong>Styles de réponse</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Claude propose 4 styles de base : <strong>Normal, Concis, Explicatif, Formel</strong>. Tu peux les activer en un clic selon ton besoin du moment.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">La vraie puissance : clique sur <strong>"Créer et modifier"</strong> → colle 3 exemples de TES propres textes (emails, posts, rapports). Claude va analyser ton style et le reproduire fidèlement.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Une fois configuré, chaque réponse sonne comme <strong>toi</strong>. Tu envoies des emails en 10 secondes qui ont exactement ton ton, sans retouche.</div>
+      </div>
+    </div>
+    <div class="feature-result"><strong>Résultat :</strong> Claude écrit dans ta voix. Tes clients et collègues ne font pas la différence.</div>
+  </div>
 
-<!-- SCORE + CTA -->
-<section class="section">
-  <div class="score-block">
-    <h3>Tu en connaissais combien ?</h3>
-    <p>Commente ton score sous la vidéo ↓</p>
+  <!-- Feature 3 -->
+  <div class="feature-card">
+    <div class="feature-header">
+      <div class="feature-num">03</div>
+      <div class="feature-icon">🧠</div>
+      <div class="feature-name">La Mémoire</div>
+      <div class="feature-badge">Persistante</div>
+    </div>
+    <div class="exclusive-callout">
+      🚨 EXCLU FR — Tu peux importer tes conversations ChatGPT dans Claude ✅
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Va dans <strong>Paramètres → Mémoire</strong>. Active la mémoire si elle ne l'est pas encore. Tu verras un espace où Claude stocke ce qu'il a retenu sur toi.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Dis à Claude les infos essentielles : <strong>"Je m'appelle [Prénom], je suis [métier], mes clients sont des [cible], je veux que tu répondes toujours en français."</strong> Claude s'en souvient pour toutes les futures conversations.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Tu peux consulter et modifier ta mémoire à tout moment : <strong>Paramètres → Mémoire → Gérer les souvenirs</strong>. Supprime ce qui est obsolète, ajoute ce qui compte.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Import ChatGPT :</strong> Exporte tes données ChatGPT (Settings → Data Controls → Export), puis dans Claude va dans <strong>Paramètres → Importer des données</strong> et uploade le fichier. Toutes tes convos migrent.</div>
+      </div>
+    </div>
+    <div class="feature-result"><strong>Résultat :</strong> Plus besoin de te ré-expliquer à chaque session. Claude te connaît. Tu arrives, tu travailles, point.</div>
+  </div>
+
+  <!-- Feature 4 -->
+  <div class="feature-card">
+    <div class="feature-header">
+      <div class="feature-num">04</div>
+      <div class="feature-icon">📁</div>
+      <div class="feature-name">Les Projects</div>
+      <div class="feature-badge">Contexte dédié</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Dans le panneau gauche de Claude, clique sur <strong>"Projects"</strong> puis <strong>"Nouveau projet"</strong>. Donne-lui un nom (ex : "Client Dupont", "Contenu Instagram", "Comptabilité 2026").</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Dans chaque projet, tu peux définir des <strong>Instructions personnalisées</strong> : "Dans ce projet, tu es mon assistant commercial. Mon client est une PME dans le BTP. Tu rédiges toujours de façon professionnelle mais directe."</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Clique sur <strong>"Ajouter des fichiers"</strong> pour uploader les documents du projet : cahier des charges, historique des échanges, fiche client, références. Ils restent disponibles dans toutes les conversations de ce projet.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Chaque conversation dans ce projet hérite automatiquement du contexte, des fichiers et des instructions. Tu n'as <strong>jamais</strong> à répéter le brief. Passe d'un client à l'autre en 1 clic.</div>
+      </div>
+    </div>
+    <div class="feature-result"><strong>Résultat :</strong> Un espace de travail distinct par client, par mission, par domaine. Zéro friction, zéro chaos.</div>
+  </div>
+
+  <!-- Feature 5 -->
+  <div class="feature-card">
+    <div class="feature-header">
+      <div class="feature-num">05</div>
+      <div class="feature-icon">⚡</div>
+      <div class="feature-name">Extended Thinking</div>
+      <div class="feature-badge">Raisonnement pro</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Disponible avec <strong>Claude Sonnet ou Opus</strong>. Dans la barre de saisie, cherche l'icône <strong>⚡ "Thinking étendu"</strong> ou le commutateur qui s'affiche selon ta version.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Active-le avant de poser une question complexe : stratégie, analyse juridique, plan financier, décision multi-critères. Claude va <strong>réfléchir à voix haute</strong> — tu vois son raisonnement en temps réel.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Le processus de réflexion apparaît en gris clair avant la réponse finale. Tu peux le lire pour comprendre comment Claude est arrivé à sa conclusion — et valider ou challenger le raisonnement.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Quand l'utiliser : <strong>questions stratégiques</strong>, <strong>analyse de risques</strong>, <strong>rédaction de contrats</strong>, <strong>modèles financiers complexes</strong>, <strong>debugging de problèmes techniques</strong>. Pas pour "résume ce texte".</div>
+      </div>
+    </div>
+    <div class="feature-result"><strong>Résultat :</strong> Pour les sujets complexes, tu obtiens le niveau d'un consultant senior — pas d'un stagiaire qui répond vite.</div>
+  </div>
+
+</div>
+
+<!-- SCORE -->
+<div class="score-block">
+  <div class="score-card">
+    <div class="score-title">Tu en connaissais combien ?</div>
+    <div class="score-sub">Commente ton score sous la vidéo ↓</div>
     <div class="score-grid">
-      <div class="score-item">0<span>Débutant</span></div>
-      <div class="score-item">1<span>Curieux</span></div>
-      <div class="score-item">2<span>Solide</span></div>
-      <div class="score-item">3<span>Avancé</span></div>
-      <div class="score-item">5<span>Expert</span></div>
+      <div class="score-item">
+        <span class="score-num">0</span>
+        <span class="score-label">Débutant</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num">1</span>
+        <span class="score-label">Curieux</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num">2</span>
+        <span class="score-label">Solide</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num">3</span>
+        <span class="score-label">Avancé</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num">5</span>
+        <span class="score-label">Expert</span>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="cta-box">
-    <h2>Tu veux automatiser ton entreprise avec Claude ?</h2>
-    <p>Réserve un audit IA gratuit de 30 min — on regarde ensemble ce qui est possible pour toi.</p>
-    <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-primary">
-      🎯 Réserver mon audit IA gratuit
-    </a>
-    <br>
-    <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-secondary">
-      Découvrir les 70 Spécialistes IA Claude →
-    </a>
-  </div>
-</section>
+<!-- CTA BLOCKS -->
+<div class="cta-blocks">
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>Créé par <strong>Monsieur IA</strong> · @monsieur.ia.2.1 · <a href="https://calendly.com/arnaud-monsieur-ia/30min">Prendre RDV</a></p>
-</footer>
+  <div class="cta-header">Passer à la vitesse supérieure</div>
+
+  <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="specialistes-box">
+    <div class="specialistes-badge">🤖</div>
+    <div class="specialistes-text">
+      <div class="specialistes-title">70 agents IA plug & play</div>
+      <div class="specialistes-desc">Finance, bourse, sales, marketing, contenu… 70 agents autonomes déjà prêts. Tu installes, tu utilises.</div>
+    </div>
+    <div class="specialistes-arrow">›</div>
+  </a>
+
+  <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="prestation-box">
+    <div class="prestation-icon">⚡</div>
+    <div class="prestation-text">
+      <div class="prestation-title">J'automatise ma boîte</div>
+      <div class="prestation-desc">On installe des systèmes IA qui automatisent ta boîte. Devis, relances, reporting, process… tu te concentres sur ton cœur de métier.</div>
+    </div>
+    <div class="prestation-arrow">›</div>
+  </a>
+
+  <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="formation-box">
+    <div class="formation-icon">🎓</div>
+    <div class="formation-text">
+      <div class="formation-title">Former mon entreprise à l'IA</div>
+      <div class="formation-desc">Arnaud intervient dans tes locaux. Workshops pratiques, audit de tes process, outils IA adaptés à ton secteur — clé en main. Appel découverte gratuit.</div>
+    </div>
+    <div class="formation-arrow">›</div>
+  </a>
+
+  <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="ig-box">
+    <div class="ig-icon">📲</div>
+    <div class="ig-text">
+      <div class="ig-title">@monsieur.ia.2.1 sur Instagram</div>
+      <div class="ig-desc">Tips Claude quotidiens · Nouveautés Anthropic · Smart Money</div>
+    </div>
+    <div class="ig-arrow">›</div>
+  </a>
+
+</div>
+
+<div class="footer">
+  © 2026 Monsieur IA · Arnaud Aka · @monsieur.ia.2.1
+</div>
 
 </body>
 </html>
