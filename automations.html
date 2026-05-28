@@ -31,6 +31,143 @@
     min-height: 100vh;
   }
 
+  /* ========== OPTIN SECTION ========== */
+  #optin-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #0f0f0f 0%, #1a0d00 50%, #0a0a0a 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #optin-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(255,107,43,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .optin-card {
+    background: #111111;
+    border: 1px solid rgba(255, 107, 43, 0.25);
+    border-radius: 20px;
+    padding: 52px 44px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 60px rgba(255, 107, 43, 0.06);
+  }
+
+  .optin-badge {
+    display: inline-block;
+    background: var(--orange-glow);
+    border: 1px solid var(--orange-border);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .optin-card h1 {
+    font-size: clamp(24px, 5vw, 34px);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  .optin-card h1 span { color: var(--orange); }
+
+  .optin-card p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .optin-perks {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .optin-perks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .optin-perks li::before {
+    content: '✓';
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .optin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .optin-input {
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 16px 18px;
+    color: var(--white);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .optin-input:focus { border-color: var(--orange-border); }
+  .optin-input::placeholder { color: var(--text-dim); }
+
+  .optin-submit {
+    background: var(--orange);
+    color: #000;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 16px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    width: 100%;
+    letter-spacing: 0.3px;
+  }
+
+  .optin-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .optin-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .optin-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 10px;
+  }
+
+  /* ========== CONTENT SECTION ========== */
+  #content-section { display: none; }
+
+  /* HERO */
   .hero {
     background: linear-gradient(160deg, #0f0f0f 0%, #1a0d00 50%, #0a0a0a 100%);
     border-bottom: 1px solid var(--orange-border);
@@ -103,12 +240,14 @@
     letter-spacing: 1px;
   }
 
+  /* CONTAINER */
   .container {
     max-width: 820px;
     margin: 0 auto;
     padding: 0 20px;
   }
 
+  /* INTRO */
   .intro {
     padding: 40px 0 20px;
     text-align: center;
@@ -123,6 +262,7 @@
 
   .intro p strong { color: var(--orange); }
 
+  /* SECTION TITLE */
   .section-header {
     display: flex;
     align-items: center;
@@ -149,6 +289,7 @@
 
   .section-header h2 span { color: var(--orange); }
 
+  /* AUTOMATION CARD */
   .auto-card {
     background: var(--bg2);
     border: 1px solid #222;
@@ -210,6 +351,7 @@
 
   .auto-gain::before { content: '↑'; }
 
+  /* PROMPT BOX */
   .prompt-container {
     padding: 0 22px 22px;
     margin-top: 16px;
@@ -267,6 +409,14 @@
   .copy-btn:hover { background: rgba(255,107,43,0.25); }
   .copy-btn.copied { color: var(--green); border-color: rgba(0,200,83,0.3); background: rgba(0,200,83,0.08); }
 
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #222, transparent);
+    margin: 10px 0;
+  }
+
+  /* CTA SECTION */
   .cta-section {
     background: linear-gradient(135deg, #0f0f0f, #1a0d00);
     border: 1px solid var(--orange-border);
@@ -334,6 +484,7 @@
 
   .btn-secondary:hover { background: var(--orange-glow); }
 
+  /* FOOTER */
   footer {
     border-top: 1px solid #1a1a1a;
     padding: 30px 20px;
@@ -344,7 +495,9 @@
 
   footer a { color: var(--orange); text-decoration: none; }
 
+  /* RESPONSIVE */
   @media (max-width: 600px) {
+    .optin-card { padding: 36px 24px; }
     .hero h1 { font-size: 26px; }
     .auto-title { font-size: 16px; }
     .prompt-box { font-size: 12px; }
@@ -355,6 +508,41 @@
 </head>
 <body>
 
+<!-- ========== OPTIN SECTION ========== -->
+<div id="optin-section">
+  <div class="optin-card">
+    <div class="optin-badge">✦ Accès gratuit — Prompts prêts à l'emploi</div>
+    <h1>Les <span>10 automations Claude</span><br>qui vont changer ta semaine</h1>
+    <p>Entre ton email pour accéder aux prompts. Tu économises <strong style="color:var(--orange)">10h+ par semaine</strong> dès aujourd'hui.</p>
+
+    <ul class="optin-perks">
+      <li>10 prompts copy-paste prêts à l'emploi</li>
+      <li>Email triage, meetings, repurposing, SAV…</li>
+      <li>Zéro abonnement, zéro logiciel payant</li>
+      <li>Accès immédiat après confirmation</li>
+    </ul>
+
+    <form class="optin-form" id="optin-form" onsubmit="handleOptin(event)">
+      <input
+        type="email"
+        id="email-input"
+        class="optin-input"
+        placeholder="ton@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="optin-submit" id="submit-btn">
+        🚀 Accéder aux 10 automations gratuitement
+      </button>
+    </form>
+    <p class="optin-note">🔒 Pas de spam. Tu peux te désabonner à tout moment.</p>
+  </div>
+</div>
+
+<!-- ========== CONTENT SECTION ========== -->
+<div id="content-section">
+
+<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">✦ Guide pratique — Copie-colle ces prompts</div>
   <h1>Les <span>10 automations</span> Claude<br>qui vont changer ta semaine</h1>
@@ -372,11 +560,13 @@
     <p>Chaque automation = <strong>un prompt à copier directement dans Claude</strong>. Adapte les parties entre crochets à ta situation, et c'est parti.</p>
   </div>
 
+  <!-- SECTION 1 : LES 4 PRINCIPALES -->
   <div class="section-header">
     <div class="section-num">1</div>
     <h2>Les <span>4 automations principales</span> — haut impact</h2>
   </div>
 
+  <!-- AUTO 01 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 01</div>
@@ -399,6 +589,7 @@ Pour chaque urgent, propose une réponse courte.<button class="copy-btn" onclick
     </div>
   </div>
 
+  <!-- AUTO 02 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 02</div>
@@ -420,6 +611,7 @@ Prépare-moi :
     </div>
   </div>
 
+  <!-- AUTO 03 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 03</div>
@@ -441,6 +633,7 @@ Crée mon brief du lundi :
     </div>
   </div>
 
+  <!-- AUTO 04 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 04</div>
@@ -467,16 +660,18 @@ Garde mon ton et mes expressions.<button class="copy-btn" onclick="copyPrompt('p
     </div>
   </div>
 
+  <!-- SECTION 2 : LES 6 AUTRES -->
   <div class="section-header">
     <div class="section-num">2</div>
     <h2>Les <span>6 autres automations</span> — à déployer dès aujourd'hui</h2>
   </div>
 
+  <!-- AUTO 05 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 05</div>
       <div>
-        <div class="auto-title">💼 Devis &amp; propositions commerciales</div>
+        <div class="auto-title">💼 Devis & propositions commerciales</div>
         <div class="auto-desc">Tu donnes les infos d'un prospect et Claude rédige une proposition commerciale complète et professionnelle en 2 minutes. Plus besoin de repartir de zéro à chaque fois.</div>
       </div>
     </div>
@@ -494,6 +689,7 @@ Rédige une proposition commerciale complète avec :
     </div>
   </div>
 
+  <!-- AUTO 06 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 06</div>
@@ -515,6 +711,7 @@ Ton : chaleureux mais professionnel.<button class="copy-btn" onclick="copyPrompt
     </div>
   </div>
 
+  <!-- AUTO 07 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 07</div>
@@ -534,6 +731,7 @@ Fais-moi une synthèse en :
     </div>
   </div>
 
+  <!-- AUTO 08 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 08</div>
@@ -557,6 +755,7 @@ Style : [dynamique / pédagogique / storytelling].<button class="copy-btn" oncli
     </div>
   </div>
 
+  <!-- AUTO 09 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 09</div>
@@ -576,6 +775,7 @@ Analyse-les et dis-moi :
     </div>
   </div>
 
+  <!-- AUTO 10 -->
   <div class="auto-card">
     <div class="auto-header">
       <div class="auto-number">AUTO 10</div>
@@ -594,26 +794,59 @@ Pour chaque idée, une phrase d'explication.<button class="copy-btn" onclick="co
     </div>
   </div>
 
+  <!-- CTA -->
   <div class="cta-section">
     <h2>Tu veux aller <span>encore plus loin</span> ?</h2>
-    <p>Automatise ton business entier avec Claude — ou forme ton équipe à utiliser ces outils au quotidien.</p>
+    <p>Automatise ton business entier avec Claude — formation ou automatisation sur-mesure : appel gratuit de 30 min.</p>
     <div class="cta-buttons">
       <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-primary">
-        🚀 J'automatise ma boîte — appel gratuit
+        �  J'automatise ma boîte — appel gratuit
       </a>
       <a href="https://50-specialistes-ia.netlify.app/" target="_blank" class="btn-secondary">
         ✦ 70 Spécialistes IA — accès complet
       </a>
     </div>
   </div>
-
 </div>
 
 <footer>
   <p>Créé par <a href="https://www.instagram.com/monsieur.ia" target="_blank">@monsieur.ia</a> — Automatise ton business avec Claude</p>
 </footer>
+</div><!-- end #content-section -->
 
 <script>
+const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+
+async function handleOptin(e) {
+  e.preventDefault();
+  const email = document.getElementById('email-input').value.trim();
+  if (!email) return;
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
+
+  try {
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: 'Nouveau lead — 10 Automations Claude',
+        from_name: 'Maîtrise IA',
+        replyto: email,
+        message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
+      })
+    });
+  } catch (err) {
+    console.warn('Form error:', err);
+  }
+
+  document.getElementById('optin-section').style.display = 'none';
+  document.getElementById('content-section').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
 function copyPrompt(id, btn) {
   const box = document.getElementById(id);
   const text = box.innerText.replace('Copier', '').replace('Copié ✓', '').trim();
