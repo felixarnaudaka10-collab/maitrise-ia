@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reel — Claude tue les agences de voyage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;}
+.stage{width:540px;height:540px;position:relative;overflow:hidden;background:#0a0a0a;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px;opacity:0;pointer-events:none;transition:opacity .35s;}
+.slide.active{opacity:1;pointer-events:auto;}
+.progress{width:540px;height:3px;background:#222;}
+.progress-fill{height:100%;background:#9B59F6;width:0%;transition:width linear;}
+.nav{display:flex;gap:12px;margin-top:14px;}
+.nav button{background:#222;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.nav button:hover{background:#333;}
+.dots{display:flex;gap:7px;align-items:center;margin-top:10px;}
+.dot{width:7px;height:7px;border-radius:50%;background:#333;transition:background .3s;cursor:pointer;}
+.dot.active{background:#9B59F6;}
+
+/* ══ S0 HOOK ══ */
+#s0{background:#0a0a0a;padding:0;}
+.s0-halo{position:absolute;width:420px;height:320px;border-radius:50%;background:radial-gradient(ellipse,rgba(155,89,246,.18) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-52%);opacity:0;animation:glowIn 1s ease forwards;animation-delay:.3s;}
+.s0-logo{display:flex;align-items:center;gap:9px;position:absolute;top:36px;left:50%;transform:translateX(-50%);white-space:nowrap;opacity:0;animation:fadeDown .5s ease forwards;animation-delay:.15s;}
+.s0-asterisk{font-size:24px;color:#B07FFF;}
+.s0-brand{font-size:16px;font-weight:800;color:#B07FFF;letter-spacing:.5px;}
+
+.s0-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);display:flex;flex-direction:column;align-items:center;width:100%;gap:6px;}
+.s0-line-mid{font-size:17px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.3px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:.5s;text-align:center;}
+.s0-blink-wrap{position:relative;}
+@keyframes neonBlink1{
+  0%{opacity:0;color:#9B59F6;text-shadow:none;}
+  8%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  16%{opacity:0;text-shadow:none;}
+  24%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  32%{opacity:0;text-shadow:none;}
+  40%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  48%{opacity:0;text-shadow:none;}
+  56%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  100%{opacity:1;color:#9B59F6;text-shadow:0 0 16px #9B59F6,0 0 30px #9B59F6;}
+}
+@keyframes neonBlink2{
+  0%{opacity:0;color:#9B59F6;text-shadow:none;}
+  8%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  16%{opacity:0;text-shadow:none;}
+  24%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  32%{opacity:0;text-shadow:none;}
+  40%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  48%{opacity:0;text-shadow:none;}
+  56%{opacity:1;color:#9B59F6;text-shadow:0 0 20px #9B59F6,0 0 40px #9B59F6,0 0 80px #9B59F6;}
+  100%{opacity:1;color:#9B59F6;text-shadow:0 0 16px #9B59F6,0 0 30px #9B59F6;}
+}
+.s0-blink{font-size:90px;font-weight:900;letter-spacing:-4px;line-height:1;opacity:0;}
+.s0-blink.anim{animation:neonBlink1 1.8s ease forwards;animation-delay:.1s;}
+.s0-blink2{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1;opacity:0;}
+.s0-blink2.anim{animation:neonBlink2 1.8s ease forwards;animation-delay:1.3s;}
+.s0-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:13px;font-weight:700;padding:7px 16px;border-radius:20px;margin-top:10px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:1.4s;}
+.s0-badge em{font-style:normal;color:#B07FFF;}
+.s0-sub{position:absolute;bottom:46px;left:0;right:0;text-align:center;font-size:14px;color:rgba(255,255,255,.38);font-weight:500;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:2.0s;}
+
+/* ══ CONTENT SLIDES ══ */
+.content-slide{background:#0f0f0f;}
+.slide-label{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#9B59F6;margin-bottom:8px;opacity:0;}
+.slide-label.anim{animation:fadeUp .45s ease forwards;}
+.slide-title{font-size:25px;font-weight:900;color:#fff;letter-spacing:-0.8px;line-height:1.2;text-align:center;margin-bottom:16px;opacity:0;}
+.slide-title.anim{animation:fadeUp .45s ease forwards;animation-delay:.12s;}
+.slide-title em{font-style:normal;color:#B07FFF;}
+
+/* Agent cards */
+.agent-card{background:#0d0d14;border:1px solid rgba(155,89,246,.25);border-radius:16px;padding:18px 20px;width:100%;text-align:left;opacity:0;margin-bottom:12px;}
+.agent-card.anim{animation:bounceIn .45s cubic-bezier(.34,1.56,.64,1) forwards;}
+.agent-card-header{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.agent-icon{font-size:22px;}
+.agent-name{font-size:15px;font-weight:800;color:#B07FFF;letter-spacing:-0.3px;}
+.agent-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+.agent-highlight{color:#fff;font-weight:700;}
+
+/* S1 — Étape 1 : la mise en route */
+.step-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(155,89,246,.12);border:1px solid rgba(155,89,246,.3);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:#B07FFF;margin-bottom:14px;opacity:0;}
+.step-tag.anim{animation:fadeUp .4s ease forwards;animation-delay:.05s;}
+.step-action{font-size:21px;font-weight:900;color:#fff;line-height:1.3;text-align:center;margin-bottom:14px;opacity:0;}
+.step-action.anim{animation:fadeUp .45s ease forwards;animation-delay:.2s;}
+.step-action em{font-style:normal;color:#B07FFF;}
+.timer-badge{display:inline-flex;align-items:center;gap:8px;background:#0d0d14;border:1px solid rgba(155,89,246,.3);border-radius:12px;padding:12px 20px;font-size:16px;font-weight:800;color:#9B59F6;opacity:0;}
+.timer-badge.anim{animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.4s;}
+
+/* Stats slide — S4 */
+.collapse-box{background:#0d0d14;border:1px solid rgba(155,89,246,.3);border-radius:18px;padding:22px 24px;width:100%;text-align:center;opacity:0;}
+.collapse-box.anim{animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.2s;}
+.collapse-headline{font-size:20px;font-weight:900;color:#fff;line-height:1.3;letter-spacing:-0.5px;margin-bottom:16px;}
+.collapse-headline em{font-style:normal;color:#B07FFF;}
+.collapse-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.collapse-item{background:rgba(155,89,246,.07);border:1px solid rgba(155,89,246,.15);border-radius:12px;padding:12px 8px;}
+.collapse-val{font-size:18px;font-weight:900;color:#9B59F6;margin-bottom:4px;}
+.collapse-lbl{font-size:11px;color:rgba(255,255,255,.4);font-weight:600;line-height:1.3;}
+.collapse-sub{font-size:12px;color:rgba(255,255,255,.45);font-style:italic;}
+
+/* CTA — S5 */
+#s5{background:#0a0a0a;}
+.cta-pre{font-size:16px;font-weight:600;color:rgba(255,255,255,.5);text-align:center;margin-bottom:6px;opacity:0;animation:fadeUp .5s ease forwards;animation-delay:.15s;}
+.cta-word{font-size:72px;font-weight:900;color:#9B59F6;letter-spacing:-3px;line-height:1;text-shadow:0 0 24px rgba(155,89,246,.5);opacity:0;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards;animation-delay:.3s;}
+.cta-sub{font-size:14px;color:rgba(255,255,255,.55);text-align:center;margin-top:12px;line-height:1.8;opacity:0;animation:fadeUp .45s ease forwards;animation-delay:.55s;}
+.cta-sub strong{color:#fff;}
+.cta-condition{display:inline-flex;align-items:center;gap:7px;background:rgba(155,89,246,.1);border:1px solid rgba(155,89,246,.25);color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:9px 18px;border-radius:20px;margin-top:14px;opacity:0;animation:fadeUp .45s ease forwards;animation-delay:.75s;}
+.cta-condition em{font-style:normal;color:#B07FFF;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes glowIn{from{opacity:0;}to{opacity:1;}}
+@keyframes popIn{0%{opacity:0;transform:scale(.7);}60%{opacity:1;transform:scale(1.06);}100%{opacity:1;transform:scale(1);}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.8) translateY(8px);}60%{opacity:1;transform:scale(1.05) translateY(-3px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+@keyframes slideR{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- S0 — HOOK -->
+  <div class="slide active" id="s0">
+    <div class="s0-halo"></div>
+    <div class="s0-logo"><span class="s0-asterisk">✳</span><span class="s0-brand">Anthropic · Travel Agents</span></div>
+    <div class="s0-center">
+      <div class="s0-blink-wrap"><div class="s0-blink anim">CLAUDE</div></div>
+      <div class="s0-line-mid">vient de tuer</div>
+      <div class="s0-blink-wrap"><div class="s0-blink2 anim">LES AGENCES</div></div>
+      <div class="s0-badge">✈️ <em>5 agents en parallèle</em></div>
+    </div>
+    <div class="s0-sub">3 étapes pour planifier ton voyage seul</div>
+  </div>
+
+  <!-- S1 — Étape 1 : la mise en route -->
+  <div class="slide content-slide" id="s1">
+    <div class="step-tag">⚡ Étape 01 · Setup</div>
+    <div class="step-action">Tu donnes à Claude<br>ton <em>budget</em>, ta <em>destination</em><br>et tes <em>dates</em></div>
+    <div class="timer-badge">⏱ 30 secondes à faire</div>
+  </div>
+
+  <!-- S2 — Étape 2 : les 5 agents -->
+  <div class="slide content-slide" id="s2">
+    <div class="slide-label">Étape 02 · Les agents</div>
+    <div class="slide-title">Claude lance <em>5 agents</em><br>en parallèle</div>
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-icon">✈️</div>
+        <div class="agent-name">Vol Optimizer</div>
+      </div>
+      <div class="agent-desc">Cherche et <span class="agent-highlight">compare les vols</span> en temps réel sur toutes les plateformes.</div>
+    </div>
+    <div class="agent-card" style="animation-delay:.15s;">
+      <div class="agent-card-header">
+        <div class="agent-icon">🏨</div>
+        <div class="agent-name">Hotel Ranker</div>
+      </div>
+      <div class="agent-desc">Compare les hôtels par <span class="agent-highlight">rapport qualité/prix</span> selon tes critères.</div>
+    </div>
+  </div>
+
+  <!-- S3 — Suite des agents -->
+  <div class="slide content-slide" id="s3">
+    <div class="slide-label">Étape 02 · Suite</div>
+    <div class="slide-title"><em>3 autres agents</em><br>travaillent en même temps</div>
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-icon">🗺️</div>
+        <div class="agent-name">Itinerary Builder</div>
+      </div>
+      <div class="agent-desc">Optimise ton <span class="agent-highlight">programme jour par jour</span> selon tes centres d'intérêt.</div>
+    </div>
+    <div class="agent-card" style="animation-delay:.12s;">
+      <div class="agent-card-header">
+        <div class="agent-icon">💶</div>
+        <div class="agent-name">Budget Tracker</div>
+      </div>
+      <div class="agent-desc">Calcule le budget <span class="agent-highlight">à l'euro près</span> + analyse les avis locaux.</div>
+    </div>
+  </div>
+
+  <!-- S4 — L'écart de prix -->
+  <div class="slide content-slide" id="s4">
+    <div class="slide-label">Le résultat · Paris–Tokyo 10j</div>
+    <div class="slide-title" style="margin-bottom:14px;">L'écart qui te<br>coûte <em>2 200€</em></div>
+    <div class="collapse-box">
+      <div class="collapse-headline">Claude vs <em>Agence</em></div>
+      <div class="collapse-grid">
+        <div class="collapse-item">
+          <div class="collapse-val">2 300€</div>
+          <div class="collapse-lbl">avec Claude<br>en autonome</div>
+        </div>
+        <div class="collapse-item">
+          <div class="collapse-val">4 500€</div>
+          <div class="collapse-lbl">forfait agence<br>tout compris</div>
+        </div>
+      </div>
+      <div class="collapse-sub">Même destination, même qualité — toi t'as absolument rien d'autre à faire.</div>
+    </div>
+  </div>
+
+  <!-- S5 — CTA -->
+  <div class="slide" id="s5">
+    <div class="cta-pre">Commente le mot</div>
+    <div class="cta-word">VOYAGE</div>
+    <div class="cta-sub">Je t'envoie le <strong>guide complet</strong><br>pour planifier ton voyage avec Claude</div>
+    <div class="cta-condition">📅 <em>RDV dispo</em> si tu veux automatiser ta boîte</div>
+  </div>
+
+</div>
+
+<div class="progress"><div class="progress-fill" id="pbar"></div></div>
+<div class="dots" id="dots"></div>
+<div class="nav">
+  <button onclick="prev()">← Préc</button>
+  <button onclick="next()">Suiv →</button>
+</div>
+
+<script>
+const SLIDES=['s0','s1','s2','s3','s4','s5'];
+const DURATIONS=[7500,7000,8000,8000,8500,8000];
+let cur=0,timer=null;
+const ANIMS={
+  s1:[{sel:'.step-tag',delay:100},{sel:'.step-action',delay:220},{sel:'.timer-badge',delay:400}],
+  s2:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.agent-card',delay:420,stagger:180}],
+  s3:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.agent-card',delay:420,stagger:180}],
+  s4:[{sel:'.slide-label',delay:150},{sel:'.slide-title',delay:280},{sel:'.collapse-box',delay:400}],
+};
+function runAnims(id){
+  const list=ANIMS[id];if(!list)return;
+  list.forEach(({sel,delay,stagger=0})=>{
+    const els=document.querySelectorAll('#'+id+' '+sel);
+    els.forEach((el,i)=>{
+      setTimeout(()=>{el.classList.add('anim');},delay+i*stagger);
+    });
+  });
+}
+function clearAnims(id){
+  document.querySelectorAll('#'+id+' .anim').forEach(el=>el.classList.remove('anim'));
+}
+function goTo(n){
+  clearAnims(SLIDES[cur]);
+  document.getElementById(SLIDES[cur]).classList.remove('active');
+  cur=n;
+  document.getElementById(SLIDES[cur]).classList.add('active');
+  runAnims(SLIDES[cur]);
+  updateDots();startTimer();
+}
+function next(){goTo((cur+1)%SLIDES.length);}
+function prev(){goTo((cur-1+SLIDES.length)%SLIDES.length);}
+function updateDots(){
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===cur);
+  });
+}
+let pStart=null,pDur=0,pRaf=null;
+function startTimer(){
+  clearTimeout(timer);cancelAnimationFrame(pRaf);
+  const fill=document.getElementById('pbar');
+  fill.style.transition='none';fill.style.width='0%';
+  pDur=DURATIONS[cur];pStart=performance.now();
+  function tick(now){
+    const p=Math.min((now-pStart)/pDur,1);
+    fill.style.transition='none';fill.style.width=(p*100)+'%';
+    if(p<1){pRaf=requestAnimationFrame(tick);}
+    else{timer=setTimeout(next,80);}
+  }
+  pRaf=requestAnimationFrame(tick);
+}
+// Build dots
+const dotsEl=document.getElementById('dots');
+SLIDES.forEach((_,i)=>{
+  const d=document.createElement('div');d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);dotsEl.appendChild(d);
+});
+runAnims('s0');startTimer();
+</script>
+</body>
+</html>
