@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Skills Claude</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: #080808;
+    font-family: 'SF Pro Display', -apple-system, 'Helvetica Neue', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ─── LAYOUT ZONES ─── */
+  #animation-zone {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1112px; /* 58% */
+    background: #080808;
+    overflow: hidden;
+  }
+
+  #facecam-zone {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 808px; /* 42% */
+    background: #0d0d0d;
+    border-top: 2px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #facecam-label {
+    color: #333;
+    font-size: 28px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ─── GLOBAL BG GLOW ─── */
+  #bg-glow {
+    position: absolute;
+    width: 900px; height: 900px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+
+  /* ─── SLIDE WRAPPER ─── */
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ─── INTRO SLIDE ─── */
+  #slide-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px;
+  }
+
+  .intro-hook {
+    font-size: 62px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -1px;
+  }
+
+  .intro-hook span {
+    color: #8B5CF6;
+    text-shadow: 0 0 30px rgba(139,92,246,0.8), 0 0 60px rgba(139,92,246,0.4);
+  }
+
+  .intro-pct {
+    font-size: 160px;
+    font-weight: 900;
+    color: #8B5CF6;
+    text-shadow: 0 0 40px rgba(139,92,246,1), 0 0 80px rgba(139,92,246,0.6), 0 0 120px rgba(139,92,246,0.3);
+    line-height: 1;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .intro-sub {
+    font-size: 44px;
+    font-weight: 700;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .intro-sub span {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 40px rgba(139,92,246,1), 0 0 80px rgba(139,92,246,0.6); }
+    50% { text-shadow: 0 0 60px rgba(139,92,246,1), 0 0 120px rgba(139,92,246,0.8), 0 0 180px rgba(139,92,246,0.4); }
+  }
+
+  /* ─── SKILL SLIDES ─── */
+  .skill-slide {
+    padding: 60px 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* Skill counter header */
+  .skill-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .skill-number {
+    font-size: 200px;
+    font-weight: 900;
+    line-height: 0.85;
+    color: #8B5CF6;
+    text-shadow: 0 0 50px rgba(139,92,246,1), 0 0 100px rgba(139,92,246,0.6), 0 0 150px rgba(139,92,246,0.3);
+    letter-spacing: -5px;
+  }
+
+  .skill-counter-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 20px;
+    gap: 8px;
+  }
+
+  .skill-total {
+    font-size: 52px;
+    font-weight: 700;
+    color: #444;
+  }
+
+  .skill-dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  .dot.active {
+    background: #8B5CF6;
+    box-shadow: 0 0 12px rgba(139,92,246,0.8);
+  }
+
+  /* Skill title */
+  .skill-title {
+    font-size: 90px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -2px;
+  }
+
+  .skill-title .accent {
+    color: #8B5CF6;
+    text-shadow: 0 0 30px rgba(139,92,246,0.8);
+    display: block;
+  }
+
+  /* ─── SKILL CARD (Claude UI style) ─── */
+  .skill-card {
+    background: linear-gradient(135deg, #141414, #1a1a2e);
+    border: 1px solid #2a2a4a;
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 0 30px rgba(139,92,246,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+  .skill-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .card-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+  }
+
+  .card-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-author {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-name {
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 24px;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  .card-lang {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #8B5CF6;
+    box-shadow: 0 0 8px rgba(139,92,246,0.8);
+    flex-shrink: 0;
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+
+  /* ─── SKILL 1: TAGS GRID ─── */
+  .tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 10px 0;
+  }
+
+  .tag {
+    background: #1a1a2e;
+    border: 1px solid #3a3a5e;
+    border-radius: 40px;
+    padding: 10px 22px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #aaa;
+    opacity: 0;
+    transform: scale(0.7) translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .tag.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .tag.purple {
+    background: rgba(139,92,246,0.15);
+    border-color: #8B5CF6;
+    color: #c4b5fd;
+    box-shadow: 0 0 12px rgba(139,92,246,0.2);
+  }
+
+  /* ─── SKILL 2: STOPSLOP STRIKETHROUGH ─── */
+  .slop-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .slop-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .slop-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .slop-phrase {
+    font-size: 30px;
+    color: #888;
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+  }
+
+  .slop-phrase::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 0%; height: 2px;
+    background: #ef4444;
+    transition: width 0.5s ease 0.2s;
+  }
+
+  .slop-item.struck .slop-phrase::after {
+    width: 100%;
+  }
+
+  .slop-arrow {
+    font-size: 28px;
+    color: #8B5CF6;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.6s;
+  }
+
+  .slop-item.struck .slop-arrow {
+    opacity: 1;
+  }
+
+  .slop-fix {
+    font-size: 30px;
+    font-weight: 700;
+    color: #8B5CF6;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.7s;
+    text-shadow: 0 0 15px rgba(139,92,246,0.5);
+  }
+
+  .slop-item.struck .slop-fix {
+    opacity: 1;
+  }
+
+  /* ─── SKILL 3: UI MOCKUP GRID ─── */
+  .ui-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .ui-card {
+    background: linear-gradient(135deg, #141420, #1e1e35);
+    border: 1px solid #2a2a4a;
+    border-radius: 12px;
+    padding: 16px 12px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ui-card.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .ui-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #2a2a4a;
+  }
+
+  .ui-bar.accent {
+    background: linear-gradient(90deg, #8B5CF6, #6D28D9);
+    width: 60%;
+  }
+
+  .ui-bar.short { width: 40%; }
+
+  .ui-circle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    margin-bottom: 4px;
+  }
+
+  /* ─── SKILL 4: REMOTION ─── */
+  .remotion-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 30px;
+    padding: 20px 0;
+  }
+
+  .remotion-badge {
+    background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(109,40,217,0.2));
+    border: 2px solid #8B5CF6;
+    border-radius: 24px;
+    padding: 24px 50px;
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(139,92,246,0.3);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .remotion-badge.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .remotion-flow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+  }
+
+  .remotion-flow.visible {
+    opacity: 1;
+  }
+
+  .flow-step {
+    background: #1a1a2e;
+    border: 1px solid #3a3a5e;
+    border-radius: 16px;
+    padding: 16px 28px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #c4b5fd;
+    text-align: center;
+  }
+
+  .flow-arrow {
+    font-size: 36px;
+    color: #8B5CF6;
+    animation: arrow-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes arrow-pulse {
+    0%, 100% { transform: translateX(0); opacity: 0.6; }
+    50% { transform: translateX(6px); opacity: 1; }
+  }
+
+  /* ─── SKILL 5: CONTEXT / TOKENS ─── */
+  .token-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .token-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .token-bar-wrap.visible {
+    opacity: 1;
+  }
+
+  .token-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .token-label {
+    font-size: 28px;
+    font-weight: 600;
+    color: #ccc;
+  }
+
+  .token-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #8B5CF6;
+  }
+
+  .token-track {
+    height: 24px;
+    background: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #2a2a4a;
+  }
+
+  .token-fill {
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #8B5CF6, #a78bfa);
+    box-shadow: 0 0 15px rgba(139,92,246,0.5);
+    width: 0%;
+    transition: width 1s ease 0.3s;
+  }
+
+  .token-fill.filled { width: var(--w); }
+
+  .efficiency-badge {
+    background: rgba(139,92,246,0.15);
+    border: 2px solid #8B5CF6;
+    border-radius: 16px;
+    padding: 18px 32px;
+    font-size: 36px;
+    font-weight: 800;
+    color: #c4b5fd;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(139,92,246,0.5);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease 0.8s, transform 0.4s ease 0.8s;
+  }
+
+  .efficiency-badge.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── OUTRO SLIDE ─── */
+  #slide-outro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px;
+  }
+
+  .outro-title {
+    font-size: 70px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .outro-title span {
+    color: #8B5CF6;
+    text-shadow: 0 0 30px rgba(139,92,246,0.8);
+  }
+
+  .outro-cta {
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    border-radius: 20px;
+    padding: 30px 60px;
+    font-size: 44px;
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(139,92,246,0.5);
+    animation: cta-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 0 50px rgba(139,92,246,0.5); }
+    50% { box-shadow: 0 0 80px rgba(139,92,246,0.8), 0 0 120px rgba(139,92,246,0.3); }
+  }
+
+  .outro-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .outro-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .outro-step.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .step-num {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: #8B5CF6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(139,92,246,0.6);
+  }
+
+  .step-text {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ddd;
+  }
+
+  /* ─── PROGRESS BAR ─── */
+  #progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #8B5CF6, #a78bfa);
+    box-shadow: 0 0 10px rgba(139,92,246,0.8);
+    transition: width 0.1s linear;
+    z-index: 100;
+  }
+
+  /* ─── SLIDE IN ANIMATION ─── */
+  @keyframes slideInRight {
+    from { transform: translateX(80px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes slideInUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .anim-slide-right { animation: slideInRight 0.5s ease forwards; }
+  .anim-slide-up { animation: slideInUp 0.5s ease forwards; }
+
+  /* ─── SCAN LINE ─── */
+  #scanline {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(139,92,246,0.3), transparent);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  @keyframes scan {
+    0% { top: 0; }
+    100% { top: 1112px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ANIMATION ZONE (58%) -->
+<div id="animation-zone">
+  <div id="bg-glow"></div>
+  <div id="scanline"></div>
+  <div id="progress-bar" style="width:0%"></div>
+
+  <!-- SLIDE INTRO -->
+  <div class="slide active" id="slide-intro">
+    <div class="intro-hook">Voici <span>5 skills Claude</span> que tu dois<br>absolument installer</div>
+    <div class="intro-pct">89%</div>
+    <div class="intro-sub">des gens <span>ne les connaissent pas.</span><br>Enregistre ce post.</div>
+  </div>
+
+  <!-- SLIDE 1 : 70 SPÉCIALISTES IA -->
+  <div class="slide skill-slide" id="slide-1">
+    <div class="skill-header">
+      <div class="skill-number">01</div>
+      <div class="skill-counter-right">
+        <div class="skill-total">/ 05</div>
+        <div class="skill-dots">
+          <div class="dot active" id="d1"></div>
+          <div class="dot" id="d2"></div>
+          <div class="dot" id="d3"></div>
+          <div class="dot" id="d4"></div>
+          <div class="dot" id="d5"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-title">70 SPÉCIALISTES<span class="accent">IA</span></div>
+    <div class="skill-card" id="card-1">
+      <div class="card-avatar">🧠</div>
+      <div class="card-info">
+        <div class="card-author">@monsieur_ia</div>
+        <div class="card-name">70 Spécialistes IA</div>
+        <div class="card-desc">70 experts IA dans Claude pour chaque tâche</div>
+      </div>
+      <div class="card-lang"></div>
+    </div>
+    <div class="tags-grid" id="tags-1">
+      <div class="tag purple">copywriter</div>
+      <div class="tag">prospection</div>
+      <div class="tag purple">instagram</div>
+      <div class="tag">funnel</div>
+      <div class="tag purple">email-marketing</div>
+      <div class="tag">branding</div>
+      <div class="tag purple">seo</div>
+      <div class="tag">pricing</div>
+      <div class="tag purple">linkedin</div>
+      <div class="tag">offre</div>
+      <div class="tag purple">scripts-viraux</div>
+      <div class="tag">automatisation</div>
+      <div class="tag purple">kpis</div>
+      <div class="tag">avatar-client</div>
+      <div class="tag purple">formation-en-ligne</div>
+      <div class="tag">delegation</div>
+      <div class="tag purple">high-ticket</div>
+      <div class="tag">newsletter</div>
+      <div class="tag purple">meta-ads</div>
+      <div class="tag">closing</div>
+      <div class="tag purple">productivite</div>
+      <div class="tag">mindset</div>
+      <div class="tag purple">ia-specialist</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 : STOP SLOP -->
+  <div class="slide skill-slide" id="slide-2">
+    <div class="skill-header">
+      <div class="skill-number">02</div>
+      <div class="skill-counter-right">
+        <div class="skill-total">/ 05</div>
+        <div class="skill-dots">
+          <div class="dot" id="d1b"></div>
+          <div class="dot active" id="d2b"></div>
+          <div class="dot" id="d3b"></div>
+          <div class="dot" id="d4b"></div>
+          <div class="dot" id="d5b"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-title">STOP<span class="accent">SLOP</span></div>
+    <div class="skill-card" id="card-2">
+      <div class="card-avatar">🚫</div>
+      <div class="card-info">
+        <div class="card-author">community skill</div>
+        <div class="card-name">Stop Slop</div>
+        <div class="card-desc">Élimine les phrases IA génériques et robotiques</div>
+      </div>
+      <div class="card-lang"></div>
+    </div>
+    <div class="slop-list" id="slop-list">
+      <div class="slop-item" id="slop-0">
+        <span class="slop-phrase">« Certainement ! »</span>
+        <span class="slop-arrow">→</span>
+        <span class="slop-fix">Réponse directe</span>
+      </div>
+      <div class="slop-item" id="slop-1">
+        <span class="slop-phrase">« Bien sûr, je serais ravi de... »</span>
+        <span class="slop-arrow">→</span>
+        <span class="slop-fix">Action immédiate</span>
+      </div>
+      <div class="slop-item" id="slop-2">
+        <span class="slop-phrase">« C'est une excellente question ! »</span>
+        <span class="slop-arrow">→</span>
+        <span class="slop-fix">Vraie réponse</span>
+      </div>
+      <div class="slop-item" id="slop-3">
+        <span class="slop-phrase">« Il est important de noter que... »</span>
+        <span class="slop-arrow">→</span>
+        <span class="slop-fix">Plus de précision</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 : UI UX DESIGNER -->
+  <div class="slide skill-slide" id="slide-3">
+    <div class="skill-header">
+      <div class="skill-number">03</div>
+      <div class="skill-counter-right">
+        <div class="skill-total">/ 05</div>
+        <div class="skill-dots">
+          <div class="dot" id="d1c"></div>
+          <div class="dot" id="d2c"></div>
+          <div class="dot active" id="d3c"></div>
+          <div class="dot" id="d4c"></div>
+          <div class="dot" id="d5c"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-title">UI/UX<span class="accent">DESIGNER</span></div>
+    <div class="skill-card" id="card-3">
+      <div class="card-avatar">🎨</div>
+      <div class="card-info">
+        <div class="card-author">design skill</div>
+        <div class="card-name">UI/UX Designer</div>
+        <div class="card-desc">Génère des maquettes et interfaces directement dans Claude</div>
+      </div>
+      <div class="card-lang"></div>
+    </div>
+    <div class="ui-grid" id="ui-grid"></div>
+  </div>
+
+  <!-- SLIDE 4 : REMOTION -->
+  <div class="slide skill-slide" id="slide-4">
+    <div class="skill-header">
+      <div class="skill-number">04</div>
+      <div class="skill-counter-right">
+        <div class="skill-total">/ 05</div>
+        <div class="skill-dots">
+          <div class="dot" id="d1d"></div>
+          <div class="dot" id="d2d"></div>
+          <div class="dot" id="d3d"></div>
+          <div class="dot active" id="d4d"></div>
+          <div class="dot" id="d5d"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-title">RE<span class="accent">MOTION</span></div>
+    <div class="skill-card" id="card-4">
+      <div class="card-avatar">🎬</div>
+      <div class="card-info">
+        <div class="card-author">video skill</div>
+        <div class="card-name">ReMotion</div>
+        <div class="card-desc">Crée des vidéos animées programmatiques avec React</div>
+      </div>
+      <div class="card-lang"></div>
+    </div>
+    <div class="remotion-center">
+      <div class="remotion-badge" id="rem-badge">Script → Vidéo animée<br>en quelques minutes ⚡</div>
+      <div class="remotion-flow" id="rem-flow">
+        <div class="flow-step">Prompt</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Code React</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">🎥 Vidéo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 : CONTEXT ENGINEERING -->
+  <div class="slide skill-slide" id="slide-5">
+    <div class="skill-header">
+      <div class="skill-number">05</div>
+      <div class="skill-counter-right">
+        <div class="skill-total">/ 05</div>
+        <div class="skill-dots">
+          <div class="dot" id="d1e"></div>
+          <div class="dot" id="d2e"></div>
+          <div class="dot" id="d3e"></div>
+          <div class="dot" id="d4e"></div>
+          <div class="dot active" id="d5e"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-title">CONTEXT<span class="accent">ENGINEERING</span></div>
+    <div class="skill-card" id="card-5">
+      <div class="card-avatar">⚙️</div>
+      <div class="card-info">
+        <div class="card-author">advanced skill</div>
+        <div class="card-name">Context Engineering</div>
+        <div class="card-desc">Maximise l'efficacité de chaque token dans Claude</div>
+      </div>
+      <div class="card-lang"></div>
+    </div>
+    <div class="token-visual" id="token-vis">
+      <div class="token-bar-wrap" id="tb-0">
+        <div class="token-label-row">
+          <span class="token-label">Sans skill</span>
+          <span class="token-value">40% efficacité</span>
+        </div>
+        <div class="token-track"><div class="token-fill" style="--w:40%"></div></div>
+      </div>
+      <div class="token-bar-wrap" id="tb-1">
+        <div class="token-label-row">
+          <span class="token-label">Avec Context Engineering</span>
+          <span class="token-value" style="color:#a78bfa">95% efficacité</span>
+        </div>
+        <div class="token-track"><div class="token-fill" style="--w:95%"></div></div>
+      </div>
+      <div class="efficiency-badge" id="eff-badge">
+        🔥 Réponses 2× plus précises,<br>contexte toujours pertinent
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE OUTRO -->
+  <div class="slide" id="slide-outro">
+    <div class="outro-title">Installe ces <span>5 skills</span><br>maintenant 👇</div>
+    <div class="outro-steps" id="outro-steps">
+      <div class="outro-step" id="os-0">
+        <div class="step-num">1</div>
+        <div class="step-text">Ouvre Claude → ⊕ Ajouter des skills</div>
+      </div>
+      <div class="outro-step" id="os-1">
+        <div class="step-num">2</div>
+        <div class="step-text">Cherche les 5 skills de cette vidéo</div>
+      </div>
+      <div class="outro-step" id="os-2">
+        <div class="step-num">3</div>
+        <div class="step-text">Active-les en 1 clic ✅</div>
+      </div>
+      <div class="outro-step" id="os-3">
+        <div class="step-num">4</div>
+        <div class="step-text">Passe devant <span style="color:#8B5CF6">89%</span> des utilisateurs</div>
+      </div>
+    </div>
+    <div class="outro-cta">🔔 Suis pour plus de tips Claude</div>
+  </div>
+
+</div>
+
+<!-- FACE CAM ZONE (42%) -->
+<div id="facecam-zone">
+  <div id="facecam-label">FACE CAM</div>
+</div>
+
+<script>
+// ─── SLIDE MANAGER ───
+const slides = [
+  'slide-intro',
+  'slide-1',
+  'slide-2',
+  'slide-3',
+  'slide-4',
+  'slide-5',
+  'slide-outro'
+];
+
+const DURATIONS = [3000, 5000, 5500, 5000, 4500, 5000, 5000]; // ms per slide
+const TOTAL = DURATIONS.reduce((a, b) => a + b, 0);
+
+let currentSlide = 0;
+let slideStartTime = null;
+let animationFrame;
+
+function showSlide(index) {
+  // Hide all
+  slides.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+
+  const el = document.getElementById(slides[index]);
+  if (el) el.classList.add('active');
+
+  // Trigger per-slide animations
+  setTimeout(() => {
+    switch(index) {
+      case 1: animateSlide1(); break;
+      case 2: animateSlide2(); break;
+      case 3: animateSlide3(); break;
+      case 4: animateSlide4(); break;
+      case 5: animateSlide5(); break;
+      case 6: animateOutro(); break;
+    }
+  }, 200);
+}
+
+// ─── PROGRESS BAR ───
+function updateProgress() {
+  const now = performance.now();
+  let elapsed = 0;
+  for (let i = 0; i < currentSlide; i++) elapsed += DURATIONS[i];
+  elapsed += (now - slideStartTime);
+  const pct = Math.min((elapsed / TOTAL) * 100, 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  animationFrame = requestAnimationFrame(updateProgress);
+}
+
+// ─── SLIDE SEQUENCER ───
+function nextSlide() {
+  if (currentSlide >= slides.length - 1) return;
+  currentSlide++;
+  showSlide(currentSlide);
+  slideStartTime = performance.now();
+  setTimeout(nextSlide, DURATIONS[currentSlide]);
+}
+
+// Start
+slideStartTime = performance.now();
+setTimeout(nextSlide, DURATIONS[0]);
+requestAnimationFrame(updateProgress);
+
+// ─── SKILL 1 ANIMATIONS ───
+function animateSlide1() {
+  // Card appears
+  const card = document.getElementById('card-1');
+  if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+  // Tags appear one by one
+  const tags = document.querySelectorAll('#tags-1 .tag');
+  tags.forEach((tag, i) => {
+    setTimeout(() => tag.classList.add('visible'), 600 + i * 130);
+  });
+}
+
+// ─── SKILL 2 ANIMATIONS ───
+function animateSlide2() {
+  const card = document.getElementById('card-2');
+  if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+  const items = document.querySelectorAll('#slop-list .slop-item');
+  items.forEach((item, i) => {
+    setTimeout(() => {
+      item.classList.add('visible');
+      setTimeout(() => item.classList.add('struck'), 300);
+    }, 500 + i * 900);
+  });
+}
+
+// ─── SKILL 3 ANIMATIONS ───
+function animateSlide3() {
+  const card = document.getElementById('card-3');
+  if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+  // Build UI cards dynamically
+  const grid = document.getElementById('ui-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (let i = 0; i < 20; i++) {
+    const card = document.createElement('div');
+    card.className = 'ui-card';
+    card.innerHTML = `
+      <div class="ui-circle"></div>
+      <div class="ui-bar accent"></div>
+      <div class="ui-bar"></div>
+      <div class="ui-bar short"></div>
+    `;
+    // Vary accent widths
+    const accent = card.querySelector('.ui-bar.accent');
+    if (accent) accent.style.width = (40 + Math.random() * 40) + '%';
+    grid.appendChild(card);
+
+    setTimeout(() => card.classList.add('visible'), 400 + i * 110);
+  }
+}
+
+// ─── SKILL 4 ANIMATIONS ───
+function animateSlide4() {
+  const card = document.getElementById('card-4');
+  if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+  const badge = document.getElementById('rem-badge');
+  if (badge) setTimeout(() => badge.classList.add('visible'), 600);
+
+  const flow = document.getElementById('rem-flow');
+  if (flow) setTimeout(() => flow.classList.add('visible'), 1200);
+}
+
+// ─── SKILL 5 ANIMATIONS ───
+function animateSlide5() {
+  const card = document.getElementById('card-5');
+  if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+  const tb0 = document.getElementById('tb-0');
+  if (tb0) {
+    setTimeout(() => {
+      tb0.classList.add('visible');
+      const fill = tb0.querySelector('.token-fill');
+      if (fill) setTimeout(() => fill.classList.add('filled'), 100);
+    }, 500);
+  }
+
+  const tb1 = document.getElementById('tb-1');
+  if (tb1) {
+    setTimeout(() => {
+      tb1.classList.add('visible');
+      const fill = tb1.querySelector('.token-fill');
+      if (fill) setTimeout(() => fill.classList.add('filled'), 100);
+    }, 1400);
+  }
+
+  const badge = document.getElementById('eff-badge');
+  if (badge) setTimeout(() => badge.classList.add('visible'), 2500);
+}
+
+// ─── OUTRO ANIMATIONS ───
+function animateOutro() {
+  const steps = document.querySelectorAll('.outro-step');
+  steps.forEach((step, i) => {
+    setTimeout(() => step.classList.add('visible'), 200 + i * 400);
+  });
+}
+</script>
+</body>
+</html>
