@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude x Voyage — Guide Complet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 50px 0 40px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.4);
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a78bfa;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #8B5CF6;
+    box-shadow: 0 0 8px #8B5CF6;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+  }
+
+  h1 .violet { color: #8B5CF6; }
+  h1 .white { color: #fff; }
+
+  .subtitle {
+    font-size: 16px;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 10px;
+  }
+
+  .stat-highlight {
+    display: inline-block;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #c4b5fd;
+    margin: 12px 0 0;
+  }
+
+  /* Steps */
+  .steps-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 48px 0 28px;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 22px 22px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(139,92,246,0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .step-card:hover {
+    border-color: rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.05);
+  }
+
+  .step-card:hover::before { opacity: 1; }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8B5CF6, #6d28d9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900;
+    box-shadow: 0 0 20px rgba(139,92,246,0.4);
+  }
+
+  .step-content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #f1f5f9;
+  }
+
+  .step-content p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  .step-content .tag {
+    display: inline-block;
+    background: rgba(139,92,246,0.15);
+    color: #c4b5fd;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+    margin-right: 5px;
+  }
+
+  /* Agents block */
+  .agents-block {
+    background: rgba(139,92,246,0.07);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 14px;
+    padding: 18px;
+    margin: 10px 0 0;
+  }
+
+  .agent-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    color: #cbd5e1;
+  }
+
+  .agent-row:last-child { border-bottom: none; }
+
+  .agent-icon {
+    width: 28px; height: 28px;
+    background: rgba(139,92,246,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  .agent-status {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: #4ade80;
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.2);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* Savings callout */
+  .savings-card {
+    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(109,40,217,0.1));
+    border: 1px solid rgba(139,92,246,0.35);
+    border-radius: 16px;
+    padding: 22px;
+    margin: 28px 0;
+    text-align: center;
+  }
+
+  .savings-card .label { font-size: 13px; color: #94a3b8; margin-bottom: 10px; }
+
+  .savings-compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .price-box {
+    text-align: center;
+  }
+
+  .price-box .amount {
+    font-size: 32px; font-weight: 900;
+  }
+
+  .price-box.old .amount { color: #ef4444; text-decoration: line-through; opacity: 0.7; }
+  .price-box.new .amount { color: #4ade80; }
+  .price-box .desc { font-size: 12px; color: #64748b; margin-top: 3px; }
+
+  .arrow-sep { font-size: 24px; color: #8B5CF6; }
+
+  .savings-tag {
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #a78bfa;
+  }
+
+  /* CTA */
+  .cta-section {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .cta-sub {
+    font-size: 15px;
+    color: #94a3b8;
+    margin-bottom: 28px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #8B5CF6, #6d28d9);
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 18px 36px;
+    border-radius: 14px;
+    box-shadow: 0 0 40px rgba(139,92,246,0.5), 0 8px 30px rgba(0,0,0,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.3px;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(139,92,246,0.7), 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: #a78bfa;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 12px;
+    border: 1px solid rgba(139,92,246,0.35);
+    margin-top: 14px;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(139,92,246,0.1);
+    border-color: rgba(139,92,246,0.6);
+  }
+
+  .cta-note {
+    font-size: 12px;
+    color: #475569;
+    margin-top: 20px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 50px;
+    font-size: 12px;
+    color: #334155;
+  }
+
+  .footer span { color: #8B5CF6; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">
+      <span class="dot"></span>
+      Guide Claude × Voyage
+    </div>
+    <h1>
+      <span class="violet">Claude remplace</span><br>
+      <span class="white">les agences de voyage</span>
+    </h1>
+    <p class="subtitle">
+      Voici exactement comment utiliser Claude pour planifier ton voyage en 3 étapes — et économiser des milliers d'euros.
+    </p>
+    <div class="stat-highlight">💡 Paris → Tokyo 10 jours : 2 300€ vs 4 000€ en agence</div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-title">Les 3 étapes</div>
+
+  <!-- Étape 1 -->
+  <div class="step-card">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Donne tes infos à Claude</h3>
+      <p>Budget, dates, ce que tu aimes faire. <strong>30 secondes</strong> — c'est tout ce qu'il faut.</p>
+      <span class="tag">⏱ 30 secondes</span>
+      <span class="tag">💬 Prompt simple</span>
+    </div>
+  </div>
+
+  <!-- Étape 2 -->
+  <div class="step-card">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Claude lance 5 agents en parallèle</h3>
+      <p>Chaque agent a une mission précise. Résultat en quelques minutes.</p>
+      <div class="agents-block" style="margin-top:14px;">
+        <div class="agent-row">
+          <div class="agent-icon">✈️</div>
+          <span>Recherche les meilleurs vols</span>
+          <span class="agent-status">✓ ACTIF</span>
+        </div>
+        <div class="agent-row">
+          <div class="agent-icon">🏨</div>
+          <span>Compare les hôtels</span>
+          <span class="agent-status">✓ ACTIF</span>
+        </div>
+        <div class="agent-row">
+          <div class="agent-icon">⭐</div>
+          <span>Analyse les avis</span>
+          <span class="agent-status">✓ ACTIF</span>
+        </div>
+        <div class="agent-row">
+          <div class="agent-icon">🗺️</div>
+          <span>Optimise l'itinéraire</span>
+          <span class="agent-status">✓ ACTIF</span>
+        </div>
+        <div class="agent-row">
+          <div class="agent-icon">💰</div>
+          <span>Calcule le budget jour par jour</span>
+          <span class="agent-status">✓ ACTIF</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Étape 3 -->
+  <div class="step-card">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>Il génère ton PDF complet</h3>
+      <p>Vols, hôtels, activités, tips locaux. Toi t'as absolument <strong>rien d'autre à faire.</strong></p>
+      <span class="tag">📄 PDF prêt à l'emploi</span>
+      <span class="tag">🗺️ Itinéraire complet</span>
+      <span class="tag">💡 Tips locaux</span>
+    </div>
+  </div>
+
+  <!-- SAVINGS -->
+  <div class="savings-card">
+    <div class="label">Cas réel testé — Paris → Tokyo 10 jours</div>
+    <div class="savings-compare">
+      <div class="price-box old">
+        <div class="amount">4 000€</div>
+        <div class="desc">Agence de voyage</div>
+      </div>
+      <div class="arrow-sep">→</div>
+      <div class="price-box new">
+        <div class="amount">2 300€</div>
+        <div class="desc">Avec Claude</div>
+      </div>
+    </div>
+    <div class="savings-tag">✅ Tu économises 1 700€ sur un seul voyage</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-title">Prêt à planifier ton prochain voyage ?</div>
+    <div class="cta-sub">Prends rendez-vous avec moi — je t'explique comment automatiser ça pour toi.</div>
+
+    <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-primary">
+      📅 Réserver mon appel gratuit
+    </a>
+
+    <br>
+
+    <a href="https://70-specialistes-ia.netlify.app/" target="_blank" class="btn-secondary">
+      🤖 Découvrir les 70 Spécialistes IA →
+    </a>
+
+    <div class="cta-note">
+      Arnaud — Monsieur IA · Formation & Automatisation IA pour les entreprises
+    </div>
+  </div>
+
+  <div class="footer">
+    Fait avec <span>Claude</span> · monsieur-ia.fr
+  </div>
+
+</div>
+</body>
+</html>
