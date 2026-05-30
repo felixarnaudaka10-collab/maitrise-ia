@@ -153,6 +153,48 @@
     .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
     .prompt-copy-hint { font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px; }
 
+    /* Prompt full (les 7 blocs copiables) */
+    .prompt-full {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 18px; margin-bottom: 14px; text-align: left;
+    }
+    .prompt-full-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .prompt-full-num {
+      width: 26px; height: 26px; background: #C9A84C; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; flex-shrink: 0;
+    }
+    .prompt-full-name { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.25; }
+    .prompt-full-tagline { font-size: 11px; color: #E2C66B; font-weight: 600; margin-bottom: 12px; font-style: italic; }
+    .prompt-full-text {
+      font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px;
+      color: #e2e8f0; line-height: 1.7; white-space: pre-wrap;
+      background: #060608; border-radius: 10px; padding: 14px; margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .prompt-full-text .ph { color: #9ca3af; font-style: italic; }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.35);
+      color: #E2C66B; font-size: 12px; font-weight: 700;
+      padding: 9px 16px; border-radius: 10px; cursor: pointer;
+      transition: all 0.15s; font-family: inherit; width: 100%; justify-content: center;
+    }
+    .btn-copy:hover { background: rgba(201,168,76,.22); }
+    .btn-copy.copied { background: #4ac55e; border-color: #4ac55e; color: #fff; }
+    .prompt-when { font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 10px; }
+    .prompt-when strong { color: #9ca3af; }
+
+    /* Ordre optimal */
+    .ordre-box {
+      background: #f5f5f7; border: 1px solid #e5e5e5;
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 24px; text-align: left;
+    }
+    .ordre-title { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ordre-item { display: flex; gap: 10px; font-size: 13px; color: #3d3d3f; line-height: 1.5; margin-bottom: 7px; }
+    .ordre-item:last-child { margin-bottom: 0; }
+    .ordre-step { color: #C9A84C; font-weight: 800; flex-shrink: 0; }
+
     /* Result stat */
     .result-stat {
       display: flex; align-items: center; justify-content: center; gap: 16px;
@@ -256,15 +298,15 @@
   <div id="form-section">
     <span class="icon">🧠</span>
     <h1>Claude a un mode secret<br><em>pour ton cerveau ADHD</em></h1>
-    <p class="subtitle">7 prompts pour hacker ta dopamine et finir une semaine de boulot en 4h. Entre ton email — je t'envoie les prompts complets à coller dans Claude.</p>
-    <div class="stat">⚡ Gratuit · Prêts à coller · Résultat immédiat</div>
+    <p class="subtitle">7 prompts pour hacker ta dopamine et finir une semaine de boulot en 4h. Entre ton email — je débloque les 7 prompts complets juste en dessous, prêts à coller dans Claude.</p>
+    <div class="stat">⚡ Gratuit · Prêts à coller · Accès immédiat</div>
     <form id="email-form" onsubmit="handleSubmit(event)">
       <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
-      <button type="submit" class="btn-primary" id="submit-btn">Recevoir les 7 prompts →</button>
+      <button type="submit" class="btn-primary" id="submit-btn">Débloquer les 7 prompts →</button>
     </form>
     <div class="proof">
       <span>🔒</span>
-      <span>Aucun spam. <strong>Juste les prompts.</strong></span>
+      <span>Aucun spam. <strong>Accès direct aux prompts.</strong></span>
     </div>
   </div>
 
@@ -273,7 +315,7 @@
     <div class="confirm-header">
       <span class="check-icon">🧠</span>
       <p class="confirm-title">Les 7 prompts ADHD</p>
-      <p class="confirm-intro">Colle-les directement dans Claude. Pas de setup, pas d'outil externe — juste Claude et ton cerveau qui cartonne.</p>
+      <p class="confirm-intro">Les voici, complets. Clique sur "Copier" et colle directement dans Claude. Pas de setup, pas d'outil externe — juste Claude et ton cerveau qui cartonne.</p>
     </div>
 
     <div class="result-stat">
@@ -363,18 +405,124 @@
 
     </div>
 
-    <div class="prompt-box">
-      <div class="prompt-label">💬 Prompt 1 — à coller dans Claude</div>
-      <div class="prompt-text"><span class="cmd">Mon cerveau est plein de "boucles ouvertes".</span>
-Je vais lister tout ce qui me préoccupe.
-Classe ces éléments en "Maintenant",
-"Plus tard" et "Poubelle", puis écris
-une seule phrase de "prochaine action
-concrète" uniquement pour les éléments
-"Maintenant".
+    <div class="prompt-label" style="text-align:center; margin-bottom:16px; font-size:13px;">💬 Les 7 prompts complets — clique pour copier</div>
 
-[Tu listes tout ce qui tourne dans ta tête]</div>
-      <div class="prompt-copy-hint">← copie directement dans Claude · 6 autres prompts dans l'email</div>
+    <!-- PROMPT 1 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">1</div><div class="prompt-full-name">L'externalisateur de fonctions exécutives</div></div>
+      <div class="prompt-full-tagline">Vide ton cerveau en 30 secondes</div>
+      <div class="prompt-full-text" id="p1">Mon cerveau est plein de "boucles ouvertes".
+Je vais lister tout ce qui me préoccupe.
+Classe ces éléments en "Maintenant", "Plus tard" et "Poubelle",
+puis écris une seule phrase de "prochaine action concrète"
+uniquement pour les éléments "Maintenant".
+<span class="ph">[Tu listes tout ce qui tourne dans ta tête]</span></div>
+      <button class="btn-copy" onclick="copyPrompt('p1', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> dès le matin, avant de commencer à bosser. Ou quand tu te sens paralysé face à 15 choses à faire.</div>
+    </div>
+
+    <!-- PROMPT 2 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">2</div><div class="prompt-full-name">L'architecte du menu dopamine</div></div>
+      <div class="prompt-full-tagline">Cerveau engagé non-stop</div>
+      <div class="prompt-full-text" id="p2">Je suis en mode ADHD aujourd'hui. Mon niveau d'énergie est <span class="ph">[faible/moyen/élevé]</span>.
+Mes tâches à faire sont : <span class="ph">[liste tes tâches]</span>.
+Crée-moi un "menu dopamine" : un planning séquencé qui alterne
+des micro-récompenses entre les blocs de travail.
+Format : blocs de 20 minutes de travail, 5 minutes de mouvement,
+10 minutes de créativité. Adapte selon mon énergie du moment.</div>
+      <button class="btn-copy" onclick="copyPrompt('p2', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> quand tu as du mal à maintenir l'attention sur une longue période.</div>
+    </div>
+
+    <!-- PROMPT 3 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">3</div><div class="prompt-full-name">Le simulateur de body doubling</div></div>
+      <div class="prompt-full-tagline">Attention maintenue</div>
+      <div class="prompt-full-text" id="p3">Tu vas jouer le rôle de mon partenaire de travail virtuel.
+Je commence à travailler sur : <span class="ph">[décris ta tâche]</span>.
+Durée prévue : <span class="ph">[X minutes]</span>.
+Check avec moi toutes les 10 minutes.
+À chaque check-in, pose-moi 2 questions :
+1. Où en es-tu sur ta tâche ?
+2. Quel est ton prochain micro-objectif pour les 10 prochaines minutes ?
+Si je dévie, rappelle-moi gentiment ce sur quoi je travaille.
+On commence. Lance le premier check-in.</div>
+      <button class="btn-copy" onclick="copyPrompt('p3', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> pour les tâches longues ou chiantes. Body doubling = travailler "en présence" de quelqu'un. Ça paraît con. Ça marche vraiment.</div>
+    </div>
+
+    <!-- PROMPT 4 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">4</div><div class="prompt-full-name">Le guide de changement de contexte</div></div>
+      <div class="prompt-full-tagline">Zéro perte d'énergie entre deux tâches</div>
+      <div class="prompt-full-text" id="p4">Je viens de terminer <span class="ph">[tâche A]</span> et je dois passer à <span class="ph">[tâche B]</span>.
+Mon cerveau a du mal à switcher entre ces deux contextes très différents.
+Crée-moi une routine de transition mentale de 3 minutes maximum
+qui inclut : un exercice de respiration, une phrase d'intention,
+et une action physique symbolique pour "fermer" la première tâche
+et "ouvrir" la seconde.</div>
+      <button class="btn-copy" onclick="copyPrompt('p4', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> entre deux tâches qui n'ont rien à voir. Meeting → rédaction, appel client → comptabilité, etc.</div>
+    </div>
+
+    <!-- PROMPT 5 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">5</div><div class="prompt-full-name">Le filtre basé sur les intérêts</div></div>
+      <div class="prompt-full-tagline">La tâche chiante devient une quête</div>
+      <div class="prompt-full-text" id="p5">J'ai cette tâche à faire que je repousse depuis <span class="ph">[X jours]</span> : <span class="ph">[décris la tâche]</span>.
+Ce que j'aime par-dessus tout en ce moment : <span class="ph">[ton hyperfixation du moment]</span>.
+Reformule cette tâche comme une quête ou un défi qui connecte
+ce que j'aime avec ce que je dois faire.
+Crée ensuite un système de récompense à 3 niveaux :
+- Récompense immédiate après 20 minutes de travail dessus
+- Récompense intermédiaire à mi-tâche
+- Récompense finale à la completion</div>
+      <button class="btn-copy" onclick="copyPrompt('p5', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> pour les tâches que tu repousses depuis des jours (procrastination chronique).</div>
+    </div>
+
+    <!-- PROMPT 6 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">6</div><div class="prompt-full-name">L'auditeur de cécité temporelle</div></div>
+      <div class="prompt-full-tagline">Des deadlines enfin réalistes</div>
+      <div class="prompt-full-text" id="p6">Je dois accomplir cette tâche : <span class="ph">[décris la tâche]</span>.
+Je pense que ça prend <span class="ph">[X minutes/heures]</span>.
+Analyse cette estimation. Identifie les 3 à 5 sous-tâches cachées
+que je n'ai probablement pas prises en compte.
+Donne-moi une estimation réaliste du temps total.
+Puis découpe la tâche en blocs de 25 minutes avec une pause de 5 minutes
+entre chaque bloc. Identifie aussi le moment probable où je vais
+vouloir abandonner et comment l'anticiper.</div>
+      <button class="btn-copy" onclick="copyPrompt('p6', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> avant chaque tâche importante pour éviter la sous-estimation chronique (le classique "ça prend 20 minutes" qui en prend 2 heures).</div>
+    </div>
+
+    <!-- PROMPT 7 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">7</div><div class="prompt-full-name">Le déclencheur de démarrage</div></div>
+      <div class="prompt-full-tagline">De zéro à en action en 2 minutes</div>
+      <div class="prompt-full-text" id="p7">Je sais exactement quoi faire mais je n'arrive pas à commencer : <span class="ph">[décris la tâche]</span>.
+Voici comment je me sens en ce moment : <span class="ph">[décris ton état : anxieux, submergé, fatigué, distrait...]</span>.
+Identifie le micro-obstacle précis qui bloque mon démarrage
+(peur de l'échec, tâche trop vague, manque d'énergie, environnement non-optimal...).
+Puis donne-moi UNE SEULE action de maximum 2 minutes
+pour briser l'inertie et commencer.
+Rien de plus. Juste la première action.</div>
+      <button class="btn-copy" onclick="copyPrompt('p7', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> quand tu es en mode "je tourne autour" sans jamais commencer.</div>
+    </div>
+
+    <!-- ORDRE OPTIMAL -->
+    <div class="ordre-box">
+      <div class="ordre-title">📋 L'ordre optimal pour une journée de feu</div>
+      <div class="ordre-item"><span class="ordre-step">Matin :</span> Prompt 1 → vide le cerveau</div>
+      <div class="ordre-item"><span class="ordre-step">Début de session :</span> Prompt 2 → crée ton menu dopamine</div>
+      <div class="ordre-item"><span class="ordre-step">Pendant le travail :</span> Prompt 3 → body doubling actif</div>
+      <div class="ordre-item"><span class="ordre-step">Entre deux tâches :</span> Prompt 4 → transition propre</div>
+      <div class="ordre-item"><span class="ordre-step">Tâche repoussée :</span> Prompt 5 → gamification</div>
+      <div class="ordre-item"><span class="ordre-step">Avant une grosse tâche :</span> Prompt 6 → estimation réaliste</div>
+      <div class="ordre-item"><span class="ordre-step">Blocage de démarrage :</span> Prompt 7 → anti-procrastination</div>
     </div>
 
     <div class="divider">Tu veux aller plus loin ?</div>
@@ -440,11 +588,39 @@ concrète" uniquement pour les éléments
 
 <script>
   const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
-  const STORAGE_KEY = 'mia_adhd_submitted';
+  const STORAGE_KEY = 'mia_email_submitted';
+
+  // Migration clé ancienne page adhd
+  if (localStorage.getItem('mia_adhd_submitted')) {
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
 
   if (localStorage.getItem(STORAGE_KEY)) {
     document.getElementById('form-section').style.display = 'none';
     document.getElementById('confirm-section').style.display = 'block';
+  }
+
+  function copyPrompt(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    const done = () => {
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '✓ Copié !';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (_) {}
+    document.body.removeChild(ta);
   }
 
   async function handleSubmit(e) {
