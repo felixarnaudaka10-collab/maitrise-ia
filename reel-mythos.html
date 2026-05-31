@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reel — Claude banni en Europe</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;}
+.stage{width:540px;height:540px;position:relative;overflow:hidden;background:#080008;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.slide.active{opacity:1;pointer-events:auto;}
+.progress{width:540px;height:3px;background:#1a1a1a;}
+.progress-fill{height:100%;background:#ff3b5c;width:0%;transition:width linear;}
+.nav{display:flex;gap:12px;margin-top:14px;}
+.nav button{background:#222;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.nav button:hover{background:#333;}
+.dots{display:flex;gap:7px;align-items:center;margin-top:10px;}
+.dot{width:7px;height:7px;border-radius:50%;background:#333;transition:background .3s;cursor:pointer;}
+.dot.active{background:#ff3b5c;}
+
+/* ══ SLIDE 1 — HOOK ══ */
+.scanline{position:absolute;inset:0;pointer-events:none;z-index:10;}
+.scanline::after{content:'';position:absolute;left:0;right:0;top:0;height:80px;background:linear-gradient(to bottom,rgba(255,59,92,.07),transparent);animation:scanMove 2.2s linear .1s 2;}
+
+.globe-wrap{position:relative;width:160px;height:160px;margin-bottom:16px;}
+.globe{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#1a0a2a,#050010);border:2px solid #2a0040;position:relative;overflow:hidden;animation:globeSpin 12s linear infinite;}
+.globe-line{position:absolute;width:100%;height:1px;background:rgba(180,100,255,.15);top:50%;left:0;}
+.globe-arc{position:absolute;width:60%;height:100%;border:1px solid rgba(180,100,255,.12);border-radius:50%;left:20%;}
+.globe-arc2{width:30%;left:35%;border-color:rgba(180,100,255,.08);}
+.eu-dot{position:absolute;width:12px;height:12px;background:#ff3b5c;border-radius:50%;top:38%;left:48%;box-shadow:0 0 12px #ff3b5c,0 0 24px rgba(255,59,92,.5);animation:dotPulse 1s ease-in-out infinite;}
+.ban-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:0;animation:banSlam .4s ease 1.6s forwards;}
+
+.hook-badge{background:#ff3b5c;color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:4px;letter-spacing:.5px;margin-bottom:10px;opacity:0;animation:badgePop .5s ease .3s forwards;}
+.hook-title{font-size:28px;font-weight:900;color:#fff;text-align:center;line-height:1.2;opacity:0;animation:glitchPop 1.8s ease .4s forwards,flashRed 2s ease 2.4s infinite;}
+.hook-sub{font-size:10px;color:#888;text-align:center;margin-top:8px;opacity:0;animation:fadeUp .5s ease 2.2s forwards;}
+
+/* ══ SLIDE 2 — MYTHOS / TERMINATOR ══ */
+.term-wrap{position:relative;width:180px;height:180px;margin-bottom:14px;}
+.term-skull{font-size:90px;line-height:1;text-align:center;display:block;filter:drop-shadow(0 0 20px rgba(255,59,92,.8));animation:termPulse 1.5s ease-in-out infinite;}
+.term-scan{position:absolute;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,#ff3b5c,transparent);animation:termScan 1.2s linear infinite;top:0;}
+.red-eye-l{position:absolute;width:14px;height:8px;background:#ff3b5c;border-radius:50%;top:38%;left:28%;box-shadow:0 0 12px #ff3b5c,0 0 24px #ff3b5c;animation:eyeBlink 3s ease-in-out infinite;}
+.red-eye-r{position:absolute;width:14px;height:8px;background:#ff3b5c;border-radius:50%;top:38%;right:28%;box-shadow:0 0 12px #ff3b5c,0 0 24px #ff3b5c;animation:eyeBlink 3s ease-in-out .3s infinite;}
+
+.term-label{font-size:11px;font-weight:800;color:#ff3b5c;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:6px;opacity:0;animation:fadeUp .4s ease .2s forwards;}
+.term-title{font-size:22px;font-weight:900;color:#fff;text-align:center;margin-bottom:4px;opacity:0;animation:fadeUp .4s ease .3s forwards;}
+.term-sub{font-size:11px;color:#aaa;text-align:center;opacity:0;animation:fadeUp .4s ease .5s forwards;}
+.term-bar{width:100%;height:2px;background:#1a0010;border-radius:2px;margin-top:14px;overflow:hidden;opacity:0;animation:fadeUp .4s ease .7s forwards;}
+.term-bar-fill{height:100%;width:0%;background:linear-gradient(to right,#ff3b5c,#ff8c00);animation:barLoad 1.5s ease .9s forwards;}
+
+/* ══ SLIDE 3 — NOS DONNÉES ══ */
+.flow-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:0;}
+.flow-node{display:flex;align-items:center;gap:10px;width:100%;background:#100010;border:1px solid #2a0020;border-radius:10px;padding:12px 14px;opacity:0;animation:rowIn .5s ease forwards;}
+.fn-icon{font-size:26px;flex-shrink:0;}
+.fn-body{flex:1;}
+.fn-title{font-size:13px;font-weight:800;color:#fff;}
+.fn-sub{font-size:9px;color:#888;margin-top:2px;}
+.fn-tag{font-size:9px;font-weight:800;padding:3px 8px;border-radius:4px;white-space:nowrap;}
+.tag-red{background:rgba(255,59,92,.15);color:#ff3b5c;}
+.tag-green{background:rgba(0,200,100,.12);color:#00c864;}
+.flow-arrow{font-size:20px;color:#ff3b5c;margin:4px 0;opacity:0;animation:arrowBounce .5s ease forwards;}
+.flow-arrow span{display:inline-block;animation:bounceDown 0.8s ease-in-out infinite;}
+
+/* ══ SLIDE 4 — RESSOURCE RARE ══ */
+.battery-wrap{position:relative;margin-bottom:20px;opacity:0;animation:fadeUp .5s ease .1s forwards;}
+.battery-body{width:160px;height:76px;border:3px solid #ff3b5c;border-radius:10px;position:relative;overflow:hidden;background:#100010;}
+.battery-tip{width:10px;height:30px;background:#ff3b5c;border-radius:0 4px 4px 0;position:absolute;right:-13px;top:50%;transform:translateY(-50%);}
+.battery-fill{position:absolute;left:0;top:0;bottom:0;width:85%;background:linear-gradient(to right,#ff3b5c,#ff8c00);animation:batteryDrain 3s ease 0.5s forwards;}
+.battery-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;text-shadow:0 0 10px rgba(0,0,0,.8);}
+.battery-label{font-size:9px;color:#888;text-align:center;margin-top:6px;letter-spacing:1px;text-transform:uppercase;}
+
+.rare-title{font-size:22px;font-weight:900;color:#fff;text-align:center;margin-bottom:6px;opacity:0;animation:fadeUp .5s ease .4s forwards;}
+.rare-sub{font-size:11px;color:#888;text-align:center;margin-bottom:14px;opacity:0;animation:fadeUp .5s ease .55s forwards;}
+.rare-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .5s ease .7s forwards;}
+.pill{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;}
+.pill-red{background:rgba(255,59,92,.15);border:1px solid rgba(255,59,92,.3);color:#ff3b5c;}
+.pill-gray{background:#1a1a1a;border:1px solid #333;color:#888;}
+.mistral-row{display:flex;align-items:center;gap:8px;margin-top:14px;background:#0f0f1a;border:1px solid #2a2a40;border-radius:8px;padding:8px 14px;opacity:0;animation:fadeUp .5s ease .9s forwards;}
+.mistral-flag{font-size:18px;}
+.mistral-txt{font-size:10px;color:#aaa;}<br>
+.mistral-txt strong{color:#fff;}
+.mistral-badge{font-size:9px;font-weight:800;padding:2px 8px;border-radius:4px;background:rgba(255,193,7,.12);color:#ffc107;margin-left:auto;}
+
+/* ══ SLIDE 5 — CTA ══ */
+.cta-lock{font-size:60px;margin-bottom:12px;animation:lockShake 2s ease-in-out infinite;}
+.cta-title{font-size:22px;font-weight:900;color:#fff;text-align:center;line-height:1.22;margin-bottom:16px;}
+.cta-keyword{display:inline-block;background:#ff3b5c;color:#fff;font-size:22px;font-weight:900;padding:8px 20px;border-radius:8px;margin-bottom:4px;letter-spacing:2px;}
+.cta-btn{width:100%;background:#ff3b5c;color:#fff;font-size:16px;font-weight:800;padding:15px 30px;border-radius:12px;text-align:center;margin-bottom:10px;animation:pulseGlow 1.8s ease-in-out infinite;}
+.cta-note{font-size:9px;color:#444;text-align:center;}
+
+/* ══ KEYFRAMES ══ */
+@keyframes scanMove{0%{transform:translateY(-100%);}100%{transform:translateY(540px);}}
+@keyframes globeSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px #ff3b5c,0 0 16px rgba(255,59,92,.4);}50%{box-shadow:0 0 20px #ff3b5c,0 0 40px rgba(255,59,92,.7);}}
+@keyframes banSlam{0%{opacity:0;transform:scale(2);filter:blur(8px);}100%{opacity:1;transform:scale(1);filter:blur(0);}}
+@keyframes badgePop{0%{opacity:0;transform:scale(0.5);}60%{opacity:1;transform:scale(1.15);}100%{opacity:1;transform:scale(1);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes rowIn{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+@keyframes termPulse{0%,100%{filter:drop-shadow(0 0 20px rgba(255,59,92,.8));}50%{filter:drop-shadow(0 0 40px rgba(255,59,92,1)) drop-shadow(0 0 60px rgba(255,59,92,.5));}}
+@keyframes termScan{0%{top:0%;opacity:1;}90%{opacity:1;}100%{top:100%;opacity:0;}}
+@keyframes eyeBlink{0%,90%,100%{opacity:1;}95%{opacity:0;}}
+@keyframes barLoad{from{width:0%;}to{width:100%;}}
+@keyframes arrowBounce{from{opacity:0;}to{opacity:1;}}
+@keyframes bounceDown{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+@keyframes batteryDrain{0%{width:85%;}100%{width:8%;}}
+@keyframes lockShake{0%,100%{transform:rotate(0);}10%{transform:rotate(-8deg);}20%{transform:rotate(8deg);}30%{transform:rotate(-4deg);}40%{transform:rotate(4deg);}50%{transform:rotate(0);}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,59,92,.4);}50%{box-shadow:0 0 20px 6px rgba(255,59,92,.25);}}
+@keyframes flashRed{0%,100%{color:#fff;text-shadow:0 0 20px rgba(255,59,92,.6);}50%{color:#ff3b5c;text-shadow:0 0 40px #ff3b5c,0 0 80px rgba(255,59,92,.4);}}
+@keyframes glitchPop{
+  0%{opacity:0;transform:scale(0.4);filter:blur(12px);}
+  10%{opacity:1;transform:scale(1.18) skewX(-5deg);color:#fff;text-shadow:4px 0 0 #ff3b5c;}
+  14%{transform:scale(1.18) skewX(5deg);color:#ff3b5c;}
+  18%{opacity:0.1;transform:scale(1.05);text-shadow:none;}
+  24%{opacity:1;transform:scale(1.22) skewX(-3deg);color:#fff;text-shadow:3px 0 0 #ff3b5c;}
+  30%{opacity:0.15;transform:scale(1.05);}
+  38%{opacity:1;transform:scale(1.25);color:#fff;}
+  55%{opacity:1;transform:scale(1.05);color:#ffb0b0;text-shadow:0 0 30px #ff3b5c,0 0 60px #ff3b5c;}
+  100%{opacity:1;transform:scale(1);color:#fff;text-shadow:0 0 20px rgba(255,59,92,.6);}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- SLIDE 1 — HOOK -->
+  <div class="slide active" id="s0">
+    <div class="scanline"></div>
+    <div class="globe-wrap">
+      <div class="globe">
+        <div class="globe-line"></div>
+        <div class="globe-arc"></div>
+        <div class="globe-arc globe-arc2"></div>
+        <div class="eu-dot"></div>
+      </div>
+      <div class="ban-icon">🚫</div>
+    </div>
+    <div class="hook-badge">🚨 ALERTE</div>
+    <div class="hook-title">Claude va être banni<br>en Europe.<br>Et personne n'en parle.</div>
+    <div class="hook-sub">La Maison Blanche vient de décider pour nous</div>
+  </div>
+
+  <!-- SLIDE 2 — MYTHOS / TERMINATOR -->
+  <div class="slide" id="s1">
+    <div class="term-wrap">
+      <span class="term-skull">💀</span>
+      <div class="term-scan"></div>
+      <div class="red-eye-l"></div>
+      <div class="red-eye-r"></div>
+    </div>
+    <div class="term-label">⚡ Mythos — Anthropic</div>
+    <div class="term-title">Terminator version hacker</div>
+    <div class="term-sub">Découvre & exploite les failles de sécurité<br>mieux qu'un humain</div>
+    <div class="term-bar"><div class="term-bar-fill"></div></div>
+  </div>
+
+  <!-- SLIDE 3 — NOS DONNÉES / LEUR AVANTAGE -->
+  <div class="slide" id="s2">
+    <div class="flow-wrap">
+      <div class="flow-node" style="animation-delay:.1s;">
+        <div class="fn-icon">🇫🇷</div>
+        <div class="fn-body">
+          <div class="fn-title">Nos données</div>
+          <div class="fn-sub">Chaque dev européen entraîne Mythos</div>
+        </div>
+        <span class="fn-tag tag-red">INPUT</span>
+      </div>
+      <div class="flow-arrow" style="animation-delay:.35s;"><span>⬇️</span></div>
+      <div class="flow-node" style="animation-delay:.5s;">
+        <div class="fn-icon">🤖</div>
+        <div class="fn-body">
+          <div class="fn-title">Mythos</div>
+          <div class="fn-sub">Entraîné sur nos données, réservé aux USA</div>
+        </div>
+        <span class="fn-tag tag-red">BLOQUÉ 🇪🇺</span>
+      </div>
+      <div class="flow-arrow" style="animation-delay:.75s;"><span>⬇️</span></div>
+      <div class="flow-node" style="animation-delay:.9s;">
+        <div class="fn-icon">🇺🇸</div>
+        <div class="fn-body">
+          <div class="fn-title">Boîtes américaines</div>
+          <div class="fn-sub">Accès complet + concurrencent les Européens</div>
+        </div>
+        <span class="fn-tag tag-green">ACCÈS ✅</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — RESSOURCE RARE (animation batterie qui se vide) -->
+  <div class="slide" id="s3">
+    <div class="battery-wrap">
+      <div class="battery-body">
+        <div class="battery-fill"></div>
+        <div class="battery-pct" id="battPct">85%</div>
+      </div>
+      <div class="battery-tip"></div>
+      <div class="battery-label">Accès à l'IA en Europe</div>
+    </div>
+    <div class="rare-title">L'IA n'est pas infinie.</div>
+    <div class="rare-sub">Du jour au lendemain, on peut te la retirer.</div>
+    <div class="rare-pills">
+      <span class="pill pill-red">Ressource rare</span>
+      <span class="pill pill-red">Contrôlée</span>
+      <span class="pill pill-gray">Pas garantie</span>
+    </div>
+    <div class="mistral-row">
+      <span class="mistral-flag">🇫🇷</span>
+      <span class="mistral-txt"><strong>Mistral AI</strong> bosse sur une alternative</span>
+      <span class="mistral-badge">EN COURS</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — CTA -->
+  <div class="slide" id="s4">
+    <div class="cta-lock">🔐</div>
+    <div class="cta-title">Utilise Claude sans<br>dépendre des Américains.</div>
+    <div class="cta-btn">💬 Commente &nbsp;<span class="cta-keyword">LOCAL</span></div>
+    <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:6px;">Je t'envoie le guide gratuitement</div>
+    <div class="cta-note">Powered by ManyChat • Réponse automatique</div>
+  </div>
+
+</div>
+
+<div class="progress"><div class="progress-fill" id="pf"></div></div>
+<div class="nav">
+  <button onclick="prev()">← Préc</button>
+  <button onclick="toggleAuto()" id="pauseBtn">⏸ Pause</button>
+  <button onclick="next()">Suiv →</button>
+</div>
+<div class="dots" id="dots"></div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const N = slides.length;
+const pf = document.getElementById('pf');
+const pauseBtn = document.getElementById('pauseBtn');
+const DURATION = 5000;
+let cur = 0, fillStart = null, fillElapsed = 0, autoTimer = null, paused = false;
+
+// DOTS
+const dotsEl = document.getElementById('dots');
+slides.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>go(i);
+  dotsEl.appendChild(d);
+});
+function updateDots(){dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+
+// Batterie qui se vide sur slide 4
+let battTimer = null;
+function startBattery(){
+  clearInterval(battTimer);
+  const el = document.getElementById('battPct');
+  let v = 85;
+  battTimer = setInterval(()=>{
+    v = Math.max(3, v - 1.2);
+    if(el) el.textContent = Math.round(v)+'%';
+    if(v <= 3) clearInterval(battTimer);
+  }, 50);
+}
+
+function resetSlide(slide){
+  slide.querySelectorAll('[style*="animation"]').forEach(el=>{
+    const anim = el.style.animation;
+    el.style.animation='none';
+    el.style.opacity='0';
+    void el.offsetWidth;
+    el.style.animation=anim;
+  });
+  // reset battery fill
+  const bf = slide.querySelector('.battery-fill');
+  if(bf){bf.style.animation='none';void bf.offsetWidth;bf.style.animation='batteryDrain 3s ease 0.5s forwards';}
+}
+
+function startFill(){
+  clearTimeout(autoTimer);
+  fillElapsed=0; fillStart=Date.now();
+  pf.style.transition='none'; pf.style.width='0%';
+  void pf.offsetWidth;
+  pf.style.transition=`width ${DURATION}ms linear`; pf.style.width='100%';
+  autoTimer=setTimeout(()=>go(cur+1), DURATION);
+}
+
+function go(n){
+  slides[cur].classList.remove('active');
+  cur=(n+N)%N;
+  slides[cur].classList.add('active');
+  updateDots();
+  resetSlide(slides[cur]);
+  if(cur===3) startBattery();
+  if(!paused) startFill();
+}
+
+function prev(){clearTimeout(autoTimer);go(cur-1);}
+function next(){clearTimeout(autoTimer);go(cur+1);}
+
+function toggleAuto(){
+  paused=!paused;
+  pauseBtn.textContent=paused?'▶ Play':'⏸ Pause';
+  if(paused){
+    clearTimeout(autoTimer);
+    pf.style.transition='none';
+    fillElapsed=Date.now()-fillStart;
+    pf.style.width=(fillElapsed/DURATION*100)+'%';
+  } else {
+    const rem=DURATION-fillElapsed;
+    fillStart=Date.now()-fillElapsed;
+    pf.style.transition=`width ${rem}ms linear`;
+    pf.style.width='100%';
+    autoTimer=setTimeout(()=>go(cur+1),rem);
+  }
+}
+
+startFill();
+</script>
+</body>
+</html>

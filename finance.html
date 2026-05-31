@@ -616,10 +616,15 @@ body {
 </div>
 
 <script>
-const STORAGE_KEY = 'mia_finance_submitted';
+const STORAGE_KEY = 'mia_email_submitted';
 const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
 
-// Skip form if already submitted
+// Migration clé ancienne page finance
+if (localStorage.getItem('mia_finance_submitted') === 'true') {
+  localStorage.setItem(STORAGE_KEY, 'true');
+}
+
+// Skip form if already submitted on any MIA page
 if (localStorage.getItem(STORAGE_KEY) === 'true') {
   showSuccess(false);
 }
