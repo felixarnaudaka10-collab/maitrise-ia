@@ -193,38 +193,51 @@
     .badge-eu { background: rgba(100,100,255,0.12); color: #8888ff; }
     .badge-partial { background: rgba(255,193,7,0.12); color: #ffc107; }
 
-    .cta-bottom {
-      background: rgba(255,59,92,0.08);
-      border: 1px solid rgba(255,59,92,0.2);
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
-      margin-top: 28px;
+    .cta-section {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .cta-bottom p { font-size: 14px; color: #aaa; margin-bottom: 14px; line-height: 1.5; }
-    .btn-cta {
-      display: inline-block;
+    .cta-block {
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .cta-block:hover { opacity: 0.88; transform: translateY(-1px); }
+    .cta-block .cta-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      opacity: 0.75;
+    }
+    .cta-block .cta-text {
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .cta-block .cta-sub {
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: 0.65;
+    }
+    .cta-gold {
+      background: linear-gradient(135deg, #C9A84C, #e8c76a);
+      color: #000;
+    }
+    .cta-red {
       background: #ff3b5c;
       color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: opacity 0.2s;
     }
-    .btn-cta:hover { opacity: 0.85; }
-    .btn-secondary {
-      display: inline-block;
+    .cta-dark {
       background: rgba(255,255,255,0.06);
-      color: #aaa;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      margin-top: 10px;
-      transition: opacity 0.2s;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
     }
   </style>
 </head>
@@ -321,11 +334,22 @@
       <span class="step-tag tag-easy">💡 Règle d'or</span>
     </div>
 
-    <div class="cta-bottom">
-      <p>Tu veux aller plus loin et vraiment <strong style="color:#fff;">maîtriser Claude</strong> pour ton business avant que ça se complique ?</p>
-      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="btn-cta">📞 On en parle — Réserve 30 min</a>
-      <br/>
-      <a href="https://www.instagram.com/monsieur.ia.2.1" class="btn-secondary">📱 Suivre @monsieur.ia.2.1</a>
+    <div class="cta-section">
+      <a href="https://www.maitrise-ia.pro/prompts" class="cta-block cta-gold">
+        <div class="cta-label">⚡ Accès immédiat</div>
+        <div class="cta-text">50 prompts Claude prêts à l'emploi →</div>
+        <div class="cta-sub">Contenu · Prospection · Organisation · Analyse — 50€ une seule fois</div>
+      </a>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-red">
+        <div class="cta-label">📞 Appel stratégique</div>
+        <div class="cta-text">J'automatise ma boîte avec Claude →</div>
+        <div class="cta-sub">Réserve 30 min — Gratuit</div>
+      </a>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-dark">
+        <div class="cta-label">🏢 Formation entreprise</div>
+        <div class="cta-text">Former mon équipe à l'IA →</div>
+        <div class="cta-sub">Atelier sur mesure — Réserve un appel</div>
+      </a>
     </div>
 
   </div>
