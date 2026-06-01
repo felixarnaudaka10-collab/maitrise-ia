@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Utiliser Claude sans dépendre des Américains · Monsieur IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0008;
+      color: #f0f0f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #12000f;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+      box-shadow: 0 0 0 1px rgba(255,59,92,0.15), 0 8px 40px rgba(255,59,92,0.08);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,59,92,0.1);
+      color: #ff3b5c;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,59,92,0.25);
+      text-transform: uppercase;
+    }
+    .icon { font-size: 48px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #ff3b5c; }
+    .subtitle { font-size: 15px; color: #888; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,59,92,0.12);
+      color: #ff3b5c;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(255,59,92,0.2);
+    }
+    /* FORM */
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #555; }
+    #form-section input[type="email"]:focus { border-color: #ff3b5c; background: rgba(255,59,92,0.05); }
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: #ff3b5c;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      font-family: inherit;
+      margin-bottom: 12px;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .privacy { font-size: 11px; color: #444; margin-top: 8px; }
+
+    /* CONFIRM */
+    #confirm-section { display: none; }
+    .confirm-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .confirm-sub { font-size: 14px; color: #888; margin-bottom: 32px; line-height: 1.6; }
+
+    /* CONTENT */
+    #content-section { display: none; margin-top: 8px; text-align: left; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ff3b5c;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .section-title:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .step-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      background: #ff3b5c;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 14px; font-weight: 700; color: #fff; }
+    .step-desc { font-size: 13px; color: #888; line-height: 1.55; }
+    .step-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 7px;
+    }
+    .tag-easy { background: rgba(0,200,100,0.12); color: #00c864; }
+    .tag-medium { background: rgba(255,193,7,0.12); color: #ffc107; }
+    .tag-advanced { background: rgba(255,59,92,0.12); color: #ff3b5c; }
+
+    .alert-box {
+      background: rgba(255,59,92,0.08);
+      border: 1px solid rgba(255,59,92,0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.55;
+    }
+    .alert-box strong { color: #ff3b5c; }
+
+    .tool-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .tool-icon { font-size: 22px; flex-shrink: 0; }
+    .tool-body { flex: 1; }
+    .tool-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .tool-desc { font-size: 11px; color: #666; }
+    .tool-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-free { background: rgba(0,200,100,0.12); color: #00c864; }
+    .badge-eu { background: rgba(100,100,255,0.12); color: #8888ff; }
+    .badge-partial { background: rgba(255,193,7,0.12); color: #ffc107; }
+
+    .cta-bottom {
+      background: rgba(255,59,92,0.08);
+      border: 1px solid rgba(255,59,92,0.2);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 28px;
+    }
+    .cta-bottom p { font-size: 14px; color: #aaa; margin-bottom: 14px; line-height: 1.5; }
+    .btn-cta {
+      display: inline-block;
+      background: #ff3b5c;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-cta:hover { opacity: 0.85; }
+    .btn-secondary {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      color: #aaa;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: opacity 0.2s;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ── GATE : FORMULAIRE ── -->
+  <div id="form-section">
+    <span class="badge">🔐 Guide Exclusif</span>
+    <span class="icon">🇪🇺</span>
+    <h1>Utiliser Claude sans <em>dépendre des Américains</em></h1>
+    <p class="subtitle">La Maison Blanche vient de bloquer l'accès aux meilleurs modèles IA en Europe. Voilà comment continuer à travailler sans subir leurs décisions.</p>
+    <div class="stat">⚡ Guide en 4 étapes — 5 min à lire</div>
+    <input type="email" id="email-input" placeholder="Ton adresse email" autocomplete="email" />
+    <button class="btn-primary" onclick="submitForm()">Accéder au guide gratuitement →</button>
+    <p class="privacy">🔒 Zéro spam. Juste les vraies infos sur Claude.</p>
+  </div>
+
+  <!-- ── CONFIRMATION ── -->
+  <div id="confirm-section">
+    <span class="confirm-icon">✅</span>
+    <div class="confirm-title">C'est parti !</div>
+    <p class="confirm-sub">Le guide est juste en dessous. Ton email a bien été enregistré — tu recevras les prochaines alertes Claude directement.</p>
+  </div>
+
+  <!-- ── CONTENU ── -->
+  <div id="content-section">
+
+    <div class="alert-box">
+      <strong>Ce qui s'est passé :</strong> Anthropic voulait donner accès à Mythos, son modèle le plus puissant, aux entreprises européennes. La Maison Blanche a mis son veto. Résultat : les boîtes américaines ont un avantage concurrentiel direct sur toi.
+    </div>
+
+    <div class="section-title">Étape 1 — Continue d'utiliser Claude.ai normalement</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Claude.ai reste accessible aujourd'hui</div>
+      </div>
+      <div class="step-desc">Ce qui est bloqué c'est Mythos, le modèle ultra-puissant. Claude Sonnet et Claude Opus que tu utilises tous les jours sont toujours disponibles en Europe. Pas de panique immédiate — mais prépare-toi.</div>
+      <span class="step-tag tag-easy">✅ Rien à faire maintenant</span>
+    </div>
+
+    <div class="section-title">Étape 2 — Installe un modèle en local (plan B)</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Ollama — IA en local sur ton Mac ou PC</div>
+      </div>
+      <div class="step-desc">Ollama te permet de faire tourner des modèles IA directement sur ta machine. Zéro dépendance cloud, zéro données envoyées aux USA. Installe-le sur ollama.com en 3 minutes.</div>
+      <span class="step-tag tag-medium">⚙️ 10 min d'installation</span>
+    </div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Lance Mistral ou Llama en local</div>
+      </div>
+      <div class="step-desc">Une fois Ollama installé, tape dans ton terminal : <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-size:12px;">ollama run mistral</code> ou <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-size:12px;">ollama run llama3</code>. Tu as une IA qui tourne entièrement chez toi en 5 minutes.</div>
+      <span class="step-tag tag-medium">🇫🇷 Mistral = IA française</span>
+    </div>
+
+    <div class="section-title">Étape 3 — Les alternatives européennes à connaître</div>
+    <div class="tool-row">
+      <div class="tool-icon">🇫🇷</div>
+      <div class="tool-body">
+        <div class="tool-name">Mistral AI</div>
+        <div class="tool-desc">La meilleure alternative européenne. Modèles open-source, données en France.</div>
+      </div>
+      <span class="tool-badge badge-eu">🇪🇺 Européen</span>
+    </div>
+    <div class="tool-row">
+      <div class="tool-icon">🤖</div>
+      <div class="tool-body">
+        <div class="tool-name">Ollama + Llama 3</div>
+        <div class="tool-desc">Meta open-source. Tourne en local. 100% privé, 0 cloud.</div>
+      </div>
+      <span class="tool-badge badge-free">Gratuit</span>
+    </div>
+    <div class="tool-row">
+      <div class="tool-icon">🔵</div>
+      <div class="tool-body">
+        <div class="tool-name">Claude.ai (Europe)</div>
+        <div class="tool-desc">Toujours accessible. Données stockées selon RGPD. À garder en priorité.</div>
+      </div>
+      <span class="tool-badge badge-partial">Accessible</span>
+    </div>
+
+    <div class="section-title">Étape 4 — La vraie leçon</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">Ne dépends jamais d'un seul outil</div>
+      </div>
+      <div class="step-desc">L'IA n'est pas une ressource infinie et garantie. C'est une ressource stratégique contrôlée. La règle : garde toujours un plan B local (Ollama + Mistral), et continue d'utiliser Claude tant qu'il est accessible. Maîtrise l'outil maintenant, pendant que tu peux.</div>
+      <span class="step-tag tag-easy">💡 Règle d'or</span>
+    </div>
+
+    <div class="cta-bottom">
+      <p>Tu veux aller plus loin et vraiment <strong style="color:#fff;">maîtriser Claude</strong> pour ton business avant que ça se complique ?</p>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="btn-cta">📞 On en parle — Réserve 30 min</a>
+      <br/>
+      <a href="https://www.instagram.com/monsieur.ia.2.1" class="btn-secondary">📱 Suivre @monsieur.ia.2.1</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'mia_email_submitted';
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+
+  function showContent(animate) {
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = animate ? 'block' : 'none';
+    document.getElementById('content-section').style.display = 'block';
+    if (animate) {
+      setTimeout(() => {
+        document.getElementById('content-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }
+
+  // Migration clés anciennes
+  if (localStorage.getItem('mia_local_submitted') === 'true') {
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEY) === 'true') {
+    showContent(false);
+  }
+
+  async function submitForm() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('email-input').style.borderColor = '#ff3b5c';
+      return;
+    }
+    const btn = document.querySelector('.btn-primary');
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          email: email,
+          subject: 'Nouveau lead — Guide LOCAL (Mythos)',
+          message: `Email: ${email} | Source: /local | Date: ${new Date().toISOString()}`
+        })
+      });
+    } catch(e) {}
+    localStorage.setItem(STORAGE_KEY, 'true');
+    showContent(true);
+  }
+
+  document.getElementById('email-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitForm();
+  });
+</script>
+</body>
+</html>
