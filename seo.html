@@ -3,468 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tue les agences SEO avec Claude Code — Mr.IA</title>
+  <title>Le prompt Claude pour référencer ton site · Monsieur IA</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #f5f5f7;
-      color: #1d1d1f;
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 480px;
-      text-align: center;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #f5f5f7;
-      color: #6e6e73;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-      letter-spacing: 0.3px;
-      border: 1px solid #e5e5e5;
-    }
+    body { background: #f5f5f7; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .card { background: #fff; border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 520px; text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04); }
+    .badge { display: inline-flex; align-items: center; gap: 7px; background: #f5f5f7; color: #6e6e73; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 24px; border: 1px solid #e5e5e5; }
     .icon { font-size: 44px; margin-bottom: 18px; display: block; }
-    h1 {
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 10px;
-      color: #1d1d1f;
-      letter-spacing: -0.5px;
-    }
-    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
+    h1 { font-size: 26px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.5px; }
+    h1 em { font-style: normal; color: #00a860; font-weight: 800; }
     .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
-    .stat {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #C9A84C;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: 100px;
-      margin-bottom: 26px;
-    }
-    #form-section input[type="email"] {
-      width: 100%;
-      padding: 14px 16px;
-      background: #f5f5f7;
-      border: 1.5px solid #e5e5e5;
-      border-radius: 12px;
-      color: #1d1d1f;
-      font-size: 15px;
-      outline: none;
-      margin-bottom: 12px;
-      transition: border-color 0.2s;
-      font-family: inherit;
-    }
-    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
-    #form-section input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
-    .btn-primary {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background: #C9A84C;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-      font-family: inherit;
-      letter-spacing: -0.1px;
-    }
-    .btn-primary:hover { background: #A68A3E; }
-    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-    .proof {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: #aeaeb2;
-      margin-top: 16px;
-      justify-content: center;
-    }
-    .proof strong { color: #1d1d1f; }
-
-    /* ── Confirm section ── */
-    #confirm-section { display: none; text-align: left; }
-
-    .confirm-header { text-align: center; margin-bottom: 28px; }
-    .check-icon { font-size: 44px; margin-bottom: 14px; display: block; }
-    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
-    .confirm-intro { font-size: 14px; color: #6e6e73; line-height: 1.65; }
-
-    /* Obtenir box */
-    .obtain-box {
-      background: #f5f5f7;
-      border: 1px solid #e5e5e5;
-      border-radius: 16px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
-    }
-    .obtain-title {
-      font-size: 13px; font-weight: 800; color: #1d1d1f;
-      margin-bottom: 12px; letter-spacing: -0.2px;
-    }
-    .obtain-list { display: flex; flex-direction: column; gap: 10px; }
-    .obtain-item {
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .obtain-dot {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: #C9A84C; color: #fff;
-      font-size: 11px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
-    }
-    .obtain-text { font-size: 13px; color: #3d3d3f; line-height: 1.5; font-weight: 500; }
-
-    /* Step cards */
-    .step-card {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 18px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-    }
-    .step-header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-    }
-    .step-num-badge {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: #C9A84C; color: #fff;
-      font-size: 14px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .step-card-title { font-size: 15px; font-weight: 800; color: #1d1d1f; line-height: 1.3; letter-spacing: -0.3px; }
-    .step-desc { font-size: 13px; color: #6e6e73; line-height: 1.6; margin-bottom: 14px; }
-
-    /* Sub-steps */
-    .sub-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-    .sub-step { display: flex; align-items: flex-start; gap: 10px; }
-    .sub-num {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: #f0e8d5; color: #A68A3E;
-      font-size: 11px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
-    }
-    .sub-text { font-size: 13px; color: #3d3d3f; line-height: 1.5; }
-    .sub-text a { color: #C9A84C; font-weight: 700; text-decoration: none; }
-    .sub-text a:hover { text-decoration: underline; }
-
-    /* Prompt / code box */
-    .prompt-box {
-      background: #0d0d14;
-      border: 1px solid rgba(201,168,76,.3);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-    .prompt-label {
-      font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-      color: #E2C66B; margin-bottom: 10px;
-    }
-    .prompt-text {
-      font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
-      font-size: 12px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap;
-    }
-    .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
-    .prompt-text .url { color: #34d399; }
-
-    /* Result aside */
-    .result-aside {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 12px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .result-aside-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-    .result-aside-text { font-size: 12px; color: #166534; line-height: 1.6; font-weight: 500; }
-
-    /* Divider */
-    .divider {
-      display: flex; align-items: center; gap: 12px;
-      margin: 24px 0 20px;
-      color: #aeaeb2; font-size: 12px; font-weight: 600;
-    }
-    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
-
-    /* CTA buttons */
-    .btn-cta {
-      display: block; width: 100%; padding: 15px;
-      background: #C9A84C; color: #fff;
-      font-size: 15px; font-weight: 600; border-radius: 12px;
-      text-decoration: none; text-align: center;
-      transition: background 0.2s; margin-bottom: 10px;
-    }
-    .btn-cta:hover { background: #A68A3E; }
-    .btn-secondary {
-      display: block; width: 100%; padding: 13px;
-      background: transparent; color: #1d1d1f;
-      font-size: 14px; font-weight: 600;
-      border: 1.5px solid #e5e5e5; border-radius: 12px;
-      text-decoration: none; text-align: center;
-      transition: all 0.2s; margin-bottom: 10px;
-    }
-    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
-
-    /* Prompts box */
-    .prompts-box {
-      background: #16141f; border: 1px solid #2a2440;
-      border-radius: 18px; padding: 22px 20px; margin-bottom: 16px;
-    }
-    .prompts-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #2a2440; color: #f59e0b;
-      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
-    }
-    .prompts-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.4px; }
-    .prompts-title em { font-style: normal; color: #f59e0b; }
-    .prompts-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 14px; }
-    .prompts-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .prompts-tag { background: #2a2440; border: 1px solid #3d3560; color: #f59e0b; font-size: 12px; font-weight: 700; padding: 6px 13px; border-radius: 20px; }
-    .btn-prompts { display: block; width: 100%; padding: 15px; background: #f59e0b; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
-    .btn-prompts:hover { background: #d97706; }
-    .prompts-note { font-size: 12px; color: #6b7280; text-align: center; }
-
-    /* Skool box */
-    .skool-box { background: #0a0f0a; border: 1px solid rgba(74,197,94,.25); border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
-    .skool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,197,94,.12); border: 1px solid rgba(74,197,94,.25); color: #4ac55e; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .skool-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
-    .skool-title em { font-style: normal; color: #4ac55e; }
-    .skool-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
-    .skool-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-    .skool-check { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 600; }
-    .btn-skool { display: block; width: 100%; padding: 15px; background: #4ac55e; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
-    .btn-skool:hover { background: #3aad4d; }
-    .skool-note { font-size: 12px; color: #6b7280; text-align: center; }
-
-    /* Audit box */
-    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
-    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .audit-title { font-size: 20px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
-    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
-    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
-    .btn-audit:hover { background: #333; }
-    .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; }
-    .btn-whatsapp:hover { background: #1da851; }
-
-    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
+    .stat { display: inline-flex; align-items: center; gap: 6px; background: #00a860; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 100px; margin-bottom: 26px; }
+    #form-section input[type="email"] { width: 100%; padding: 14px 16px; background: #f5f5f7; border: 1.5px solid #e5e5e5; border-radius: 12px; color: #1d1d1f; font-size: 15px; outline: none; margin-bottom: 12px; font-family: inherit; transition: border-color 0.2s; }
+    #form-section input[type="email"]:focus { border-color: #00a860; background: #fff; }
+    .btn-primary { width: 100%; padding: 15px; background: #00a860; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; margin-bottom: 12px; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.88; }
+    .privacy { font-size: 11px; color: #aeaeb2; }
+    #confirm-section { display: none; }
+    .confirm-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .confirm-sub { font-size: 14px; color: #6e6e73; margin-bottom: 32px; line-height: 1.6; }
+    #content-section { display: none; margin-top: 8px; text-align: left; }
+    .section-title { font-size: 11px; font-weight: 700; color: #00a860; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid #f0f0f0; }
+    .section-title:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+    .prompt-wrap { background: #1d1d1f; border-radius: 14px; padding: 18px 20px; margin-bottom: 12px; }
+    .prompt-label { font-size: 10px; font-weight: 700; color: #00a860; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+    .prompt-text { font-size: 13px; color: #e5e5e5; line-height: 1.7; font-family: 'SF Mono', monospace; white-space: pre-wrap; }
+    .copy-btn { width: 100%; margin-top: 12px; padding: 11px; background: #00a860; color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .copy-btn:hover { opacity: 0.85; }
+    .file-card { background: #f5f5f7; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; }
+    .file-num { width: 28px; height: 28px; background: #00a860; color: #fff; border-radius: 7px; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .file-name { font-size: 13px; font-weight: 800; font-family: 'SF Mono', monospace; margin-bottom: 3px; }
+    .file-desc { font-size: 12px; color: #6e6e73; line-height: 1.5; }
+    .file-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-top: 5px; display: inline-block; }
+    .tag-green { background: rgba(0,168,96,.1); color: #00a860; }
+    .tag-blue { background: rgba(0,100,255,.08); color: #0064ff; }
+    .step-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .step-circle { width: 26px; height: 26px; border-radius: 50%; background: #00a860; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-text { font-size: 13px; color: #1d1d1f; line-height: 1.55; }
+    .step-text strong { color: #00a860; }
+    .cta-section { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .cta-block { border-radius: 14px; padding: 16px 18px; text-align: center; text-decoration: none; display: block; transition: opacity 0.2s, transform 0.15s; }
+    .cta-block:hover { opacity: 0.88; transform: translateY(-1px); }
+    .cta-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; opacity: 0.7; }
+    .cta-text { font-size: 14px; font-weight: 800; line-height: 1.3; }
+    .cta-sub { font-size: 11px; margin-top: 3px; opacity: 0.65; }
+    .cta-gold { background: linear-gradient(135deg, #C9A84C, #e8c76a); color: #000; }
+    .cta-green { background: #00a860; color: #fff; }
+    .cta-dark { background: #1d1d1f; color: #fff; }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="badge">Mr.IA · Arnaud Aka</div>
 
-  <!-- ── FORM ── -->
   <div id="form-section">
-    <span class="icon">💀</span>
-    <h1>Tue les agences SEO<br>avec <em>Claude Code</em></h1>
-    <p class="subtitle">Entre ton email — je t'envoie le skill + le guide complet pour auditer et corriger n'importe quel site en 3 minutes.</p>
-    <div class="stat">⚡ Gratuit · 5 agents en parallèle · 0 agence SEO</div>
-    <form id="email-form" onsubmit="handleSubmit(event)">
-      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
-      <button type="submit" class="btn-primary" id="submit-btn">Recevoir le skill + le guide →</button>
-    </form>
-    <div class="proof">
-      <span>🔒</span>
-      <span>Aucun spam. <strong>Juste le guide.</strong></span>
-    </div>
+    <span class="badge">🔍 Prompt Exclusif</span>
+    <span class="icon">⚡</span>
+    <h1>Le prompt Claude pour être référencé par <em>Google ET les IA</em></h1>
+    <p class="subtitle">LLMS.txt, Markdown Mirror, Sitemap — 3 fichiers générés en 1 prompt. Colle ton URL, Claude fait tout.</p>
+    <div class="stat">⚡ Prompt prêt à copier-coller</div>
+    <input type="email" id="email-input" placeholder="Ton adresse email" autocomplete="email" />
+    <button class="btn-primary" onclick="submitForm()">Accéder au prompt gratuitement →</button>
+    <p class="privacy">🔒 Zéro spam. Juste les vrais tips Claude.</p>
   </div>
 
-  <!-- ── CONFIRM ── -->
   <div id="confirm-section">
+    <span class="confirm-icon">✅</span>
+    <div class="confirm-title">C'est parti !</div>
+    <p class="confirm-sub">Le prompt est juste en dessous. Copie-le, colle-le dans Claude avec l'URL de ton site.</p>
+  </div>
 
-    <div class="confirm-header">
-      <span class="check-icon">✅</span>
-      <p class="confirm-title">Voilà le guide complet</p>
-      <p class="confirm-intro">Claude Code a rendu l'optimisation SEO accessible à n'importe qui. Voici comment dépasser tes concurrents sur Google en 3 étapes, sans payer une agence, sans connaître le SEO technique.</p>
+  <div id="content-section">
+
+    <div class="section-title">Le prompt à copier dans Claude</div>
+    <div class="prompt-wrap">
+      <div class="prompt-label">💬 Prompt Claude</div>
+      <div class="prompt-text" id="promptText">Tu es un expert SEO et référencement IA. Génère pour mon site [COLLE TON URL ICI] les 3 fichiers suivants :
+
+1. llms.txt — décrit mon site aux IA (ChatGPT, Perplexity, Gemini) pour qu'elles me référencent correctement.
+
+2. Markdown Mirror — version ultra-clean en Markdown de ma page d'accueil, structurée pour que les IA comprennent mon contenu nativement.
+
+3. sitemap.xml — sitemap complet avec les bonnes priorités pour que Google sache quelles pages indexer en premier.
+
+Donne-moi le contenu complet de chaque fichier, prêt à copier-coller.</div>
+      <button class="copy-btn" onclick="copyPrompt()">📋 Copier le prompt</button>
     </div>
 
-    <!-- Ce que tu vas obtenir -->
-    <div class="obtain-box">
-      <div class="obtain-title">🎯 Ce que tu vas obtenir</div>
-      <div class="obtain-list">
-        <div class="obtain-item">
-          <div class="obtain-dot">✓</div>
-          <div class="obtain-text">Un rapport SEO complet de ton site en moins de 3 minutes</div>
-        </div>
-        <div class="obtain-item">
-          <div class="obtain-dot">✓</div>
-          <div class="obtain-text">Les mots-clés gagnants de ta niche identifiés automatiquement par 5 agents IA</div>
-        </div>
-        <div class="obtain-item">
-          <div class="obtain-dot">✓</div>
-          <div class="obtain-text">Un plan d'action SEO configuré par Claude à ta place, sans toucher une ligne de code</div>
-        </div>
+    <div class="section-title">Les 3 fichiers générés</div>
+    <div class="file-card">
+      <div class="file-num">1</div>
+      <div class="file-body">
+        <div class="file-name">llms.txt</div>
+        <div class="file-desc">Décrit ton site aux IA. ChatGPT, Perplexity, Gemini le lisent en premier — sans lui, ils passent à côté de toi.</div>
+        <span class="file-tag tag-green">IA Ready ✅</span>
       </div>
     </div>
-
-    <!-- Étape 1 -->
-    <div class="step-card">
-      <div class="step-header">
-        <div class="step-num-badge">1</div>
-        <div class="step-card-title">Installe le skill Claude SEO depuis GitHub</div>
+    <div class="file-card">
+      <div class="file-num">2</div>
+      <div class="file-body">
+        <div class="file-name">markdown mirror</div>
+        <div class="file-desc">Version ultra clean de tes pages. Les IA comprennent ton contenu 10x mieux qu'avec du HTML classique.</div>
+        <span class="file-tag tag-blue">Indexation native</span>
       </div>
-      <p class="step-desc">Le skill SEO est open-source et gratuit. Claude Code l'installe pour toi en une seule commande.</p>
-      <div class="sub-steps">
-        <div class="sub-step">
-          <div class="sub-num">1</div>
-          <div class="sub-text">Va sur le repo GitHub : <a href="https://github.com/AgriciDaniel/claude-seo" target="_blank">github.com/AgriciDaniel/claude-seo</a></div>
-        </div>
-        <div class="sub-step">
-          <div class="sub-num">2</div>
-          <div class="sub-text">Copie l'URL complète du repo</div>
-        </div>
-        <div class="sub-step">
-          <div class="sub-num">3</div>
-          <div class="sub-text">Ouvre Claude Code et colle ce prompt :</div>
-        </div>
-      </div>
-      <div class="prompt-box">
-        <div class="prompt-label">📋 Prompt à copier</div>
-        <div class="prompt-text"><span class="cmd">Installe ce skill Claude Code :</span>
-<span class="url">https://github.com/AgriciDaniel/claude-seo</span></div>
-      </div>
-      <div class="result-aside">
-        <div class="result-aside-icon">✅</div>
-        <div class="result-aside-text">Claude installe le skill automatiquement. Tu vois une confirmation dans le terminal. Tu es prêt pour l'étape 2.</div>
+    </div>
+    <div class="file-card">
+      <div class="file-num">3</div>
+      <div class="file-body">
+        <div class="file-name">sitemap.xml</div>
+        <div class="file-desc">Dit à Google quelles pages comptent vraiment. Stop à l'indexation au hasard.</div>
+        <span class="file-tag tag-green">Google ✅</span>
       </div>
     </div>
 
-    <!-- Étape 2 -->
-    <div class="step-card">
-      <div class="step-header">
-        <div class="step-num-badge">2</div>
-        <div class="step-card-title">Lance l'analyse SEO de ton site</div>
-      </div>
-      <p class="step-desc">Active le skill en tapant "/seo" dans Claude Code, puis donne-lui l'URL de ton site. Claude lance 5 agents en parallèle qui analysent tes pages et cherchent les mots-clés gagnants.</p>
-      <div class="prompt-box">
-        <div class="prompt-label">📋 Commande à taper</div>
-        <div class="prompt-text"><span class="cmd">/seo audit</span> <span class="url">"url de ton site web"</span></div>
-      </div>
-      <div class="result-aside">
-        <div class="result-aside-icon">✅</div>
-        <div class="result-aside-text">Tu reçois un rapport SEO complet avec les mots-clés prioritaires, les pages à optimiser et les opportunités de contenu inexploitées.</div>
-      </div>
+    <div class="section-title">Comment l'utiliser</div>
+    <div class="step-row">
+      <div class="step-circle">1</div>
+      <div class="step-text">Copie le prompt et <strong>remplace [COLLE TON URL ICI]</strong> par l'URL de ton site</div>
+    </div>
+    <div class="step-row">
+      <div class="step-circle">2</div>
+      <div class="step-text">Colle dans Claude — il génère les 3 fichiers en 30 secondes</div>
+    </div>
+    <div class="step-row">
+      <div class="step-circle">3</div>
+      <div class="step-text">Dépose les fichiers à la <strong>racine de ton site</strong> (même endroit que index.html)</div>
+    </div>
+    <div class="step-row">
+      <div class="step-circle">4</div>
+      <div class="step-text">Google et les IA les détectent automatiquement — <strong>indexation en 24–48h</strong></div>
     </div>
 
-    <!-- Étape 3 -->
-    <div class="step-card">
-      <div class="step-header">
-        <div class="step-num-badge">3</div>
-        <div class="step-card-title">Laisse Claude tout configurer à ta place</div>
-      </div>
-      <p class="step-desc">Donne le plan SEO à Claude et demande-lui de l'implémenter. Il crée un agent dédié qui configure tout automatiquement.</p>
-      <div class="prompt-box">
-        <div class="prompt-label">📋 Prompt à copier</div>
-        <div class="prompt-text"><span class="cmd">Implémente ce plan SEO sur mon site.
-Crée un agent qui configure tout
-automatiquement : méta-descriptions,
-titres H1/H2, maillage interne.</span></div>
-      </div>
-      <div class="result-aside">
-        <div class="result-aside-icon">✅</div>
-        <div class="result-aside-text">Ton site est optimisé sans que tu aies eu à comprendre le SEO technique. Ce que les agences facturent des milliers d'euros, tu viens de le faire en quelques minutes.</div>
-      </div>
+    <div class="cta-section">
+      <a href="https://www.maitrise-ia.pro/prompts" class="cta-block cta-gold">
+        <div class="cta-label">⚡ Accès immédiat</div>
+        <div class="cta-text">50 prompts Claude prêts à l'emploi →</div>
+        <div class="cta-sub">Contenu · Prospection · SEO · Analyse — 50€</div>
+      </a>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-green">
+        <div class="cta-label">📞 Appel stratégique</div>
+        <div class="cta-text">J'automatise ma boîte avec Claude →</div>
+        <div class="cta-sub">Réserve 30 min — Gratuit</div>
+      </a>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-dark">
+        <div class="cta-label">🏢 Formation entreprise</div>
+        <div class="cta-text">Former mon équipe à l'IA →</div>
+        <div class="cta-sub">Atelier sur mesure — Réserve un appel</div>
+      </a>
     </div>
 
-    <div class="divider">Tu veux aller plus loin ?</div>
-
-    <!-- Prompts box -->
-    <div class="prompts-box">
-      <div class="prompts-badge">⚡ ACCÈS IMMÉDIAT</div>
-      <div class="prompts-title">50 prompts Claude <em>prêts à l'emploi</em></div>
-      <div class="prompts-desc">Organisés par usage — contenu, prospection, organisation, analyse, rédaction. Tu copies, tu colles, ça marche. Aucune connaissance technique requise.</div>
-      <div class="prompts-tags">
-        <div class="prompts-tag">Contenu & réseaux</div>
-        <div class="prompts-tag">Prospection & emails</div>
-        <div class="prompts-tag">Organisation & productivité</div>
-        <div class="prompts-tag">Analyse & décision</div>
-      </div>
-      <a href="https://www.maitrise-ia.pro/prompts" target="_blank" class="btn-prompts">Voir le pack de prompts →</a>
-      <div class="prompts-note">Accès immédiat · Une seule fois</div>
-    </div>
-
-    <!-- Skool community box -->
-    <div class="skool-box">
-      <div class="skool-badge">🟢 COMMUNAUTÉ GRATUITE</div>
-      <div class="skool-title">Rejoins le <em>Claude Business Lab</em></div>
-      <div class="skool-desc">Une communauté d'entrepreneurs qui intègrent Claude dans leur business. On partage nos réussites, nos workflows, nos astuces. Je poste des tutos et des vidéos de formation en accès direct.</div>
-      <div class="skool-checks">
-        <div class="skool-check">✓ Workflows concrets partagés chaque semaine</div>
-        <div class="skool-check">✓ Vidéos de formation exclusives</div>
-        <div class="skool-check">✓ Entraide entre entrepreneurs qui avancent</div>
-      </div>
-      <a href="https://www.skool.com/claude-business-lab-5890" target="_blank" class="btn-skool">Rejoindre la communauté gratuite →</a>
-      <div class="skool-note">Accès gratuit · Communauté privée · Arnaud présent</div>
-    </div>
-
-    <!-- Audit box -->
-    <div class="audit-box">
-      <div class="audit-badge">⚡ ON AUTOMATISE TOUTE TA BOÎTE</div>
-      <div class="audit-title">Tes process. Ton contenu. Ta prospection.</div>
-      <div class="audit-desc">Tu passes encore des heures sur des tâches que Claude pourrait faire en 2 minutes ? On cartographie ensemble ce qui peut être automatisé dans ton business, et on met ça en place.</div>
-      <a href="https://calendly.com/fusiondigitalfelixarnaud/30min" target="_blank" class="btn-audit">📞 Réserver un audit gratuit →</a>
-      <a href="https://wa.me/33786940245" target="_blank" class="btn-whatsapp">💬 Me contacter sur WhatsApp</a>
-    </div>
-
-    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
-
-    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
   </div>
 </div>
 
 <script>
+  const STORAGE_KEY = 'mia_email_submitted';
   const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const email = document.getElementById('email-input').value.trim();
-    if (!email) return;
-    const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Envoi...';
-    btn.disabled = true;
-    try {
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: 'Nouveau lead — SEO Guide Claude Code',
-          from_name: 'Maîtrise IA',
-          replyto: email,
-          message: `Nouvel email capturé : ${email}\nSource : ${window.location.href}`
-        })
-      });
-    } catch (err) { console.warn('Form error:', err); }
+  if (localStorage.getItem(STORAGE_KEY) === 'true') showContent(false);
+  function showContent(animate) {
     document.getElementById('form-section').style.display = 'none';
-    document.getElementById('confirm-section').style.display = 'block';
+    document.getElementById('confirm-section').style.display = animate ? 'block' : 'none';
+    document.getElementById('content-section').style.display = 'block';
+    if (animate) setTimeout(() => document.getElementById('content-section').scrollIntoView({ behavior: 'smooth' }), 300);
+  }
+  async function submitForm() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) { document.getElementById('email-input').style.borderColor = '#ff3b5c'; return; }
+    const btn = document.querySelector('.btn-primary');
+    btn.textContent = 'Envoi en cours…'; btn.disabled = true;
+    try {
+      await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ access_key: WEB3FORMS_KEY, email, subject: 'Nouveau lead — Prompt SEO Claude', message: `Email: ${email} | Source: /seo | Date: ${new Date().toISOString()}` }) });
+    } catch(e) {}
+    localStorage.setItem(STORAGE_KEY, 'true');
+    showContent(true);
+  }
+  document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') submitForm(); });
+  function copyPrompt() {
+    navigator.clipboard.writeText(document.getElementById('promptText').innerText).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✅ Copié !';
+      setTimeout(() => { btn.textContent = '📋 Copier le prompt'; }, 2000);
+    });
   }
 </script>
 </body>
