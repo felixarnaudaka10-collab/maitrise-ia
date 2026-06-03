@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reel — SEO + IA avec Claude</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;}
+.stage{width:540px;height:540px;position:relative;overflow:hidden;background:#020a04;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.slide.active{opacity:1;pointer-events:auto;}
+.progress{width:540px;height:3px;background:#1a1a1a;}
+.progress-fill{height:100%;background:#00e676;width:0%;transition:width linear;}
+.nav{display:flex;gap:12px;margin-top:14px;}
+.nav button{background:#222;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.nav button:hover{background:#333;}
+.dots{display:flex;gap:6px;align-items:center;margin-top:10px;flex-wrap:wrap;justify-content:center;}
+.dot{width:7px;height:7px;border-radius:50%;background:#333;transition:background .3s;cursor:pointer;}
+.dot.active{background:#00e676;}
+
+/* ══ SLIDE 1 — HOOK ══ */
+.scanline{position:absolute;inset:0;pointer-events:none;z-index:10;}
+.scanline::after{content:'';position:absolute;left:0;right:0;top:0;height:80px;background:linear-gradient(to bottom,rgba(0,230,118,.06),transparent);animation:scanMove 2.2s linear .1s 2;}
+
+.money-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;}
+.money-badge{font-size:36px;opacity:0;animation:badgePop .4s ease .1s forwards;}
+.strike-price{font-size:28px;font-weight:900;color:#ff4444;text-decoration:line-through;opacity:0;animation:fadeUp .4s ease .3s forwards;}
+.arrow-right{font-size:20px;color:#00e676;opacity:0;animation:fadeUp .4s ease .5s forwards;}
+.free-badge{background:#00e676;color:#000;font-size:14px;font-weight:900;padding:6px 14px;border-radius:6px;opacity:0;animation:badgePop .5s ease .6s forwards;}
+
+.hook-badge{background:#00e676;color:#000;font-size:10px;font-weight:800;padding:4px 12px;border-radius:4px;letter-spacing:.5px;margin-bottom:10px;opacity:0;animation:badgePop .5s ease .8s forwards;}
+.hook-title{font-size:24px;font-weight:900;color:#fff;text-align:center;line-height:1.25;opacity:0;animation:glitchPop 1.8s ease .9s forwards,flashGreen 2s ease 2.8s infinite;}
+.hook-sub{font-size:10px;color:#888;text-align:center;margin-top:8px;opacity:0;animation:fadeUp .5s ease 2.6s forwards;}
+
+/* ══ SLIDE 2 — LES 3 FICHIERS OVERVIEW ══ */
+.s2-title{font-size:15px;font-weight:900;color:#fff;text-align:center;margin-bottom:16px;opacity:0;animation:fadeUp .4s ease .1s forwards;}
+.file-row{display:flex;align-items:center;gap:12px;width:100%;background:#030f06;border:1px solid #0a2a0f;border-radius:10px;padding:12px 14px;margin-bottom:8px;opacity:0;animation:rowIn .5s ease forwards;}
+.file-num{width:28px;height:28px;border-radius:6px;background:#00e676;color:#000;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.file-body{flex:1;}
+.file-name{font-size:13px;font-weight:800;color:#00e676;font-family:monospace;margin-bottom:2px;}
+.file-desc{font-size:10px;color:#888;}
+.file-icon{font-size:20px;flex-shrink:0;}
+
+/* ══ SLIDE 3 — LLMS.TXT ══ */
+.file-hero{text-align:center;margin-bottom:14px;}
+.file-emoji{font-size:52px;display:block;margin-bottom:8px;opacity:0;animation:badgePop .5s ease .1s forwards;}
+.file-title{font-size:26px;font-weight:900;color:#00e676;font-family:monospace;opacity:0;animation:glitchPop 1.4s ease .2s forwards;}
+.file-subtitle{font-size:11px;color:#666;letter-spacing:1px;text-transform:uppercase;margin-top:4px;opacity:0;animation:fadeUp .4s ease 1.6s forwards;}
+.explain-card{width:100%;background:#030f06;border:1px solid #0a2a0f;border-radius:10px;padding:14px 16px;margin-top:10px;opacity:0;animation:fadeUp .5s ease .5s forwards;}
+.explain-card p{font-size:13px;color:#ccc;line-height:1.6;}
+.explain-card strong{color:#00e676;}
+.ai-logos{display:flex;gap:8px;justify-content:center;margin-top:10px;opacity:0;animation:fadeUp .4s ease .8s forwards;}
+.ai-pill{background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:#00e676;}
+
+/* ══ SLIDE 4 — MARKDOWN MIRROR ══ */
+.mm-visual{display:flex;align-items:center;gap:12px;margin-bottom:14px;width:100%;}
+.mm-box{flex:1;border-radius:8px;padding:10px;text-align:center;}
+.mm-dirty{background:rgba(255,100,100,.06);border:1px solid rgba(255,100,100,.15);}
+.mm-clean{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);}
+.mm-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.mm-dirty .mm-label{color:#ff6666;}
+.mm-clean .mm-label{color:#00e676;}
+.mm-content{font-size:8px;color:#555;line-height:1.4;text-align:left;}
+.mm-clean .mm-content{color:#aaa;}
+.mm-arrow{font-size:22px;color:#00e676;flex-shrink:0;opacity:0;animation:arrowPulse 1s ease-in-out infinite;}
+
+/* ══ SLIDE 5 — SITEMAP ══ */
+.sitemap-wrap{width:100%;margin-bottom:10px;}
+.site-node{display:flex;align-items:center;gap:8px;padding:7px 0;opacity:0;animation:rowIn .4s ease forwards;}
+.site-line{width:2px;height:20px;background:#0a2a0f;margin-left:12px;opacity:0;animation:fadeUp .3s ease forwards;}
+.site-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-main{background:#00e676;box-shadow:0 0 8px #00e676;}
+.dot-page{background:#1a4a20;}
+.dot-active{background:#00e676;}
+.site-url{font-size:10px;font-family:monospace;color:#888;}
+.site-url.active{color:#00e676;font-weight:700;}
+.site-check{font-size:10px;margin-left:auto;color:#00e676;}
+.google-sees{background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:8px;padding:10px 14px;margin-top:8px;text-align:center;opacity:0;animation:fadeUp .5s ease .8s forwards;}
+.google-sees span{font-size:12px;font-weight:700;color:#00e676;}
+.google-sees small{display:block;font-size:9px;color:#666;margin-top:2px;}
+
+/* ══ SLIDE 6 — CLAUDE GÉNÈRE TOUT ══ */
+.prompt-box{width:100%;background:#030f06;border:1px solid #0a2a0f;border-radius:10px;padding:12px 14px;margin-bottom:10px;opacity:0;animation:fadeUp .5s ease .2s forwards;}
+.prompt-label{font-size:9px;color:#00e676;font-weight:700;letter-spacing:.5px;margin-bottom:6px;}
+.prompt-text{font-size:11px;color:#aaa;line-height:1.5;font-family:monospace;}
+.prompt-cursor{display:inline-block;width:2px;height:10px;background:#00e676;animation:blink .8s step-end infinite;vertical-align:middle;margin-left:2px;}
+.output-row{display:flex;gap:6px;width:100%;margin-top:8px;opacity:0;animation:fadeUp .5s ease .6s forwards;}
+.out-file{flex:1;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.15);border-radius:7px;padding:8px 6px;text-align:center;}
+.out-file .out-name{font-size:9px;font-weight:800;color:#00e676;font-family:monospace;margin-bottom:3px;}
+.out-file .out-check{font-size:14px;}
+.time-badge{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;opacity:0;animation:fadeUp .4s ease .9s forwards;}
+.time-badge span{font-size:12px;font-weight:800;color:#00e676;}
+.time-badge small{font-size:10px;color:#666;}
+
+/* ══ SLIDE 7 — RÉSULTAT ══ */
+.result-wrap{width:100%;margin-bottom:12px;}
+.result-item{display:flex;align-items:center;gap:10px;background:#030f06;border:1px solid #0a2a0f;border-radius:9px;padding:11px 14px;margin-bottom:7px;opacity:0;animation:rowIn .5s ease forwards;}
+.r-icon{font-size:22px;flex-shrink:0;}
+.r-body{flex:1;}
+.r-title{font-size:12px;font-weight:800;color:#fff;margin-bottom:2px;}
+.r-desc{font-size:10px;color:#666;}
+.r-badge{font-size:10px;font-weight:800;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+.badge-green{background:rgba(0,230,118,.12);color:#00e676;}
+.badge-fast{background:rgba(255,193,7,.1);color:#ffc107;}
+.s7-title{font-size:16px;font-weight:900;color:#fff;text-align:center;margin-bottom:12px;opacity:0;animation:fadeUp .4s ease .1s forwards;}
+
+/* ══ SLIDE 8 — CTA ══ */
+.cta-emoji{font-size:52px;margin-bottom:10px;animation:ctaBounce 1.5s ease-in-out infinite;}
+.cta-title{font-size:20px;font-weight:900;color:#fff;text-align:center;line-height:1.22;margin-bottom:14px;}
+.cta-keyword{display:inline-block;background:#00e676;color:#000;font-size:20px;font-weight:900;padding:6px 18px;border-radius:8px;letter-spacing:2px;}
+.cta-btn{width:100%;background:#00e676;color:#000;font-size:15px;font-weight:900;padding:14px 30px;border-radius:12px;text-align:center;margin-bottom:8px;animation:pulseGlow 1.8s ease-in-out infinite;}
+.cta-note{font-size:9px;color:#444;text-align:center;}
+
+/* ══ KEYFRAMES ══ */
+@keyframes scanMove{0%{transform:translateY(-100%);}100%{transform:translateY(540px);}}
+@keyframes badgePop{0%{opacity:0;transform:scale(0.5);}60%{opacity:1;transform:scale(1.15);}100%{opacity:1;transform:scale(1);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes rowIn{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+@keyframes arrowPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+@keyframes ctaBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,.4);}50%{box-shadow:0 0 20px 6px rgba(0,230,118,.2);}}
+@keyframes flashGreen{0%,100%{color:#fff;text-shadow:0 0 20px rgba(0,230,118,.5);}50%{color:#00e676;text-shadow:0 0 40px #00e676;}}
+@keyframes glitchPop{
+  0%{opacity:0;transform:scale(0.4);filter:blur(12px);}
+  10%{opacity:1;transform:scale(1.18) skewX(-5deg);color:#fff;text-shadow:4px 0 0 #00e676;}
+  14%{transform:scale(1.18) skewX(5deg);color:#00e676;}
+  18%{opacity:0.1;transform:scale(1.05);}
+  24%{opacity:1;transform:scale(1.22);color:#fff;}
+  30%{opacity:0.15;}
+  38%{opacity:1;transform:scale(1.2);color:#fff;}
+  55%{color:#80ffb0;text-shadow:0 0 30px #00e676;}
+  100%{opacity:1;transform:scale(1);color:#fff;text-shadow:0 0 20px rgba(0,230,118,.5);}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- SLIDE 1 — HOOK -->
+  <div class="slide active" id="s0">
+    <div class="scanline"></div>
+    <div class="money-wrap">
+      <div class="money-badge">💸</div>
+      <div class="strike-price">15 000€</div>
+      <div class="arrow-right">→</div>
+      <div class="free-badge">1 PROMPT</div>
+    </div>
+    <div class="hook-badge">⚡ CLAUDE + SEO</div>
+    <div class="hook-title">Google et les IA<br>cherchent 3 fichiers<br>sur ton site.</div>
+    <div class="hook-sub">Claude peut te les générer en un seul prompt</div>
+  </div>
+
+  <!-- SLIDE 2 — LES 3 FICHIERS -->
+  <div class="slide" id="s1">
+    <div class="s2-title">Les 3 fichiers qui font tout.</div>
+    <div class="file-row" style="animation-delay:.15s;">
+      <div class="file-num">1</div>
+      <div class="file-body">
+        <div class="file-name">llms.txt</div>
+        <div class="file-desc">Décrit ton site aux IA → ChatGPT te recommande</div>
+      </div>
+      <div class="file-icon">🤖</div>
+    </div>
+    <div class="file-row" style="animation-delay:.35s;">
+      <div class="file-num">2</div>
+      <div class="file-body">
+        <div class="file-name">markdown mirror</div>
+        <div class="file-desc">Version ultra clean de tes pages → IA comprend tout</div>
+      </div>
+      <div class="file-icon">🪞</div>
+    </div>
+    <div class="file-row" style="animation-delay:.55s;">
+      <div class="file-num">3</div>
+      <div class="file-body">
+        <div class="file-name">sitemap.xml</div>
+        <div class="file-desc">Dit à Google quelles pages comptent vraiment</div>
+      </div>
+      <div class="file-icon">🗺️</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — LLMS.TXT -->
+  <div class="slide" id="s2">
+    <div class="file-hero">
+      <span class="file-emoji">🤖</span>
+      <div class="file-title">llms.txt</div>
+      <div class="file-subtitle">Le passeport de ton site pour les IA</div>
+    </div>
+    <div class="explain-card">
+      <p>Décrit aux IA <strong>exactement ce que fait ton site.</strong><br>ChatGPT, Perplexity, Gemini — ils le lisent en premier.<br>Sans lui, ils passent à côté de toi.</p>
+    </div>
+    <div class="ai-logos">
+      <span class="ai-pill">ChatGPT ✅</span>
+      <span class="ai-pill">Perplexity ✅</span>
+      <span class="ai-pill">Gemini ✅</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — MARKDOWN MIRROR -->
+  <div class="slide" id="s3">
+    <div class="file-hero" style="margin-bottom:12px;">
+      <span class="file-emoji" style="font-size:40px;display:block;margin-bottom:6px;opacity:0;animation:badgePop .5s ease .1s forwards;">🪞</span>
+      <div class="file-title" style="font-size:20px;opacity:0;animation:fadeUp .4s ease .2s forwards;">Markdown Mirror</div>
+      <div class="file-subtitle" style="opacity:0;animation:fadeUp .4s ease .4s forwards;">Version ultra clean de tes pages</div>
+    </div>
+    <div class="mm-visual" style="opacity:0;animation:fadeUp .5s ease .5s forwards;">
+      <div class="mm-box mm-dirty">
+        <div class="mm-label">Ta page normale</div>
+        <div class="mm-content">
+          &lt;div class="hero"&gt;<br>
+          &lt;style&gt;...css...&lt;/style&gt;<br>
+          &lt;script&gt;analytics&lt;/script&gt;<br>
+          &lt;nav&gt;menu...&lt;/nav&gt;<br>
+          ← contenu noyé dans le code
+        </div>
+      </div>
+      <div class="mm-arrow">→</div>
+      <div class="mm-box mm-clean">
+        <div class="mm-label">Markdown Mirror</div>
+        <div class="mm-content" style="color:#aaa;">
+          # Titre principal<br>
+          <br>
+          Contenu clair.<br>
+          Structuré.<br>
+          <br>
+          ← IA comprend tout
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#555;text-align:center;opacity:0;animation:fadeUp .4s ease .9s forwards;">Les IA indexent ton contenu 10x mieux</div>
+  </div>
+
+  <!-- SLIDE 5 — SITEMAP -->
+  <div class="slide" id="s4">
+    <div class="file-hero" style="margin-bottom:12px;">
+      <span class="file-emoji" style="font-size:40px;display:block;margin-bottom:6px;opacity:0;animation:badgePop .5s ease .1s forwards;">🗺️</span>
+      <div class="file-title" style="font-size:20px;opacity:0;animation:fadeUp .4s ease .2s forwards;">sitemap.xml</div>
+      <div class="file-subtitle" style="opacity:0;animation:fadeUp .4s ease .4s forwards;">Google sait où regarder</div>
+    </div>
+    <div class="sitemap-wrap" style="opacity:0;animation:fadeUp .5s ease .5s forwards;">
+      <div class="site-node" style="animation-delay:.5s;">
+        <div class="site-dot dot-main"></div>
+        <div class="site-url active">monsite.fr/</div>
+        <div class="site-check">✅ priorité 1.0</div>
+      </div>
+      <div class="site-line" style="animation-delay:.6s;"></div>
+      <div class="site-node" style="animation-delay:.65s;padding-left:16px;">
+        <div class="site-dot dot-active"></div>
+        <div class="site-url active">monsite.fr/services</div>
+        <div class="site-check">✅ priorité 0.9</div>
+      </div>
+      <div class="site-line" style="animation-delay:.75s;margin-left:28px;"></div>
+      <div class="site-node" style="animation-delay:.8s;padding-left:16px;">
+        <div class="site-dot dot-page"></div>
+        <div class="site-url">monsite.fr/mentions-legales</div>
+        <div style="font-size:9px;color:#333;margin-left:auto;">0.1</div>
+      </div>
+    </div>
+    <div class="google-sees">
+      <span>Google sait exactement où indexer</span>
+      <small>Au lieu de deviner — et se tromper</small>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — CLAUDE GÉNÈRE TOUT EN 1 PROMPT -->
+  <div class="slide" id="s5">
+    <div style="font-size:13px;font-weight:800;color:#00e676;letter-spacing:1px;text-transform:uppercase;text-align:center;margin-bottom:12px;opacity:0;animation:fadeUp .3s ease .1s forwards;">⚡ 1 seul prompt Claude</div>
+    <div class="prompt-box">
+      <div class="prompt-label">💬 PROMPT</div>
+      <div class="prompt-text">"Génère-moi le llms.txt,<br>le markdown mirror et le sitemap.xml<br>pour mon site [URL].<br>Optimisés pour Google et les IA."<span class="prompt-cursor"></span></div>
+    </div>
+    <div class="output-row">
+      <div class="out-file">
+        <div class="out-name">llms.txt</div>
+        <div class="out-check">✅</div>
+      </div>
+      <div class="out-file">
+        <div class="out-name">markdown</div>
+        <div class="out-check">✅</div>
+      </div>
+      <div class="out-file">
+        <div class="out-name">sitemap.xml</div>
+        <div class="out-check">✅</div>
+      </div>
+    </div>
+    <div class="time-badge">
+      <span>⚡ Généré en 30 secondes</span>
+      <small>— Prêts à coller sur ton site</small>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — RÉSULTAT -->
+  <div class="slide" id="s6">
+    <div class="s7-title">Ce que ça change concrètement.</div>
+    <div class="result-wrap">
+      <div class="result-item" style="animation-delay:.15s;">
+        <div class="r-icon">🤖</div>
+        <div class="r-body">
+          <div class="r-title">Recommandé par les IA</div>
+          <div class="r-desc">ChatGPT, Perplexity, Gemini citent ton site</div>
+        </div>
+        <span class="r-badge badge-green">IA Ready</span>
+      </div>
+      <div class="result-item" style="animation-delay:.35s;">
+        <div class="r-icon">🔍</div>
+        <div class="r-body">
+          <div class="r-title">Indexé correctement par Google</div>
+          <div class="r-desc">Les bonnes pages, pas les mentions légales</div>
+        </div>
+        <span class="r-badge badge-green">SEO ✅</span>
+      </div>
+      <div class="result-item" style="animation-delay:.55s;">
+        <div class="r-icon">⚡</div>
+        <div class="r-body">
+          <div class="r-title">En 30 secondes avec Claude</div>
+          <div class="r-desc">Pas 10 000€ d'agence. 1 prompt.</div>
+        </div>
+        <span class="r-badge badge-fast">Gratuit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — CTA -->
+  <div class="slide" id="s7">
+    <div class="cta-emoji">🔍</div>
+    <div class="cta-title">Tu veux le prompt<br>à copier-coller<br>dans Claude ?</div>
+    <div class="cta-btn">💬 Commente &nbsp;<span class="cta-keyword">SEO</span></div>
+    <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:6px;">Je te l'envoie gratuitement</div>
+    <div class="cta-note">Powered by ManyChat • Réponse automatique</div>
+  </div>
+
+</div>
+
+<div class="progress"><div class="progress-fill" id="pf"></div></div>
+<div class="nav">
+  <button onclick="prev()">← Préc</button>
+  <button onclick="toggleAuto()" id="pauseBtn">⏸ Pause</button>
+  <button onclick="next()">Suiv →</button>
+</div>
+<div class="dots" id="dots"></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const N=slides.length;
+const pf=document.getElementById('pf');
+const pauseBtn=document.getElementById('pauseBtn');
+const DURATION=5000;
+let cur=0,fillStart=null,fillElapsed=0,autoTimer=null,paused=false;
+
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>go(i);
+  dotsEl.appendChild(d);
+});
+function updateDots(){dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+
+function resetSlide(slide){
+  slide.querySelectorAll('[style*="animation"]').forEach(el=>{
+    const a=el.style.animation;
+    el.style.animation='none';
+    el.style.opacity='0';
+    void el.offsetWidth;
+    el.style.animation=a;
+  });
+}
+
+function startFill(){
+  clearTimeout(autoTimer);
+  fillElapsed=0;fillStart=Date.now();
+  pf.style.transition='none';pf.style.width='0%';
+  void pf.offsetWidth;
+  pf.style.transition=`width ${DURATION}ms linear`;pf.style.width='100%';
+  autoTimer=setTimeout(()=>go(cur+1),DURATION);
+}
+
+function go(n){
+  slides[cur].classList.remove('active');
+  cur=(n+N)%N;
+  slides[cur].classList.add('active');
+  updateDots();
+  resetSlide(slides[cur]);
+  if(!paused)startFill();
+}
+
+function prev(){clearTimeout(autoTimer);go(cur-1);}
+function next(){clearTimeout(autoTimer);go(cur+1);}
+
+function toggleAuto(){
+  paused=!paused;
+  pauseBtn.textContent=paused?'▶ Play':'⏸ Pause';
+  if(paused){
+    clearTimeout(autoTimer);
+    pf.style.transition='none';
+    fillElapsed=Date.now()-fillStart;
+    pf.style.width=(fillElapsed/DURATION*100)+'%';
+  }else{
+    const rem=DURATION-fillElapsed;
+    fillStart=Date.now()-fillElapsed;
+    pf.style.transition=`width ${rem}ms linear`;
+    pf.style.width='100%';
+    autoTimer=setTimeout(()=>go(cur+1),rem);
+  }
+}
+
+startFill();
+</script>
+</body>
+</html>
