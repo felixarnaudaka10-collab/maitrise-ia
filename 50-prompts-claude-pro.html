@@ -90,6 +90,59 @@
     hr { border: none; border-top: 1px solid var(--border); margin: 48px 0 0; }
     footer { text-align: center; padding: 24px; color: var(--dim); font-size: 12px; }
     footer a { color: var(--dim); text-decoration: none; }
+
+    /* ===== PROMPTS OFFERTS (preuve de qualité) ===== */
+    .prompt-item.free { border-color: rgba(34,197,94,0.45); cursor: default; }
+    .free-badge { background: rgba(34,197,94,0.15); color: #4ade80; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 5px; flex-shrink: 0; white-space: nowrap; }
+    .free-block {
+      background: #0d0d20; border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 14px; padding: 20px; margin: 4px 0 12px;
+    }
+    .free-block-label { display: inline-flex; align-items: center; gap: 6px; color: #4ade80; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+    .free-block-text {
+      font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12.5px;
+      color: #e2e8f0; line-height: 1.75; white-space: pre-wrap;
+      background: #07071a; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px;
+    }
+    .free-block-text .ph { color: #94a3b8; font-style: italic; }
+    .btn-copy {
+      display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%;
+      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35);
+      color: #4ade80; font-size: 13px; font-weight: 700;
+      padding: 11px 16px; border-radius: 10px; cursor: pointer;
+      transition: all .15s; font-family: inherit;
+    }
+    .btn-copy:hover { background: rgba(34,197,94,0.22); }
+    .btn-copy.copied { background: var(--green); border-color: var(--green); color: #fff; }
+    .free-tip { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 12px; }
+    .free-tip strong { color: var(--purple-light); }
+
+    /* ===== PROMPTS VERROUILLÉS ===== */
+    .prompt-item.locked { cursor: pointer; flex-wrap: wrap; }
+    .locked-strip { display: flex; align-items: center; gap: 10px; width: 100%; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .locked-blur {
+      flex: 1; font-family: 'SF Mono','Menlo',monospace; font-size: 11px; color: #cbd5e1;
+      filter: blur(4.5px); user-select: none; white-space: nowrap; overflow: hidden;
+    }
+    .locked-tag { font-size: 11px; font-weight: 800; color: var(--purple-light); background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); padding: 3px 10px; border-radius: 6px; flex-shrink: 0; }
+
+    /* ===== BARRE STICKY ===== */
+    .sticky-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      background: rgba(10,10,26,0.96); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(124,58,237,0.4);
+      padding: 12px 16px; display: flex; align-items: center; justify-content: center; gap: 14px;
+      transform: translateY(110%); transition: transform .3s ease;
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+    .sticky-bar-text { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .sticky-bar-text strong { color: #fff; }
+    .sticky-bar-btn {
+      background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff;
+      font-size: 14px; font-weight: 800; padding: 12px 22px; border-radius: 10px;
+      text-decoration: none; white-space: nowrap; box-shadow: 0 4px 18px rgba(124,58,237,0.45);
+    }
+    @media (max-width: 560px) { .sticky-bar-text { display: none; } .sticky-bar-btn { width: 100%; text-align: center; } }
   </style>
 </head>
 <body>
@@ -104,7 +157,7 @@
 
 <div class="container">
   <div class="cover">
-    <div class="cover-badge"><div class="dot"></div> Bibliothèque vivante · Semaine du 14 avril 2026</div>
+    <div class="cover-badge"><div class="dot"></div> Bibliothèque vivante · Semaine du 1 juin 2026</div>
     <h1>L'<span>Arsenal Claude</span><br>Bibliothèque de Prompts</h1>
     <p class="cover-sub">Tous les prompts Claude testés et mis à jour chaque semaine. Organisés par outil, par métier, par situation.</p>
     <div class="cover-stats">
@@ -125,13 +178,33 @@
     <div class="section-badge">Prompts 01–10</div>
   </div>
   <div class="prompt-list">
-    <div class="prompt-item">
+    <div class="prompt-item free">
       <div class="prompt-num">01</div>
       <div class="prompt-info">
         <div class="prompt-name">Script Reel Instagram viral</div>
         <div class="prompt-use">Créer un script complet pour un Reel de 30-60 secondes</div>
       </div>
-      <div class="prompt-tag">📱 Contenu</div>
+      <div class="free-badge">✅ OFFERT</div>
+    </div>
+    <div class="free-block">
+      <div class="free-block-label">🎁 Prompt complet offert — la qualité de toute la bibliothèque</div>
+      <div class="free-block-text" id="free1">Tu es un scriptwriter spécialisé en Reels Instagram viraux.
+
+Mon activité : <span class="ph">[décris ton business]</span>
+Mon audience : <span class="ph">[qui te suit]</span>
+Le sujet du Reel : <span class="ph">[ton idée ou message principal]</span>
+
+Écris un script complet de Reel de 30 à 60 secondes :
+1. HOOK (0-3 sec) : 3 variantes de première phrase qui stoppent
+   le scroll (pattern interrupt, question choc, affirmation contre-intuitive)
+2. CORPS (3-45 sec) : le contenu découpé plan par plan,
+   avec les textes à l'écran (overlays) pour chaque plan
+3. CTA (45-60 sec) : une seule action claire à faire
+4. CAPTION : légende avec accroche + 5 hashtags de niche
+
+Règles : phrases de 8 mots max, une idée par plan, écris comme on parle.</div>
+      <button class="btn-copy" onclick="copyFree('free1', this)">📋 Copier le prompt</button>
+      <div class="free-tip"><strong>💡 Tip d'expert :</strong> tourne les 3 hooks et publie celui qui te met le moins à l'aise. C'est presque toujours lui qui performe le mieux.</div>
     </div>
     <div class="prompt-item">
       <div class="prompt-num">02</div>
@@ -233,13 +306,35 @@
       </div>
       <div class="prompt-tag">📧 Email</div>
     </div>
-    <div class="prompt-item">
+    <div class="prompt-item free">
       <div class="prompt-num">13</div>
       <div class="prompt-info">
         <div class="prompt-name">Email de relance client sans être lourd</div>
         <div class="prompt-use">Relancer un prospect ou un devis sans harceler</div>
       </div>
-      <div class="prompt-tag">📧 Email</div>
+      <div class="free-badge">✅ OFFERT</div>
+    </div>
+    <div class="free-block">
+      <div class="free-block-label">🎁 Prompt complet offert — la qualité de toute la bibliothèque</div>
+      <div class="free-block-text" id="free2">Tu es un expert en communication commerciale.
+
+Contexte : j'ai envoyé <span class="ph">[un devis / une proposition / un premier email]</span>
+à <span class="ph">[type de client]</span> il y a <span class="ph">[X jours]</span>. Pas de réponse.
+Notre dernier échange : <span class="ph">[colle le dernier message ou résume]</span>
+
+Rédige 3 emails de relance différents :
+1. La relance "valeur ajoutée" : j'apporte une info utile
+   en lien avec son besoin
+2. La relance "question simple" : une seule question,
+   réponse possible en 10 secondes
+3. La relance "porte de sortie" : je lui permets de dire non
+   sans gêne, et de garder la relation
+
+Règles : 4 phrases max par email, aucune formule de pression
+("dernière chance", "urgent"), objet d'email inclus pour chacun.
+Ton souhaité : <span class="ph">[professionnel / chaleureux / direct]</span></div>
+      <button class="btn-copy" onclick="copyFree('free2', this)">📋 Copier le prompt</button>
+      <div class="free-tip"><strong>💡 Tip d'expert :</strong> l'email 3 (porte de sortie) a souvent le meilleur taux de réponse. Retirer la pression, c'est ce qui fait répondre les gens.</div>
     </div>
     <div class="prompt-item">
       <div class="prompt-num">14</div>
@@ -353,7 +448,28 @@
     <div class="section-badge">Prompts 41–50</div>
   </div>
   <div class="prompt-list">
-    <div class="prompt-item"><div class="prompt-num">41</div><div class="prompt-info"><div class="prompt-name">Créer un agent IA conversationnel</div><div class="prompt-use">Construire le system prompt d'un agent Claude sur mesure</div></div><div class="prompt-tag">🤖 Agent</div></div>
+    <div class="prompt-item free"><div class="prompt-num">41</div><div class="prompt-info"><div class="prompt-name">Créer un agent IA conversationnel</div><div class="prompt-use">Construire le system prompt d'un agent Claude sur mesure</div></div><div class="free-badge">✅ OFFERT</div></div>
+    <div class="free-block">
+      <div class="free-block-label">🎁 Prompt complet offert — la qualité de toute la bibliothèque</div>
+      <div class="free-block-text" id="free3">Tu es un architecte d'agents IA.
+
+Je veux créer un agent Claude pour : <span class="ph">[décris la mission de l'agent]</span>
+Ses utilisateurs : <span class="ph">[qui va lui parler]</span>
+Ce qu'il doit toujours faire : <span class="ph">[règles obligatoires]</span>
+Ce qu'il ne doit jamais faire : <span class="ph">[limites]</span>
+
+Construis le system prompt complet de cet agent :
+1. RÔLE : identité et expertise de l'agent en 2 phrases
+2. CONTEXTE : ce qu'il sait de l'entreprise et des utilisateurs
+3. INSTRUCTIONS : son process étape par étape pour chaque demande
+4. RÈGLES : les obligations et interdictions formelles
+5. TON : comment il s'exprime, avec 2 exemples de réponse type
+6. CAS LIMITES : quoi faire quand il ne sait pas répondre
+
+Puis pose-moi 3 questions pour affiner avant la version finale.</div>
+      <button class="btn-copy" onclick="copyFree('free3', this)">📋 Copier le prompt</button>
+      <div class="free-tip"><strong>💡 Tip d'expert :</strong> la section 6 fait la différence entre un agent pro et un gadget. Un agent qui sait dire "je ne sais pas" inspire confiance et évite les erreurs coûteuses.</div>
+    </div>
     <div class="prompt-item"><div class="prompt-num">42</div><div class="prompt-info"><div class="prompt-name">Agent IA de qualification prospects</div><div class="prompt-use">Automatiser la première étape de qualification client</div></div><div class="prompt-tag">🤖 Agent</div></div>
     <div class="prompt-item"><div class="prompt-num">43</div><div class="prompt-info"><div class="prompt-name">Workflow d'automatisation Make/n8n</div><div class="prompt-use">Concevoir un workflow d'automatisation sans code</div></div><div class="prompt-tag">⚙️ Workflow</div></div>
     <div class="prompt-item"><div class="prompt-num">44</div><div class="prompt-info"><div class="prompt-name">System prompt agent commercial</div><div class="prompt-use">Créer un agent qui aide à vendre naturellement</div></div><div class="prompt-tag">🤖 Agent</div></div>
@@ -379,5 +495,57 @@
     © 2026 Maîtrise IA · <a href="index.html">Accueil</a> · <a href="prompts.html">L'Arsenal Claude</a> · @monsieur.ia.2.1
   </footer>
 </div>
+
+<!-- BARRE STICKY -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-text"><strong>3 prompts offerts</strong> sur cette page · 50+ dans la bibliothèque</div>
+  <a href="prompts.html" class="sticky-bar-btn">🔓 Débloquer les 50+ — 27€</a>
+</div>
+
+<script>
+  // Verrouillage visuel des prompts non offerts
+  const lockSnippets = [
+    'Tu es un expert en strategie de contenu. Contexte : mon business est… Objectif : generer… Regles : commence par analyser…',
+    'Tu es un copywriter senior. Mon offre : … Ma cible : … Structure ta reponse en 5 parties : accroche, probleme…',
+    'Tu es un consultant business. Analyse les donnees suivantes : … Identifie les 3 leviers prioritaires puis…',
+    'Tu es un assistant de direction. Voici mes taches : … Classe-les selon urgence/impact, puis propose…',
+    'Tu es un architecte d automatisation. Mon process actuel : … Concois le workflow complet avec…'
+  ];
+  document.querySelectorAll('.prompt-item:not(.free)').forEach((item, i) => {
+    item.classList.add('locked');
+    const strip = document.createElement('div');
+    strip.className = 'locked-strip';
+    strip.innerHTML = '<span class="locked-blur">' + lockSnippets[i % lockSnippets.length] + '</span><span class="locked-tag">🔒 Membres</span>';
+    item.appendChild(strip);
+    item.addEventListener('click', () => { window.location = 'prompts.html'; });
+  });
+
+  // Barre sticky après scroll
+  const bar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', () => {
+    bar.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+
+  // Copie des prompts offerts
+  function copyFree(id, btn) {
+    const text = document.getElementById(id).innerText;
+    const done = () => {
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '✓ Copié !';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (_) {}
+    document.body.removeChild(ta);
+  }
+</script>
 </body>
 </html>
