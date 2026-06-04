@@ -208,8 +208,8 @@
     }
     .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
 
-    /* 70 Spécialistes IA box */
-    .specialistes-box {
+    /* Arsenal Claude box */
+    .arsenal-box {
       background: #0a0a0f;
       border: 1px solid rgba(201,168,76,.3);
       border-radius: 20px;
@@ -218,35 +218,39 @@
       position: relative;
       overflow: hidden;
     }
-    .specialistes-glow {
+    .arsenal-glow {
       position: absolute; top: -40px; right: -40px;
       width: 160px; height: 160px; border-radius: 50%;
       background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
       pointer-events: none;
     }
-    .specialistes-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
-      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    .arsenal-live {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,59,48,.12); border: 1px solid rgba(255,59,48,.3);
+      color: #ff6b61; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
       padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
     }
-    .specialistes-stars { color: #C9A84C; font-size: 13px; margin-bottom: 4px; }
-    .specialistes-rating { font-size: 11px; color: rgba(255,255,255,.4); margin-bottom: 14px; }
-    .specialistes-title {
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff3b30; animation: liveBlink 1.4s ease-in-out infinite; }
+    @keyframes liveBlink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+    .arsenal-title {
       font-size: 21px; font-weight: 900; color: #fff; line-height: 1.2;
       margin-bottom: 10px; letter-spacing: -0.5px;
     }
-    .specialistes-title em { font-style: normal; color: #E2C66B; }
-    .specialistes-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
-    .specialistes-desc strong { color: rgba(255,255,255,.85); }
-    .specialistes-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
-    .specialistes-item {
+    .arsenal-title em { font-style: normal; color: #E2C66B; }
+    .arsenal-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .arsenal-desc strong { color: rgba(255,255,255,.85); }
+    .arsenal-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+    .arsenal-stat {
       background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.15);
-      border-radius: 10px; padding: 10px 12px;
+      border-radius: 10px; padding: 10px 6px; text-align: center;
     }
-    .specialistes-item-icon { font-size: 16px; margin-bottom: 4px; }
-    .specialistes-item-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); }
-    .btn-specialistes {
+    .arsenal-stat-num { font-size: 18px; font-weight: 900; color: #E2C66B; }
+    .arsenal-stat-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.5); margin-top: 2px; }
+    .arsenal-price-row { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 14px; }
+    .arsenal-price-old { font-size: 14px; color: rgba(255,255,255,.35); text-decoration: line-through; font-weight: 700; }
+    .arsenal-price { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .arsenal-price-note { font-size: 11px; color: rgba(255,255,255,.4); font-weight: 600; }
+    .btn-arsenal {
       display: block; width: 100%; padding: 16px;
       background: #C9A84C; color: #fff;
       font-size: 15px; font-weight: 800; border-radius: 14px;
@@ -256,37 +260,39 @@
       box-shadow: 0 4px 20px rgba(201,168,76,.35);
       animation: pulseGlow 2.4s ease-in-out infinite;
     }
-    .btn-specialistes:hover { background: #A68A3E; transform: translateY(-1px); }
+    .btn-arsenal:hover { background: #A68A3E; transform: translateY(-1px); }
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 4px 20px rgba(201,168,76,.35); }
       50% { box-shadow: 0 4px 32px rgba(201,168,76,.65); }
     }
-    .specialistes-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
+    .arsenal-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
 
-    /* Skool box */
-    .skool-box { background: #0a0f0a; border: 1px solid rgba(74,197,94,.25); border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
-    .skool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,197,94,.12); border: 1px solid rgba(74,197,94,.25); color: #4ac55e; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .skool-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
-    .skool-title em { font-style: normal; color: #4ac55e; }
-    .skool-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
-    .skool-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-    .skool-check { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 600; }
-    .btn-skool { display: block; width: 100%; padding: 15px; background: #4ac55e; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
-    .btn-skool:hover { background: #3aad4d; }
-    .skool-note { font-size: 12px; color: #6b7280; text-align: center; }
-
-    /* Audit box */
-    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
-    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .audit-title { font-size: 20px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
-    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
-    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
-    .btn-audit:hover { background: #333; }
-    .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; }
-    .btn-whatsapp:hover { background: #1da851; }
-
-    .btn-secondary { display: block; width: 100%; padding: 13px; background: transparent; color: #1d1d1f; font-size: 14px; font-weight: 600; border: 1.5px solid #e5e5e5; border-radius: 12px; text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
-    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
+    /* CTA stack standard */
+    .cta-stack { display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; }
+    .cta-row {
+      display: flex; align-items: center; gap: 14px;
+      border-radius: 18px; padding: 18px 16px;
+      text-decoration: none; text-align: left;
+      transition: transform 0.15s, border-color 0.2s;
+    }
+    .cta-row:hover { transform: translateY(-1px); }
+    .cta-row-icon { font-size: 26px; flex-shrink: 0; }
+    .cta-row-body { flex: 1; }
+    .cta-row-title { font-size: 15px; font-weight: 800; line-height: 1.25; margin-bottom: 4px; }
+    .cta-row-desc { font-size: 12px; line-height: 1.55; }
+    .cta-row-arrow { font-size: 20px; font-weight: 700; flex-shrink: 0; }
+    .cta-auto { background: #0a0f0a; border: 1px solid rgba(74,197,94,.3); }
+    .cta-auto .cta-row-title { color: #4ac55e; }
+    .cta-auto .cta-row-desc { color: rgba(255,255,255,.55); }
+    .cta-auto .cta-row-arrow { color: #4ac55e; }
+    .cta-formation { background: #101014; border: 1px solid rgba(255,255,255,.1); }
+    .cta-formation .cta-row-title { color: #fff; }
+    .cta-formation .cta-row-desc { color: rgba(255,255,255,.5); }
+    .cta-formation .cta-row-arrow { color: rgba(255,255,255,.4); }
+    .cta-ig { background: #101014; border: 1px solid rgba(255,255,255,.08); }
+    .cta-ig .cta-row-title { color: rgba(255,255,255,.85); }
+    .cta-ig .cta-row-desc { color: rgba(255,255,255,.45); }
+    .cta-ig .cta-row-arrow { color: rgba(255,255,255,.35); }
 
     .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
   </style>
@@ -447,60 +453,66 @@ Garde exactement la même direction artistique sur tout le pack.</div>
 
     <div class="divider">Tu veux aller plus loin ?</div>
 
-    <!-- 70 Spécialistes IA -->
-    <div class="specialistes-box">
-      <div class="specialistes-glow"></div>
-      <div class="specialistes-badge">⭐ L'ARME SECRÈTE</div>
-      <div class="specialistes-stars">★★★★★</div>
-      <div class="specialistes-rating">4.9 · Entrepreneurs francophones</div>
-      <div class="specialistes-title">Higgsfield te donne les vidéos.<br><em>Eux, ils gèrent tout le reste.</em></div>
-      <div class="specialistes-desc"><strong>70 experts autonomes</strong> à installer dans Claude une seule fois. Copywriter, stratège, closer, expert Instagram... Tu leur donnes l'objectif, ils posent les bonnes questions et exécutent le workflow complet — pendant que toi, tu te concentres sur ce qui rapporte. <strong>Sans eux, tu utilises Claude à 10% de sa puissance.</strong></div>
-      <div class="specialistes-grid">
-        <div class="specialistes-item">
-          <div class="specialistes-item-icon">✍️</div>
-          <div class="specialistes-item-label">Copywriter qui vend</div>
+    <!-- L'Arsenal Claude — bibliothèque de prompts -->
+    <div class="arsenal-box">
+      <div class="arsenal-glow"></div>
+      <div class="arsenal-live"><span class="live-dot"></span> LIVE · +5 prompts ajoutés cette semaine</div>
+      <div class="arsenal-title">Ce prompt Higgsfield ?<br><em>Il y en a 50+ comme ça dedans.</em></div>
+      <div class="arsenal-desc">L'Arsenal Claude : la <strong>bibliothèque vivante</strong> de prompts testés sur de vrais business. Claude Code, Cowork, agents IA, ton secteur d'activité... <strong>De nouveaux prompts chaque semaine, à vie</strong>, pendant que les packs PDF des autres prennent la poussière. Tu paies une fois. Elle grossit pour toujours.</div>
+      <div class="arsenal-stats">
+        <div class="arsenal-stat">
+          <div class="arsenal-stat-num">50+</div>
+          <div class="arsenal-stat-label">prompts testés</div>
         </div>
-        <div class="specialistes-item">
-          <div class="specialistes-item-icon">🎯</div>
-          <div class="specialistes-item-label">Stratège business</div>
+        <div class="arsenal-stat">
+          <div class="arsenal-stat-num">+5</div>
+          <div class="arsenal-stat-label">chaque semaine</div>
         </div>
-        <div class="specialistes-item">
-          <div class="specialistes-item-icon">📱</div>
-          <div class="specialistes-item-label">Expert réseaux sociaux</div>
-        </div>
-        <div class="specialistes-item">
-          <div class="specialistes-item-icon">💰</div>
-          <div class="specialistes-item-label">Closer & vente</div>
+        <div class="arsenal-stat">
+          <div class="arsenal-stat-num">∞</div>
+          <div class="arsenal-stat-label">accès à vie</div>
         </div>
       </div>
-      <a href="https://70-specialistes-ia.netlify.app" target="_blank" class="btn-specialistes">Je veux mon équipe de 70 experts →</a>
-      <div class="specialistes-note">Un paiement unique · Pas d'abonnement · Installés en 5 minutes</div>
-    </div>
-
-    <!-- Skool community -->
-    <div class="skool-box">
-      <div class="skool-badge">🟢 COMMUNAUTÉ GRATUITE</div>
-      <div class="skool-title">Rejoins le <em>Claude Business Lab</em></div>
-      <div class="skool-desc">Une communauté d'entrepreneurs qui intègrent Claude dans leur business. On partage nos réussites, nos workflows, nos astuces. Je poste des tutos et des vidéos de formation en accès direct.</div>
-      <div class="skool-checks">
-        <div class="skool-check">✓ Workflows concrets partagés chaque semaine</div>
-        <div class="skool-check">✓ Vidéos de formation exclusives</div>
-        <div class="skool-check">✓ Entraide entre entrepreneurs qui avancent</div>
+      <div class="arsenal-price-row">
+        <span class="arsenal-price-old">97€</span>
+        <span class="arsenal-price">27€</span>
+        <span class="arsenal-price-note">une seule fois</span>
       </div>
-      <a href="https://www.skool.com/claude-business-lab-5890" target="_blank" class="btn-skool">Rejoindre la communauté gratuite →</a>
-      <div class="skool-note">Accès gratuit · Communauté privée · Arnaud présent</div>
+      <a href="https://maitrise-ia.vercel.app/prompts" target="_blank" class="btn-arsenal">Je débloque l'Arsenal à 27€ →</a>
+      <div class="arsenal-note">Paiement unique · Accès immédiat · Le prix passe à 97€ quand la bibliothèque double</div>
     </div>
 
-    <!-- Audit box -->
-    <div class="audit-box">
-      <div class="audit-badge">⚡ ON AUTOMATISE TOUTE TA BOÎTE</div>
-      <div class="audit-title">Tes process. Ton contenu. Ta prospection.</div>
-      <div class="audit-desc">Tu passes encore des heures sur des tâches que Claude pourrait faire en 2 minutes ? On cartographie ensemble ce qui peut être automatisé dans ton business, et on met ça en place.</div>
-      <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-audit">📞 Réserver un audit gratuit →</a>
-      <a href="https://wa.me/33786940245" target="_blank" class="btn-whatsapp">💬 Me contacter sur WhatsApp</a>
-    </div>
+    <!-- CTA structure standard -->
+    <div class="cta-stack">
 
-    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="cta-row cta-auto">
+        <div class="cta-row-icon">⚡</div>
+        <div class="cta-row-body">
+          <div class="cta-row-title">J'automatise ma boîte</div>
+          <div class="cta-row-desc">On installe des systèmes IA qui automatisent ta boîte. Devis, relances, reporting, process... tu te concentres sur ton cœur de métier.</div>
+        </div>
+        <div class="cta-row-arrow">›</div>
+      </a>
+
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="cta-row cta-formation">
+        <div class="cta-row-icon">🎓</div>
+        <div class="cta-row-body">
+          <div class="cta-row-title">Former mon entreprise à l'IA</div>
+          <div class="cta-row-desc">Arnaud intervient dans tes locaux. Workshops pratiques, audit de tes process, outils IA adaptés à ton secteur. Appel découverte gratuit.</div>
+        </div>
+        <div class="cta-row-arrow">›</div>
+      </a>
+
+      <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="cta-row cta-ig">
+        <div class="cta-row-icon">📲</div>
+        <div class="cta-row-body">
+          <div class="cta-row-title">@monsieur.ia.2.1 sur Instagram</div>
+          <div class="cta-row-desc">Tips Claude quotidiens · Nouveautés Anthropic · Smart Money</div>
+        </div>
+        <div class="cta-row-arrow">›</div>
+      </a>
+
+    </div>
 
     <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
   </div>
