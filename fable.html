@@ -156,6 +156,32 @@
 
   footer { text-align:center; padding:50px 0 36px; color:#6d28d9; font-size:13.5px; }
   footer a { color:var(--violet2); text-decoration:none; }
+
+  /* ===== 3 CTA STANDARDS ===== */
+  .ctabar {
+    display:block; text-decoration:none; text-align:center;
+    border-radius:22px; padding:26px 24px; margin-top:16px;
+    transition:transform .25s, box-shadow .25s, filter .25s;
+  }
+  .ctabar:hover { transform:translateY(-5px) scale(1.015); filter:brightness(1.07); }
+  .ctalabel { font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; opacity:.75; margin-bottom:6px; }
+  .ctatitle { font-size:clamp(19px,4vw,25px); font-weight:900; line-height:1.2; }
+  .ctasub { font-size:15px; font-weight:600; opacity:.85; margin-top:5px; }
+  .ctabar.gold {
+    background:linear-gradient(135deg,#e3c462,#caa53d); color:#1a1407;
+    box-shadow:0 12px 50px #caa53d44;
+  }
+  .ctabar.gold .ctalabel { color:#5c4a12; }
+  .ctabar.green {
+    background:linear-gradient(135deg,#0bb35c,#079e63); color:#fff;
+    box-shadow:0 12px 50px #0bb35c44;
+  }
+  .ctabar.green .ctalabel { color:#bff3d8; }
+  .ctabar.black {
+    background:linear-gradient(135deg,#1d2026,#101216); color:#fff;
+    border:1px solid #ffffff22; box-shadow:0 12px 50px #00000088;
+  }
+  .ctabar.black .ctalabel { color:#9aa3b2; }
 </style>
 </head>
 <body>
@@ -225,22 +251,28 @@
     </div>
   </section>
 
-  <!-- CTA SKOOL -->
-  <section class="reveal">
-    <div class="ctabox">
-      <div class="tag" style="border-color:var(--violet2);">🎁 La suite — gratuite</div>
-      <h2>Va plus loin avec la communauté <span class="v">Claude Business Lab</span></h2>
-      <p>Mes guides complets, mes prompts, les nouveautés Claude décryptées chaque semaine — et une communauté d'entrepreneurs qui utilisent Claude tous les jours. Accès 100% gratuit.</p>
-      <a class="btn" href="https://www.skool.com/claude-business-lab-5890" target="_blank">🚀 Rejoindre gratuitement</a>
-      <p class="mini">Déjà des dizaines d'entrepreneurs francophones · 0€ · 2 clics</p>
-    </div>
-  </section>
+  <!-- LES 3 CTA STANDARDS -->
+  <section class="reveal" style="padding-top:24px;">
+    <div class="tag">La suite</div>
+    <h2>Passe à la <span class="v">vitesse supérieure</span></h2>
 
-  <!-- CTA CALENDLY -->
-  <section class="reveal" style="text-align:center; padding-top:10px;">
-    <h2 style="font-size:24px;">Tu veux que Claude bosse <span class="v">pour ton entreprise</span> ?</h2>
-    <p class="body" style="margin-bottom:22px;">Je mets en place des automatisations IA sur mesure pour les TPE/PME. On en parle 30 minutes, gratuitement.</p>
-    <a class="btn ghost" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">📅 Réserver un appel gratuit</a>
+    <a class="ctabar gold" href="https://www.maitrise-ia.pro/prompts" target="_blank">
+      <div class="ctalabel">⚡ Accès immédiat</div>
+      <div class="ctatitle">50 prompts Claude prêts à l'emploi →</div>
+      <div class="ctasub">Contenu · Prospection · SEO · Analyse — 50€</div>
+    </a>
+
+    <a class="ctabar green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">
+      <div class="ctalabel">📞 Appel stratégique</div>
+      <div class="ctatitle">J'automatise ma boîte avec Claude →</div>
+      <div class="ctasub">Réserve 30 min — Gratuit</div>
+    </a>
+
+    <a class="ctabar black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">
+      <div class="ctalabel">🏢 Formation entreprise</div>
+      <div class="ctatitle">Former mon équipe à l'IA →</div>
+      <div class="ctasub">Atelier sur mesure — Réserve un appel</div>
+    </a>
   </section>
 
   <footer>
