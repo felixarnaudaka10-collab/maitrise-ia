@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Les 5 skills Claude à installer en premier (Monsieur IA)</title>
+<meta name="description" content="Les 5 meilleurs skills Claude pour débutants + le hack pour que Claude installe les meilleurs skills tout seul. Liens GitHub officiels."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+
+.hero{text-align:center;padding:60px 20px 38px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+
+section{margin:46px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+
+.skill{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:14px;position:relative;overflow:hidden;}
+.skill::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,var(--violet),var(--violet2));}
+.skill .head{display:flex;align-items:center;gap:12px;}
+.skill .n{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.skill .e{font-size:24px;}
+.skill h3{font-size:19px;font-weight:900;}
+.skill .what{font-size:14px;color:var(--mut);margin-top:10px;}
+.skill .boost{display:inline-block;margin-top:12px;background:linear-gradient(90deg,rgba(124,58,237,.2),rgba(168,85,247,.12));border:1px solid #3a2c63;border-radius:30px;padding:7px 15px;font-size:13px;font-weight:800;color:#efe2ff;}
+.skill .gh{display:inline-flex;align-items:center;gap:6px;margin-top:14px;margin-left:10px;font-size:13px;font-weight:700;color:var(--violet3);}
+.skill .gh:hover{text-decoration:underline;}
+
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.note.warn{background:rgba(230,184,0,.08);border-color:var(--or);}.note.warn b{color:var(--or);}
+
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code pre{padding:14px 16px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.55;color:#d6c9f5;white-space:pre-wrap;}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;}.r{background:#ff5f56;}.y{background:#ffbd2e;}.g{background:#27c93f;}
+
+.step{display:flex;gap:16px;margin-bottom:18px;}
+.step-n{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.step-body h4{font-size:16px;font-weight:800;margin-bottom:4px;}
+.step-body p{color:var(--mut);font-size:14px;}
+
+.cta-section{margin:54px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:29px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">⚡ Skills Claude</span>
+  <div class="wrap">
+    <h1>Les <span class="hl">5 skills Claude</span> à installer en premier.</h1>
+    <p>Tout le monde te dit d'installer des skills. Personne te dit lesquels. Voilà les 5 (avec les vrais liens GitHub) + le hack pour que Claude choisisse les meilleurs à ta place.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>Je t'aide à automatiser & vendre avec l'IA</span></div></div>
+    <p>Un skill = un dossier d'instructions que Claude charge pour mieux faire une tâche précise. En voici 5 que j'installerais en premier si je débutais. Tous open-source.</p>
+  </div>
+
+  <!-- LES 5 SKILLS -->
+  <section>
+    <span class="tag">Les 5 skills</span>
+    <h2>🧰 À installer en premier</h2>
+
+    <div class="skill">
+      <div class="head"><div class="n">1</div><div class="e">📣</div><h3>Marketing Skills Library</h3></div>
+      <p class="what">Plus de 40 skills marketing en un : copywriting, CRO, SEO, analytics, growth. La boîte à outils de Corey Haines.</p>
+      <span class="boost">👉 Deviens redoutable en marketing, sans agence</span>
+      <a class="gh" href="https://github.com/coreyhaines31/marketingskills" target="_blank" rel="noopener">⭐ github.com/coreyhaines31/marketingskills</a>
+    </div>
+
+    <div class="skill">
+      <div class="head"><div class="n">2</div><div class="e">🎨</div><h3>Web Asset Generator</h3></div>
+      <p class="what">Transforme du texte, un logo ou un emoji en visuels : favicons, icônes d'app, images Open Graph pour les réseaux.</p>
+      <span class="boost">👉 Des visuels pros, sans Canva ni designer</span>
+      <a class="gh" href="https://github.com/alonw0/web-asset-generator" target="_blank" rel="noopener">⭐ github.com/alonw0/web-asset-generator</a>
+    </div>
+
+    <div class="skill">
+      <div class="head"><div class="n">3</div><div class="e">🧩</div><h3>Jobs To Be Done</h3></div>
+      <p class="what">Décompose chaque tâche en besoins fonctionnels, émotionnels et sociaux (méthode Clayton Christensen).</p>
+      <span class="boost">👉 Trouve des angles que tes concurrents n'ont pas</span>
+      <a class="gh" href="https://github.com/wondelai/skills" target="_blank" rel="noopener">⭐ github.com/wondelai/skills</a>
+    </div>
+
+    <div class="skill">
+      <div class="head"><div class="n">4</div><div class="e">👨‍💻</div><h3>Explain Code</h3></div>
+      <p class="what">Explique le code avec des analogies du quotidien, des diagrammes ASCII et un pas-à-pas. Le must si tu débutes. <i>(Skill communautaire — pas officiel Anthropic.)</i></p>
+      <span class="boost">👉 Comprends le code même en partant de zéro</span>
+      <a class="gh" href="https://github.com/topics/claude-skills" target="_blank" rel="noopener">⭐ Cherche "explain code" sur GitHub</a>
+    </div>
+
+    <div class="skill">
+      <div class="head"><div class="n">5</div><div class="e">🔍</div><h3>Deep Research</h3></div>
+      <p class="what">Lance un 2e Claude en arrière-plan comme agent d'exploration : il fouille en contexte séparé, sans polluer ta conversation, et te livre une synthèse.</p>
+      <span class="boost">👉 Une recherche de fond pendant que tu bosses</span>
+      <a class="gh" href="https://github.com/199-biotechnologies/claude-deep-research-skill" target="_blank" rel="noopener">⭐ github.com/199-biotechnologies/claude-deep-research-skill</a>
+    </div>
+  </section>
+
+  <!-- LE HACK -->
+  <section>
+    <span class="tag">Le hack secret</span>
+    <h2>🧠 Laisse Claude installer les meilleurs skills</h2>
+    <p class="lead">Au lieu de chercher des heures, tu donnes à Claude la page officielle des skills et tu le laisses choisir pour toi.</p>
+
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Copie l'URL du repo officiel Anthropic</h4>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">repo officiel</span><button class="copy" data-c="https://github.com/anthropics/skills">Copier</button></div><pre>https://github.com/anthropics/skills</pre></div></div></div>
+
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Colle-la dans Claude Code avec ce prompt</h4>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt</span><button class="copy" data-c="Voici le repo officiel des skills Claude : https://github.com/anthropics/skills . En te basant sur ce que tu sais de moi et de mon activité, trouve les skills les plus utiles pour moi, explique pourquoi, et installe-les.">Copier</button></div><pre>Voici le repo officiel des skills Claude :
+https://github.com/anthropics/skills
+
+En te basant sur ce que tu sais de moi et de mon
+activité, trouve les skills les plus utiles pour moi,
+explique pourquoi, et installe-les.</pre></div></div></div>
+
+    <div class="note">💡 Astuce : plus Claude te connaît (Projet avec ton contexte, CLAUDE.md…), plus ses recommandations sont pertinentes. Tu peux aussi parcourir des listes comme <a href="https://github.com/travisvn/awesome-claude-skills" target="_blank" rel="noopener">awesome-claude-skills</a>.</div>
+  </section>
+
+  <!-- COMMENT INSTALLER -->
+  <section>
+    <span class="tag">Rappel</span>
+    <h2>⚙️ Installer un skill, vite fait</h2>
+    <div class="step"><div class="step-n">A</div><div class="step-body"><h4>Le plus simple</h4><p>Dans Claude Code : donne le lien GitHub du skill et demande « installe ce skill ». Il s'en occupe.</p></div></div>
+    <div class="step"><div class="step-n">B</div><div class="step-body"><h4>À la main</h4><p>Récupère le dossier du skill (avec son <code>SKILL.md</code>) et place-le dans ton dossier <code>skills/</code>. Relance Claude.</p></div></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Pour aller plus loin 👇</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — Les 5 skills Claude · Tous les skills cités sont open-source sur GitHub.</div></div>
+
+<div class="copied" id="copied">✅ Copié !</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){
+      b.textContent='Copié ✓';var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier';c.classList.remove('show');},1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
