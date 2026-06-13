@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Claude Code = une équipe de 6 développeurs (Monsieur IA)</title>
+<meta name="description" content="6 outils qui transforment Claude Code en équipe de dev complète : Superpowers, Frontend Design, Code Review, Security Review, claude-mem, gstack. Liens GitHub."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+.hero{text-align:center;padding:60px 20px 38px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+section{margin:46px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:14px;position:relative;overflow:hidden;}
+.tool::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,var(--violet),var(--violet2));}
+.tool .head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.tool .n{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tool .e{font-size:24px;}
+.tool h3{font-size:19px;font-weight:900;}
+.tool .star{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;background:rgba(124,58,237,.18);color:var(--violet3);}
+.tool .star.off{background:rgba(16,185,129,.15);color:var(--vert);}
+.tool .what{font-size:14px;color:var(--mut);margin-top:10px;}
+.tool .boost{display:inline-block;margin-top:12px;background:linear-gradient(90deg,rgba(124,58,237,.2),rgba(168,85,247,.12));border:1px solid #3a2c63;border-radius:30px;padding:7px 15px;font-size:13px;font-weight:800;color:#efe2ff;}
+.tool .gh{display:inline-flex;align-items:center;gap:6px;margin-top:14px;margin-left:10px;font-size:13px;font-weight:700;color:var(--violet3);}
+.tool .gh:hover{text-decoration:underline;}
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.cta-section{margin:54px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:28px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">🧑‍💻 Claude Code</span>
+  <div class="wrap">
+    <h1>Transforme Claude Code en <span class="hl">équipe de 6 développeurs</span>.</h1>
+    <p>6 outils open-source qui font de Claude un vrai studio de dev : il planifie, teste, relit, sécurise, se souvient — et joue tous les rôles d'une équipe. Avec les liens GitHub.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>Je t'aide à automatiser & vendre avec l'IA</span></div></div>
+    <p>Tu viens de voir la vidéo. Voici les 6 outils, ce qu'ils font, ce que ça t'apporte, et le lien GitHub de chacun. Tous installables dans Claude Code.</p>
+  </div>
+
+  <section>
+    <span class="tag">Les 6 outils</span>
+    <h2>👥 Ton équipe dans Claude Code</h2>
+
+    <div class="tool">
+      <div class="head"><div class="n">1</div><div class="e">⚡</div><h3>Superpowers</h3><span class="star">⭐ ~170k</span></div>
+      <p class="what">Claude arrête de coder au hasard : il planifie, écrit les tests, et relit son propre code avant toute modif (méthode TDD + sous-agents).</p>
+      <span class="boost">👉 Fini le code bâclé qui casse tout</span>
+      <a class="gh" href="https://github.com/obra/superpowers" target="_blank" rel="noopener">⭐ github.com/obra/superpowers</a>
+    </div>
+
+    <div class="tool">
+      <div class="head"><div class="n">2</div><div class="e">🎨</div><h3>Frontend Design</h3><span class="star off">Officiel Anthropic</span></div>
+      <p class="what">Un front prêt pour la prod dès le premier essai, fini les designs IA génériques.</p>
+      <span class="boost">👉 Un vrai design, pas du "fait par une IA"</span>
+      <a class="gh" href="https://github.com/anthropics/skills/tree/main/skills/frontend-design" target="_blank" rel="noopener">⭐ anthropics/skills · frontend-design</a>
+    </div>
+
+    <div class="tool">
+      <div class="head"><div class="n">3</div><div class="e">🔍</div><h3>Code Review</h3><span class="star off">Officiel Anthropic</span></div>
+      <p class="what">Des agents en parallèle : bugs, conventions de code, historique Git — tout est passé en revue avant de merger.</p>
+      <span class="boost">👉 Tes bugs repérés avant toi</span>
+      <a class="gh" href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">⭐ anthropics/claude-code · code-review</a>
+    </div>
+
+    <div class="tool">
+      <div class="head"><div class="n">4</div><div class="e">🛡️</div><h3>Security Review</h3><span class="star off">Officiel Anthropic</span></div>
+      <p class="what">Scanne toute ta base de code pour détecter les failles de sécurité avant la mise en production (commande <code>/security-review</code>).</p>
+      <span class="boost">👉 Tu déploies sans avoir la trouille</span>
+      <a class="gh" href="https://github.com/anthropics/claude-code-security-review" target="_blank" rel="noopener">⭐ anthropics/claude-code-security-review</a>
+    </div>
+
+    <div class="tool">
+      <div class="head"><div class="n">5</div><div class="e">🧠</div><h3>claude-mem</h3><span class="star">⭐ ~46k</span></div>
+      <p class="what">Claude retient le contexte de ton projet entre les sessions — plus besoin de réexpliquer.</p>
+      <span class="boost">👉 Tu ne réexpliques plus jamais ton projet</span>
+      <a class="gh" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noopener">⭐ github.com/thedotmack/claude-mem</a>
+    </div>
+
+    <div class="tool">
+      <div class="head"><div class="n">6</div><div class="e">👥</div><h3>gstack <span style="font-size:13px;color:var(--mut);font-weight:600">— par Garry Tan (CEO d'Y Combinator)</span></h3><span class="star">⭐ ~66k</span></div>
+      <p class="what">23 skills dans un seul plugin : CEO, designer, eng manager, release manager, doc engineer, QA — qui collaborent sur ton projet.</p>
+      <span class="boost">👉 Une équipe entière dans ton Claude</span>
+      <a class="gh" href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">⭐ github.com/garrytan/gstack</a>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Installer</span>
+    <h2>⚙️ Comment ça marche</h2>
+    <p class="lead">La plupart s'installent en une commande dans Claude Code. Exemple pour Superpowers :</p>
+    <div class="tool" style="padding:0;background:#0a0716;">
+      <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);"><span style="font-size:11px;color:var(--mut);font-family:monospace">Claude Code</span></div>
+      <pre style="padding:14px 16px;font-family:'SF Mono',Menlo,monospace;font-size:13px;color:#d6c9f5;">/plugin install superpowers</pre>
+    </div>
+    <div class="note">💡 Pour chaque outil, le repo GitHub explique l'install exacte (commande <code>/plugin</code>, <code>npx</code> ou dépôt dans ton dossier <code>skills/</code>). Clique sur les liens ⭐ ci-dessus.</div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Pour aller plus loin 👇</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — Claude Code = une équipe · Tous les outils sont open-source sur GitHub.</div></div>
+<div class="copied" id="copied">✅ Copié !</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){var c=document.getElementById('copied');c.classList.add('show');setTimeout(function(){c.classList.remove('show');},1600);});});});
+</script>
+</body>
+</html>
