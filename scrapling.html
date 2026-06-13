@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Scrapling × Claude — Le tuto complet (Monsieur IA)</title>
+<meta name="description" content="Branche Scrapling à Claude : le scraper open-source le plus rapide, piloté en langage naturel. Installation pas à pas + prompts prêts à l'emploi."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+
+.hero{text-align:center;padding:60px 20px 38px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px;}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;min-width:130px;}
+.stat b{display:block;font-size:22px;font-weight:900;color:var(--violet3);}
+.stat span{font-size:12px;color:var(--mut);}
+
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+
+section{margin:46px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+
+.feat{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:11px;}
+.feat .fi{font-size:28px;flex-shrink:0;}
+.feat h4{font-size:16px;font-weight:800;}
+.feat p{font-size:14px;color:var(--mut);margin-top:2px;}
+
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code .bar .copy:hover{background:var(--violet2);}
+.code pre{padding:14px 16px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.6;color:#d6c9f5;white-space:pre;}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;}.r{background:#ff5f56;}.y{background:#ffbd2e;}.g{background:#27c93f;}
+
+.step{display:flex;gap:16px;margin-bottom:20px;}
+.step-n{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(124,58,237,.4);}
+.step-body h4{font-size:16px;font-weight:800;margin-bottom:4px;}
+.step-body p{color:var(--mut);font-size:14px;}
+.step-body p b{color:var(--txt);}
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.note.warn{background:rgba(230,184,0,.08);border-color:var(--or);}.note.warn b{color:var(--or);}
+.opt-label{font-size:13px;font-weight:800;color:var(--violet3);text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px;}
+
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.prompt .pt{font-size:15px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.prompt .pn{background:linear-gradient(135deg,var(--violet),var(--violet2));width:24px;height:24px;border-radius:7px;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+
+.cta-section{margin:54px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:29px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">🕷️ Scrapling × Claude</span>
+  <div class="wrap">
+    <h1>Le scraper le plus <span class="hl">rapide du monde</span>, piloté dans Claude.</h1>
+    <p>Scrapling : framework de scraping open-source, ultra-rapide et adaptatif. Branche-le à Claude (MCP) et extrais des données en langage naturel. Gratuit.</p>
+    <div class="stats">
+      <div class="stat"><b>~60k ⭐</b><span>sur GitHub</span></div>
+      <div class="stat"><b>jusqu'à 780×</b><span>+ rapide que BeautifulSoup</span></div>
+      <div class="stat"><b>0 €</b><span>open-source</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>Je t'aide à automatiser & vendre avec l'IA</span></div></div>
+    <p>Tu viens de voir la vidéo. Voici le guide complet pour brancher Scrapling à Claude : installation pas à pas (Mac / Windows), prompts prêts à l'emploi, et les bons usages. Compte ~5 minutes.</p>
+  </div>
+
+  <!-- PARTIE 1 -->
+  <section>
+    <span class="tag">Partie 1 · C'est quoi</span>
+    <h2>🕷️ Scrapling en 30 secondes</h2>
+    <div class="feat"><div class="fi">⚡</div><div><h4>Ultra-rapide</h4><p>Jusqu'à ~780× plus rapide que BeautifulSoup au parsing (benchmarks officiels).</p></div></div>
+    <div class="feat"><div class="fi">🔧</div><div><h4>Adaptatif — tes scrapers ne cassent plus</h4><p>Quand un site change de structure, Scrapling relocalise tes éléments automatiquement.</p></div></div>
+    <div class="feat"><div class="fi">🤖</div><div><h4>MCP-native (Claude / Cursor…)</h4><p>Tu demandes en langage naturel, Claude appelle Scrapling. Il extrait juste ce qu'il faut → moins de tokens, plus vite.</p></div></div>
+    <div class="feat"><div class="fi">💪</div><div><h4>Costaud</h4><p>Gère les sites lourds et protégés, crawls multi-sessions, pause/reprise, et respecte robots.txt en option.</p></div></div>
+  </section>
+
+  <!-- PARTIE 2 -->
+  <section>
+    <span class="tag">Partie 2 · Installation</span>
+    <h2>⚙️ Branche-le à Claude en 5 min</h2>
+    <p class="lead">Pré-requis : Python 3.10+. On installe Scrapling avec le serveur MCP, puis on l'ajoute à Claude.</p>
+
+    <div class="opt-label">1 · Installer Scrapling (+ navigateurs)</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Terminal</span><button class="copy" data-c='pip install "scrapling[ai]"
+scrapling install'>Copier</button></div><pre>pip install "scrapling[ai]"
+scrapling install</pre></div>
+
+    <div class="opt-label">2A · Ajouter à Claude Desktop</div>
+    <p class="step-body" style="color:var(--mut);font-size:14px;margin-bottom:8px">Menu ☰ → Réglages → Développeur → Modifier la config. Colle :</p>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">claude_desktop_config.json</span><button class="copy" data-c='{
+  "mcpServers": {
+    "ScraplingServer": {
+      "command": "scrapling",
+      "args": ["mcp"]
+    }
+  }
+}'>Copier</button></div><pre>{
+  "mcpServers": {
+    "ScraplingServer": {
+      "command": "scrapling",
+      "args": ["mcp"]
+    }
+  }
+}</pre></div>
+    <div class="note">💡 Si Claude ne le détecte pas, mets le <b>chemin complet</b> de scrapling : tape <code>which scrapling</code> (Mac) ou <code>where scrapling</code> (Windows) et remplace <code>"scrapling"</code> par le chemin retourné.</div>
+
+    <div class="opt-label">2B · Ou via Claude Code (1 commande)</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Terminal</span><button class="copy" data-c='claude mcp add ScraplingServer "$(which scrapling)" mcp'>Copier</button></div><pre>claude mcp add ScraplingServer "$(which scrapling)" mcp</pre></div>
+
+    <div class="opt-label">3 · Relance Claude</div>
+    <p class="step-body" style="color:var(--mut);font-size:14px">Quitte complètement Claude puis rouvre. Tu verras l'indicateur MCP (🔧) en bas du chat → <b>ScraplingServer</b>.</p>
+
+    <div class="note">✅ <b>Test :</b> « Récupère le contenu principal de https://example.com en markdown. » Si Claude utilise l'outil Scrapling et te renvoie le contenu, c'est bon.</div>
+  </section>
+
+  <!-- PARTIE 3 -->
+  <section>
+    <span class="tag">Partie 3 · Prompts</span>
+    <h2>💬 Prompts prêts à copier-coller</h2>
+    <p class="lead">Astuce : précise toujours quel mode utiliser (« requêtes normales » pour aller vite, navigateur si le site est dynamique).</p>
+
+    <div class="prompt"><div class="pt"><span class="pn">1</span>Extraire une page en markdown propre</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 1</span><button class="copy" data-c="Avec des requêtes normales, récupère le contenu principal de [URL] et convertis-le en markdown propre (main_content_only).">Copier</button></div><pre>Avec des requêtes normales, récupère le contenu
+principal de [URL] et convertis-le en markdown
+propre (main_content_only).</pre></div></div>
+
+    <div class="prompt"><div class="pt"><span class="pn">2</span>Extraire des éléments précis (CSS)</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 2</span><button class="copy" data-c="Récupère tous les titres de produits de [URL] avec le sélecteur CSS '.product-title'. Si tu ne connais pas le bon sélecteur, essaie plusieurs combinaisons jusqu'à trouver le bon.">Copier</button></div><pre>Récupère tous les titres de produits de [URL] avec
+le sélecteur CSS '.product-title'. Si tu ne connais
+pas le bon sélecteur, essaie plusieurs combinaisons
+jusqu'à trouver le bon.</pre></div></div>
+
+    <div class="prompt"><div class="pt"><span class="pn">3</span>Collecter prix/produits en masse</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 3</span><button class="copy" data-c="Fais un bulk fetch sur ces URLs publiques et renvoie un tableau Nom | Prix | Description :
+- [URL 1]
+- [URL 2]
+- [URL 3]">Copier</button></div><pre>Fais un bulk fetch sur ces URLs publiques et renvoie
+un tableau Nom | Prix | Description :
+- [URL 1]
+- [URL 2]
+- [URL 3]</pre></div></div>
+
+    <div class="prompt"><div class="pt"><span class="pn">4</span>Crawl d'une catégorie</div>
+    <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 4</span><button class="copy" data-c="Va sur cette URL de catégorie, extrais toutes les URLs produits avec le sélecteur CSS 'a', puis fetch les 3 premières pages en parallèle et sors le prix + les détails de chaque produit. Garde la sortie en markdown. URL : [URL]">Copier</button></div><pre>Va sur cette URL de catégorie, extrais toutes les URLs
+produits avec le sélecteur 'a', puis fetch les 3
+premières pages en parallèle et sors le prix + les
+détails de chaque produit. Markdown. URL : [URL]</pre></div></div>
+
+    <div class="note warn">⚖️ <b>Scrape responsable.</b> Vérifie le <code>robots.txt</code> du site, respecte ses conditions d'utilisation et les limites de débit, et reste sur des <b>données publiques</b>. C'est aussi ce que recommande la doc officielle de Scrapling.</div>
+  </section>
+
+  <!-- PARTIE 4 -->
+  <section>
+    <span class="tag">Partie 4 · Usages</span>
+    <h2>🎯 Pour quoi faire (légitime)</h2>
+    <div class="feat"><div class="fi">💶</div><div><h4>Veille tarifaire</h4><p>Suivre les prix publics d'un marché ou d'un catalogue.</p></div></div>
+    <div class="feat"><div class="fi">📇</div><div><h4>Base de prospects</h4><p>Depuis des annuaires et sources publiques.</p></div></div>
+    <div class="feat"><div class="fi">📊</div><div><h4>Veille & recherche marché</h4><p>Tendances, données ouvertes, catalogues publics.</p></div></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Pour aller plus loin 👇</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit, sans engagement.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot">
+  <div class="wrap">Monsieur IA — Tuto Scrapling × Claude · Outil open-source par Karim Shoair (<a href="https://github.com/D4Vinci/Scrapling" target="_blank" rel="noopener">D4Vinci/Scrapling</a>).</div>
+</div>
+
+<div class="copied" id="copied">✅ Copié !</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){
+      b.textContent='Copié ✓';var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier';c.classList.remove('show');},1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
