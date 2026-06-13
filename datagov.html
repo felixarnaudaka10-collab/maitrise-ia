@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Claude × Data.gouv + Pappers — Le tuto complet (Monsieur IA)</title>
+<meta name="description" content="Branche Claude sur 11M+ d'entreprises françaises et 40 000 datasets publics avec 2 MCP officiels. Installation pas à pas + prompts prêts à l'emploi. 0€."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+
+/* fond animé */
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+
+/* HERO */
+.hero{text-align:center;padding:64px 20px 40px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:40px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;min-width:140px;}
+.stat b{display:block;font-size:24px;font-weight:900;color:var(--violet3);}
+.stat span{font-size:12px;color:var(--mut);}
+
+/* intro */
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+
+/* sections */
+section{margin:46px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+h2 .em{font-size:24px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+
+/* MCP cards */
+.mcp{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden;}
+.mcp::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,var(--violet),var(--violet2));}
+.mcp h3{font-size:21px;font-weight:900;display:flex;align-items:center;gap:10px;}
+.pill{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,.15);color:var(--vert);}
+.pill.paid{background:rgba(168,85,247,.18);color:var(--violet3);}
+.mcp ul{list-style:none;margin:14px 0 0;}
+.mcp li{padding:7px 0 7px 26px;position:relative;font-size:15px;border-top:1px solid rgba(255,255,255,.04);}
+.mcp li:first-child{border-top:none;}
+.mcp li::before{content:'→';position:absolute;left:0;color:var(--violet3);font-weight:900;}
+.mcp .url{margin-top:14px;font-size:12px;color:var(--mut);word-break:break-all;}
+.mcp .url code{color:var(--violet3);}
+
+/* steps */
+.step{display:flex;gap:16px;margin-bottom:22px;}
+.step-n{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(124,58,237,.4);}
+.step-body{flex:1;}
+.step-body h4{font-size:17px;font-weight:800;margin-bottom:5px;}
+.step-body p{color:var(--mut);font-size:15px;}
+.step-body p b{color:var(--txt);}
+
+/* code block + copy */
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code .bar .copy:hover{background:var(--violet2);}
+.code pre{padding:14px 16px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.6;color:#d6c9f5;white-space:pre;}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+.r{background:#ff5f56;}.y{background:#ffbd2e;}.g{background:#27c93f;}
+
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.opt-label{font-size:13px;font-weight:800;color:var(--violet3);text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px;}
+
+/* use cases */
+.uc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px;}
+.uc h4{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.uc p{color:var(--mut);font-size:14px;margin-top:5px;}
+
+/* prompts */
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.prompt .pt{font-size:15px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.prompt .pn{background:linear-gradient(135deg,var(--violet),var(--violet2));width:24px;height:24px;border-radius:7px;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+
+/* CTA */
+.cta-section{margin:56px 0 30px;}
+.cta-section h2{text-align:center;}
+.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}
+.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}
+.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}
+.cta-noir .ct{color:#fff;}
+
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.foot a{color:var(--violet3);}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:30px;}.hero p{font-size:16px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">⚡ Claude × Données publiques FR</span>
+  <div class="wrap">
+    <h1>L'État a branché Claude sur <span class="hl">11M+ d'entreprises</span> françaises.</h1>
+    <p>2 MCP officiels donnent à Claude un accès direct aux bases SIRENE, BODACC, immobilier (DVF), dirigeants et 40 000+ datasets publics. <b>0€/mois pour démarrer.</b></p>
+    <div class="stats">
+      <div class="stat"><b>11,4M</b><span>entreprises (SIREN actifs)</span></div>
+      <div class="stat"><b>40 000+</b><span>datasets publics</span></div>
+      <div class="stat"><b>3 sec</b><span>par réponse, sourcée</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who">
+      <div class="avatar">🤖</div>
+      <div><b>Monsieur IA</b><span>Je t'aide à automatiser ton business avec l'IA</span></div>
+    </div>
+    <p>Tu viens de voir la vidéo. Voici le guide complet : les 2 MCP officiels, l'installation pas à pas (Mac / Windows / Linux), les cas d'usage concrets et les prompts prêts à copier-coller. Compte <b>5 minutes</b> pour tout brancher.</p>
+  </div>
+
+  <!-- PARTIE 1 -->
+  <section>
+    <span class="tag">Partie 1 · Les outils</span>
+    <h2>🔌 Les 2 MCP officiels</h2>
+    <p class="lead">Un MCP, c'est le standard ouvert créé par Anthropic pour brancher Claude sur des données externes. Ces deux-là sont <b>officiels</b>, maintenus par les éditeurs eux-mêmes — pas des projets tiers abandonnés.</p>
+
+    <div class="mcp">
+      <h3>🏛️ Data Gouv <span class="pill">100% gratuit</span></h3>
+      <p style="color:var(--mut);font-size:14px;margin-top:6px;">La plateforme officielle de l'open data français. Lecture seule, aucune clé API.</p>
+      <ul>
+        <li>40 000+ datasets publics (INSEE, ministères, collectivités)</li>
+        <li>Population, emploi, revenus, démographie</li>
+        <li>Parcelles cadastrales & DVF (prix immobilier)</li>
+        <li>Aides publiques, subventions, marchés publics</li>
+        <li>Requêtes SQL-like directement sur les ressources</li>
+      </ul>
+      <div class="url">Serveur officiel : <code>https://mcp.data.gouv.fr/mcp</code> · <a href="https://github.com/datagouv/datagouv-mcp" target="_blank" rel="noopener">github.com/datagouv/datagouv-mcp</a></div>
+    </div>
+
+    <div class="mcp">
+      <h3>📊 Pappers <span class="pill paid">Gratuit puis ~25€/mois</span></h3>
+      <p style="color:var(--mut);font-size:14px;margin-top:6px;">La base française de référence sur les entreprises. 35 outils, données fraîches et tracées.</p>
+      <ul>
+        <li>11 433 321 entreprises françaises (SIREN actifs)</li>
+        <li>Dirigeants, bénéficiaires effectifs, dates de naissance</li>
+        <li>Bilans : CA, effectif, résultat net, dettes, scoring</li>
+        <li>BODACC + procédures collectives (redressement / liquidation)</li>
+        <li>Base immobilière DVF + décisions de justice</li>
+        <li>Outil de sirétisation (enrichis ta propre base)</li>
+      </ul>
+      <div class="url">Serveur officiel : <code>https://mcp.pappers.fr/{ta-clé}</code> · <a href="https://www.pappers.fr/mcp" target="_blank" rel="noopener">pappers.fr/mcp</a></div>
+    </div>
+
+    <div class="note">💡 <b>Les deux se complètent.</b> Data Gouv pour l'open data macro et l'immobilier (gratuit, illimité). Pappers pour l'analyse entreprise fine (dirigeants, bilans, risques). Claude les croise automatiquement dans une même conversation.</div>
+  </section>
+
+  <!-- PARTIE 2 -->
+  <section>
+    <span class="tag">Partie 2 · Installation</span>
+    <h2>⚙️ L'installation en 5 minutes</h2>
+    <p class="lead">Deux méthodes. La plus simple = les connecteurs Claude Desktop (2 clics). La plus robuste = le fichier de config.</p>
+
+    <div class="opt-label">✅ Option A — Connecteurs (le plus simple)</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <h4>Ouvre Claude Desktop → Paramètres → Connecteurs</h4>
+        <p>Clique sur <b>« Ajouter un connecteur personnalisé »</b>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <h4>Colle l'URL de Data Gouv (aucune clé)</h4>
+        <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Data Gouv — URL</span><button class="copy" data-c="https://mcp.data.gouv.fr/mcp">Copier</button></div><pre>https://mcp.data.gouv.fr/mcp</pre></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">
+        <h4>Ajoute Pappers avec ta clé API</h4>
+        <p>Remplace <b>{ta-clé}</b> par ta clé API Pappers (étape juste en dessous).</p>
+        <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Pappers — URL</span><button class="copy" data-c="https://mcp.pappers.fr/{ta-clé}">Copier</button></div><pre>https://mcp.pappers.fr/{ta-clé}</pre></div>
+      </div>
+    </div>
+
+    <div class="opt-label">📁 Option B — Fichier de config (avancé)</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <h4>Localise <code>claude_desktop_config.json</code></h4>
+        <p><b>Mac :</b> ~/Library/Application Support/Claude/claude_desktop_config.json<br>
+        <b>Windows :</b> %APPDATA%\Claude\claude_desktop_config.json<br>
+        <b>Linux :</b> ~/.config/Claude/claude_desktop_config.json<br>
+        S'il n'existe pas, crée-le.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <h4>Colle cette config (la vraie, vérifiée)</h4>
+        <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">claude_desktop_config.json</span><button class="copy" data-c='{
+  "mcpServers": {
+    "datagouv": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.data.gouv.fr/mcp"]
+    },
+    "pappers": {
+      "type": "url",
+      "url": "https://mcp.pappers.fr/TA_CLE_API"
+    }
+  }
+}'>Copier</button></div><pre>{
+  "mcpServers": {
+    "datagouv": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote",
+               "https://mcp.data.gouv.fr/mcp"]
+    },
+    "pappers": {
+      "type": "url",
+      "url": "https://mcp.pappers.fr/TA_CLE_API"
+    }
+  }
+}</pre></div>
+        <div class="note">⚠️ <b>Windows</b> : si le serveur apparaît mais ne se connecte jamais, ajoute <code>"isUsingBuiltInNodeForMcp": false</code> à la racine du fichier, puis relance.</div>
+      </div>
+    </div>
+
+    <div class="opt-label">🔑 Récupérer ta clé API Pappers</div>
+    <div class="step">
+      <div class="step-n">→</div>
+      <div class="step-body">
+        <h4>Crée un compte gratuit sur <a href="https://www.pappers.fr" target="_blank" rel="noopener">pappers.fr</a></h4>
+        <p>Espace client → <b>API / Clés API</b> → Créer une clé. Copie-la et colle-la à la place de <b>{ta-clé}</b> / <b>TA_CLE_API</b>. Le plan gratuit offre des crédits pour tester ; au-delà ~25€/mois (10× moins cher qu'Apollo).</p>
+      </div>
+    </div>
+
+    <div class="opt-label">🔄 Relance Claude Desktop</div>
+    <div class="step">
+      <div class="step-n">→</div>
+      <div class="step-body">
+        <h4>Ferme complètement Claude (Cmd+Q sur Mac) puis rouvre</h4>
+        <p>Les 2 MCP apparaissent dans le menu en bas (icône prise 🔌).</p>
+      </div>
+    </div>
+
+    <div class="note">✅ <b>Test rapide :</b> ouvre un chat et tape « <i>Combien de SAS ont été créées après 2023 dans le 75001 ?</i> ». Si Claude répond avec un chiffre exact en citant Data Gouv / Pappers comme source, c'est bon.</div>
+  </section>
+
+  <!-- PARTIE 3 -->
+  <section>
+    <span class="tag">Partie 3 · Cas d'usage</span>
+    <h2>🎯 Ce que tu peux faire en langage naturel</h2>
+    <p class="lead">Plus besoin de coder, de requêter une API ou de payer 400–500€ une prestation. Tu demandes, Claude répond, sourcé.</p>
+
+    <div class="uc"><h4>🎯 Qualifier un prospect</h4><p>« Donne-moi les agences de comm créées à Bordeaux en avril 2026 » → liste avec SIREN, fondateur, CA, en 3 secondes.</p></div>
+    <div class="uc"><h4>🏠 Décider en immobilier</h4><p>« Les transactions immo à Paris 6e ? » → prix moyen au m², 10 dernières ventes, le tout sourcé DVF.</p></div>
+    <div class="uc"><h4>⚠️ Détecter un client à risque</h4><p>« Check le SIRET de mes 5 derniers clients sur le BODACC » → repère un redressement ou une liquidation avant tes concurrents et récupère ta créance.</p></div>
+    <div class="uc"><h4>📈 Sourcer en masse</h4><p>« Liste les PME industrielles en Bretagne avec CA > 5M€ et exporte en CSV » → ta base de prospection prête à attaquer.</p></div>
+  </section>
+
+  <!-- PARTIE 4 -->
+  <section>
+    <span class="tag">Partie 4 · Les prompts</span>
+    <h2>💬 5 prompts prêts à copier-coller</h2>
+    <p class="lead">Enchaîne-les dans une même conversation : Claude garde le contexte et croise Data Gouv + Pappers automatiquement.</p>
+
+    <div class="prompt">
+      <div class="pt"><span class="pn">1</span>Chasser des prospects ciblés</div>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 1</span><button class="copy" data-c='Cherche les SAS en NAF 70.21Z, 73.11Z et 82.99Z créées après 2023, localisées à Paris, 92, 69 ou 33, avec un effectif > 2. Enrichis avec dirigeant principal et chiffres clés. Classe par croissance du CA décroissante. Sors un tableau : Nom | SIREN | Ville | Effectif | CA | Dirigeant.'>Copier</button></div><pre>Cherche les SAS en NAF 70.21Z, 73.11Z et 82.99Z
+créées après 2023, localisées à Paris, 92, 69 ou 33,
+avec un effectif > 2. Enrichis avec dirigeant principal
+et chiffres clés. Classe par croissance du CA décroissante.
+Sors un tableau : Nom | SIREN | Ville | Effectif | CA | Dirigeant.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="pt"><span class="pn">2</span>Détecter les pépites en création</div>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 2</span><button class="copy" data-c='Liste les SAS créées dans les 6 derniers mois en NAF 62.02A (conseil IT) avec un capital social > 10 000 € et un objet social mentionnant "IA", "automatisation" ou "agent". Sors les 50 plus prometteuses avec une raison pour chacune.'>Copier</button></div><pre>Liste les SAS créées dans les 6 derniers mois en NAF
+62.02A (conseil IT) avec un capital social > 10 000 €
+et un objet social mentionnant "IA", "automatisation"
+ou "agent". Sors les 50 plus prometteuses avec une
+raison pour chacune.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="pt"><span class="pn">3</span>Enrichissement contact en masse</div>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 3</span><button class="copy" data-c="Voici 50 SIREN : [colle-les séparés par des virgules]. Pour chacun, récupère via Pappers le dirigeant principal (nom + fonction), l'email et le téléphone RCS si disponibles, et le site web déclaré. Sors un CSV propre.">Copier</button></div><pre>Voici 50 SIREN : [colle-les séparés par des virgules].
+Pour chacun, récupère via Pappers le dirigeant principal
+(nom + fonction), l'email et le téléphone RCS si
+disponibles, et le site web déclaré. Sors un CSV propre.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="pt"><span class="pn">4</span>Analyse immobilière d'un quartier</div>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 4</span><button class="copy" data-c="Via DVF, donne-moi le prix moyen au m² à Paris 6e arrondissement et les 10 dernières transactions (adresse, surface, nb de pièces, prix). Ajoute la tendance sur 2 ans. Cite les sources.">Copier</button></div><pre>Via DVF, donne-moi le prix moyen au m² à Paris 6e
+arrondissement et les 10 dernières transactions
+(adresse, surface, nb de pièces, prix). Ajoute la
+tendance sur 2 ans. Cite les sources.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="pt"><span class="pn">5</span>Veille risque clients (BODACC)</div>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 5</span><button class="copy" data-c="Voici les SIRET de mes clients : [colle-les]. Vérifie sur le BODACC s'il y a une procédure collective en cours (sauvegarde, redressement, liquidation). Résume en bullet points avec le statut et la date de chaque procédure, et les liens sources.">Copier</button></div><pre>Voici les SIRET de mes clients : [colle-les].
+Vérifie sur le BODACC s'il y a une procédure collective
+en cours (sauvegarde, redressement, liquidation).
+Résume en bullet points avec le statut et la date de
+chaque procédure, et les liens sources.</pre></div>
+    </div>
+
+    <div class="note">💡 <b>Astuce pro :</b> enchaîne ces prompts dans la même conversation. Claude garde le contexte et croise automatiquement Pappers ↔ Data Gouv.</div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Tu veux aller plus loin ?</h2>
+    <p class="lead">Choisis ce qui te correspond 👇</p>
+
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack 50 prompts business</div>
+      <div class="cd">Mes 50 meilleurs prompts pour vendre, prospecter et automatiser avec Claude — 50€.</div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit, sans engagement.</div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Former ton entreprise à l'IA</div>
+      <div class="cd">Une formation Claude sur-mesure pour ton équipe (TPE / PME). Parlons de ton projet.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Monsieur IA — Tuto Claude × Data.gouv + Pappers · MCP officiels, maintenus par les éditeurs.<br>
+    <a href="https://www.data.gouv.fr" target="_blank" rel="noopener">data.gouv.fr</a> · <a href="https://www.pappers.fr/mcp" target="_blank" rel="noopener">pappers.fr/mcp</a>
+  </div>
+</div>
+
+<div class="copied" id="copied">✅ Copié !</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.getAttribute('data-c');
+    navigator.clipboard.writeText(t).then(function(){
+      b.textContent='Copié ✓';
+      var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier';c.classList.remove('show');},1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
