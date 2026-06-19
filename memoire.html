@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>claude-mem — La mémoire permanente de Claude Code (Monsieur IA)</title>
 <meta name="description" content="claude-mem : le plugin open-source qui donne une mémoire permanente à Claude Code et réduit ta conso de tokens. Installation + guide."/>
+<script>
+(function(){try{
+  var p=new URLSearchParams(location.search);
+  var ok=localStorage.getItem('mem_unlocked_v1')==='1';
+  if(p.get('unlocked')==='1'){localStorage.setItem('mem_unlocked_v1','1');ok=true;history.replaceState({},'',location.pathname);}
+  if(ok){document.documentElement.classList.add('unlocked');}
+}catch(e){}})();
+</script>
 <style>
 :root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -69,9 +77,45 @@ h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 .copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
 .copied.show{opacity:1;}
 @media(max-width:520px){.hero h1{font-size:29px;}}
+
+/* ===== MUR EMAIL (lead magnet) ===== */
+html:not(.unlocked),html:not(.unlocked) body{overflow:hidden;}
+html.unlocked #gate{display:none!important;}
+#gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:26px 16px;background:rgba(6,4,15,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.gate-card{background:var(--card);border:1px solid var(--line);border-radius:20px;max-width:440px;width:100%;margin:auto;padding:30px 26px;box-shadow:0 24px 80px rgba(0,0,0,.65);text-align:center;}
+.gate-lock{font-size:30px;}
+.gate-card h2{font-size:23px;margin:8px 0 8px;}
+.gate-card .gsub{color:var(--mut);font-size:15px;margin-bottom:16px;}
+.gate-bullets{text-align:left;list-style:none;margin:0 auto 16px;padding:0;max-width:330px;}
+.gate-bullets li{font-size:14px;color:var(--txt);padding:5px 0 5px 26px;position:relative;}
+.gate-bullets li::before{content:'✅';position:absolute;left:0;}
+.gate-frame{background:#fff;border-radius:14px;padding:8px;margin-bottom:14px;overflow:hidden;}
+.gate-frame iframe{width:100%;border:0;display:block;min-height:300px;}
+.gate-go{display:block;width:100%;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;border:none;font-size:15px;font-weight:800;padding:14px;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(124,58,237,.4);}
+.gate-go:hover{filter:brightness(1.08);}
+.gate-trust{color:#6f5fa0;font-size:12px;margin-top:14px;}
 </style>
 </head>
 <body>
+
+<!-- ===== MUR EMAIL ===== -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-lock">🔒</div>
+    <h2>Débloque le guide claude-mem</h2>
+    <p class="gsub">Laisse ton email pour accéder au guide complet — 100% gratuit.</p>
+    <ul class="gate-bullets">
+      <li>Le guide d'installation pas à pas</li>
+      <li>1 tip Claude/semaine pour automatiser ton business</li>
+      <li>Désinscription en 1 clic, zéro spam</li>
+    </ul>
+    <div class="gate-frame">
+      <iframe src="https://subscribe-forms.beehiiv.com/74ea40d0-c39d-4d77-842d-b4c4054b5863" title="Inscription newsletter Monsieur IA" scrolling="no"></iframe>
+    </div>
+    <button class="gate-go" id="gateGo">✅ C'est fait → accéder au guide</button>
+    <p class="gate-trust">🔒 Tes données restent privées · Hébergé par beehiiv</p>
+  </div>
+</div>
 
 <div class="hero">
   <span class="kicker">🧠 claude-mem × Claude Code</span>
@@ -135,7 +179,7 @@ h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
       <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit.</div>
       <span class="arrow">→</span>
     </a>
-    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+    <a class="cta-card cta-noir" href="https://www.skool.com/claude-business-lab-5890" target="_blank" rel="noopener">
       <div class="ct">⚫ Rejoins la communauté</div>
       <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
       <span class="arrow">→</span>
@@ -156,6 +200,12 @@ document.querySelectorAll('.copy').forEach(function(b){
     });
   });
 });
+var gg=document.getElementById('gateGo');
+if(gg){gg.addEventListener('click',function(){
+  try{localStorage.setItem('mem_unlocked_v1','1');}catch(e){}
+  document.documentElement.classList.add('unlocked');
+  window.scrollTo(0,0);
+});}
 </script>
 </body>
 </html>
