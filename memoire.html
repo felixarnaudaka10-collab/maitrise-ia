@@ -78,42 +78,45 @@ h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 .copied.show{opacity:1;}
 @media(max-width:520px){.hero h1{font-size:29px;}}
 
-/* ===== MUR EMAIL (lead magnet) ===== */
+/* ===== MUR EMAIL (formulaire maison Web3Forms) ===== */
 html:not(.unlocked),html:not(.unlocked) body{overflow:hidden;}
 html.unlocked #gate{display:none!important;}
 #gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:26px 16px;background:rgba(6,4,15,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-.gate-card{background:var(--card);border:1px solid var(--line);border-radius:20px;max-width:440px;width:100%;margin:auto;padding:30px 26px;box-shadow:0 24px 80px rgba(0,0,0,.65);text-align:center;}
+.gate-card{background:var(--card);border:1px solid var(--line);border-radius:20px;max-width:430px;width:100%;margin:auto;padding:32px 26px;box-shadow:0 24px 80px rgba(0,0,0,.65);text-align:center;}
 .gate-lock{font-size:30px;}
-.gate-card h2{font-size:23px;margin:8px 0 8px;}
-.gate-card .gsub{color:var(--mut);font-size:15px;margin-bottom:16px;}
-.gate-bullets{text-align:left;list-style:none;margin:0 auto 16px;padding:0;max-width:330px;}
+.gate-card h2{font-size:23px;margin:8px 0 8px;letter-spacing:-.4px;}
+.gate-card .gsub{color:var(--mut);font-size:15px;margin-bottom:18px;}
+.gate-bullets{text-align:left;list-style:none;margin:0 auto 20px;padding:0;max-width:320px;}
 .gate-bullets li{font-size:14px;color:var(--txt);padding:5px 0 5px 26px;position:relative;}
 .gate-bullets li::before{content:'✅';position:absolute;left:0;}
-.gate-frame{background:#fff;border-radius:14px;padding:8px;margin-bottom:14px;overflow:hidden;}
-.gate-frame iframe{width:100%;border:0;display:block;min-height:400px;}
-.gate-go{display:block;width:100%;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;border:none;font-size:15px;font-weight:800;padding:14px;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(124,58,237,.4);}
+#email-form{display:flex;flex-direction:column;gap:10px;}
+#email-form input[type=email]{width:100%;padding:15px 16px;border-radius:12px;border:1px solid var(--line);background:#06040f;color:var(--txt);font-size:16px;outline:none;transition:border-color .15s;}
+#email-form input[type=email]::placeholder{color:#6f5fa0;}
+#email-form input[type=email]:focus{border-color:var(--violet2);}
+.gate-go{display:block;width:100%;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;border:none;font-size:15.5px;font-weight:800;padding:15px;border-radius:12px;cursor:pointer;box-shadow:0 8px 24px rgba(124,58,237,.4);transition:filter .15s;}
 .gate-go:hover{filter:brightness(1.08);}
+.gate-go:disabled{opacity:.7;cursor:default;}
 .gate-trust{color:#6f5fa0;font-size:12px;margin-top:14px;}
 </style>
 </head>
 <body>
 
-<!-- ===== MUR EMAIL ===== -->
+<!-- ===== MUR EMAIL (formulaire maison) ===== -->
 <div id="gate">
   <div class="gate-card">
     <div class="gate-lock">🔒</div>
     <h2>Débloque le guide claude-mem</h2>
-    <p class="gsub">Laisse ton email pour accéder au guide complet — 100% gratuit.</p>
+    <p class="gsub">Entre ton email — je débloque le guide complet juste en dessous. 100% gratuit.</p>
     <ul class="gate-bullets">
       <li>Le guide d'installation pas à pas</li>
       <li>1 tip Claude/jour pour automatiser ton business</li>
       <li>Désinscription en 1 clic, zéro spam</li>
     </ul>
-    <div class="gate-frame">
-      <iframe src="https://subscribe-forms.beehiiv.com/74ea40d0-c39d-4d77-842d-b4c4054b5863" title="Inscription newsletter Monsieur IA" scrolling="no"></iframe>
-    </div>
-    <button class="gate-go" id="gateGo">✅ C'est fait → accéder au guide</button>
-    <p class="gate-trust">🔒 Tes données restent privées · Hébergé par beehiiv</p>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="gate-go" id="submit-btn">Recevoir le guide →</button>
+    </form>
+    <p class="gate-trust">🔒 Aucun spam · Accès direct au guide</p>
   </div>
 </div>
 
@@ -200,12 +203,29 @@ document.querySelectorAll('.copy').forEach(function(b){
     });
   });
 });
-var gg=document.getElementById('gateGo');
-if(gg){gg.addEventListener('click',function(){
-  try{localStorage.setItem('mem_unlocked_v1','1');}catch(e){}
+
+var WEB3FORMS_KEY='038b1035-ecbd-4506-bd90-5a6421828169';
+async function handleSubmit(e){
+  e.preventDefault();
+  var email=document.getElementById('email-input').value.trim();
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Envoi en cours...';
+  try{
+    await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        access_key:WEB3FORMS_KEY,
+        subject:'Nouveau lead — Guide claude-mem',
+        replyto:email,
+        message:'Nouveau lead depuis maitrise-ia.vercel.app/memoire\nEmail : '+email
+      })
+    });
+  }catch(_){}
+  try{localStorage.setItem('mem_unlocked_v1','1');}catch(_){}
   document.documentElement.classList.add('unlocked');
-  window.scrollTo(0,0);
-});}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 </script>
 </body>
 </html>
