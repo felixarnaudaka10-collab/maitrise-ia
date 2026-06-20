@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tester NeoResilia — Prospection LinkedIn automatique</title>
+<meta name="description" content="Réponds à 5 questions pour accéder à la démo de l'outil de prospection LinkedIn automatique de NeoResilia."/>
+<style>
+:root{
+  --bg:#070c18;--bg2:#0b1224;--card:#0f1830;--card2:#13203a;--line:#1f2c48;
+  --accent:#26c8a6;--accent2:#34d399;--accent-d:#0f9e84;
+  --txt:#eaf1f9;--mut:#8a9bbb;--gold:#e6b800;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,sans-serif;line-height:1.55;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(circle at 18% 6%,rgba(38,200,166,.14),transparent 42%),
+  radial-gradient(circle at 88% 92%,rgba(38,200,166,.10),transparent 45%),
+  linear-gradient(180deg,#070c18,#070c18);}
+.wrap{max-width:540px;margin:0 auto;padding:36px 20px 60px;}
+a{color:var(--accent);text-decoration:none;}
+
+.brand{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:22px;}
+.brand .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-d));display:flex;align-items:center;justify-content:center;font-weight:900;color:#06231d;font-size:16px;box-shadow:0 4px 14px rgba(38,200,166,.4);}
+.brand b{font-size:16px;letter-spacing:.5px;font-weight:800;}
+.brand b span{color:var(--accent);}
+
+.top{text-align:center;margin-bottom:24px;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(38,200,166,.12);border:1px solid rgba(38,200,166,.35);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 15px;border-radius:30px;text-transform:uppercase;}
+h1{font-size:26px;font-weight:800;line-height:1.2;margin:15px 0 8px;letter-spacing:-.4px;}
+h1 .hl{color:var(--accent);}
+.sub{color:var(--mut);font-size:15px;}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.q{margin-bottom:20px;}
+label.qt{display:block;font-size:15px;font-weight:700;margin-bottom:9px;}
+label.qt .opt{color:var(--mut);font-weight:500;font-size:13px;}
+input[type=text],input[type=email],input[type=tel]{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;}
+input::placeholder{color:#566685;}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(38,200,166,.14);}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{display:block;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:11px 14px;font-size:14px;cursor:pointer;transition:.15s;color:#c4d0e4;}
+.opt-btn:hover{border-color:var(--accent);}
+.opt-btn input{display:none;}
+.opt-btn.sel{background:rgba(38,200,166,.14);border-color:var(--accent);color:#fff;font-weight:600;}
+.submit{width:100%;background:linear-gradient(90deg,var(--accent),var(--accent-d));color:#04241d;border:none;font-size:16px;font-weight:900;padding:15px;border-radius:11px;cursor:pointer;margin-top:6px;box-shadow:0 8px 24px rgba(38,200,166,.32);}
+.submit:hover{filter:brightness(1.06);}
+.submit:disabled{opacity:.55;cursor:not-allowed;}
+.err{color:#fca5a5;font-size:13px;margin-top:8px;display:none;}
+.priv{font-size:11px;color:#54627e;text-align:center;margin-top:14px;}
+
+.result{display:none;text-align:center;}
+.result .ic{font-size:54px;margin-bottom:12px;}
+.result h2{font-size:23px;font-weight:800;margin-bottom:10px;}
+.result p{color:var(--mut);font-size:15px;margin-bottom:18px;}
+.result .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;}
+.result .panel.okp{border-color:rgba(38,200,166,.4);box-shadow:0 0 40px rgba(38,200,166,.12);}
+.cta{display:block;border-radius:12px;padding:15px;margin-bottom:11px;border:1px solid;font-weight:800;font-size:15px;}
+.cta-or{background:rgba(230,184,0,.08);border-color:rgba(230,184,0,.5);color:var(--gold);}
+.cta-ac{background:rgba(38,200,166,.1);border-color:rgba(38,200,166,.5);color:var(--accent);}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(4,36,29,.35);border-top-color:#04241d;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:8px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.foot{text-align:center;color:#46566f;font-size:12px;margin-top:22px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="logo">N</div>
+    <b>NEO<span>RESILIA</span></b>
+  </div>
+
+  <div class="top">
+    <span class="badge">🎯 Accès démo</span>
+    <h1>Teste l'outil de <span class="hl">prospection LinkedIn automatique</span></h1>
+    <p class="sub">Réponds à 5 questions rapides. Si ton profil correspond, on t'envoie l'accès. ⏱️ 30 secondes.</p>
+  </div>
+
+  <form id="qform" class="card">
+    <div class="q">
+      <label class="qt">Ton prénom</label>
+      <input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name"/>
+    </div>
+    <div class="q">
+      <label class="qt">Ton email <span class="opt">(pour recevoir l'accès)</span></label>
+      <input type="email" id="email" placeholder="ton@email.com" required autocomplete="email"/>
+    </div>
+    <div class="q">
+      <label class="qt">Ton téléphone <span class="opt">(optionnel — pour être recontacté plus vite)</span></label>
+      <input type="tel" id="tel" placeholder="06 ..." autocomplete="tel"/>
+    </div>
+
+    <div class="q"><label class="qt">1. Tu es…</label><div class="opts" id="role"></div></div>
+    <div class="q"><label class="qt">2. Tu vends (ou veux vendre) à…</label><div class="opts" id="vend"></div></div>
+    <div class="q"><label class="qt">3. Tu cherches activement des clients en ce moment ?</label><div class="opts" id="clients"></div></div>
+    <div class="q"><label class="qt">4. Tu utilises LinkedIn pour ton activité ?</label><div class="opts" id="linkedin"></div></div>
+    <div class="q"><label class="qt">5. Pour ramener des clients, tu es prêt à investir dans un outil ?</label><div class="opts" id="invest"></div></div>
+
+    <button type="submit" class="submit" id="submitBtn">Voir si je suis éligible →</button>
+    <div class="err" id="err">Réponds à toutes les questions et mets un email valide 🙏</div>
+    <p class="priv">🔒 Tes réponses servent juste à vérifier que l'outil te correspond. Zéro spam.</p>
+  </form>
+
+  <div class="result" id="ok">
+    <div class="panel okp">
+      <div class="ic">✅</div>
+      <h2>Parfait, ton profil correspond !</h2>
+      <p>On transmet ton profil à l'équipe NeoResilia : ils te recontactent pour te montrer l'outil et t'aider à le paramétrer. Surveille tes mails 📩</p>
+    </div>
+  </div>
+
+  <div class="result" id="no">
+    <div class="panel">
+      <div class="ic">🙏</div>
+      <h2>Merci d'avoir répondu !</h2>
+      <p>Cet outil est pensé pour la prospection <b>B2B</b> (vendre à des entreprises). Vu ton profil, ce n'est pas l'idéal pour toi aujourd'hui. Mais j'ai d'autres ressources qui peuvent t'aider 👇</p>
+      <a class="cta cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">🟡 Mon pack de prompts business →</a>
+      <a class="cta cta-ac" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">🟢 Un appel stratégique offert →</a>
+    </div>
+  </div>
+
+  <div class="foot">Outil partenaire NeoResilia · Sélection par Monsieur IA</div>
+
+</div>
+
+<script>
+var WEB3FORMS_KEY='038b1035-ecbd-4506-bd90-5a6421828169';
+var Q={
+  role:["Dirigeant TPE/PME","Freelance / indépendant","Commercial / business dev","Agence","Salarié","Particulier curieux","Étudiant"],
+  vend:["Des entreprises (B2B)","Des particuliers (B2C)","Je ne vends pas encore"],
+  clients:["Oui, c'est ma priorité","Oui, un peu","Non, juste curieux"],
+  linkedin:["Oui","Non"],
+  invest:["Oui","Selon le prix","Non, je veux juste tester gratuit"]
+};
+var answers={};
+Object.keys(Q).forEach(function(key){
+  var wrap=document.getElementById(key);
+  Q[key].forEach(function(txt){
+    var l=document.createElement('label');l.className='opt-btn';
+    l.innerHTML='<input type="radio" name="'+key+'"> '+txt;
+    l.querySelector('input').addEventListener('change',function(){
+      answers[key]=txt;
+      Array.prototype.forEach.call(wrap.children,function(c){c.classList.remove('sel');});
+      l.classList.add('sel');
+    });
+    wrap.appendChild(l);
+  });
+});
+function qualifie(){
+  if(answers.role==="Particulier curieux"||answers.role==="Étudiant") return false;
+  if(answers.clients==="Non, juste curieux") return false;
+  if(answers.linkedin==="Non") return false;
+  if(answers.vend==="Des particuliers (B2C)" && answers.role==="Salarié") return false;
+  return true;
+}
+document.getElementById('qform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var email=document.getElementById('email').value.trim();
+  var ok = email && /.+@.+\..+/.test(email) && answers.role && answers.vend && answers.clients && answers.linkedin && answers.invest;
+  if(!ok){ document.getElementById('err').style.display='block'; return; }
+  document.getElementById('err').style.display='none';
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Envoi...';
+  var q=qualifie();
+  var payload={
+    access_key:WEB3FORMS_KEY,
+    subject:(q?'✅ LEAD QUALIFIÉ':'❌ Non qualifié')+' — NeoResilia (PROSPECT)',
+    from_name:'Formulaire NeoResilia',
+    statut:q?'QUALIFIÉ':'NON QUALIFIÉ',
+    prenom:document.getElementById('prenom').value.trim(),
+    email:email,
+    telephone:document.getElementById('tel').value.trim(),
+    profil:answers.role, vend_a:answers.vend, cherche_clients:answers.clients,
+    linkedin_actif:answers.linkedin, pret_a_investir:answers.invest,
+    source:window.location.href
+  };
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json();}).catch(function(){})
+    .finally(function(){
+      document.getElementById('qform').style.display='none';
+      document.querySelector('.top').style.display='none';
+      document.getElementById(q?'ok':'no').style.display='block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+});
+</script>
+</body>
+</html>
