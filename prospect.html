@@ -175,6 +175,9 @@ document.getElementById('qform').addEventListener('submit',function(e){
     linkedin_actif:answers.linkedin, pret_a_investir:answers.invest,
     source:window.location.href
   };
+  // → Google Sheet (Apps Script) : la ligne tombe dans le tableau
+  try{ fetch('https://script.google.com/macros/s/AKfycbyYqyNOecD2crmOMrLpYKdDQC_nHHwFPf5M_OdW79FTtB3CLpP5Y3foz_8lpUU5EN3j/exec',{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}); }catch(e){}
+  // → Web3Forms : notification email
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(function(r){return r.json();}).catch(function(){})
     .finally(function(){
