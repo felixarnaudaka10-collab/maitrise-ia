@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Liste d'attente — Claude Cowork 360° | Monsieur IA</title>
+<meta name="description" content="Rejoins la liste d'attente de Claude Cowork 360° : 10 modules pour passer de 'je fais tout moi-même' à 'Cowork gère mon quotidien et me rend 1 à 2 h par jour'. Tarif fondateur réservé aux inscrits." />
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --card:#141420;
+    --accent:#ff6b35;
+    --accent2:#ffa23a;
+    --text:#f5f5f7;
+    --muted:#9a9aa8;
+    --line:#26263a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #1c1430 0%, var(--bg) 55%);
+    color:var(--text);min-height:100vh;padding:40px 24px;line-height:1.55;
+  }
+  .wrap{width:100%;max-width:600px;margin:0 auto}
+  .badge{
+    display:inline-block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent2);border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  h1{font-size:34px;line-height:1.12;font-weight:800;margin-bottom:16px;letter-spacing:-.02em}
+  h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead{color:var(--muted);font-size:17px;margin-bottom:14px}
+  .promise{
+    font-size:16px;border-left:3px solid var(--accent);padding:10px 0 10px 16px;margin:0 0 28px;color:var(--text);
+  }
+  .promise b{color:var(--accent2)}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.8);margin-bottom:30px;
+  }
+  .perks{list-style:none;margin:0 0 24px;padding:0}
+  .perks li{position:relative;padding-left:30px;margin-bottom:12px;font-size:15.5px}
+  .perks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+  label{display:block;font-size:14px;color:var(--muted);margin:0 0 7px}
+  input,textarea{width:100%;background:#0e0e18;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:14px 15px;font-size:16px;font-family:inherit;transition:border-color .15s}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  textarea{resize:vertical;min-height:84px;margin-bottom:6px}
+  .field{margin-bottom:18px}
+  button{width:100%;border:0;cursor:pointer;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a0d00;font-weight:800;font-size:17px;padding:16px;border-radius:12px;transition:transform .08s,opacity .15s}
+  button:hover{transform:translateY(-1px)}
+  button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .fine{color:var(--muted);font-size:13px;text-align:center;margin-top:14px}
+  .ok{display:none;text-align:center;padding:10px 0}
+  .ok h2{font-size:24px;margin-bottom:10px}
+  .ok p{color:var(--muted);font-size:16px}
+  .check{width:64px;height:64px;border-radius:50%;margin:0 auto 18px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:34px;color:#1a0d00;font-weight:900}
+  h3.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);margin:0 0 18px;text-align:center}
+  .mods{list-style:none;margin:0;padding:0}
+  .mod{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .mod:last-child{border-bottom:0}
+  .num{flex:0 0 30px;height:30px;border-radius:9px;background:#0e0e18;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--accent2)}
+  .mtxt{font-size:15px}
+  .mtxt b{display:block;margin-bottom:2px}
+  .mtxt span{color:var(--muted);font-size:13.5px}
+  .bonus .num{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a0d00;border:0}
+  .cta2{display:block;text-align:center;margin-top:24px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a0d00;font-weight:800;font-size:16px;padding:15px;border-radius:12px;text-decoration:none}
+  .foot{text-align:center;color:var(--muted);font-size:13px;margin-top:26px}
+  .foot a{color:var(--accent2);text-decoration:none}
+  @media(max-width:520px){h1{font-size:27px}.card{padding:22px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">Liste d'attente · accès prioritaire</span>
+    <h1>Claude <span>Cowork 360°</span><br/>fais bosser l'IA à ta place</h1>
+    <p class="lead">10 modules pour maîtriser le mode agent de Claude : l'IA qui pilote tes applications et fait le travail pendant que tu fais autre chose. De zéro jusqu'à créer tes propres automatisations.</p>
+    <p class="promise">La promesse : passer de <b>« je fais tout moi-même »</b> à <b>« Cowork gère mon quotidien et me rend 1 à 2 h par jour »</b>.</p>
+
+    <div class="card" id="top">
+      <div id="form-block">
+        <ul class="perks">
+          <li><strong>Tarif fondateur</strong> réservé aux inscrits, que personne d'autre n'aura</li>
+          <li>Tu <strong>influences le contenu</strong> : je construis les modules autour de tes réponses</li>
+          <li>Les <strong>coulisses</strong> de la création, en avant-première</li>
+        </ul>
+        <form id="waitlist">
+          <input type="hidden" name="source" value="Page Cowork 360" />
+          <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+          <div class="field">
+            <label for="email">Ton meilleur email</label>
+            <input id="email" type="email" name="email" required placeholder="prenom@email.com" />
+          </div>
+          <div class="field">
+            <label for="tache">En une ligne : quelle tâche tu aimerais déléguer à Claude ? (facultatif)</label>
+            <textarea id="tache" name="tache_a_deleguer" placeholder="Ex : trier mes emails, préparer mes devis, relancer mes prospects..."></textarea>
+          </div>
+          <button type="submit" id="submitBtn">Je rejoins la liste d'attente</button>
+          <p class="fine">Zéro spam. Tu reçois les coulisses + l'accès prioritaire. Désinscription en 1 clic.</p>
+        </form>
+      </div>
+      <div class="ok" id="success">
+        <div class="check">✓</div>
+        <h2>Tu es sur la liste 🎉</h2>
+        <p>Je t'envoie les coulisses très vite. Surveille tes emails (et l'onglet Principale).<br/>À tout de suite, Arnaud.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="sec">Le programme · 10 modules + bonus</h3>
+      <ul class="mods">
+        <li class="mod"><div class="num">1</div><div class="mtxt"><b>Comprendre & configurer Cowork</b><span>Installer, choisir son abonnement, régler crédits et modèles (Opus / Sonnet / Haiku), première tâche déléguée. · 6 leçons</span></div></li>
+        <li class="mod"><div class="num">2</div><div class="mtxt"><b>Piloter Cowork avec méthode</b><span>La posture « je délègue, je n'exécute pas » + la méthode CADRE pour le bon résultat du premier coup. · 4 leçons</span></div></li>
+        <li class="mod"><div class="num">3</div><div class="mtxt"><b>Analyser & produire tes documents</b><span>PDF et contrats, factures et screenshots transformés en tableau, rapports / Word / présentations de A à Z. · 4 leçons</span></div></li>
+        <li class="mod"><div class="num">4</div><div class="mtxt"><b>Connecter tes outils</b><span>Google Drive, Gmail, Calendar, Notion qui travaillent ensemble dans un même flux. · 6 leçons</span></div></li>
+        <li class="mod"><div class="num">5</div><div class="mtxt"><b>Organiser ton quotidien</b><span>Le briefing du matin + des routines quotidiennes et hebdo qui tournent toutes seules. · 3 leçons</span></div></li>
+        <li class="mod"><div class="num">6</div><div class="mtxt"><b>Cas d'usage pro : devenir autonome</b><span>Préparer un RDV client, transformer un call en plan d'action, piloter un projet. · 4 leçons</span></div></li>
+        <li class="mod"><div class="num">7</div><div class="mtxt"><b>Les fonctions avancées</b><span>Les Projets (mémoire persistante), les Artefacts (dashboards vivants), les tâches programmées. · 3 leçons</span></div></li>
+        <li class="mod"><div class="num">8</div><div class="mtxt"><b>Plugins</b><span>Installer un plugin, le plugin Small Business, choisir et combiner les bons pour ton métier. · 3 leçons</span></div></li>
+        <li class="mod"><div class="num">9</div><div class="mtxt"><b>Skills</b><span>Utiliser des Skills existantes (ex : les 70 Spécialistes), créer ta propre Skill sur-mesure. · 4 leçons</span></div></li>
+        <li class="mod"><div class="num">10</div><div class="mtxt"><b>Passer à l'action</b><span>Ton plan des 30 prochains jours + les erreurs à éviter, pour transformer la formation en résultats. · 2 leçons</span></div></li>
+        <li class="mod bonus"><div class="num">★</div><div class="mtxt"><b>Bonus</b><span>Migrer de ChatGPT vers Cowork + les leçons de mises à jour : ta « formation vivante ».</span></div></li>
+      </ul>
+      <a class="cta2" href="#top">Je rejoins la liste d'attente</a>
+    </div>
+
+    <p class="foot">Monsieur IA · <a href="https://70-specialistes-ia.netlify.app/">70 Agents IA</a> · <a href="https://calendly.com/arnaud-monsieur-ia/30min">Audit automatisation</a></p>
+  </div>
+
+<script>
+  const form = document.getElementById('waitlist');
+  const btn = document.getElementById('submitBtn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Une seconde...';
+    if (form.company.value) { return; } /* anti-spam honeypot */
+    const body = new URLSearchParams(new FormData(form));
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbzX14xqvRFHnh2-7udPuXp-uC4Ihk9HjFMZKQ8-8Bu54T_t9IQTjg_ETQrJz2FeRZWj/exec', { method: 'POST', mode: 'no-cors', body: body });
+      document.getElementById('form-block').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Réessaie';
+      alert("Problème de connexion, réessaie.");
+    }
+  });
+</script>
+</body>
+</html>
