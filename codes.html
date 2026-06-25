@@ -1,296 +1,196 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Les 20 codes secrets de Claude · Monsieur IA</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f5f5f7; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-    .card { background: #fff; border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 540px; text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04); }
-    .badge { display: inline-flex; align-items: center; gap: 7px; background: #f5f5f7; color: #6e6e73; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 24px; border: 1px solid #e5e5e5; }
-    .icon { font-size: 48px; margin-bottom: 18px; display: block; }
-    h1 { font-size: 26px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.5px; }
-    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
-    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
-    .stat { display: inline-flex; align-items: center; gap: 6px; background: #C9A84C; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 100px; margin-bottom: 26px; }
-    input[type="email"] { width: 100%; padding: 14px 16px; background: #f5f5f7; border: 1.5px solid #e5e5e5; border-radius: 12px; color: #1d1d1f; font-size: 15px; outline: none; margin-bottom: 12px; font-family: inherit; transition: border-color 0.2s; }
-    input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
-    input[type="email"]::placeholder { color: #aeaeb2; }
-    .btn-primary { width: 100%; padding: 15px; background: #C9A84C; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; transition: opacity 0.2s; margin-bottom: 12px; }
-    .btn-primary:hover { opacity: 0.88; }
-    .privacy { font-size: 11px; color: #aeaeb2; }
-    #confirm-section { display: none; }
-    .confirm-icon { font-size: 48px; margin-bottom: 14px; display: block; }
-    .confirm-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-    .confirm-sub { font-size: 14px; color: #6e6e73; margin-bottom: 28px; line-height: 1.6; }
-    #content-section { display: none; margin-top: 4px; text-align: left; }
-    .section-title { font-size: 11px; font-weight: 700; color: #C9A84C; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid #f0f0f0; }
-    .section-title:first-child { margin-top: 0; border-top: none; padding-top: 0; }
-    .intro-box { background: #f5f5f7; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; font-size: 13px; color: #6e6e73; line-height: 1.6; }
-    .intro-box strong { color: #1d1d1f; }
-    .code-card { background: #f5f5f7; border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid #e5e5e5; }
-    .code-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .code-num { width: 24px; height: 24px; background: #C9A84C; color: #fff; border-radius: 6px; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .code-tag { background: #1d1d1f; color: #C9A84C; font-size: 12px; font-weight: 900; padding: 4px 10px; border-radius: 6px; font-family: 'SF Mono', monospace; letter-spacing: 0.5px; }
-    .code-title { font-size: 13px; font-weight: 700; color: #1d1d1f; flex: 1; }
-    .code-desc { font-size: 12px; color: #6e6e73; line-height: 1.55; margin-bottom: 8px; }
-    .code-example { background: #1d1d1f; border-radius: 8px; padding: 10px 12px; font-size: 11px; color: #e5e5e5; font-family: 'SF Mono', monospace; line-height: 1.5; }
-    .code-example em { color: #C9A84C; font-style: normal; }
-    .combo-card { background: #1d1d1f; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
-    .combo-title { font-size: 12px; font-weight: 800; color: #C9A84C; margin-bottom: 6px; }
-    .combo-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
-    .combo-tag { background: rgba(201,168,76,.15); color: #C9A84C; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-family: 'SF Mono', monospace; }
-    .combo-desc { font-size: 11px; color: #888; line-height: 1.5; }
-    .tip-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
-    .tip-num { width: 22px; height: 22px; border-radius: 50%; background: #C9A84C; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .tip-text { font-size: 13px; color: #1d1d1f; line-height: 1.55; }
-    .tip-text strong { color: #C9A84C; }
-    .cta-section { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
-    .cta-block { border-radius: 14px; padding: 16px 18px; text-align: center; text-decoration: none; display: block; transition: opacity 0.2s, transform 0.15s; }
-    .cta-block:hover { opacity: 0.88; transform: translateY(-1px); }
-    .cta-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; opacity: 0.7; }
-    .cta-text { font-size: 14px; font-weight: 800; line-height: 1.3; }
-    .cta-sub { font-size: 11px; margin-top: 3px; opacity: 0.65; }
-    .cta-gold { background: linear-gradient(135deg, #C9A84C, #e8c76a); color: #000; }
-    .cta-dark { background: #1d1d1f; color: #fff; }
-    .cta-gray { background: #f5f5f7; border: 1px solid #e5e5e5; color: #1d1d1f; }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>5 codes secrets pour Claude — prompts prêts à coller (Monsieur IA)</title>
+<meta name="description" content="5 codes secrets qui débloquent un autre niveau de Claude : Brutal, Steel Man, ELI5, Qu'est-ce qui me manque, 10x. Prêts à copier-coller."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+.hero{text-align:center;padding:60px 20px 34px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+section{margin:42px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.prompt::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,var(--violet),var(--violet2));}
+.prompt .head{display:flex;align-items:center;gap:11px;margin-bottom:4px;}
+.prompt .n{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prompt .e{font-size:20px;}
+.prompt h3{font-size:17px;font-weight:900;}
+.prompt .boost{display:inline-block;margin:8px 0 4px;background:linear-gradient(90deg,rgba(124,58,237,.2),rgba(168,85,247,.12));border:1px solid #3a2c63;border-radius:30px;padding:5px 12px;font-size:12.5px;font-weight:800;color:#efe2ff;}
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code .bar .copy:hover{background:var(--violet2);}
+.code pre{padding:13px 15px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.55;color:#d6c9f5;white-space:pre-wrap;}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;}.r{background:#ff5f56;}.y{background:#ffbd2e;}.g{background:#27c93f;}
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.step{display:flex;gap:16px;margin-bottom:16px;}
+.step-n{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.step-body h4{font-size:15px;font-weight:800;margin-bottom:3px;}
+.step-body p{color:var(--mut);font-size:14px;}
+.cta-section{margin:50px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:29px;}}
+</style>
 </head>
 <body>
-<div class="card">
 
-  <!-- GATE -->
-  <div id="form-section">
-    <span class="badge">🔐 Guide Exclusif</span>
-    <span class="icon">⚡</span>
-    <h1>Les 20 codes secrets qui font passer Claude <em>au niveau supérieur</em></h1>
-    <p class="subtitle">Des mots-clés à coller avant ton prompt qui activent des modes de raisonnement que Claude n'utilise pas par défaut. OODA, PARETO, /redteam, CEOMODE...</p>
-    <div class="stat">⚡ 20 codes + 4 combos + 3 conseils</div>
-    <input type="email" id="email-input" placeholder="Ton adresse email" autocomplete="email" />
-    <button class="btn-primary" onclick="submitForm()">Accéder aux codes gratuitement →</button>
-    <p class="privacy">🔒 Zéro spam. Juste les vrais tips Claude.</p>
-  </div>
-
-  <!-- CONFIRM -->
-  <div id="confirm-section">
-    <span class="confirm-icon">✅</span>
-    <div class="confirm-title">Les codes sont là.</div>
-    <p class="confirm-sub">Copie-les, teste-les dans Claude maintenant. Tu vas voir la différence immédiatement.</p>
-  </div>
-
-  <!-- CONTENT -->
-  <div id="content-section">
-
-    <div class="section-title">Comment ça marche</div>
-    <div class="intro-box">
-      Claude connaît déjà toutes ces méthodes (manuels militaires, méthodes de consulting, livres de business). Par défaut, il répond "moyen" pour être utile au plus grand nombre. <strong>Ces codes lui disent quelle méthode appliquer exactement.</strong><br><br>
-      Place le code <strong>avant ton prompt</strong> pour de meilleurs résultats :<br>
-      <code style="background:#e5e5e5;padding:2px 6px;border-radius:4px;font-size:12px;">OODA Aide-moi à choisir entre lancer mon offre A ou B</code>
-    </div>
-
-    <div class="section-title">Les 20 codes</div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">1</div><div class="code-tag">ARTIFACTS</div></div>
-      <div class="code-desc">Génère directement une appli, un dashboard ou un outil interactif fonctionnel dans le chat. Pas un plan — le truc qui marche.</div>
-      <div class="code-example"><em>ARTIFACTS</em> Crée un calculateur de marge brute avec prix de vente, coût produit, frais de livraison.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">2</div><div class="code-tag">OODA</div></div>
-      <div class="code-desc">Méthode militaire de décision (Observer, Orienter, Décider, Agir). Au lieu de "voici 5 options", tu as une analyse en 4 phases avec quoi faire et dans quel ordre.</div>
-      <div class="code-example"><em>OODA</em> Mon concurrent vient de baisser ses prix de 30%. Comment je réagis ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">3</div><div class="code-tag">/redteam</div></div>
-      <div class="code-desc">Claude attaque ton idée comme un consultant payé pour la détruire. Tu ressors avec les failles que tu n'avais pas vues + les contre-arguments aux objections probables.</div>
-      <div class="code-example"><em>/redteam</em> Je veux lancer un SaaS à 49€/mois pour les coachs indépendants.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">4</div><div class="code-tag">/premortem</div></div>
-      <div class="code-desc">Claude imagine que ton plan a déjà échoué et cherche les raisons. Tu fais l'exercice avant de lancer, pas après avoir cramé 6 mois.</div>
-      <div class="code-example"><em>/premortem</em> Je lance ma formation à 297€ le 15 du mois. Imagine que dans 3 mois c'est un échec total. Que s'est-il passé ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">5</div><div class="code-tag">PARETO</div></div>
-      <div class="code-desc">Claude identifie les 20% d'actions qui génèrent 80% de tes résultats. Il enlève le superflu et te montre où mettre ton temps.</div>
-      <div class="code-example"><em>PARETO</em> Voici mes 12 canaux d'acquisition [liste]. Lesquels font 80% de mes clients ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">6</div><div class="code-tag">LEVERAGE</div></div>
-      <div class="code-desc">Claude trouve LE seul mouvement qui change tout le reste. Pas une to-do list — une seule action à fort effet de levier.</div>
-      <div class="code-example"><em>LEVERAGE</em> Je suis solo, 5k€/mois, je veux 20k€/mois en 6 mois. Quel est le seul mouvement qui change tout ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">7</div><div class="code-tag">/blindspots</div></div>
-      <div class="code-desc">Claude trouve ce que tu rates et n'as pas pensé à demander. Il anticipe les angles morts de ta question.</div>
-      <div class="code-example"><em>/blindspots</em> Je veux passer mon site en abonnement plutôt qu'en achat one-shot. Quels angles morts je n'ai pas vus ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">8</div><div class="code-tag">/ghost</div></div>
-      <div class="code-desc">Claude réécrit ton texte pour qu'on ne puisse pas deviner que c'est une IA. Passe les principaux détecteurs (GPTZero, Originality.ai).</div>
-      <div class="code-example"><em>/ghost</em> Réécris ce post LinkedIn pour qu'il sonne comme un humain qui écrit à 11h du soir. [ton texte]</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">9</div><div class="code-tag">/autoprompt</div></div>
-      <div class="code-desc">Tu balances ton idée brute, Claude construit le prompt parfait. C'est méta : Claude prompte Claude.</div>
-      <div class="code-example"><em>/autoprompt</em> Je veux que Claude m'aide à trouver des idées de contenu Insta.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">10</div><div class="code-tag">CEOMODE</div></div>
-      <div class="code-desc">Claude répond comme un PDG qui décide — pas comme un assistant qui te donne des options. Il tranche.</div>
-      <div class="code-example"><em>CEOMODE</em> J'hésite entre CDD 6 mois ou freelance à la mission. CA 15k€/mois, marge 70%. Tranche.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">11</div><div class="code-tag">MASTERCLASS</div></div>
-      <div class="code-desc">Claude t'enseigne un sujet comme un expert de niveau mondial. Pas un résumé Wikipedia — le niveau d'un cours universitaire avancé.</div>
-      <div class="code-example"><em>MASTERCLASS</em> Explique-moi comment fonctionne vraiment le SEO en 2026 (pas les bases, le niveau expert).</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">12</div><div class="code-tag">INVERT</div></div>
-      <div class="code-desc">Méthode de Charlie Munger. Au lieu de "comment réussir X", Claude cherche "comment foirer X à coup sûr". Tu fais l'inverse.</div>
-      <div class="code-example"><em>INVERT</em> Je veux que ma formation IA cartonne au lancement.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">13</div><div class="code-tag">WARGAME</div></div>
-      <div class="code-desc">Claude simule comment tes concurrents réagiraient à ton mouvement. Ce que font les boîtes du CAC 40 à 50k€ la mission — en 30 secondes.</div>
-      <div class="code-example"><em>WARGAME</em> Je lance une offre annuelle à -40%. Mes 3 concurrents sont X, Y, Z. Comment ils réagissent ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">14</div><div class="code-tag">BOTTLENECK</div></div>
-      <div class="code-desc">Claude identifie l'unique chose qui ralentit tout le reste. Pas une liste de problèmes : LE problème qui une fois résolu débloque tout.</div>
-      <div class="code-example"><em>BOTTLENECK</em> Mon CA stagne à 12k€/mois depuis 4 mois. Voici mon stack [acquisition, conversion, livraison…]. Quel est le vrai goulot ?</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">15</div><div class="code-tag">/storysell</div></div>
-      <div class="code-desc">Claude transforme ton message en histoire que les gens veulent lire jusqu'au bout. Pas de la fiction — ta vraie offre avec une structure narrative.</div>
-      <div class="code-example"><em>/storysell</em> Ma promesse : aider les solopreneurs à passer de 5k€ à 20k€/mois en 6 mois grâce à l'IA. Transforme en histoire vendeuse.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">16</div><div class="code-tag">HOOKS10</div></div>
-      <div class="code-desc">Claude génère 10 accroches complètement différentes pour n'importe quel sujet. Pas 3 variations — 10 angles distincts.</div>
-      <div class="code-example"><em>HOOKS10</em> Sujet : un outil IA qui automatise la veille concurrentielle pour 10€/mois.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">17</div><div class="code-tag">DOSSIER</div></div>
-      <div class="code-desc">Claude compile un dossier complet structuré sur n'importe quel sujet ou entreprise. Une note de briefing comme un cabinet de conseil.</div>
-      <div class="code-example"><em>DOSSIER</em> Compile tout ce que tu sais sur Mistral AI : fondation, modèles, levées, positionnement, faiblesses. Format : note 2 pages.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">18</div><div class="code-tag">/negotiate</div></div>
-      <div class="code-desc">Claude écrit un script de négociation pour t'obtenir le meilleur accord. Arguments, contre-objections, zones de flexibilité, BATNA.</div>
-      <div class="code-example"><em>/negotiate</em> Je négocie 24k€ annuel. Le client veut payer mensuel. Je veux annuel payé d'avance. Script + contre-objections.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">19</div><div class="code-tag">OPERATOR</div></div>
-      <div class="code-desc">Claude gère une tâche de bout en bout sans poser de questions. Il fait les hypothèses raisonnables et te livre le résultat fini.</div>
-      <div class="code-example"><em>OPERATOR</em> Crée une séquence email de 5 mails pour relancer mes anciens prospects depuis 3 mois. Mon offre : coaching business 1-1 à 2k€.</div>
-    </div>
-
-    <div class="code-card">
-      <div class="code-header"><div class="code-num">20</div><div class="code-tag">SENTINEL</div></div>
-      <div class="code-desc">Claude passe en revue tout ton plan et signale chaque erreur, risque et détail manqué. Mode paranoia — il cherche même quand t'en as pas demandé.</div>
-      <div class="code-example"><em>SENTINEL</em> Voici mon plan de lancement formation [plan]. Passe en revue, signale tout : incohérences, risques légaux, trous dans le pricing.</div>
-    </div>
-
-    <div class="section-title">Les combos qui multiplient l'effet</div>
-
-    <div class="combo-card">
-      <div class="combo-title">⚔️ Combo stratégie business</div>
-      <div class="combo-tags"><span class="combo-tag">OODA</span><span class="combo-tag">/redteam</span><span class="combo-tag">/premortem</span></div>
-      <div class="combo-desc">Tu analyses la situation, tu démontes ta solution, tu prévois les fails. Plan béton garanti.</div>
-    </div>
-    <div class="combo-card">
-      <div class="combo-title">🎯 Combo focus trimestriel</div>
-      <div class="combo-tags"><span class="combo-tag">PARETO</span><span class="combo-tag">LEVERAGE</span><span class="combo-tag">/blindspots</span></div>
-      <div class="combo-desc">Tu vires le superflu, tu trouves le levier, tu identifies les angles morts. Une fois par trimestre, ton business bouge d'un cran.</div>
-    </div>
-    <div class="combo-card">
-      <div class="combo-title">🚀 Combo lancement express</div>
-      <div class="combo-tags"><span class="combo-tag">/autoprompt</span><span class="combo-tag">ARTIFACTS</span><span class="combo-tag">/ghost</span></div>
-      <div class="combo-desc">Tu construis le prompt parfait, tu génères l'outil, tu réécris ta page comme un humain. Lancement en 2h chrono.</div>
-    </div>
-    <div class="combo-card">
-      <div class="combo-title">💼 Combo décision lourde</div>
-      <div class="combo-tags"><span class="combo-tag">CEOMODE</span><span class="combo-tag">/redteam</span><span class="combo-tag">OODA</span></div>
-      <div class="combo-desc">Tu fais trancher comme un PDG, tu démontes la décision, tu exécutes en mode militaire.</div>
-    </div>
-
-    <div class="section-title">3 conseils pour bien les utiliser</div>
-    <div class="tip-row">
-      <div class="tip-num">1</div>
-      <div class="tip-text">Mets <strong>2-3 codes en favoris</strong> dans tes instructions perso Claude (Settings → Personal preferences). Toutes tes conversations en héritent.</div>
-    </div>
-    <div class="tip-row">
-      <div class="tip-num">2</div>
-      <div class="tip-text"><strong>Maximum 2-3 codes par prompt.</strong> Si tu en empiles trop, Claude se perd. Pour les analyses lourdes, enchaîne en plusieurs messages.</div>
-    </div>
-    <div class="tip-row">
-      <div class="tip-num">3</div>
-      <div class="tip-text"><strong>Crée tes propres codes.</strong> Une fois que t'as compris le principe, invente les tiens. "/maxmode" → dis à Claude ce que ça fait une fois, réutilise dans toute la conversation.</div>
-    </div>
-
-    <div class="cta-section">
-      <a href="https://www.maitrise-ia.pro/prompts" class="cta-block cta-gold">
-        <div class="cta-label">⚡ Accès immédiat</div>
-        <div class="cta-text">50 prompts Claude prêts à l'emploi →</div>
-        <div class="cta-sub">Contenu · Prospection · SEO · Analyse — 50€</div>
-      </a>
-      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-dark">
-        <div class="cta-label">📞 Appel stratégique</div>
-        <div class="cta-text">J'automatise ma boîte avec Claude →</div>
-        <div class="cta-sub">Réserve 30 min — Gratuit</div>
-      </a>
-      <a href="https://calendly.com/arnaud-monsieur-ia/30min" class="cta-block cta-gray">
-        <div class="cta-label">🏢 Formation entreprise</div>
-        <div class="cta-text">Former mon équipe à l'IA →</div>
-        <div class="cta-sub">Atelier sur mesure — Réserve un appel</div>
-      </a>
-    </div>
-
+<div class="hero">
+  <span class="kicker">🔓 Claude × Prompts</span>
+  <div class="wrap">
+    <h1>5 <span class="hl">codes secrets</span> pour Claude.</h1>
+    <p>5 préfixes qui débloquent un autre niveau de Claude : il arrête de te flatter et te donne enfin du vrai. Prêts à copier-coller.</p>
   </div>
 </div>
 
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>Je t'aide à automatiser & vendre avec l'IA</span></div></div>
+    <p>Par défaut, Claude reste poli — donc il enrobe. Ces 5 codes le forcent à être direct, critique et utile. Tu les mets juste avant ton prompt (ou tu colles ton plan en dessous). Copie, remplace les [crochets], colle dans Claude.</p>
+  </div>
+
+  <section>
+    <span class="tag">Les 5 codes</span>
+    <h2>📋 Prêts à copier-coller</h2>
+
+    <div class="prompt">
+      <div class="head"><div class="n">1</div><div class="e">🔥</div><h3>Brutal</h3></div>
+      <span class="boost">👉 Il arrête d'être gentil et te dit vrai</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Code 1 — Brutal</span><button class="copy" data-c="Sois brutalement honnête avec moi, pas gentil. Oublie la diplomatie et les compliments d'usage. Dis-moi exactement ce que j'ai besoin d'entendre, pas ce qui me ferait plaisir : pourquoi c'est faible, ce qui ne tient pas, et ce que la plupart des gens n'oseraient pas me dire. Si c'est mauvais, dis-le clairement et explique pourquoi. Voici l'élément à évaluer : [TON IDÉE / TON TEXTE]">Copier</button></div><pre>Sois brutalement honnête avec moi, pas gentil. Oublie la
+diplomatie et les compliments d'usage. Dis-moi exactement ce
+que j'ai besoin d'entendre, pas ce qui me ferait plaisir :
+pourquoi c'est faible, ce qui ne tient pas, et ce que la
+plupart n'oseraient pas me dire. Si c'est mauvais, dis-le
+clairement et explique pourquoi.
+Voici l'élément à évaluer : [TON IDÉE / TON TEXTE]</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">2</div><div class="e">⚔️</div><h3>Steel Man</h3></div>
+      <span class="boost">👉 La version la plus forte de l'avis opposé</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Code 2 — Steel Man</span><button class="copy" data-c="Construis le 'steel man' de la position inverse à la mienne : l'argumentaire le plus solide et le plus convaincant possible CONTRE mon idée. Pas un avocat du diable caricatural — la meilleure version honnête de l'opposition, celle que défendrait quelqu'un d'intelligent et de bien informé. Donne-moi les 3 arguments les plus forts, les preuves ou exemples qui les soutiennent, et le scénario où j'aurais clairement tort. Termine par : qu'est-ce que ça devrait me faire changer ? Mon idée : [TON IDÉE / TA DÉCISION]">Copier</button></div><pre>Construis le 'steel man' de la position inverse à la mienne :
+l'argumentaire le plus solide et convaincant possible CONTRE
+mon idée. Pas un avocat du diable caricatural — la meilleure
+version honnête de l'opposition, celle que défendrait quelqu'un
+d'intelligent et bien informé.
+Donne-moi les 3 arguments les plus forts, les preuves qui les
+soutiennent, et le scénario où j'aurais clairement tort.
+Termine par : qu'est-ce que ça devrait me faire changer ?
+Mon idée : [TON IDÉE / TA DÉCISION]</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">3</div><div class="e">🧒</div><h3>ELI5 — Explique comme si j'avais 5 ans</h3></div>
+      <span class="boost">👉 N'importe quel jargon traduit en simple</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Code 3 — ELI5</span><button class="copy" data-c="Explique-moi ce qui suit comme si j'avais 5 ans : zéro jargon, des mots simples, et une analogie du quotidien pour rendre l'idée évidente. Si tu dois employer un terme technique, définis-le tout de suite avec des mots de tous les jours. Finis par 'En résumé :' suivi d'une seule phrase qui capture l'essentiel. Voici le truc confus (juridique, financier, contrat, technique…) : [COLLE LE TEXTE OU LE TERME ICI]">Copier</button></div><pre>Explique-moi ce qui suit comme si j'avais 5 ans : zéro jargon,
+des mots simples, et une analogie du quotidien pour rendre
+l'idée évidente. Si tu dois employer un terme technique,
+définis-le tout de suite avec des mots de tous les jours.
+Finis par 'En résumé :' suivi d'une seule phrase qui capture
+l'essentiel.
+Voici le truc confus : [COLLE LE TEXTE OU LE TERME ICI]</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">4</div><div class="e">🕳️</div><h3>Qu'est-ce qui me manque ?</h3></div>
+      <span class="boost">👉 Il trouve les failles avant tout le monde</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Code 4 — Angles morts</span><button class="copy" data-c="Voici mon plan / ma stratégie / mon idée ci-dessous. Avant que je l'envoie ou que je passe à l'action, dis-moi : qu'est-ce qui me manque ? Cherche les angles morts, les hypothèses non vérifiées, les risques que je n'ai pas vus, les objections qu'on va me faire, et les détails qui font tout rater dans la pratique. Classe ce que tu trouves du plus critique au moins critique, et pour chaque point, propose comment le combler. Ne sois pas rassurant : sois exhaustif. Voici l'élément : [COLLE TON PLAN / TA STRATÉGIE / TON IDÉE]">Copier</button></div><pre>Voici mon plan / ma stratégie / mon idée ci-dessous. Avant que
+je l'envoie ou que je passe à l'action, dis-moi : qu'est-ce qui
+me manque ? Cherche les angles morts, les hypothèses non
+vérifiées, les risques que je n'ai pas vus, les objections
+qu'on va me faire, et les détails qui font tout rater en
+pratique.
+Classe du plus critique au moins critique, et pour chaque point
+propose comment le combler. Ne sois pas rassurant : sois
+exhaustif.
+Voici l'élément : [COLLE TON PLAN / TA STRATÉGIE / TON IDÉE]</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">5</div><div class="e">🚀</div><h3>Rends ça 10x meilleur</h3></div>
+      <span class="boost">👉 Pas corrigé : complètement transformé</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Code 5 — 10x</span><button class="copy" data-c="Ne te contente pas de corriger ce qui suit. Rends-le 10 fois meilleur. Pars du principe que la version actuelle est le strict minimum et repense-la en profondeur : structure, impact, clarté, originalité. Dis-moi d'abord les 3 leviers qui changeraient le plus le résultat, puis produis la version transformée. Si repartir de zéro donne un meilleur résultat que d'améliorer l'existant, fais-le et explique pourquoi. Voici l'élément : [COLLE TON PLAN / TON TEXTE / TON IDÉE]">Copier</button></div><pre>Ne te contente pas de corriger ce qui suit. Rends-le 10 fois
+meilleur. Pars du principe que la version actuelle est le
+strict minimum et repense-la en profondeur : structure,
+impact, clarté, originalité.
+Dis-moi d'abord les 3 leviers qui changeraient le plus le
+résultat, puis produis la version transformée. Si repartir de
+zéro donne mieux qu'améliorer l'existant, fais-le et explique
+pourquoi.
+Voici l'élément : [COLLE TON PLAN / TON TEXTE / TON IDÉE]</pre></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Comment l'utiliser</span>
+    <h2>⚙️ 2 façons</h2>
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Le plus rapide</h4><p>Copie un code, remplace les [crochets] par ton contenu, colle dans Claude. C'est tout.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Le plus malin — en Projet Claude</h4><p>Crée un Projet « Mes 5 codes », colle-les dans une note, et dégaine celui qu'il te faut selon le moment (décider, vérifier, comprendre, améliorer).</p></div></div>
+    <div class="note">💡 <b>Le combo qui tue :</b> avant d'envoyer une grosse décision → <b>Steel Man</b> (4) pour le contre, <b>Qu'est-ce qui me manque ?</b> pour les angles morts, puis <b>10x</b> pour transformer. Tu ne joues plus dans la même cour.</div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Pour aller plus loin 👇</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — 5 codes secrets pour Claude · prompts prêts à coller.</div></div>
+<div class="copied" id="copied">✅ Copié !</div>
 <script>
-  const STORAGE_KEY = 'mia_email_submitted';
-  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
-  if (localStorage.getItem(STORAGE_KEY) === 'true') showContent(false);
-  function showContent(animate) {
-    document.getElementById('form-section').style.display = 'none';
-    document.getElementById('confirm-section').style.display = animate ? 'block' : 'none';
-    document.getElementById('content-section').style.display = 'block';
-    if (animate) setTimeout(() => document.getElementById('content-section').scrollIntoView({ behavior: 'smooth' }), 300);
-  }
-  async function submitForm() {
-    const email = document.getElementById('email-input').value.trim();
-    if (!email || !email.includes('@')) { document.getElementById('email-input').style.borderColor = '#C9A84C'; return; }
-    const btn = document.querySelector('.btn-primary');
-    btn.textContent = 'Envoi en cours…'; btn.disabled = true;
-    try {
-      await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ access_key: WEB3FORMS_KEY, email, subject: 'Nouveau lead — 20 codes secrets Claude', message: `Email: ${email} | Source: /codes | Date: ${new Date().toISOString()}` }) });
-    } catch(e) {}
-    localStorage.setItem(STORAGE_KEY, 'true');
-    showContent(true);
-  }
-  document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') submitForm(); });
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){
+      b.textContent='Copié ✓';var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier';c.classList.remove('show');},1600);
+    });
+  });
+});
 </script>
 </body>
 </html>
