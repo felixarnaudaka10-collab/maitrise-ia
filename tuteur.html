@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Le mode prof particulier de Claude — 6 prompts (Monsieur IA)</title>
+<meta name="description" content="6 prompts qui transforment Claude en prof particulier et t'apprennent n'importe quelle compétence de zéro. Prêts à copier-coller."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+.hero{text-align:center;padding:60px 20px 34px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+section{margin:42px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.prompt::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,var(--violet),var(--violet2));}
+.prompt .head{display:flex;align-items:center;gap:11px;margin-bottom:4px;}
+.prompt .n{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prompt .e{font-size:20px;}
+.prompt h3{font-size:17px;font-weight:900;}
+.prompt .boost{display:inline-block;margin:8px 0 4px;background:linear-gradient(90deg,rgba(124,58,237,.2),rgba(168,85,247,.12));border:1px solid #3a2c63;border-radius:30px;padding:5px 12px;font-size:12.5px;font-weight:800;color:#efe2ff;}
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code .bar .copy:hover{background:var(--violet2);}
+.code pre{padding:13px 15px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.55;color:#d6c9f5;white-space:pre-wrap;}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;}.r{background:#ff5f56;}.y{background:#ffbd2e;}.g{background:#27c93f;}
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.step{display:flex;gap:16px;margin-bottom:16px;}
+.step-n{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.step-body h4{font-size:15px;font-weight:800;margin-bottom:3px;}
+.step-body p{color:var(--mut);font-size:14px;}
+.cta-section{margin:50px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:29px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">🎓 Claude × Apprentissage</span>
+  <div class="wrap">
+    <h1>Le mode <span class="hl">prof particulier</span> de Claude.</h1>
+    <p>6 prompts qui transforment Claude en tuteur perso et t'apprennent n'importe quelle compétence — de zéro. Chacun repose sur un vrai principe d'apprentissage.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>Je t'aide à automatiser & vendre avec l'IA</span></div></div>
+    <p>La plupart des gens utilisent Claude comme Google : ils posent une question, il répond, ils oublient. Ces 6 prompts font l'inverse : ils te FONT apprendre. Copie, remplace les [crochets], colle dans Claude.</p>
+  </div>
+
+  <section>
+    <span class="tag">Les 6 prompts</span>
+    <h2>📋 Prêts à copier-coller</h2>
+
+    <div class="prompt">
+      <div class="head"><div class="n">1</div><div class="e">🎯</div><h3>Le Destructeur de courbe</h3></div>
+      <span class="boost">👉 Quoi apprendre d'abord, quoi ignorer</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 1</span><button class="copy" data-c="Tu es un prof qui n'a que 4 heures avec moi et qui ne me reverra jamais. Ton seul objectif : me rendre opérationnel en [COMPÉTENCE] avant la fin du temps. Ne me donne pas de théorie sans usage pratique, et pas de liste générique. Dis-moi 3 choses : quoi apprendre en premier, quoi ignorer complètement, et le seul exercice qui — fait une seule fois — me mettrait déjà devant 70% des gens qui étudient ça depuis des mois. Ensuite, enseigne-moi la première étape et attends ma réponse avant de continuer.">Copier</button></div><pre>Tu es un prof qui n'a que 4 heures avec moi et qui ne me
+reverra jamais. Ton seul objectif : me rendre opérationnel
+en [COMPÉTENCE] avant la fin du temps.
+Pas de théorie sans usage pratique, pas de liste générique.
+Dis-moi 3 choses : quoi apprendre en premier, quoi ignorer
+complètement, et le seul exercice qui — fait une seule fois —
+me mettrait déjà devant 70% des gens qui étudient depuis des
+mois. Puis enseigne-moi la 1ère étape et attends ma réponse.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">2</div><div class="e">⚠️</div><h3>Le Simulateur d'erreurs</h3></div>
+      <span class="boost">👉 Tu apprends en te trompant</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 2</span><button class="copy" data-c="Ne m'explique pas [CONCEPT]. Mets-moi directement dans une situation réaliste où je devrais l'utiliser et où je ferais probablement une erreur, puis attends ma réponse. Quand je me trompe, ne me donne pas la réponse : pose-moi UNE question qui me force à trouver où mon raisonnement casse. Donne-moi la réponse seulement après au moins 2 tentatives. Puis recommence le cycle avec une nouvelle situation jusqu'à ce que je réussisse sans hésiter.">Copier</button></div><pre>Ne m'explique pas [CONCEPT]. Mets-moi directement dans une
+situation réaliste où je devrais l'utiliser et où je ferais
+probablement une erreur, puis attends ma réponse.
+Quand je me trompe, ne donne pas la réponse : pose UNE
+question qui me force à trouver où mon raisonnement casse.
+Donne la réponse seulement après 2 tentatives. Puis recommence
+avec une nouvelle situation jusqu'à ce que je réussisse sans
+hésiter.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">3</div><div class="e">🧩</div><h3>Le Traducteur</h3></div>
+      <span class="boost">👉 L'idée centrale + une analogie simple</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 3</span><button class="copy" data-c="Le contenu ci-dessous me semble confus. Avant d'expliquer quoi que ce soit, dis-moi LA seule idée centrale qui, une fois comprise, fait tomber le reste en place. Explique seulement cette idée d'abord, avec une analogie du quotidien et zéro terme technique. Puis pose-moi 3 questions auxquelles seul quelqu'un qui a vraiment compris pourrait répondre, une par une, et attends mes réponses. Ne passe à la suite que quand j'ai réussi les 3. [COLLE LE CONTENU ICI]">Copier</button></div><pre>Le contenu ci-dessous me semble confus. Avant d'expliquer
+quoi que ce soit, dis-moi LA seule idée centrale qui, une
+fois comprise, fait tomber le reste en place.
+Explique seulement cette idée d'abord, avec une analogie du
+quotidien et zéro terme technique. Puis pose-moi 3 questions
+auxquelles seul quelqu'un qui a vraiment compris pourrait
+répondre, une par une. Ne passe à la suite qu'une fois les 3
+réussies. [COLLE LE CONTENU ICI]</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">4</div><div class="e">🗺️</div><h3>L'Architecte de parcours</h3></div>
+      <span class="boost">👉 Ton parcours sur 7 jours</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 4</span><button class="copy" data-c="Mon vrai objectif, c'est [OBJECTIF]. Ce n'est pas d'apprendre [COMPÉTENCE] en général : c'est d'atteindre [RÉSULTAT PRÉCIS] avant [DÉLAI]. Je maîtrise déjà [CE QUE TU MAÎTRISES DÉJÀ]. Sur cette base, construis-moi un parcours sur 7 jours. Chaque jour : une seule tâche tenant en 45 minutes, un critère clair pour savoir si je l'ai bien fait, et ce qu'il ne faut PAS faire ce jour-là pour ne pas perdre de temps. Si le parcours ne me mène pas à l'objectif, reconstruis-le jusqu'à ce que ce soit le cas.">Copier</button></div><pre>Mon vrai objectif, c'est [OBJECTIF]. Ce n'est pas d'apprendre
+[COMPÉTENCE] en général : c'est d'atteindre [RÉSULTAT PRÉCIS]
+avant [DÉLAI]. Je maîtrise déjà [CE QUE TU MAÎTRISES DÉJÀ].
+Sur cette base, construis-moi un parcours sur 7 jours.
+Chaque jour : une seule tâche de 45 min, un critère clair pour
+savoir si je l'ai bien fait, et ce qu'il ne faut PAS faire ce
+jour-là. Si le parcours ne mène pas à l'objectif, reconstruis-le.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">5</div><div class="e">🔍</div><h3>Le Détecteur de failles</h3></div>
+      <span class="boost">👉 Il te prouve que tu maîtrises moins que tu crois</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 5</span><button class="copy" data-c="Je pense déjà maîtriser [COMPÉTENCE]. Je veux que tu me prouves le contraire. Pose-moi 5 questions qui ont l'air simples mais qui exposent les lacunes de quelqu'un qui n'est jamais allé vraiment en profondeur. Pose-les une par une et attends chaque réponse. Après chaque réponse, dis-moi ce qu'elle révèle de ce qui manque encore dans mes bases. Ne sois pas indulgent : si je reste en surface, dis-le-moi franchement.">Copier</button></div><pre>Je pense déjà maîtriser [COMPÉTENCE]. Je veux que tu me
+prouves le contraire. Pose-moi 5 questions qui ont l'air
+simples mais qui exposent les lacunes de quelqu'un qui n'est
+jamais allé vraiment en profondeur. Une par une, attends
+chaque réponse. Après chaque réponse, dis-moi ce qu'elle
+révèle de ce qui manque dans mes bases. Ne sois pas indulgent :
+si je reste en surface, dis-le-moi franchement.</pre></div>
+    </div>
+
+    <div class="prompt">
+      <div class="head"><div class="n">6</div><div class="e">🧠</div><h3>La Méthode Feynman forcée</h3></div>
+      <span class="boost">👉 Tu expliques, il repère tes trous</span>
+      <div class="code"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fn">Prompt 6</span><button class="copy" data-c="Je viens d'étudier [SUJET]. Je vais t'expliquer ce que j'ai compris comme si tu étais un enfant de 10 ans. Attends mon explication. Pendant que j'explique, arrête-moi à chaque fois que j'utilise un jargon que je ne sais pas définir, que je saute une étape de raisonnement, ou que je simplifie au point que ça devient faux. À la fin, dis-moi exactement ce que ces erreurs révèlent de ce qui n'est pas encore solide dans ma compréhension.">Copier</button></div><pre>Je viens d'étudier [SUJET]. Je vais t'expliquer ce que j'ai
+compris comme si tu étais un enfant de 10 ans. Attends mon
+explication. Pendant que j'explique, arrête-moi dès que
+j'utilise un jargon que je ne sais pas définir, que je saute
+une étape, ou que je simplifie au point que ça devient faux.
+À la fin, dis-moi ce que ces erreurs révèlent de ce qui n'est
+pas encore solide dans ma compréhension.</pre></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Comment l'utiliser</span>
+    <h2>⚙️ 2 façons</h2>
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Le plus rapide</h4><p>Copie un prompt, remplace les [crochets] par ta compétence/ton sujet, colle dans Claude. Réponds à chaque étape — c'est interactif.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Le plus malin — en Projet Claude</h4><p>Crée un Projet « Mon prof particulier », colle les 6 prompts dans une note, et pioche celui qu'il te faut selon le moment (apprendre, tester tes failles, ancrer…).</p></div></div>
+    <div class="note">💡 <b>Astuce :</b> enchaîne-les. Commence par le n°1 (parcours), apprends, puis le n°2 (erreurs) pour pratiquer, et finis par le n°6 (Feynman) pour ancrer.</div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Pour aller plus loin 👇</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Appel stratégique offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business. 30 min, gratuit.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — Le mode prof particulier de Claude · 6 prompts d'apprentissage.</div></div>
+<div class="copied" id="copied">✅ Copié !</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){
+      b.textContent='Copié ✓';var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier';c.classList.remove('show');},1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
