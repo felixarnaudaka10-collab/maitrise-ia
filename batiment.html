@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Le métré bâtiment de Claude — plan → Excel complet (Monsieur IA)</title>
+<meta name="description" content="Donne ton plan d'architecte à Claude, il te sort un métré complet sur Excel (surfaces, matériaux, budget, formules). Le prompt exact + un fichier exemple."/>
+<style>
+:root{--violet:#7c3aed;--violet2:#a855f7;--violet3:#c084fc;--bg:#06040f;--card:#0d0a1c;--line:#251a44;--txt:#e9e3f7;--mut:#9d8fc4;--or:#e6b800;--vert:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;overflow-x:hidden;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+a{color:var(--violet3);text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background:radial-gradient(circle at 20% 10%,rgba(124,58,237,.25),transparent 45%),radial-gradient(circle at 85% 80%,rgba(168,85,247,.18),transparent 45%);}
+.hero{text-align:center;padding:60px 20px 34px;}
+.kicker{display:inline-block;background:linear-gradient(90deg,var(--violet),var(--violet2));color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;padding:6px 16px;border-radius:30px;text-transform:uppercase;box-shadow:0 6px 22px rgba(124,58,237,.5);}
+.hero h1{font-size:38px;line-height:1.12;font-weight:900;margin:20px 0 14px;letter-spacing:-1px;}
+.hero h1 .hl{background:linear-gradient(90deg,var(--violet2),var(--violet3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:18px;color:var(--mut);max-width:560px;margin:0 auto;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:30px 0;}
+.intro .who{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet2));display:flex;align-items:center;justify-content:center;font-size:22px;}
+.who b{font-size:16px;}.who span{font-size:12px;color:var(--mut);display:block;}
+section{margin:44px 0;}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1px;color:var(--violet3);text-transform:uppercase;margin-bottom:8px;}
+h2{font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.lead{color:var(--mut);font-size:16px;margin-bottom:20px;}
+.step{display:flex;gap:16px;margin-bottom:16px;}
+.step-n{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet2));color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.step-body h4{font-size:16px;font-weight:800;margin-bottom:3px;}
+.step-body p{color:var(--mut);font-size:14px;}
+.feat{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px;}
+.feat .fi{font-size:24px;flex-shrink:0;}
+.feat b{font-size:15px;}.feat span{font-size:13px;color:var(--mut);display:block;}
+.code{position:relative;background:#0a0716;border:1px solid var(--line);border-radius:12px;margin-top:12px;overflow:hidden;}
+.code .bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#0d0a1c;}
+.code .bar .fn{font-size:11px;color:var(--mut);margin-left:6px;font-family:monospace;}
+.code .bar .copy{margin-left:auto;background:var(--violet);color:#fff;border:none;font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;}
+.code .bar .copy:hover{background:var(--violet2);}
+.code pre{padding:14px 16px;overflow-x:auto;font-family:'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.6;color:#d6c9f5;white-space:pre-wrap;}
+.dl{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0f7a4f,#0a3d29);border:1px solid var(--vert);border-radius:14px;padding:18px 20px;margin-top:8px;}
+.dl .ic{font-size:32px;}
+.dl b{font-size:16px;color:#d7ffe9;}.dl span{font-size:13px;color:#a7f3d0;display:block;}
+.dl a{margin-left:auto;background:var(--vert);color:#03150d;font-weight:800;font-size:14px;padding:11px 18px;border-radius:10px;white-space:nowrap;}
+.note{background:rgba(124,58,237,.1);border:1px solid var(--violet);border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0;}
+.note b{color:var(--violet3);}
+.cta-section{margin:50px 0 30px;}
+.cta-section h2{text-align:center;}.cta-section .lead{text-align:center;}
+.cta-card{display:block;border-radius:16px;padding:22px 24px;margin-bottom:14px;border:1px solid;transition:transform .15s;position:relative;overflow:hidden;}
+.cta-card:hover{transform:translateY(-3px);}
+.cta-card .ct{font-size:19px;font-weight:900;margin-bottom:4px;}
+.cta-card .cd{font-size:14px;opacity:.85;}
+.cta-card .arrow{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:900;opacity:.6;}
+.cta-vert{background:linear-gradient(135deg,#072a1e,#04150f);border-color:var(--vert);color:#a7f3d0;}.cta-vert .ct{color:var(--vert);}
+.cta-or{background:linear-gradient(135deg,#2a2208,#1a1505);border-color:var(--or);color:#ffe89a;}.cta-or .ct{color:var(--or);}
+.cta-noir{background:linear-gradient(135deg,#13101f,#0a0814);border-color:var(--line);color:#cbbdf0;}.cta-noir .ct{color:#fff;}
+.foot{text-align:center;padding:40px 20px 60px;color:#5b4d7a;font-size:13px;}
+.copied{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--vert);color:#03150d;font-weight:800;padding:10px 20px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+.copied.show{opacity:1;}
+@media(max-width:520px){.hero h1{font-size:28px;}.dl{flex-wrap:wrap;}.dl a{margin-left:0;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="kicker">🏗️ Claude × Bâtiment</span>
+  <div class="wrap">
+    <h1>Donne ton plan, Claude te sort ton <span class="hl">métré complet</span> sur Excel.</h1>
+    <p>Surfaces, linéaires, matériaux, budget — avec de vraies formules qui se recalculent. Le prompt exact + un fichier exemple, dedans.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="who"><div class="avatar">🤖</div><div><b>Monsieur IA</b><span>J'automatise les TPE/PME avec l'IA</span></div></div>
+    <p>Tu viens de voir la vidéo. Voici le prompt exact + un vrai fichier de métré à télécharger. Le but : ne plus jamais repartir d'une feuille blanche le soir en rentrant du chantier.</p>
+  </div>
+
+  <section>
+    <span class="tag">Comment ça marche</span>
+    <h2>📐 En 3 étapes</h2>
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Tu glisses ton plan</h4><p>Une image ou un PDF de ton plan d'architecte dans Claude.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Tu colles le prompt</h4><p>Celui ci-dessous. Claude lit le plan, identifie chaque pièce, calcule surfaces, linéaires (plinthes), ouvertures.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body"><h4>Tu récupères ton Excel</h4><p>4 onglets : métré par pièce, matériaux & quantités, paramètres, récap budget. Avec formules dynamiques.</p></div></div>
+  </section>
+
+  <section>
+    <span class="tag">Le prompt</span>
+    <h2>💬 À copier-coller dans Claude</h2>
+    <p class="lead">Glisse ton plan, colle ce prompt, envoie.</p>
+    <div class="code"><div class="bar"><span class="dot"></span><span class="fn">Prompt métré bâtiment</span><button class="copy" data-c="Tu es un métreur expert du bâtiment. Je te donne le plan d'architecte ci-joint (image ou PDF).
+
+Analyse-le et construis-moi un fichier Excel de métré, structuré en 4 onglets :
+1. Paramètres : toutes les hypothèses modifiables (hauteur sous plafond, nombre de couches de peinture, rendement peinture, marges de perte, prix unitaires) — en haut, faciles à changer.
+2. Métré par pièce : pour chaque pièce du plan → surface au sol, hauteur sous plafond, périmètre (linéaire de plinthes), surface des murs brute, déduction des ouvertures (portes/fenêtres), surface des murs nette. Avec une ligne TOTAL.
+3. Matériaux & quantités : peinture (litres), carrelage sol, placo plafond, plinthes — calculés depuis le métré et les marges de perte.
+4. Récap budget : quantité × prix unitaire = coût par poste, puis TOTAL HT, TVA et TOTAL TTC.
+
+Règles :
+- Utilise de VRAIES formules Excel (jamais de valeurs en dur) qui se recalculent si je change une dimension ou un prix.
+- Mets les hypothèses et prix dans l'onglet Paramètres, et référence-les dans les formules.
+- Signale clairement les hypothèses que je dois vérifier.
+- Tu ne remplaces pas mon expertise : donne-moi une base d'estimation rapide et fiable.
+
+Construis le fichier et donne-le-moi en .xlsx.">Copier le prompt</button></div><pre>Tu es un métreur expert du bâtiment. Je te donne le plan
+d'architecte ci-joint (image ou PDF).
+
+Analyse-le et construis-moi un fichier Excel de métré, en 4 onglets :
+1. Paramètres : hypothèses modifiables (hauteur sous plafond,
+   couches de peinture, rendement, marges de perte, prix unitaires).
+2. Métré par pièce : surface au sol, HSP, périmètre (plinthes),
+   surface murs brute, ouvertures, surface murs nette + ligne TOTAL.
+3. Matériaux & quantités : peinture, carrelage, placo, plinthes.
+4. Récap budget : quantité × prix = coût, TOTAL HT, TVA, TOTAL TTC.
+
+Règles : VRAIES formules Excel (pas de valeurs en dur) qui se
+recalculent ; hypothèses dans l'onglet Paramètres ; signale ce
+que je dois vérifier. Tu ne remplaces pas le métreur, tu donnes
+une base rapide et fiable. Donne-moi le fichier en .xlsx.</pre></div>
+  </section>
+
+  <section>
+    <span class="tag">Le fichier exemple</span>
+    <h2>📊 Un vrai métré, prêt à l'emploi</h2>
+    <p class="lead">Exemple généré pour une maison de 85 m² : tout est en formules, change une dimension → tout se recalcule.</p>
+    <div class="feat"><div class="fi">🏠</div><div><b>Métré par pièce</b><span>surfaces, plinthes, murs nets, déduction des ouvertures</span></div></div>
+    <div class="feat"><div class="fi">🧱</div><div><b>Matériaux & quantités</b><span>peinture, carrelage, placo, plinthes — avec marges de perte</span></div></div>
+    <div class="feat"><div class="fi">💶</div><div><b>Récap budget</b><span>coût par poste, TOTAL HT / TVA / TTC</span></div></div>
+    <div class="dl"><div class="ic">⬇️</div><div><b>Métré-batiment-Claude.xlsx</b><span>Le fichier exemple, à ouvrir dans Excel</span></div><a href="https://maitrise-ia.vercel.app/Metre-batiment-Claude.xlsx" download>Télécharger</a></div>
+    <div class="note">⚠️ <b>Important :</b> c'est une <b>base d'estimation</b> à vérifier par un métreur. Les valeurs (périmètres, ouvertures) sont estimées depuis le plan — contrôle-les avant un vrai devis.</div>
+  </section>
+
+  <section class="cta-section">
+    <h2>🏗️ Tu es une entreprise du bâtiment ?</h2>
+    <p class="lead">On peut automatiser tes métrés, devis et tâches répétitives.</p>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">🟢 Audit automatisation offert</div>
+      <div class="cd">30 min pour voir ce qu'on peut automatiser dans ta boîte (métrés, devis, admin). Gratuit, sans engagement.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">🟡 Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts pour gagner du temps avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">⚫ Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips & entraide pour automatiser ton activité avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — Le métré bâtiment de Claude · Base d'estimation, à valider par un professionnel.</div></div>
+<div class="copied" id="copied">✅ Copié !</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){
+      b.textContent='Copié ✓';var c=document.getElementById('copied');c.classList.add('show');
+      setTimeout(function(){b.textContent='Copier le prompt';c.classList.remove('show');},1700);
+    });
+  });
+});
+</script>
+</body>
+</html>
