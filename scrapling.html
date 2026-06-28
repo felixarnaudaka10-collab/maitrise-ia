@@ -79,6 +79,55 @@ h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 </head>
 <body>
 
+<!-- ===== MUR DE CAPTURE EMAIL ===== -->
+<style>
+#email-gate{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 30% 20%,#160d2e,#06040f 70%);display:flex;align-items:center;justify-content:center;padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+#email-gate .g-card{max-width:440px;width:100%;background:#0d0a1c;border:1px solid #251a44;border-radius:22px;padding:34px 28px;text-align:center;box-shadow:0 30px 80px rgba(124,58,237,.25);}
+#email-gate .g-badge{display:inline-block;background:linear-gradient(90deg,#7c3aed,#a855f7);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:5px 14px;border-radius:30px;text-transform:uppercase;}
+#email-gate .g-ic{font-size:50px;margin:14px 0 4px;}
+#email-gate h2{color:#fff;font-size:25px;font-weight:900;line-height:1.2;margin:6px 0 10px;}
+#email-gate h2 em{font-style:normal;background:linear-gradient(90deg,#a855f7,#c084fc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+#email-gate p{color:#9d8fc4;font-size:15px;line-height:1.5;margin-bottom:18px;}
+#email-gate .g-stat{display:inline-block;background:rgba(124,58,237,.12);border:1px solid #3a2c63;color:#c9bce6;font-size:12px;font-weight:700;padding:6px 14px;border-radius:30px;margin-bottom:18px;}
+#email-gate input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid #2c2150;background:#140e26;color:#fff;font-size:15px;margin-bottom:10px;outline:none;}
+#email-gate input:focus{border-color:#a855f7;}
+#email-gate input::placeholder{color:#6f6196;}
+#email-gate button{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#a855f7);color:#fff;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 8px 24px rgba(124,58,237,.4);}
+#email-gate button:disabled{opacity:.6;}
+#email-gate .g-proof{margin-top:14px;font-size:12px;color:#7c6aa0;}
+</style>
+<div id="email-gate">
+  <div class="g-card">
+    <span class="g-badge">Monsieur IA · Accès gratuit</span>
+    <div class="g-ic">🕷️</div>
+    <h2>Le tuto complet<br><em>Scrapling × Claude</em></h2>
+    <p>Entre ton email — je débloque le guide complet juste en dessous (le prompt, le setup MCP et tout le tuto), prêt à l'emploi.</p>
+    <div class="g-stat">⚡ Gratuit · Accès immédiat · Aucun spam</div>
+    <form id="gate-form" onsubmit="gateSubmit(event)">
+      <input type="email" id="gate-email" placeholder="ton@email.com" required autocomplete="email"/>
+      <button type="submit" id="gate-btn">Débloquer le guide →</button>
+    </form>
+    <div class="g-proof">🔒 Ton email reste privé. Accès direct au tuto.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var WEB3FORMS_KEY='038b1035-ecbd-4506-bd90-5a6421828169';
+  var STORAGE_KEY='mia_email_submitted';
+  function hideGate(){var g=document.getElementById('email-gate');if(g){g.style.display='none';}document.body.style.overflow='';}
+  if(localStorage.getItem(STORAGE_KEY)){hideGate();}else{document.body.style.overflow='hidden';}
+  window.gateSubmit=function(e){
+    e.preventDefault();
+    var email=document.getElementById('gate-email').value.trim();
+    var btn=document.getElementById('gate-btn');btn.disabled=true;btn.textContent='Envoi en cours...';
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Nouveau lead — Guide Scrapling Claude',replyto:email,message:'Nouveau lead depuis maitrise-ia.vercel.app/scrapling\nEmail : '+email})}).catch(function(){}).finally(function(){
+      localStorage.setItem(STORAGE_KEY,'1');hideGate();window.scrollTo({top:0,behavior:'smooth'});
+    });
+  };
+})();
+</script>
+<!-- ===== FIN MUR ===== -->
+
 <div class="hero">
   <span class="kicker">🕷️ Scrapling × Claude</span>
   <div class="wrap">
