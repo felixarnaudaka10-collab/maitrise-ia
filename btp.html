@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fusion Digital — Plus de chantiers grâce à l'IA | Artisans & TPE du bâtiment</title>
+<meta name="description" content="On installe dans votre entreprise du bâtiment un système IA complet qui répond à vos demandes en moins de 10 minutes, relance vos devis et remplit votre planning. Vous restez sur vos chantiers.">
+<meta property="og:title" content="Fusion Digital — Récupérez les chantiers que vous perdez">
+<meta property="og:description" content="Système complet d'acquisition et de relance pour artisans et TPE du bâtiment, propulsé par l'IA.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c10;--bg2:#0f1218;--card:#141821;--line:rgba(255,255,255,.08);
+  --txt:#f2f4f8;--muted:#98a2b3;--accent:#f59e0b;--accent2:#fbbf24;
+  --green:#22c55e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,12,16,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{font-weight:700;font-size:1.15rem;letter-spacing:.5px}
+.brand span{color:var(--accent)}
+.btn{display:inline-block;padding:14px 28px;border-radius:12px;font-weight:600;text-decoration:none;transition:.25s;cursor:pointer;border:none;font-size:1rem}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#111;box-shadow:0 8px 30px rgba(245,158,11,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(245,158,11,.5)}
+.btn-nav{padding:10px 20px;font-size:.9rem}
+/* HERO */
+.hero{position:relative;padding:160px 0 90px;text-align:center;overflow:hidden}
+#particles{position:absolute;inset:0;z-index:0}
+.hero-content{position:relative;z-index:1}
+.badge{display:inline-block;padding:7px 16px;border:1px solid rgba(245,158,11,.4);border-radius:100px;color:var(--accent2);font-size:.85rem;font-weight:600;letter-spacing:.5px;margin-bottom:26px;background:rgba(245,158,11,.08)}
+.hero h1{font-size:clamp(2rem,5.4vw,3.6rem);line-height:1.12;font-weight:700;max-width:900px;margin:0 auto 22px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.sub{font-size:1.15rem;color:var(--muted);max-width:640px;margin:0 auto 36px}
+.hero .note{margin-top:14px;color:var(--muted);font-size:.9rem}
+/* STATS */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2)}
+.stats-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.stat{padding:38px 20px;text-align:center;border-left:1px solid var(--line)}
+.stat:first-child{border-left:none}
+.stat .num{font-family:'Space Grotesk';font-size:2.2rem;font-weight:700;color:var(--accent)}
+.stat .lbl{color:var(--muted);font-size:.92rem;margin-top:6px}
+.stats .src{text-align:center;color:#5b6472;font-size:.75rem;padding-bottom:16px}
+/* SECTIONS */
+section{padding:90px 0}
+.kicker{color:var(--accent);font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:.8rem;margin-bottom:14px}
+h2{font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.2;margin-bottom:16px}
+.lead{color:var(--muted);max-width:620px;font-size:1.05rem}
+/* PILIERS */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px;transition:.3s}
+.card:hover{border-color:rgba(245,158,11,.45);transform:translateY(-4px)}
+.card .n{font-family:'Space Grotesk';color:var(--accent);font-weight:700;font-size:.95rem;margin-bottom:14px}
+.card h3{font-size:1.25rem;margin-bottom:10px}
+.card p{color:var(--muted);font-size:.97rem}
+.card .tag{display:inline-block;margin-top:14px;font-size:.75rem;color:var(--accent2);border:1px solid rgba(245,158,11,.3);padding:3px 10px;border-radius:100px}
+/* STEPS */
+.steps{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+.step .sn{font-family:'Space Grotesk';font-size:1.6rem;color:var(--accent);font-weight:700}
+.step h3{font-size:1.02rem;margin:10px 0 6px}
+.step p{color:var(--muted);font-size:.88rem}
+/* ROI */
+.roi{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.roi-box{background:var(--card);border:1px solid rgba(34,197,94,.3);border-radius:18px;padding:36px;margin-top:40px;max-width:660px}
+.roi-box .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);font-size:1rem}
+.roi-box .row:last-child{border-bottom:none;font-weight:700;font-size:1.15rem}
+.roi-box .row .v{font-family:'Space Grotesk';font-weight:700}
+.roi-box .row.total .v{color:var(--green)}
+/* POUR QUI */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
+.list-card{border-radius:18px;padding:34px;border:1px solid var(--line)}
+.list-card.yes{background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.25)}
+.list-card.no{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2)}
+.list-card h3{margin-bottom:18px;font-size:1.15rem}
+.list-card ul{list-style:none}
+.list-card li{padding:9px 0 9px 30px;position:relative;color:#cdd5e0;font-size:.97rem}
+.list-card.yes li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+.list-card.no li::before{content:"✕";position:absolute;left:0;color:#ef4444;font-weight:700}
+/* FONDATEUR */
+.founder{display:grid;grid-template-columns:1fr 1.6fr;gap:44px;align-items:center;margin-top:40px}
+.founder-visual{aspect-ratio:1;border-radius:20px;background:linear-gradient(160deg,rgba(245,158,11,.15),rgba(245,158,11,.02));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-size:4rem;font-weight:700;color:var(--accent)}
+.founder p{color:var(--muted);margin-bottom:14px}
+.founder .creds{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
+.cred{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-size:.85rem;color:#cdd5e0}
+/* FAQ */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+summary{padding:20px 24px;cursor:pointer;font-weight:600;font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::after{content:"+";color:var(--accent);font-size:1.4rem;font-weight:400}
+details[open] summary::after{content:"–"}
+details .a{padding:0 24px 20px;color:var(--muted);font-size:.95rem}
+/* FINAL */
+.final{text-align:center;padding:110px 0;position:relative;overflow:hidden}
+.final h2{max-width:760px;margin:0 auto 18px}
+.final .lead{margin:0 auto 36px}
+footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:#5b6472;font-size:.85rem}
+@media(max-width:820px){
+  .grid,.split,.founder{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .stats-inner{grid-template-columns:1fr}
+  .stat{border-left:none;border-top:1px solid var(--line)}
+  .stat:first-child{border-top:none}
+  .founder-visual{max-width:220px;margin:0 auto}
+  .hero{padding:130px 0 70px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="brand">FUSION <span>DIGITAL</span></div>
+    <a class="btn btn-primary btn-nav" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">Réserver mon appel</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="particles"></canvas>
+  <div class="container hero-content">
+    <div class="badge">🏗️ Spécial artisans & entreprises du bâtiment</div>
+    <h1>RÉCUPÉREZ LES CHANTIERS QUE VOUS <em>PERDEZ DÉJÀ</em> — ET REMPLISSEZ VOTRE PLANNING GRÂCE À L'IA</h1>
+    <p class="sub">On installe dans votre entreprise un système complet qui répond à chaque demande en moins de 10 minutes, relance vos devis automatiquement et vous amène des clients. Vous, vous restez sur vos chantiers.</p>
+    <a class="btn btn-primary" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">Réserver mon appel stratégique gratuit</a>
+    <div class="note">Appel gratuit · Sans engagement · On chiffre ensemble ce que vous perdez aujourd'hui</div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="container stats-inner">
+    <div class="stat"><div class="num">13 h 21</div><div class="lbl">passées chaque semaine sur l'administratif par un dirigeant de TPE du bâtiment</div></div>
+    <div class="stat"><div class="num">&lt; 30 %</div><div class="lbl">des devis envoyés sont signés dans le bâtiment</div></div>
+    <div class="stat"><div class="num">0</div><div class="lbl">relance : la plupart des devis ne sont jamais suivis. Le client signe chez celui qui rappelle</div></div>
+  </div>
+  <div class="src container">Sources : études Obat, Batiactu, Eldo</div>
+</div>
+
+<section id="systeme">
+  <div class="container">
+    <div class="kicker">Notre système</div>
+    <h2>4 piliers. Une seule machine à chantiers.</h2>
+    <p class="lead">Chaque brique travaille pour vous, 24h/24, pendant que vous êtes sur le terrain.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="n">01 — RÉPONSE</div>
+        <h3>Chaque demande traitée en moins de 10 minutes</h3>
+        <p>Un assistant IA répond instantanément à vos demandes de devis, pose les bonnes questions (type de travaux, zone, délai, budget) et qualifie le projet. Vous ne recevez que des demandes sérieuses — le client pressé ne file plus chez le concurrent.</p>
+      </div>
+      <div class="card">
+        <div class="n">02 — RELANCE</div>
+        <h3>Vos devis relancés automatiquement</h3>
+        <p>Chaque devis envoyé est suivi et relancé au bon moment (J+3, J+7, J+14), avec le bon message. Ce sont les chantiers que vous perdiez sans le savoir — et c'est souvent le levier le plus rentable du système.</p>
+      </div>
+      <div class="card">
+        <div class="n">03 — ORGANISATION</div>
+        <h3>Rendez-vous, rappels SMS, suivi client</h3>
+        <p>Rappels SMS automatiques avant chaque rendez-vous (fini les déplacements pour rien), pipeline clair de tous vos devis en cours, et collecte d'avis Google après chaque chantier pour bâtir votre réputation locale.</p>
+      </div>
+      <div class="card">
+        <div class="n">04 — CROISSANCE</div>
+        <h3>Publicité locale ciblée par l'IA</h3>
+        <p>Quand votre système tourne, on active des campagnes Meta géolocalisées sur votre zone pour attirer des propriétaires avec de vrais projets. Volume maîtrisé, résultats mesurés.</p>
+        <span class="tag">Module d'expansion — quand vous êtes prêt</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="roi" id="roi">
+  <div class="container">
+    <div class="kicker">Résultats mesurables</div>
+    <h2>Chaque mois, vous voyez ce qui rentre.</h2>
+    <p class="lead">Pas de jargon, pas de tableau de bord incompréhensible. Un rapport simple, chaque mois, avec la seule ligne qui compte.</p>
+    <div class="roi-box">
+      <div class="row"><span>Demandes reçues & qualifiées</span><span class="v">23</span></div>
+      <div class="row"><span>Devis envoyés</span><span class="v">9</span></div>
+      <div class="row"><span>Devis récupérés grâce aux relances</span><span class="v">2</span></div>
+      <div class="row"><span>Chantiers signés</span><span class="v">3</span></div>
+      <div class="row total"><span>Chiffre d'affaires généré</span><span class="v">14 200 €</span></div>
+    </div>
+    <p style="color:#5b6472;font-size:.8rem;margin-top:14px">Exemple illustratif de rapport mensuel remis à nos clients.</p>
+  </div>
+</section>
+
+<section id="etapes">
+  <div class="container">
+    <div class="kicker">Comment ça marche</div>
+    <h2>Simple pour vous. Sérieux sur les résultats.</h2>
+    <div class="steps">
+      <div class="step"><div class="sn">01</div><h3>Appel stratégique</h3><p>On regarde votre activité, votre zone, vos devis en cours — et on chiffre ce que vous perdez aujourd'hui.</p></div>
+      <div class="step"><div class="sn">02</div><h3>Installation</h3><p>On monte votre système complet en quelques jours. Vous n'avez rien à toucher.</p></div>
+      <div class="step"><div class="sn">03</div><h3>Les demandes rentrent</h3><p>Réponses immédiates, devis relancés, rendez-vous confirmés par SMS. Vous chiffrez, vous signez.</p></div>
+      <div class="step"><div class="sn">04</div><h3>On optimise chaque mois</h3><p>Rapport mensuel clair + ajustements pour faire monter le volume de chantiers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="kicker">Pour qui c'est fait</div>
+    <h2>Pas besoin d'être une grosse boîte.</h2>
+    <div class="split">
+      <div class="list-card yes">
+        <h3>C'est pour vous si…</h3>
+        <ul>
+          <li>Vous êtes artisan ou dirigez une TPE du bâtiment (seul ou avec une équipe)</li>
+          <li>Vous envoyez des devis chaque mois mais vous n'avez pas le temps de les relancer</li>
+          <li>Vous ratez des appels et des demandes quand vous êtes sur un chantier</li>
+          <li>Vous voulez un planning rempli de façon régulière et prévisible</li>
+        </ul>
+      </div>
+      <div class="list-card no">
+        <h3>Ce n'est pas pour vous si…</h3>
+        <ul>
+          <li>Vous ne pouvez pas prendre plus de chantiers que maintenant</li>
+          <li>Vous cherchez une solution gratuite ou à ne rien déléguer</li>
+          <li>Votre planning est déjà plein 12 mois à l'avance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fondateur">
+  <div class="container">
+    <div class="kicker">Qui est derrière</div>
+    <h2>Arnaud — Fusion Digital</h2>
+    <div class="founder">
+      <div class="founder-visual">A</div>
+      <div>
+        <p>Fondateur de Fusion Digital, j'installe des systèmes d'automatisation et d'intelligence artificielle dans les TPE et PME. Des dizaines de milliers de professionnels suivent mes contenus sur l'IA appliquée au concret : répondre plus vite, relancer sans y penser, ne plus perdre de clients.</p>
+        <p>Le bâtiment est le secteur le moins digitalisé de France. C'est aussi celui où chaque chantier récupéré vaut plusieurs milliers d'euros. C'est exactement là que nos systèmes changent le quotidien d'une entreprise.</p>
+        <div class="creds">
+          <div class="cred">🤖 Spécialiste automatisation & IA</div>
+          <div class="cred">📈 Systèmes installés en TPE/PME</div>
+          <div class="cred">🇫🇷 100 % en français, accompagnement direct</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--bg2);border-top:1px solid var(--line)">
+  <div class="container" style="max-width:760px">
+    <div class="kicker">Questions fréquentes</div>
+    <h2 style="margin-bottom:36px">Vous vous demandez sûrement…</h2>
+    <details>
+      <summary>C'est combien ?</summary>
+      <div class="a">Ça dépend de votre situation : votre volume de devis, votre zone, ce que vous perdez aujourd'hui. C'est exactement ce qu'on chiffre ensemble pendant l'appel stratégique — en 30 minutes, vous savez ce que le système vous coûterait et surtout ce qu'il vous rapporterait. Dans la plupart des cas, un seul chantier récupéré couvre l'investissement.</div>
+    </details>
+    <details>
+      <summary>Je n'y connais rien en informatique ou en IA.</summary>
+      <div class="a">C'est justement pour ça qu'on fait tout de A à Z : installation, réglages, gestion, optimisation. Vous n'avez aucun outil à apprendre. Vous recevez des demandes qualifiées et un rapport simple chaque mois, c'est tout.</div>
+    </details>
+    <details>
+      <summary>Je n'ai pas le temps.</summary>
+      <div class="a">Il faut 30 minutes pour l'appel, et environ 1 heure au total pour l'installation (accès, validation de vos messages types). Ensuite, le système travaille pendant que vous êtes sur vos chantiers. C'est littéralement fait pour les gens qui n'ont pas le temps.</div>
+    </details>
+    <details>
+      <summary>La pub, j'ai déjà essayé, ça n'a rien donné.</summary>
+      <div class="a">Sans système derrière, la pub ne sert à rien : les demandes arrivent, personne ne répond dans l'heure, et l'argent est perdu. C'est pour ça que chez nous la publicité est un module d'expansion : on l'active seulement quand votre système de réponse et de relance tourne déjà. Chaque euro est traçable dans votre rapport mensuel.</div>
+    </details>
+    <details>
+      <summary>Qu'est-ce qui me garantit des résultats ?</summary>
+      <div class="a">On ne promet pas de miracle : on chiffre. Avant de commencer, on calcule ensemble ce que vous perdez (devis non relancés, appels manqués). Ensuite, chaque mois, votre rapport montre noir sur blanc les demandes, les devis, les chantiers signés et le chiffre d'affaires généré. Si les chiffres n'y sont pas, vous le voyez — et nous aussi, et on ajuste.</div>
+    </details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
+    <h2>Combien de chantiers avez-vous perdus ce mois-ci sans le savoir ?</h2>
+    <p class="lead">Réservez 30 minutes. On fait le calcul ensemble, gratuitement — et vous repartez au minimum avec un diagnostic clair de votre acquisition.</p>
+    <a class="btn btn-primary" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank">Réserver mon appel stratégique gratuit</a>
+    <div class="note" style="color:var(--muted);margin-top:14px;font-size:.9rem">Appel gratuit · Sans engagement · Places limitées chaque semaine</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    FUSION DIGITAL — Automatisation & IA pour les entreprises du bâtiment<br>
+    © 2026 Fusion Digital · Contact : felixarnaudaka10@gmail.com
+  </div>
+</footer>
+
+<script>
+// Particules hero — style premium Fusion Digital
+const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
+let W,H,parts=[];
+function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight}
+window.addEventListener('resize',resize);resize();
+const N=Math.min(70,Math.floor(W/18));
+for(let i=0;i<N;i++)parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.6});
+function tick(){
+  ctx.clearRect(0,0,W,H);
+  for(const p of parts){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(245,158,11,.45)';ctx.fill();
+  }
+  for(let i=0;i<parts.length;i++)for(let j=i+1;j<parts.length;j++){
+    const a=parts[i],b=parts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+    ctx.strokeStyle=`rgba(245,158,11,${.14*(1-d/130)})`;ctx.stroke();}
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
