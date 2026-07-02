@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSL BTP — Fusion Digital (slides Loom)</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#ece5d4;--ink:#141414;--jaune:#ffd400;--rouge:#c8402a;--vert:#1d7a3e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d0d0d;font-family:'Archivo',sans-serif;color:var(--ink);overflow:hidden}
+.blocky{font-family:'Archivo Black',sans-serif;text-transform:uppercase;line-height:1.05}
+.mono{font-family:'IBM Plex Mono',monospace}
+.slide{position:absolute;inset:0;display:none;background:var(--paper);padding:5vh 6vw;flex-direction:column;justify-content:center}
+.slide.active{display:flex}
+.slide::before{content:"";position:absolute;top:0;left:0;right:0;height:12px;background:repeating-linear-gradient(-45deg,var(--ink) 0 16px,var(--jaune) 16px 32px)}
+.slide::after{content:"";position:absolute;bottom:0;left:0;right:0;height:12px;background:repeating-linear-gradient(-45deg,var(--ink) 0 16px,var(--jaune) 16px 32px)}
+.kick{font-family:'IBM Plex Mono';font-size:clamp(.7rem,1.1vw,.95rem);font-weight:700;letter-spacing:3px;text-transform:uppercase;display:inline-block;background:var(--ink);color:var(--jaune);padding:6px 16px;margin-bottom:3vh;width:fit-content}
+h1{font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(2rem,5.2vw,4.6rem);line-height:1.04;max-width:85%}
+h1 .hl{background:var(--jaune);padding:0 12px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h1 .rd{color:var(--rouge)}
+.sub{font-size:clamp(1rem,1.8vw,1.5rem);font-weight:600;margin-top:3vh;max-width:70%;color:#38352e}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;margin-top:4vh}
+.card{border:3px solid var(--ink);background:var(--paper);padding:2.4vh 1.6vw;box-shadow:7px 7px 0 var(--ink)}
+.card .ic{font-size:clamp(1.4rem,2.4vw,2.2rem)}
+.card h3{font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(.95rem,1.6vw,1.4rem);margin:1vh 0 .6vh}
+.card h3 .rd{color:var(--rouge)}
+.card p{font-size:clamp(.85rem,1.3vw,1.15rem);font-weight:500;color:#38352e}
+.bignum{font-family:'IBM Plex Mono';font-weight:700;font-size:clamp(2.6rem,6vw,5.5rem)}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.6vw;margin-top:4vh}
+.lotbadge{font-family:'IBM Plex Mono';font-weight:700;letter-spacing:2px;text-transform:uppercase;display:inline-block;background:var(--jaune);border:3px solid var(--ink);padding:6px 16px;font-size:clamp(.8rem,1.3vw,1.1rem);margin-bottom:2.5vh;width:fit-content}
+ul.big{list-style:none;margin-top:3vh}
+ul.big li{font-size:clamp(1.05rem,2vw,1.7rem);font-weight:600;padding:1.4vh 0 1.4vh 3.2vw;position:relative;border-bottom:2px dashed #c9c2b0;max-width:80%}
+ul.big li::before{content:"→";position:absolute;left:0;font-family:'Archivo Black';color:var(--rouge)}
+ul.big.check li::before{content:"☑";color:var(--vert)}
+ul.big.cross li::before{content:"☒";color:var(--rouge)}
+table.tab{border-collapse:collapse;margin-top:3.5vh;border:3px solid var(--ink);background:var(--paper);width:min(680px,80%)}
+table.tab td{padding:1.6vh 1.6vw;border-bottom:2px solid #c9c2b0;font-weight:600;font-size:clamp(.95rem,1.6vw,1.35rem)}
+table.tab td:last-child{text-align:right;font-family:'IBM Plex Mono';font-weight:700}
+table.tab tr.total td{background:var(--ink);color:var(--jaune);font-family:'Archivo Black';text-transform:uppercase;border-bottom:none}
+.stamp{position:absolute;top:9vh;right:6vw;transform:rotate(8deg);border:4px solid var(--rouge);color:var(--rouge);font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(.8rem,1.4vw,1.2rem);padding:10px 18px;letter-spacing:1px}
+.counter{position:fixed;bottom:22px;right:26px;z-index:10;font-family:'IBM Plex Mono';font-size:.8rem;color:var(--paper);background:var(--ink);padding:4px 12px;border:2px solid var(--jaune)}
+.webcam-zone{position:fixed;left:24px;bottom:24px;width:200px;height:130px;border:3px dashed rgba(20,20,20,.35);border-radius:10px;z-index:5;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono';font-size:.65rem;color:rgba(20,20,20,.4);text-transform:uppercase;letter-spacing:1px;text-align:center}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;margin-top:4vh}
+.steps4 .st{border:3px solid var(--ink);padding:2.2vh 1.2vw;background:var(--paper);box-shadow:6px 6px 0 var(--ink)}
+.steps4 .sn{font-family:'Archivo Black';font-size:clamp(1.6rem,3vw,2.6rem);color:var(--paper);-webkit-text-stroke:2.5px var(--ink)}
+.steps4 h3{font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(.85rem,1.3vw,1.1rem);margin:1vh 0 .6vh}
+.steps4 p{font-size:clamp(.78rem,1.15vw,1rem);font-weight:500;color:#38352e}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3.5vh}
+.split2 .col{border:3px solid var(--ink);padding:2.4vh 1.8vw;background:var(--paper)}
+.split2 .col.ok{box-shadow:7px 7px 0 var(--vert)}
+.split2 .col.ko{box-shadow:7px 7px 0 var(--rouge)}
+.split2 h3{font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(1rem,1.7vw,1.4rem);margin-bottom:1.5vh}
+.split2 li{font-size:clamp(.9rem,1.35vw,1.15rem);padding:1vh 0 1vh 2.4vw;max-width:100%;border-bottom:2px dashed #c9c2b0}
+.brand-foot{position:fixed;top:26px;left:26px;z-index:10;font-family:'Archivo Black';font-size:.95rem;text-transform:uppercase}
+.brand-foot span{color:var(--rouge)}
+.cta-big{display:inline-block;background:var(--ink);color:var(--jaune);font-family:'Archivo Black';text-transform:uppercase;font-size:clamp(1.1rem,2.2vw,1.9rem);padding:2.4vh 3vw;border:3px solid var(--ink);box-shadow:8px 8px 0 rgba(20,20,20,.45);margin-top:4vh;width:fit-content}
+</style>
+</head>
+<body>
+
+<div class="brand-foot">Fusion <span>Digital</span></div>
+<div class="counter"><span id="cur">1</span> / <span id="tot">14</span></div>
+<div class="webcam-zone">Zone webcam<br>(bulle Loom ici)</div>
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="kick">Artisans & entreprises du bâtiment</div>
+  <h1>Récupérez les chantiers que vous <span class="hl">perdez déjà</span>.</h1>
+  <p class="sub">Et remplissez votre planning grâce à un système IA installé pour vous, de A à Z — pendant que vous restez sur vos chantiers.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kick">Qui vous parle</div>
+  <h1>Arnaud — <span class="hl">Fusion Digital</span></h1>
+  <ul class="big">
+    <li>Spécialiste automatisation & intelligence artificielle pour TPE/PME</li>
+    <li>Des dizaines de milliers de pros suivent mes systèmes IA en ligne</li>
+    <li>Une conviction : le bâtiment est le secteur qui a le plus à gagner avec l'IA</li>
+  </ul>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kick">Le constat</div>
+  <h1>Ce qui vous <span class="rd">freine</span> aujourd'hui.</h1>
+  <div class="cards">
+    <div class="card"><div class="ic">🎲</div><h3>Bouche-à-oreille <span class="rd">imprévisible</span></h3><p>Un mois plein, un mois creux. Impossible de prévoir, impossible de grandir.</p></div>
+    <div class="card"><div class="ic">⏱</div><h3>Vous rappelez <span class="rd">trop tard</span></h3><p>Vous êtes sur un chantier. Le client, lui, a déjà appelé votre concurrent.</p></div>
+    <div class="card"><div class="ic">📄</div><h3>Devis <span class="rd">jamais relancés</span></h3><p>Envoyé, puis oublié. Le client hésitait — personne ne l'a rappelé.</p></div>
+    <div class="card"><div class="ic">🌙</div><h3>L'admin <span class="rd">le soir et le week-end</span></h3><p>Devis, factures, mails... 13 h 21 par semaine en moyenne.</p></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kick">Ce que ça coûte</div>
+  <h1>Faites le calcul <span class="rd">vous-même</span>.</h1>
+  <div class="row3">
+    <div class="card"><div class="bignum">&lt;30%</div><p>des devis signés dans le bâtiment. 2 sur 3 partent à la poubelle.</p></div>
+    <div class="card"><div class="bignum">700h</div><p>d'administratif par an pour un dirigeant de TPE bâtiment.</p></div>
+    <div class="card"><div class="bignum" style="color:var(--rouge)">36 000€</div><p>récupérés par an si la relance sauve UN devis de plus par mois (panier 3 000 €).</p></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="kick">Ce que vous avez sûrement déjà essayé</div>
+  <h1>Et pourquoi ça n'a <span class="rd">pas marché</span>.</h1>
+  <div class="cards">
+    <div class="card"><h3>Les sites de leads</h3><p>Le même chantier revendu à 3-4 artisans, des numéros faux. Vous payez pour courir.</p></div>
+    <div class="card"><h3>Le site vitrine</h3><p>Joli, mais zéro trafic. Personne ne le trouve, il ne rapporte rien.</p></div>
+    <div class="card"><h3>Le référencement Google</h3><p>« Des résultats dans 6 mois. » Vous avez besoin de chantiers ce trimestre.</p></div>
+    <div class="card"><h3>Embaucher pour gérer</h3><p>Un salarié de plus pour l'admin ? Trop cher, pas rentable à votre taille.</p></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kick">La solution</div>
+  <h1>Un système en <span class="hl">4 lots</span>. Comme un chantier.</h1>
+  <div class="cards">
+    <div class="card"><span class="lotbadge">Lot 01</span><h3>Réponse</h3><p>Chaque demande traitée et qualifiée en moins de 10 minutes, 24h/24.</p></div>
+    <div class="card"><span class="lotbadge">Lot 02</span><h3>Relance</h3><p>Chaque devis relancé automatiquement. J+3, J+7, J+14.</p></div>
+    <div class="card"><span class="lotbadge">Lot 03</span><h3>Organisation</h3><p>Rappels SMS de RDV, suivi des devis, avis Google automatiques.</p></div>
+    <div class="card"><span class="lotbadge">Lot 04</span><h3>Croissance</h3><p>Publicité locale ciblée — quand votre système tourne déjà.</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <span class="lotbadge">Lot 01 — Réponse</span>
+  <h1>Plus une seule demande <span class="rd">sans réponse</span>.</h1>
+  <ul class="big">
+    <li>Une demande arrive → l'IA répond en moins de 10 minutes</li>
+    <li>Elle pose VOS questions : travaux, zone, budget, délai</li>
+    <li>Chaque demande est classée : 🔥 chaude · 🌤 tiède · ❄️ froide</li>
+    <li>Ex : M. Bernard, extension, 40 000 €, sous un mois → 🔥 vous êtes prévenu immédiatement</li>
+  </ul>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <span class="lotbadge">Lot 02 — Relance</span>
+  <h1>Vos devis ne meurent <span class="rd">plus en silence</span>.</h1>
+  <ul class="big">
+    <li>Chaque devis envoyé est suivi automatiquement</li>
+    <li>Relance J+3, J+7, J+14 — le bon message, au bon moment</li>
+    <li>Le client qui hésitait signe chez celui qui rappelle : ce sera vous</li>
+    <li>C'est le lot le plus rentable du système</li>
+  </ul>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <span class="lotbadge">Lot 03 — Organisation</span>
+  <h1>Fini les trous dans le planning et <span class="rd">les RDV ratés</span>.</h1>
+  <ul class="big">
+    <li>Rappel SMS automatique avant chaque rendez-vous</li>
+    <li>Tous vos devis en cours, visibles sur votre téléphone</li>
+    <li>Après chaque chantier : demande d'avis Google automatique</li>
+    <li>Votre réputation locale se construit toute seule</li>
+  </ul>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <span class="lotbadge">Lot 04 — Croissance (option)</span>
+  <h1>Et quand le système tourne : <span class="hl">on accélère</span>.</h1>
+  <ul class="big">
+    <li>Publicités géolocalisées sur VOTRE zone d'intervention</li>
+    <li>Des propriétaires avec de vrais projets, qui arrivent dans votre système</li>
+    <li>Vos demandes sont exclusives : jamais revendues à d'autres artisans</li>
+    <li>Activé seulement quand les lots 1 à 3 sont en place — pas avant</li>
+  </ul>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="kick">Résultats mesurables</div>
+  <h1>Chaque mois, <span class="hl">une page</span>. Pas de blabla.</h1>
+  <table class="tab">
+    <tr><td>Demandes reçues & qualifiées</td><td>23</td></tr>
+    <tr><td>Devis envoyés</td><td>9</td></tr>
+    <tr><td>Devis récupérés grâce aux relances</td><td>2</td></tr>
+    <tr><td>Chantiers signés</td><td>3</td></tr>
+    <tr class="total"><td>Chiffre d'affaires généré</td><td>14 200 €</td></tr>
+  </table>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <div class="kick">Comment ça se passe</div>
+  <h1>Simple pour vous. <span class="hl">Sérieux</span> sur les résultats.</h1>
+  <div class="steps4">
+    <div class="st"><div class="sn">1</div><h3>Appel stratégique</h3><p>On chiffre ensemble ce que vous perdez aujourd'hui. Gratuit, 30 min.</p></div>
+    <div class="st"><div class="sn">2</div><h3>Installation</h3><p>On monte votre système en quelques jours. Vous ne touchez à rien.</p></div>
+    <div class="st"><div class="sn">3</div><h3>Ça rentre</h3><p>Réponses, relances, RDV confirmés. Vous chiffrez, vous signez.</p></div>
+    <div class="st"><div class="sn">4</div><h3>On optimise</h3><p>Rapport mensuel + réglages pour monter en volume.</p></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="kick">Soyons clairs</div>
+  <h1>Pour qui c'est fait — <span class="rd">et pour qui non</span>.</h1>
+  <div class="split2">
+    <div class="col ok">
+      <h3>✅ C'est pour vous si</h3>
+      <ul class="big check">
+        <li>Artisan ou TPE du bâtiment — seul ou en équipe, pas besoin d'être une grosse boîte</li>
+        <li>Vous envoyez des devis mais n'avez pas le temps de les relancer</li>
+        <li>Vous voulez un planning régulier et prévisible</li>
+      </ul>
+    </div>
+    <div class="col ko">
+      <h3>⛔ Ce n'est pas pour vous si</h3>
+      <ul class="big cross">
+        <li>Vous ne pouvez pas prendre plus de chantiers</li>
+        <li>Vous cherchez du gratuit ou du miracle</li>
+        <li>Votre planning est plein 12 mois à l'avance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="stamp">Gratuit · sans engagement</div>
+  <div class="kick">Prochaine étape</div>
+  <h1>Combien de chantiers avez-vous perdus <span class="rd">ce mois-ci</span> ?</h1>
+  <p class="sub">Réservez votre appel stratégique de 30 minutes juste en dessous de cette vidéo. On fait le calcul ensemble — au pire, vous repartez avec un diagnostic clair.</p>
+  <div class="cta-big">↓ Réserver mon appel stratégique ↓</div>
+</section>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+document.getElementById('tot').textContent=slides.length;
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));document.getElementById('cur').textContent=i+1;}
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}});
+addEventListener('click',e=>{if(e.clientX>innerWidth/2)go(i+1);else go(i-1)});
+</script>
+</body>
+</html>
