@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Claude Cowork sur mobile — le guide pour l'activer (Monsieur IA)</title>
+<meta name="description" content="Claude Cowork débarque sur iPhone, iPad et Android. Guide pas à pas pour l'activer et faire tourner tes tâches dans le cloud, PC fermé."/>
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f5f5f7;--ink:#1d1d1f;--ink2:#6e6e73;--line:#e3e3e8;
+  --violet:#7c3aed;--violet2:#a855f7;--gold:#9a7b1f;--green:#0f7a52;--card:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Segoe UI',Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+a{color:inherit;text-decoration:none;}
+
+/* ===== MUR EMAIL — premium clair ===== */
+#email-gate{position:fixed;inset:0;z-index:9999;background:rgba(245,245,247,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);display:flex;align-items:center;justify-content:center;padding:24px;}
+#email-gate .g-card{max-width:430px;width:100%;background:#fff;border:1px solid var(--line);border-radius:28px;padding:40px 32px;text-align:center;box-shadow:0 30px 70px rgba(0,0,0,.12);}
+#email-gate .g-kicker{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--violet);text-transform:uppercase;}
+#email-gate .g-ic{font-size:46px;margin:12px 0 6px;}
+#email-gate h2{font-size:27px;font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px;}
+#email-gate p{color:var(--ink2);font-size:15.5px;margin-bottom:22px;}
+#email-gate input{width:100%;padding:15px 18px;border-radius:14px;border:1px solid var(--line);background:#fbfbfd;font-size:16px;color:var(--ink);outline:none;margin-bottom:10px;transition:border-color .2s;}
+#email-gate input:focus{border-color:var(--violet);background:#fff;}
+#email-gate input::placeholder{color:#a1a1a8;}
+#email-gate button{width:100%;padding:15px;border:none;border-radius:14px;background:var(--ink);color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:transform .15s,opacity .2s;}
+#email-gate button:hover{transform:translateY(-1px);}
+#email-gate button:disabled{opacity:.5;}
+#email-gate .g-proof{margin-top:14px;font-size:12.5px;color:#a1a1a8;}
+
+/* ===== HERO ===== */
+.hero{text-align:center;padding:96px 24px 60px;}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--violet);margin-bottom:18px;}
+.hero h1{font-size:54px;line-height:1.05;font-weight:800;letter-spacing:-1.5px;margin-bottom:20px;}
+.hero h1 .grad{background:linear-gradient(120deg,var(--violet),var(--violet2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero .sub{font-size:21px;color:var(--ink2);max-width:560px;margin:0 auto;font-weight:400;letter-spacing:-.2px;}
+.metrics{display:flex;gap:14px;justify-content:center;margin-top:40px;flex-wrap:wrap;}
+.metric{background:var(--bg2);border-radius:20px;padding:22px 24px;min-width:140px;}
+.metric b{display:block;font-size:26px;font-weight:800;letter-spacing:-.6px;line-height:1.05;}
+.metric span{font-size:13px;color:var(--ink2);margin-top:6px;display:block;}
+
+section{padding:56px 0;border-top:1px solid var(--line);}
+.tag{display:block;font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--violet);margin-bottom:10px;}
+h2{font-size:34px;font-weight:800;letter-spacing:-1px;margin-bottom:14px;}
+.lead{color:var(--ink2);font-size:18px;margin-bottom:34px;max-width:560px;}
+
+/* ===== STEPS ===== */
+.step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--line);align-items:flex-start;}
+.step:last-child{border-bottom:none;}
+.step .sn{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;}
+.step .sb h3{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px;}
+.step .sb p{color:var(--ink2);font-size:15.5px;}
+.step .sb code{background:var(--bg2);border-radius:7px;padding:2px 8px;font-family:'SF Mono',Menlo,monospace;font-size:13.5px;color:var(--violet);}
+
+/* ===== INSIDE GRID ===== */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;transition:transform .15s,box-shadow .2s;}
+.tile:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.06);}
+.tile .ti{font-size:28px;margin-bottom:12px;}
+.tile h4{font-size:17px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px;}
+.tile p{font-size:14.5px;color:var(--ink2);}
+.callout{margin-top:26px;background:var(--bg2);border-radius:20px;padding:22px 24px;font-size:15.5px;color:var(--ink);}
+.callout b{color:var(--violet);}
+
+/* ===== CTA ===== */
+.cta h2{text-align:center;}.cta .lead{text-align:center;margin:0 auto 34px;}
+.cta-card{display:block;border-radius:22px;padding:26px 28px;margin-bottom:14px;position:relative;border:1px solid var(--line);background:#fff;transition:transform .15s,box-shadow .2s;}
+.cta-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.08);}
+.cta-card .ct{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:5px;}
+.cta-card .cd{font-size:15px;color:var(--ink2);max-width:520px;}
+.cta-card .arrow{position:absolute;right:26px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--ink2);}
+.cta-or .ct{color:var(--gold);}.cta-or{background:linear-gradient(180deg,#fffdf5,#fff);}
+.cta-vert .ct{color:var(--green);}.cta-vert{background:linear-gradient(180deg,#f4fbf8,#fff);}
+.cta-noir{background:var(--ink);}.cta-noir .ct{color:#fff;}.cta-noir .cd{color:#c7c7cc;}.cta-noir .arrow{color:#fff;}
+
+.foot{text-align:center;padding:50px 24px 70px;color:#a1a1a8;font-size:13px;}
+@media(max-width:600px){.hero{padding-top:72px;}.hero h1{font-size:38px;letter-spacing:-1px;}.hero .sub{font-size:18px;}h2{font-size:27px;}.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ===== MUR DE CAPTURE EMAIL ===== -->
+<div id="email-gate">
+  <div class="g-card">
+    <div class="g-kicker">Monsieur IA · Accès gratuit</div>
+    <div class="g-ic">📱</div>
+    <h2>Activer Cowork<br>sur ton téléphone</h2>
+    <p>Entre ton email — je débloque le guide pas à pas juste en dessous.</p>
+    <form id="gate-form" onsubmit="gateSubmit(event)">
+      <input type="email" id="gate-email" placeholder="ton@email.com" required autocomplete="email"/>
+      <button type="submit" id="gate-btn">Débloquer le guide</button>
+    </form>
+    <div class="g-proof">🔒 Aucun spam. Accès immédiat.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var WEB3FORMS_KEY='038b1035-ecbd-4506-bd90-5a6421828169';
+  var STORAGE_KEY='mia_email_submitted';
+  function hideGate(){var g=document.getElementById('email-gate');if(g)g.style.display='none';document.body.style.overflow='';}
+  if(localStorage.getItem(STORAGE_KEY)){hideGate();}else{document.body.style.overflow='hidden';}
+  window.gateSubmit=function(e){
+    e.preventDefault();
+    var email=document.getElementById('gate-email').value.trim();
+    var btn=document.getElementById('gate-btn');btn.disabled=true;btn.textContent='Envoi…';
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Nouveau lead — Guide Cowork mobile',replyto:email,message:'Nouveau lead depuis maitrise-ia.vercel.app/cowork\nEmail : '+email})}).catch(function(){}).finally(function(){
+      localStorage.setItem(STORAGE_KEY,'1');hideGate();window.scrollTo({top:0,behavior:'smooth'});
+    });
+  };
+})();
+</script>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">CLAUDE · COWORK</div>
+    <h1>Cowork débarque<br><span class="grad">sur ton téléphone.</span></h1>
+    <p class="sub">Lance une tâche, ferme ton PC, et Claude continue à bosser dans le cloud. Tu pilotes tout depuis ton mobile. Voici comment l'activer.</p>
+    <div class="metrics">
+      <div class="metric"><b>iPhone · iPad · Android</b><span>+ le web</span></div>
+      <div class="metric"><b>Cloud</b><span>PC fermé, ça continue</span></div>
+      <div class="metric"><b>×2 limites</b><span>jusqu'au 5 août</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <span class="tag">C'est quoi</span>
+    <h2>Claude qui bosse à ta place</h2>
+    <p class="lead">Cowork, c'est l'app de Claude qui exécute des tâches complètes toute seule, connectée à tes outils. La nouveauté : ça marche maintenant depuis ton téléphone.</p>
+    <div class="grid">
+      <div class="tile"><div class="ti">📲</div><h4>Lance de partout</h4><p>Une tâche depuis ton lit, le métro ou un RDV — plus besoin d'être à ton bureau.</p></div>
+      <div class="tile"><div class="ti">☁️</div><h4>Ça tourne dans le cloud</h4><p>Tu fermes ton PC, Claude continue le travail en arrière-plan.</p></div>
+      <div class="tile"><div class="ti">🔔</div><h4>Il te notifie</h4><p>Claude t'alerte sur ton tel quand il a besoin d'une décision ou d'une validation.</p></div>
+      <div class="tile"><div class="ti">✅</div><h4>Tu récupères le fini</h4><p>Le résultat t'attend, prêt à relire, sur ton téléphone ou n'importe quel écran.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Activation</span>
+    <h2>Le setup, en 4 étapes</h2>
+    <p class="lead">Quelques minutes, et tu pilotes Cowork depuis ta poche.</p>
+
+    <div class="step"><div class="sn">1</div><div class="sb"><h3>Mets à jour l'app Claude</h3><p>Sur <code>iPhone</code>, <code>iPad</code> ou <code>Android</code> — installe la dernière version depuis ton store.</p></div></div>
+    <div class="step"><div class="sn">2</div><div class="sb"><h3>Ouvre Cowork</h3><p>Depuis la barre latérale de l'app Claude, ouvre <code>Cowork</code>.</p></div></div>
+    <div class="step"><div class="sn">3</div><div class="sb"><h3>Lance une tâche</h3><p>Décris ce que tu veux, connecte tes outils (Gmail, Drive, agenda…) et laisse Claude exécuter.</p></div></div>
+    <div class="step"><div class="sn">4</div><div class="sb"><h3>Ferme ton PC</h3><p>La session tourne dans le cloud. Tu reçois une notif si Claude a besoin de toi, et tu récupères le résultat plus tard.</p></div></div>
+  </section>
+
+  <section>
+    <span class="tag">Bon à savoir</span>
+    <h2>Accès & lancement</h2>
+    <div class="callout">💡 <b>Beta :</b> l'accès mobile démarre pour les abonnés <b>Max</b>, puis s'étend aux autres offres payantes dans les semaines qui viennent. Pour fêter le lancement, les limites d'usage de Cowork sont <b>doublées jusqu'au 5 août</b>. Si tu ne vois pas encore Cowork dans l'app, mets-la à jour et patiente le déploiement.</div>
+  </section>
+
+  <section class="cta">
+    <h2>Pour aller plus loin</h2>
+    <p class="lead">Choisis ce qui te correspond.</p>
+    <a class="cta-card cta-or" href="https://maitrise-ia.vercel.app/prompts" target="_blank" rel="noopener">
+      <div class="ct">Le pack de prompts business</div>
+      <div class="cd">Mes meilleurs prompts prêts à l'emploi pour vendre, prospecter et automatiser avec Claude.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-vert" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">Audit automatisation offert</div>
+      <div class="cd">On regarde ensemble quoi automatiser dans ton business avec Claude. 30 min, gratuit.</div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="cta-card cta-noir" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+      <div class="ct">Rejoins la communauté</div>
+      <div class="cd">Mon Skool : tips, skills et entraide pour automatiser ton business avec l'IA.</div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+</div>
+
+<div class="foot"><div class="wrap">Monsieur IA — Claude Cowork sur mobile · guide d'activation.</div></div>
+</body>
+</html>
