@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scraper Google Maps gratuitement avec Claude — Monsieur IA</title>
+<meta name="description" content="Le repo GitHub gratuit qui scrape Google Maps, piloté par Claude. Installation en 2 minutes.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap');
+  :root{
+    --ink:#0b0b0f; --ink2:#4a4a55; --ink3:#8a8a96;
+    --bg:#fbfbfd; --card:#fff; --line:#e8e8ee;
+    --v:#7c3aed; --v2:#a855f7;
+    --gold:#c8901b; --green:#0f9d58; --black:#111;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+  /* HERO */
+  header{padding:90px 0 60px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--v);
+    background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.18);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:56px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--v),var(--v2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:21px;color:var(--ink2);max-width:600px;margin:0 auto;font-weight:400}
+
+  /* LOCK / EMAIL WALL */
+  #wall{margin:56px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;
+    box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;
+    font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--v);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;
+    font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px);background:var(--v)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+
+  /* CONTENT (locked) */
+  #content{margin-top:64px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+
+  section{margin-bottom:60px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--v);margin-bottom:12px}
+  h2.st{font-size:34px;letter-spacing:-1.2px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:12.5px;color:var(--ink3);font-weight:500;margin-top:3px}
+
+  /* STEPS */
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;
+    box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:11px;
+    background:var(--v);color:#fff;font-weight:800;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:18px}
+
+  .codebox{position:relative;background:#0e0e14;border-radius:14px;padding:18px 60px 18px 20px;overflow-x:auto}
+  .codebox code{font-family:'JetBrains Mono',monospace;font-size:14px;color:#e9e4ff;white-space:pre;line-height:1.7}
+  .codebox .cp{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
+    color:#fff;font-size:11.5px;font-weight:700;font-family:inherit;padding:7px 12px;border-radius:8px;cursor:pointer;transition:.2s}
+  .codebox .cp:hover{background:var(--v);border-color:var(--v)}
+  .codebox .cp.ok{background:var(--green);border-color:var(--green)}
+
+  .promptbox{background:#f4f1fe;border:1px solid #e2d9fb;border-radius:14px;padding:18px 60px 18px 20px;position:relative}
+  .promptbox code{font-family:'JetBrains Mono',monospace;font-size:14px;color:#3b2a63;white-space:pre-wrap;line-height:1.7}
+  .promptbox .cp{position:absolute;top:12px;right:12px;background:var(--v);border:0;color:#fff;font-size:11.5px;font-weight:700;
+    font-family:inherit;padding:7px 12px;border-radius:8px;cursor:pointer}
+  .promptbox .cp.ok{background:var(--green)}
+
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:16px}
+
+  .repolink{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;
+    font-weight:700;font-size:16px;padding:16px 24px;border-radius:14px;transition:.2s}
+  .repolink:hover{transform:translateY(-2px);background:var(--v)}
+
+  /* CTAs */
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;
+    padding:22px 26px;font-weight:700;transition:.2s;border:1px solid transparent}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}
+  .cta .s{font-size:13.5px;font-weight:500;opacity:.8;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#f7d488,#c8901b);color:#3a2905}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+
+  @media(max-width:640px){
+    h1{font-size:38px;letter-spacing:-1.4px}
+    .lede{font-size:18px}
+    h2.st{font-size:27px}
+    .grid2{grid-template-columns:1fr}
+    header{padding:60px 0 40px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="pill">● Gratuit · Open-source · Licence MIT</div>
+    <h1>Scrape Google Maps<br><em>gratuitement</em>, avec Claude.</h1>
+    <p class="lede">Le repo GitHub qui remplace les scrapers à 30–100€/mois. Tu donnes une ville et un type de business — Claude fait le reste.</p>
+  </header>
+
+  <!-- EMAIL WALL -->
+  <div id="wall">
+    <div class="wallcard">
+      <h2>Reçois le tuto complet</h2>
+      <p>Entre ton email pour débloquer le repo + les commandes exactes.</p>
+      <form class="wallform" id="wf">
+        <input type="email" id="em" placeholder="ton@email.com" required>
+        <button type="submit" id="sb">Débloquer</button>
+      </form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2× par semaine.</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content" class="locked">
+
+    <section>
+      <div class="kicker">Ce que tu récupères</div>
+      <h2 class="st">Une liste de prospects, prête à l'emploi.</h2>
+      <p class="body">Le scraper sort un CSV propre avec tout ce qu'il te faut pour démarcher.</p>
+      <div class="grid2">
+        <div class="fact">Nom du business<span>Et sa catégorie</span></div>
+        <div class="fact">Téléphone<span>Numéro direct</span></div>
+        <div class="fact">Site web<span>+ emails (option)</span></div>
+        <div class="fact">Note & avis<span>Rating + nombre</span></div>
+        <div class="fact">Adresse complète<span>+ coordonnées GPS</span></div>
+        <div class="fact">33+ champs<span>Horaires, photos, menu…</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Installation</div>
+      <h2 class="st">3 étapes. 2 minutes.</h2>
+
+      <div class="step">
+        <div class="num">0</div>
+        <h3>Installe Docker</h3>
+        <p>Le scraper tourne dans Docker. Télécharge Docker Desktop, installe-le, et laisse-le tourner en arrière-plan. C'est le seul prérequis.</p>
+        <a class="repolink" href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener">Télécharger Docker Desktop →</a>
+      </div>
+
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Installe la skill dans Claude</h3>
+        <p>Une seule commande dans ton terminal. Elle branche le scraper directement sur Claude Code.</p>
+        <div class="codebox">
+          <button class="cp" data-copy="npx skills add gosom/google-maps-scraper">Copier</button>
+          <code>npx skills add gosom/google-maps-scraper</code>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Demande à Claude, en français</h3>
+        <p>Plus de commandes à retenir. Tu parles, Claude scrape. Il te pose 2-3 questions, lance le scraper et te sort les résultats.</p>
+        <div class="promptbox">
+          <button class="cp" data-copy="Trouve-moi tous les dentistes à Paris avec leurs téléphones et leurs emails, et sors-moi ça en CSV.">Copier</button>
+          <code>Trouve-moi tous les dentistes à Paris avec leurs
+téléphones et leurs emails, et sors-moi ça en CSV.</code>
+        </div>
+        <div class="note"><b>Change juste la ville et le métier.</b> « Tous les plombiers à Marseille », « les restaurants à Lyon », « les garages à Lille »… Le principe est le même.</div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Récupère ton fichier</h3>
+        <p>Claude te sort un CSV que tu ouvres dans Excel ou Google Sheets. Tu filtres, tu appelles, tu démarches.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Sans Claude</div>
+      <h2 class="st">La version manuelle</h2>
+      <p class="body">Si tu préfères passer par le terminal directement, voici la commande Docker officielle.</p>
+      <div class="codebox">
+        <button class="cp" data-copy='mkdir -p gmaps-output
+echo "dentistes Paris" > queries.txt
+docker run -v gmaps-playwright-cache:/opt -v "$PWD/queries.txt:/queries.txt:ro" -v "$PWD/gmaps-output:/out" gosom/google-maps-scraper -input /queries.txt -results /out/results.csv -depth 1 -email -exit-on-inactivity 3m'>Copier</button>
+<code>mkdir -p gmaps-output
+echo "dentistes Paris" &gt; queries.txt
+
+docker run \
+  -v gmaps-playwright-cache:/opt \
+  -v "$PWD/queries.txt:/queries.txt:ro" \
+  -v "$PWD/gmaps-output:/out" \
+  gosom/google-maps-scraper \
+  -input /queries.txt \
+  -results /out/results.csv \
+  -depth 1 -email \
+  -exit-on-inactivity 3m</code>
+      </div>
+      <div class="note">Le flag <b>-email</b> visite chaque site web pour en extraire les emails. C'est plus lent, mais c'est là que se trouve la vraie valeur.</div>
+    </section>
+
+    <section>
+      <div class="kicker">La source</div>
+      <h2 class="st">Le repo GitHub</h2>
+      <p class="body">Projet open-source de Georgios Komninos, sous licence MIT. Gratuit, sans limite d'usage.</p>
+      <a class="repolink" href="https://github.com/gosom/google-maps-scraper" target="_blank" rel="noopener">github.com/gosom/google-maps-scraper →</a>
+    </section>
+
+    <section>
+      <div class="kicker">Et maintenant ?</div>
+      <h2 class="st">Va plus loin.</h2>
+      <p class="body">Tu as les prospects. La question, c'est ce que tu en fais.</p>
+      <div class="ctas">
+        <a class="cta gold" href="/prompts">
+          <span><span class="t">Le pack 50 prompts Claude</span><span class="s">Mes prompts business les plus rentables — 50€</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Automatiser ton entreprise</span><span class="s">Appel stratégique gratuit de 30 min</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise — TPE, PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    Monsieur IA — Arnaud
+    <div class="legal">Outil open-source tiers (MIT). Utilise-le de manière responsable et conforme aux conditions d'utilisation des plateformes concernées et au RGPD lorsque tu traites des données de contact.</div>
+  </footer>
+
+</div>
+
+<script>
+  // ===== EMAIL WALL =====
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');
+  const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();
+    const btn=document.getElementById('sb');
+    if(!email) return;
+    btn.textContent='...'; btn.disabled=true;
+    try{
+      await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead — page /maps',from_name:'Monsieur IA · /maps'})
+      });
+    }catch(err){}
+    localStorage.setItem(KEY,'1');
+    unlock();
+    content.scrollIntoView({behavior:'smooth'});
+  });
+
+  // ===== COPY BUTTONS =====
+  document.querySelectorAll('.cp').forEach(b=>{
+    b.addEventListener('click',()=>{
+      navigator.clipboard.writeText(b.dataset.copy).then(()=>{
+        const old=b.textContent; b.textContent='Copié ✓'; b.classList.add('ok');
+        setTimeout(()=>{b.textContent=old;b.classList.remove('ok');},1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>
