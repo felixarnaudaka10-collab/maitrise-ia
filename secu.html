@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 5 prompts pour sécuriser ton app codée avec l'IA — Monsieur IA</title>
+<meta name="description" content="Les 5 failles des apps codées avec l'IA, et les 5 prompts à coller dans Claude pour les corriger.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{
+    --ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;
+    --bg:#fbfbfd;--card:#fff;--line:#e8e8ee;
+    --v:#7c3aed;--v2:#a855f7;--red:#d92d20;--green:#0f9d58;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+  header{padding:90px 0 56px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--red);
+    background:rgba(217,45,32,.07);border:1px solid rgba(217,45,32,.18);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--v),var(--v2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;
+    box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;
+    font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--v);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;
+    font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px);background:var(--v)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+
+  #content{margin-top:64px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+
+  section{margin-bottom:56px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--v);margin-bottom:12px}
+  h2.st{font-size:34px;letter-spacing:-1.2px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+
+  .how{background:#f4f1fe;border:1px solid #e2d9fb;border-radius:18px;padding:24px 26px;margin-bottom:34px}
+  .how b{display:block;font-size:16px;margin-bottom:6px}
+  .how p{font-size:15.5px;color:#4b3a72}
+
+  /* PROMPT CARDS */
+  .p{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;margin-bottom:16px;
+    box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .p .ph{display:flex;align-items:flex-start;gap:14px;margin-bottom:6px}
+  .p .num{width:34px;height:34px;border-radius:11px;background:var(--v);color:#fff;font-weight:800;font-size:15px;flex:none;
+    display:flex;align-items:center;justify-content:center}
+  .p h3{font-size:21px;letter-spacing:-.6px;font-weight:800;padding-top:3px}
+  .p .risk{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--red);
+    background:rgba(217,45,32,.06);border:1px solid rgba(217,45,32,.16);padding:6px 12px;border-radius:8px;margin:12px 0 16px}
+  .pbox{position:relative;background:#0e0e14;border-radius:14px;padding:20px 20px 20px 20px}
+  .pbox p{font-size:14.5px;color:#e2dcf7;line-height:1.65;white-space:pre-wrap}
+  .pbox .cp{position:absolute;top:12px;right:12px;background:var(--v);border:0;color:#fff;font-size:11.5px;font-weight:700;
+    font-family:inherit;padding:8px 14px;border-radius:8px;cursor:pointer;transition:.2s}
+  .pbox .cp:hover{opacity:.85}
+  .pbox .cp.ok{background:var(--green)}
+  .pbox.pad{padding-top:52px}
+
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:26px}
+
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;
+    padding:22px 26px;font-weight:700;transition:.2s;border:1px solid transparent}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}
+  .cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#f7d488,#c8901b);color:#3a2905}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+
+  @media(max-width:640px){
+    h1{font-size:37px;letter-spacing:-1.4px}
+    .lede{font-size:18px}
+    h2.st{font-size:27px}
+    header{padding:60px 0 40px}
+    .pbox.pad{padding-top:56px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="pill">● 5 failles critiques · 5 prompts</div>
+    <h1>Ton app codée avec l'IA<br>est <em>grande ouverte</em>.</h1>
+    <p class="lede">L'IA code ce que tu lui demandes. Tu as demandé « fonctionnel », pas « sécurisé ». Voici les 5 prompts à coller dans Claude pour tout refermer.</p>
+  </header>
+
+  <div id="wall">
+    <div class="wallcard">
+      <h2>Reçois les 5 prompts</h2>
+      <p>Entre ton email pour débloquer les prompts complets, prêts à coller.</p>
+      <form class="wallform" id="wf">
+        <input type="email" id="em" placeholder="ton@email.com" required>
+        <button type="submit" id="sb">Débloquer</button>
+      </form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2× par semaine.</div>
+    </div>
+  </div>
+
+  <div id="content" class="locked">
+
+    <section>
+      <div class="how">
+        <b>Comment les utiliser</b>
+        <p>Ouvre ton projet dans Claude (Claude Code, Cursor, ou directement dans le chat avec ton code). Colle les prompts <b>un par un</b>, dans l'ordre. Laisse Claude auditer, corriger et t'expliquer. Relis toujours ce qu'il change avant de déployer.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Les 5 prompts</div>
+      <h2 class="st">Colle-les un par un.</h2>
+
+      <div class="p">
+        <div class="ph"><div class="num">1</div><h3>Sécuriser le jeton de session</h3></div>
+        <div class="risk">✕ Risque : le jeton de connexion est lisible depuis le navigateur</div>
+        <div class="pbox pad">
+          <button class="cp" data-copy="Audite toute l'authentification de mon application. Objectif : le jeton de session ne doit jamais être accessible par du JavaScript côté client.
+
+1. Trouve tout endroit où un token, un JWT ou un identifiant de session est stocké dans localStorage ou sessionStorage, et supprime-le.
+2. Migre la session vers un cookie httpOnly + secure + SameSite=Strict.
+3. Mets une durée de vie courte sur le token d'accès, avec un refresh token rotatif stocké côté serveur et révocable.
+4. Assure-toi qu'aucun token n'apparaît dans une URL, un log, ou une réponse d'API inutile.
+
+Liste chaque fichier que tu modifies, montre-moi le diff, et explique en une phrase le risque que chaque changement corrige.">Copier</button>
+          <p>Audite toute l'authentification de mon application. Objectif : le jeton de session ne doit jamais être accessible par du JavaScript côté client.
+
+1. Trouve tout endroit où un token, un JWT ou un identifiant de session est stocké dans localStorage ou sessionStorage, et supprime-le.
+2. Migre la session vers un cookie httpOnly + secure + SameSite=Strict.
+3. Mets une durée de vie courte sur le token d'accès, avec un refresh token rotatif stocké côté serveur et révocable.
+4. Assure-toi qu'aucun token n'apparaît dans une URL, un log, ou une réponse d'API inutile.
+
+Liste chaque fichier que tu modifies, montre-moi le diff, et explique en une phrase le risque que chaque changement corrige.</p>
+        </div>
+      </div>
+
+      <div class="p">
+        <div class="ph"><div class="num">2</div><h3>Vérifier l'admin côté serveur</h3></div>
+        <div class="risk">✕ Risque : les droits admin sont décidés côté client, donc modifiables</div>
+        <div class="pbox pad">
+          <button class="cp" data-copy="Passe en revue toutes les vérifications de rôle, de permission et de propriété dans mon application.
+
+Règle absolue : aucune décision d'autorisation (isAdmin, role, plan, owner_id, is_premium…) ne doit dépendre d'une donnée envoyée par le client. Tout doit être re-vérifié côté serveur, à chaque requête, à partir de la session authentifiée.
+
+1. Liste toutes les routes et actions sensibles de mon app.
+2. Pour chacune, dis-moi si l'autorisation est vérifiée côté serveur — et si non, corrige.
+3. Mets en place un middleware d'autorisation centralisé (deny par défaut) et applique-le partout.
+4. Vérifie aussi la propriété des ressources : un utilisateur ne doit jamais pouvoir lire ou modifier l'objet d'un autre en changeant un ID.
+
+Donne-moi la liste des routes qui n'étaient pas protégées avant ta correction.">Copier</button>
+          <p>Passe en revue toutes les vérifications de rôle, de permission et de propriété dans mon application.
+
+Règle absolue : aucune décision d'autorisation (isAdmin, role, plan, owner_id, is_premium…) ne doit dépendre d'une donnée envoyée par le client. Tout doit être re-vérifié côté serveur, à chaque requête, à partir de la session authentifiée.
+
+1. Liste toutes les routes et actions sensibles de mon app.
+2. Pour chacune, dis-moi si l'autorisation est vérifiée côté serveur — et si non, corrige.
+3. Mets en place un middleware d'autorisation centralisé (deny par défaut) et applique-le partout.
+4. Vérifie aussi la propriété des ressources : un utilisateur ne doit jamais pouvoir lire ou modifier l'objet d'un autre en changeant un ID.
+
+Donne-moi la liste des routes qui n'étaient pas protégées avant ta correction.</p>
+        </div>
+      </div>
+
+      <div class="p">
+        <div class="ph"><div class="num">3</div><h3>Limiter les tentatives</h3></div>
+        <div class="risk">✕ Risque : on peut tester des mots de passe à l'infini sur ta page de connexion</div>
+        <div class="pbox pad">
+          <button class="cp" data-copy="Ajoute un rate limiting sur toutes les routes sensibles de mon application.
+
+1. Couvre au minimum : connexion, inscription, réinitialisation de mot de passe, renvoi d'email, et toute route API coûteuse.
+2. Limite à la fois par adresse IP et par compte visé, pour éviter qu'on cible un seul utilisateur depuis plusieurs IP.
+3. Ajoute un délai progressif (backoff) puis un verrouillage temporaire du compte après plusieurs échecs consécutifs, avec un message générique — ne révèle jamais si c'est l'email ou le mot de passe qui est faux.
+4. Journalise les tentatives échouées (horodatage, IP, compte visé) pour pouvoir détecter une attaque.
+
+Donne-moi la configuration exacte et les seuils que tu recommandes, et explique pourquoi.">Copier</button>
+          <p>Ajoute un rate limiting sur toutes les routes sensibles de mon application.
+
+1. Couvre au minimum : connexion, inscription, réinitialisation de mot de passe, renvoi d'email, et toute route API coûteuse.
+2. Limite à la fois par adresse IP et par compte visé, pour éviter qu'on cible un seul utilisateur depuis plusieurs IP.
+3. Ajoute un délai progressif (backoff) puis un verrouillage temporaire du compte après plusieurs échecs consécutifs, avec un message générique — ne révèle jamais si c'est l'email ou le mot de passe qui est faux.
+4. Journalise les tentatives échouées (horodatage, IP, compte visé) pour pouvoir détecter une attaque.
+
+Donne-moi la configuration exacte et les seuils que tu recommandes, et explique pourquoi.</p>
+        </div>
+      </div>
+
+      <div class="p">
+        <div class="ph"><div class="num">4</div><h3>Vérification d'email + 2FA</h3></div>
+        <div class="risk">✕ Risque : des comptes créés sans vérifier l'email, et aucune double authentification</div>
+        <div class="pbox pad">
+          <button class="cp" data-copy="Ajoute une vérification d'email obligatoire et la double authentification à mon application.
+
+Vérification d'email :
+1. À l'inscription, envoie un lien de vérification avec un token à usage unique, aléatoire et expirant sous 24h.
+2. Tant que l'email n'est pas vérifié, le compte n'a accès à aucune action ni donnée sensible.
+3. Applique un rate limit sur le renvoi de l'email de vérification.
+
+Double authentification (2FA) :
+4. Ajoute la 2FA par TOTP, compatible avec Google Authenticator / Authy (QR code à scanner).
+5. Génère des codes de secours à usage unique, affichés une seule fois et stockés hachés.
+6. Rends la 2FA obligatoire pour tout compte administrateur.
+
+Montre-moi les fichiers modifiés et le parcours utilisateur complet.">Copier</button>
+          <p>Ajoute une vérification d'email obligatoire et la double authentification à mon application.
+
+Vérification d'email :
+1. À l'inscription, envoie un lien de vérification avec un token à usage unique, aléatoire et expirant sous 24h.
+2. Tant que l'email n'est pas vérifié, le compte n'a accès à aucune action ni donnée sensible.
+3. Applique un rate limit sur le renvoi de l'email de vérification.
+
+Double authentification (2FA) :
+4. Ajoute la 2FA par TOTP, compatible avec Google Authenticator / Authy (QR code à scanner).
+5. Génère des codes de secours à usage unique, affichés une seule fois et stockés hachés.
+6. Rends la 2FA obligatoire pour tout compte administrateur.
+
+Montre-moi les fichiers modifiés et le parcours utilisateur complet.</p>
+        </div>
+      </div>
+
+      <div class="p">
+        <div class="ph"><div class="num">5</div><h3>Bloquer les mots de passe fuités</h3></div>
+        <div class="risk">✕ Risque : ton app accepte des mots de passe déjà présents dans des fuites publiques</div>
+        <div class="pbox pad">
+          <button class="cp" data-copy="Renforce toute la politique de mots de passe de mon application.
+
+1. Hachage : utilise argon2id (ou bcrypt avec un coût adapté). Jamais de mot de passe en clair, jamais de MD5 ni de SHA-1.
+2. Longueur minimale de 12 caractères, sans règle de complexité absurde — la longueur prime.
+3. Refuse les mots de passe déjà compromis : interroge l'API HaveIBeenPwned en k-anonymity (on envoie uniquement les 5 premiers caractères du hash SHA-1, jamais le mot de passe). Si le mot de passe apparaît dans une fuite connue, refuse-le avec un message clair.
+4. Refuse aussi les mots de passe qui contiennent l'email ou le nom du service.
+5. Applique tout ça à l'inscription ET au changement de mot de passe.
+
+Implémente-le, et montre-moi comment tester que ça fonctionne.">Copier</button>
+          <p>Renforce toute la politique de mots de passe de mon application.
+
+1. Hachage : utilise argon2id (ou bcrypt avec un coût adapté). Jamais de mot de passe en clair, jamais de MD5 ni de SHA-1.
+2. Longueur minimale de 12 caractères, sans règle de complexité absurde — la longueur prime.
+3. Refuse les mots de passe déjà compromis : interroge l'API HaveIBeenPwned en k-anonymity (on envoie uniquement les 5 premiers caractères du hash SHA-1, jamais le mot de passe). Si le mot de passe apparaît dans une fuite connue, refuse-le avec un message clair.
+4. Refuse aussi les mots de passe qui contiennent l'email ou le nom du service.
+5. Applique tout ça à l'inscription ET au changement de mot de passe.
+
+Implémente-le, et montre-moi comment tester que ça fonctionne.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Bonus</div>
+      <h2 class="st">Le prompt d'audit complet</h2>
+      <p class="body">Une fois les 5 corrections passées, lance celui-ci pour vérifier qu'il ne reste rien.</p>
+      <div class="p">
+        <div class="pbox pad">
+          <button class="cp" data-copy="Fais un audit de sécurité complet de mon application, comme le ferait un auditeur externe.
+
+Vérifie au minimum : l'authentification et la gestion de session, l'autorisation sur chaque route, la validation des entrées utilisateur, les injections (SQL, NoSQL, commandes), le XSS, le CSRF, l'exposition de données sensibles dans les réponses d'API, les secrets et clés d'API en dur dans le code, les dépendances vulnérables, les en-têtes de sécurité HTTP, et la configuration CORS.
+
+Pour chaque problème trouvé, donne-moi : le fichier concerné, le niveau de gravité (critique / élevé / moyen / faible), ce qu'un attaquant pourrait faire, et le correctif. Classe par gravité. Ne corrige rien tant que je n'ai pas validé.">Copier</button>
+          <p>Fais un audit de sécurité complet de mon application, comme le ferait un auditeur externe.
+
+Vérifie au minimum : l'authentification et la gestion de session, l'autorisation sur chaque route, la validation des entrées utilisateur, les injections (SQL, NoSQL, commandes), le XSS, le CSRF, l'exposition de données sensibles dans les réponses d'API, les secrets et clés d'API en dur dans le code, les dépendances vulnérables, les en-têtes de sécurité HTTP, et la configuration CORS.
+
+Pour chaque problème trouvé, donne-moi : le fichier concerné, le niveau de gravité (critique / élevé / moyen / faible), ce qu'un attaquant pourrait faire, et le correctif. Classe par gravité. Ne corrige rien tant que je n'ai pas validé.</p>
+        </div>
+      </div>
+      <div class="note"><b>Important.</b> Ces prompts couvrent les failles les plus fréquentes des apps codées avec l'IA — ils ne remplacent pas un audit professionnel si tu gères des données sensibles (santé, paiement, données personnelles à grande échelle). Relis toujours ce que l'IA modifie avant de déployer.</div>
+    </section>
+
+    <section>
+      <div class="kicker">Et maintenant ?</div>
+      <h2 class="st">Va plus loin.</h2>
+      <p class="body">Tu sais sécuriser. La vraie question, c'est ce que tu construis avec.</p>
+      <div class="ctas">
+        <a class="cta gold" href="/prompts">
+          <span><span class="t">Le pack 50 prompts Claude</span><span class="s">Mes prompts business les plus rentables — 50€</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Automatiser ton entreprise</span><span class="s">Appel stratégique gratuit de 30 min</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise — TPE, PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Monsieur IA — Arnaud
+    <div class="legal">Contenu à but défensif uniquement : sécuriser tes propres applications. N'utilise jamais ces informations sur un système qui ne t'appartient pas.</div>
+  </footer>
+</div>
+
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');
+  const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();
+    const btn=document.getElementById('sb');
+    if(!email) return;
+    btn.textContent='...'; btn.disabled=true;
+    try{
+      await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead — page /secu',from_name:'Monsieur IA · /secu'})
+      });
+    }catch(err){}
+    localStorage.setItem(KEY,'1');
+    unlock();
+    content.scrollIntoView({behavior:'smooth'});
+  });
+
+  document.querySelectorAll('.cp').forEach(b=>{
+    b.addEventListener('click',()=>{
+      navigator.clipboard.writeText(b.dataset.copy).then(()=>{
+        const old=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');
+        setTimeout(()=>{b.textContent=old;b.classList.remove('ok');},1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>
