@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur de Pubs IA pour Claude — Maîtrise IA</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#faf7f0; --bg3:#f3eee2; --dark:#14110b;
+    --card:#ffffff; --line:#eae4d6;
+    --gold:#b8901f; --gold2:#c9a227; --goldsoft:#e7c65a;
+    --txt:#1c1a15; --muted:#6b6559;
+    --shadow:0 10px 40px rgba(60,50,20,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .gold{color:var(--gold)}
+  .center{text-align:center}
+
+  /* ticker */
+  .ticker{background:var(--dark);color:var(--goldsoft);font-weight:700;font-size:12.5px;letter-spacing:.6px;padding:10px 0;overflow:hidden;white-space:nowrap;position:sticky;top:0;z-index:50}
+  .ticker span{display:inline-block;padding-right:40px;animation:scroll 24s linear infinite}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* nav */
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+  .logo{font-weight:800;font-size:19px;letter-spacing:-.5px}
+  .logo .gold{font-weight:800}
+  .nav .cta{background:var(--dark);color:#fff;padding:11px 22px;border-radius:100px;font-weight:700;font-size:14px}
+
+  /* buttons */
+  .btn{display:inline-block;background:linear-gradient(120deg,var(--goldsoft),var(--gold));color:#211a05;font-weight:800;font-size:16px;padding:16px 42px;border-radius:100px;transition:transform .15s,box-shadow .2s;box-shadow:0 10px 30px rgba(184,144,31,.25)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(184,144,31,.38)}
+  .btn-dark{background:var(--dark);color:#fff;box-shadow:none}
+  .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--txt);box-shadow:none}
+
+  /* hero */
+  .hero{position:relative;padding:60px 0 70px;text-align:center}
+  .stars-row{color:var(--gold);font-size:14px;margin-bottom:8px}
+  .stars-row small{color:var(--muted)}
+  .eyebrow{display:inline-block;background:var(--bg3);border-radius:100px;padding:7px 18px;font-size:13px;color:var(--gold);font-weight:600;margin-bottom:24px}
+  h1{font-size:clamp(34px,6vw,62px);line-height:1.04;font-weight:800;letter-spacing:-1.6px;max-width:900px;margin:0 auto 22px}
+  .sub{font-size:clamp(16px,2.2vw,20px);color:var(--muted);max-width:660px;margin:0 auto 32px}
+  .guar{font-size:13px;color:var(--muted);margin-top:16px}
+  .hero-img{max-width:900px;margin:48px auto 0;aspect-ratio:16/9;border-radius:20px;border:1px solid var(--line);background:linear-gradient(145deg,#fdfbf6,#f0eadb);display:flex;align-items:center;justify-content:center;color:#b6ad97;font-size:14px;box-shadow:var(--shadow)}
+
+  section{padding:74px 0}
+  .kicker{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+  h2{font-size:clamp(26px,4vw,42px);font-weight:800;letter-spacing:-1px;text-align:center;max-width:860px;margin:0 auto 18px;line-height:1.14}
+  .lead{color:var(--muted);text-align:center;max-width:660px;margin:0 auto 42px;font-size:17px}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .ph{aspect-ratio:4/5;border-radius:12px;border:1px solid var(--line);background:linear-gradient(145deg,#fbf8f1,#f0ead9);display:flex;align-items:center;justify-content:center;color:#b3aa93;font-size:11px;text-align:center;padding:10px}
+
+  /* compare cards row */
+  .compare{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto}
+  .cc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center;box-shadow:var(--shadow)}
+  .cc .role{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+  .cc .big{font-size:26px;font-weight:800;margin:10px 0 4px}
+  .cc.win{border:2px solid var(--gold);background:linear-gradient(180deg,#fffdf6,#fff)}
+  .cc.win .big{color:var(--gold)}
+  .cc small{color:var(--muted);font-size:12.5px}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;margin:0 auto;max-width:840px;font-size:14.5px;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .tbl th,.tbl td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  .tbl th{background:var(--bg3);color:var(--muted);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.5px}
+  .tbl tr.me td{color:var(--gold);font-weight:800;background:#fffdf5}
+  .take{text-align:center;color:var(--muted);max-width:740px;margin:22px auto 0;font-size:14.5px}
+
+  /* use cases */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  .case{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+  .case h4{font-size:18px;margin-bottom:8px}
+  .case p{color:var(--muted);font-size:14.5px}
+
+  /* checklist */
+  .checklist{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+  .check{padding-left:30px;position:relative;font-size:15px;padding-top:4px;padding-bottom:4px}
+  .check::before{content:"✓";position:absolute;left:0;top:3px;width:20px;height:20px;background:var(--gold);color:#fff;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:800}
+
+  /* skills */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:920px;margin:0 auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
+  .card .num{color:var(--gold);font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+  .card h3{font-size:20px;margin:8px 0 6px;font-weight:800}
+  .card code{background:var(--bg3);color:var(--gold);padding:3px 10px;border-radius:6px;font-size:12.5px;display:inline-block;margin-bottom:12px;font-weight:600}
+  .card p{color:var(--muted);font-size:14.5px}
+
+  /* features */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1040px;margin:0 auto}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
+  .feat .ic{width:40px;height:40px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+  .feat h4{font-size:16px;margin-bottom:6px}
+  .feat p{color:var(--muted);font-size:14px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  .step{text-align:center}
+  .step .n{font-size:38px;font-weight:800;color:var(--goldsoft);line-height:1}
+  .step h4{margin:10px 0 6px;font-size:16px}
+  .step p{color:var(--muted);font-size:13.5px}
+
+  /* outputs */
+  .outs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  .out{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .out .img{aspect-ratio:4/3;background:linear-gradient(145deg,#faf6ee,#efe8d7);display:flex;align-items:center;justify-content:center;color:#b3aa93;font-size:12px}
+  .out .b{padding:20px}
+  .out h4{font-size:17px;margin-bottom:6px}
+  .out p{color:var(--muted);font-size:14px}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:820px;margin:0 auto}
+  .stat{background:var(--dark);color:#fff;border-radius:20px;padding:36px;text-align:center}
+  .stat .big{font-size:52px;font-weight:800;color:var(--goldsoft);line-height:1}
+  .stat p{color:#c9c2b0;font-size:14.5px;margin-top:10px}
+
+  /* bonus */
+  .bonus{background:var(--dark);color:#fff}
+  .bonus h2,.bonus .lead{color:#fff}
+  .bonus .lead{color:#c9c2b0}
+  .bcards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  .bcard{background:#211d14;border:1px solid #322b1c;border-radius:16px;padding:24px}
+  .bcard .v{color:var(--goldsoft);font-weight:800;font-size:13px;margin-bottom:8px}
+  .bcard h4{font-size:17px;margin-bottom:8px}
+  .bcard p{color:#b8b1a0;font-size:14px}
+
+  /* pricing */
+  .prices{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:880px;margin:0 auto;align-items:start}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px;box-shadow:var(--shadow)}
+  .price.best{border:2px solid var(--gold);box-shadow:0 20px 60px rgba(184,144,31,.18);position:relative}
+  .badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(120deg,var(--goldsoft),var(--gold));color:#211a05;font-weight:800;font-size:11px;letter-spacing:1px;padding:7px 18px;border-radius:100px;text-transform:uppercase;white-space:nowrap}
+  .price .name{font-weight:800;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .price .tag{font-size:18px;margin:14px 0 4px;font-weight:700}
+  .old{color:#b6ad97;text-decoration:line-through;font-size:22px;margin-right:8px}
+  .now{font-size:46px;font-weight:800}
+  .save{display:inline-block;background:var(--bg3);color:var(--gold);font-size:12px;font-weight:800;padding:5px 14px;border-radius:100px;margin:12px 0 22px}
+  .price ul{list-style:none;margin-bottom:26px}
+  .price li{padding:8px 0 8px 28px;position:relative;font-size:14px;color:#3a3529;border-bottom:1px solid var(--bg3)}
+  .price li::before{content:"✓";position:absolute;left:0;color:#fff;background:var(--gold);width:18px;height:18px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800;top:9px}
+  .price li b{color:var(--txt)}
+  .price .btn{width:100%;text-align:center}
+
+  /* testimonials */
+  .tst{columns:3;column-gap:16px;max-width:1040px;margin:0 auto}
+  .quote{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;font-size:14.5px;break-inside:avoid;margin-bottom:16px;box-shadow:var(--shadow)}
+  .stars{color:var(--gold);font-size:13px;margin-bottom:10px}
+  .who{color:var(--muted);font-size:13px;margin-top:12px;font-weight:700}
+
+  /* founder */
+  .founder{max-width:800px;margin:0 auto;background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:44px;text-align:center}
+  .founder .av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#5a4a1a);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:#fff}
+
+  /* faq */
+  .faq{max-width:780px;margin:0 auto}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:12px;box-shadow:var(--shadow)}
+  summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-size:24px;font-weight:400;flex-shrink:0}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);font-size:14.5px;margin-top:12px}
+
+  .final{background:linear-gradient(180deg,var(--bg2),var(--bg3));text-align:center}
+  footer{background:var(--dark);color:#9a9484;padding:40px 0;text-align:center;font-size:13px}
+  footer a{color:var(--goldsoft)}
+
+  @media(max-width:900px){
+    .gallery{grid-template-columns:repeat(3,1fr)}
+    .compare,.cases,.grid,.feats,.steps,.outs,.stats,.bcards,.prices{grid-template-columns:1fr}
+    .checklist{grid-template-columns:1fr}
+    .tst{columns:1}
+    .nav .links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span>🔥 -80 % AUJOURD'HUI&nbsp;&nbsp;•&nbsp;&nbsp;ACCÈS À VIE, SANS ABONNEMENT&nbsp;&nbsp;•&nbsp;&nbsp;GÉNÉRATEUR DE PUBS IA POUR CLAUDE&nbsp;&nbsp;•&nbsp;&nbsp;🔥 -80 % AUJOURD'HUI&nbsp;&nbsp;•&nbsp;&nbsp;ACCÈS À VIE, SANS ABONNEMENT&nbsp;&nbsp;•&nbsp;&nbsp;GÉNÉRATEUR DE PUBS IA POUR CLAUDE&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+</div>
+
+<!-- NAV -->
+<div class="wrap">
+  <nav class="nav">
+    <div class="logo">Maîtrise<span class="gold">IA</span></div>
+    <a href="#offre" class="cta">Accès immédiat →</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="stars-row">★★★★★ &nbsp;<small>Plus de 70 000 entrepreneurs font confiance à nos produits IA</small></div>
+    <div class="eyebrow">Encore 99 €/mois pour un outil de pubs IA générique ?</div>
+    <h1>Transformez Claude en votre <span class="gold">équipe de création et de production</span> de pubs.</h1>
+    <p class="sub">Un plugin pour l'app Claude qui conçoit des pubs image prêtes à lancer et produit des vidéos courtes qui performent — dans votre marque, au format de chaque plateforme, écrites pour convertir. Simple à installer, simple à utiliser.</p>
+    <a href="#offre" class="btn">Obtenir l'accès →</a>
+    <div class="guar">Zéro risque — garantie satisfait ou remboursé 14 jours.</div>
+    <div class="hero-img">[ Démo produit — Claude qui génère une pub à partir d'un prompt ]</div>
+  </div>
+</header>
+
+<!-- SEEN THESE ADS -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Vous avez déjà vu ce type de pubs</div>
+    <h2>Vous ne saviez juste pas que c'était fait avec Claude.</h2>
+    <p class="lead">Des créatives image et vidéo prêtes à lancer, produites et designées en minutes — pas en journées.</p>
+    <div class="gallery">
+      <div class="ph">Complément sommeil</div>
+      <div class="ph">App finance</div>
+      <div class="ph">App productivité</div>
+      <div class="ph">SaaS B2B</div>
+      <div class="ph">Skincare</div>
+      <div class="ph">Formation en ligne</div>
+      <div class="ph">Meal kit</div>
+      <div class="ph">Fintech</div>
+      <div class="ph">Marque animalière</div>
+      <div class="ph">Voyage</div>
+    </div>
+    <p class="take">↑ Emplacements à remplacer par tes vraies créatives une fois le générateur configuré (double usage : tests + preuves).</p>
+  </div>
+</section>
+
+<!-- BIG DIFFERENCE -->
+<section>
+  <div class="wrap">
+    <div class="kicker">La vraie différence</div>
+    <h2>Entre payer des abonnements logiciels… et posséder 2 générateurs qui produisent 8× plus vite et 90 % moins cher.</h2>
+    <div class="compare">
+      <div class="cc"><div class="role">Designer / agence</div><div class="big">300 €+</div><small>par pub image</small></div>
+      <div class="cc"><div class="role">Script vidéo pro</div><div class="big">500 €</div><small>par script</small></div>
+      <div class="cc"><div class="role">Agence créative</div><div class="big">3–10 K€</div><small>par mois</small></div>
+      <div class="cc win"><div class="role">Générateur de Pubs IA</div><div class="big">Dès 0,02 €</div><small>par pub, sans abonnement</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- COST IMAGE -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Coût de production — pubs image</div>
+    <h2>~5 à 40× moins cher qu'AdCreative.ai</h2>
+    <table class="tbl">
+      <tr><th>Solution</th><th>Coût / image</th><th>Facturation</th><th>Plafond</th><th>100 images</th></tr>
+      <tr><td>AdCreative.ai</td><td>~0,80 – 2,90 €</td><td>29 – 399 €/mois</td><td>crédits mensuels</td><td>~80 – 149 €</td></tr>
+      <tr><td>Creatify</td><td>~0,08 – 0,17 €</td><td>33 – 49 €/mois</td><td>crédits mensuels</td><td>~8 – 17 €</td></tr>
+      <tr class="me"><td>Générateur de Pubs IA</td><td>0,02 – 0,19 €</td><td>à l'usage</td><td>aucun</td><td>2 – 19 €</td></tr>
+    </table>
+    <p class="take">Aucun abonnement, aucun engagement mensuel, aucun plafond de génération — vous ne payez que ce que vous utilisez.</p>
+  </div>
+</section>
+
+<!-- COST VIDEO -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Coût de production — pubs vidéo</div>
+    <h2>~10 à 20× moins cher qu'Arcads</h2>
+    <table class="tbl">
+      <tr><th>Solution</th><th>Coût / vidéo</th><th>Facturation</th><th>100 vidéos</th></tr>
+      <tr><td>Arcads</td><td>~7,70 – 11 €</td><td>77 – 110 €/mois, sans essai</td><td>~1 100 €</td></tr>
+      <tr><td>Creatify</td><td>~3 – 7 €</td><td>33 – 49 €/mois</td><td>~300 – 660 €</td></tr>
+      <tr class="me"><td>Générateur de Pubs IA</td><td>0,40 – 1,20 €</td><td>à l'usage, sans abonnement</td><td>40 – 120 €</td></tr>
+    </table>
+    <p class="take">Le coût par créative que la plupart des agences n'atteignent jamais.</p>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Pour qui c'est fait</div>
+    <h2>Un générateur de pubs pour chaque type d'activité.</h2>
+    <div class="cases">
+      <div class="case"><h4>🏪 TPE / commerces</h4><p>Lancez des pubs Meta et Insta pro en minutes, sans agence ni designer. Vos couleurs, votre offre, votre voix.</p></div>
+      <div class="case"><h4>🛒 E-commerçants</h4><p>Testez des dizaines d'angles chaque semaine à un coût par créative dérisoire. Le volume que demandent les vrais comptes pub.</p></div>
+      <div class="case"><h4>🎓 Coachs & formateurs</h4><p>Des pubs qui convertissent en continu, à votre marque, sans rebriefer personne à chaque lancement.</p></div>
+      <div class="case"><h4>🏢 Agences</h4><p>Livrez des pubs image et vidéo à l'échelle, tout en protégeant vos marges. Facturez la stratégie, pas la production.</p></div>
+      <div class="case"><h4>🏠 Immobilier</h4><p>Annoncez biens et portes ouvertes avec des visuels et vidéos soignés, prêts en quelques minutes.</p></div>
+      <div class="case"><h4>💼 Freelances / media buyers</h4><p>Multipliez votre production sans ajouter d'heures à votre semaine. Votre équipe créative dans Claude.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNLOCK CHECKLIST -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Ce que débloquent vos 2 générateurs</div>
+    <h2>Dès le premier jour, sans prompter depuis zéro.</h2>
+    <p class="lead">Chaque skill est pré-configuré. Ouvrez le générateur, collez votre offre, obtenez une pub prête à lancer.</p>
+    <div class="checklist">
+      <div class="check">Produire une pub statique en 1:1, 4:5 et 9:16 depuis un seul prompt</div>
+      <div class="check">Scripter une vidéo UGC de 30s qui ne sonne pas « IA »</div>
+      <div class="check">Générer une vidéo talking-head sans caméra (option avatar)</div>
+      <div class="check">Écrire 10 hooks scroll-stopping par créative</div>
+      <div class="check">Reverse-engineer les pubs concurrentes qui tournent</div>
+      <div class="check">Générer des fichiers Canva, images IA ou pubs HTML/CSS</div>
+      <div class="check">Transformer une URL ou un screenshot en pubs</div>
+      <div class="check">Vérifier la conformité Meta avant publication</div>
+      <div class="check">Multiplier 1 pub gagnante en 10 variantes A/B</div>
+      <div class="check">Logger chaque créative dans votre bibliothèque de pubs</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 SKILLS -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Skills intégrés</div>
+    <h2>4 experts. 2 générateurs. Toute la production de pubs couverte.</h2>
+    <p class="lead">Une seule commande à retenir : le Routeur Principal. Il lit ce que vous voulez et passe la main au bon spécialiste.</p>
+    <div class="grid">
+      <div class="card"><div class="num">Skill 1</div><h3>Routeur Principal</h3><code>/pubs-ia</code><p>Votre porte d'entrée unique — la seule commande à retenir. Dites ce que vous voulez, il lit votre intention et route vers le bon expert. Pas sûr par où commencer ? Il affiche un menu simple et vous guide.</p></div>
+      <div class="card"><div class="num">Skill 2</div><h3>Stratège Créa</h3><code>/creer-concepts</code><p>Transforme la recherche en ligne — ad libraries concurrentes, Reddit, avis, YouTube et vos propres KPIs — en concepts de pubs classés et briefs prêts à produire. Il décide quoi vaut la peine d'être créé avant de dépenser un crédit.</p></div>
+      <div class="card"><div class="num">Skill 3</div><h3>Designer Image</h3><code>/pubs-image</code><p>Génère des pubs image prêtes à produire depuis un seul brief — à votre marque, au format de chaque plateforme, hooks, titres et CTA intégrés au visuel. Propulsé par les derniers modèles image IA.</p></div>
+      <div class="card"><div class="num">Skill 4</div><h3>Producteur Vidéo</h3><code>/pubs-video</code><p>Produit des vidéos courtes (15–60s) pour Reels, TikTok et Shorts — du storyboard au MP4 final avec voix et musique synchronisées — ou anime vos meilleures pubs statiques. Propulsé par les derniers modèles vidéo IA.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES 9 -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Fonctionnalités</div>
+    <h2>Tout votre studio créatif, à l'intérieur de Claude.</h2>
+    <div class="feats">
+      <div class="feat"><div class="ic">🎯</div><h4>2 générateurs en 1</h4><p>Un pour l'image, un pour la vidéo — toute votre équipe pub vit dans Claude.</p></div>
+      <div class="feat"><div class="ic">🖼️</div><h4>40+ templates image</h4><p>Hero, titre, comparatif, UGC, témoignage… des layouts éprouvés sur 38 types de produits.</p></div>
+      <div class="feat"><div class="ic">🎬</div><h4>10+ templates vidéo</h4><p>Reels, TikToks, Shorts 15–60s avec voix off et son intégrés — sans studio ni acteur.</p></div>
+      <div class="feat"><div class="ic">🎨</div><h4>À votre marque à chaque fois</h4><p>Vos couleurs, votre police, votre logo, votre ton — verrouillés dans chaque création.</p></div>
+      <div class="feat"><div class="ic">🤖</div><h4>Tous les modèles IA</h4><p>Les derniers modèles image et vidéo, au même endroit, sans jongler entre les outils.</p></div>
+      <div class="feat"><div class="ic">📐</div><h4>Tous les formats</h4><p>1:1, 4:5, 9:16 — dimensionnés pour chaque plateforme, prêts pour le Gestionnaire de pubs.</p></div>
+      <div class="feat"><div class="ic">✍️</div><h4>Copy qui convertit</h4><p>Titres et textes natifs Meta écrits dans votre voix — pas un texte robotique.</p></div>
+      <div class="feat"><div class="ic">🔗</div><h4>Connectez toute API / MCP</h4><p>Branchez vos outils : Canva, Drive, votre fournisseur d'images et vidéos IA.</p></div>
+      <div class="feat"><div class="ic">📄</div><h4>Fichier / URL → pubs</h4><p>Donnez-lui un brief, un PDF, un lien ou un screenshot — il en tire tout ce qu'il faut.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Comment ça marche</div>
+    <h2>De l'installation à votre première pub en moins de 10 minutes.</h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h4>Installez le plugin</h4><p>Il s'ajoute à Claude en moins de 2 minutes. Aucune compétence technique.</p></div>
+      <div class="step"><div class="n">02</div><h4>Lancez le Routeur</h4><p>La seule commande à retenir : /pubs-ia. Il prend le relais.</p></div>
+      <div class="step"><div class="n">03</div><h4>Déposez vos infos</h4><p>Prompt, liens, docs, fichiers ou screenshots — comme vous voulez.</p></div>
+      <div class="step"><div class="n">04</div><h4>Recevez vos créas</h4><p>Des pubs image et vidéo à votre marque, sizées, prêtes à lancer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTPUTS -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Ce que le générateur produit</div>
+    <h2>Concepts, pubs image, pubs vidéo — de bout en bout.</h2>
+    <div class="outs">
+      <div class="out"><div class="img">[ Concepts & briefs ]</div><div class="b"><h4>Concepts de pubs</h4><p>Des angles gagnants et briefs production-ready, classés avant de dépenser un crédit.</p></div></div>
+      <div class="out"><div class="img">[ Pubs image ]</div><div class="b"><h4>Pubs image</h4><p>Dans tous les formats, hook et CTA intégrés au visuel, à votre marque.</p></div></div>
+      <div class="out"><div class="img">[ Pubs vidéo ]</div><div class="b"><h4>Pubs vidéo</h4><p>Reels, TikTok, Shorts — du hook au CTA avec sous-titres, voix et musique synchronisés.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Claude vit son moment ChatGPT</div>
+    <h2>Les acheteurs média qui gagnent en 2026 ont un point commun.</h2>
+    <p class="lead">Ils ont arrêté de payer des abonnements SaaS pour des créatives qui ne sonnent pas comme leur marque.</p>
+    <div class="stats">
+      <div class="stat"><div class="big">+42 %</div><p>Croissance des utilisateurs Claude sur un mois — pendant que d'autres plateformes déclinaient.</p></div>
+      <div class="stat"><div class="big">2,5 M</div><p>Personnes ayant basculé vers Claude dans le mouvement #QuitGPT cette année.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUSES -->
+<section class="bonus">
+  <div class="wrap">
+    <div class="kicker">Inclus gratuitement</div>
+    <h2>Plus de 2 000 € de bonus offerts.</h2>
+    <p class="lead">Tout ce qu'il faut pour transformer vos générateurs en vraie machine de production.</p>
+    <div class="bcards">
+      <div class="bcard"><div class="v">Valeur 97 €</div><h4>Les 70 Spécialistes IA</h4><p>70 experts autonomes dans Claude : copywriter, closer, stratège, community manager…</p></div>
+      <div class="bcard"><div class="v">Valeur 497 €</div><h4>Designers d'images IA</h4><p>Mockups produits, bannières, miniatures YouTube… 15+ types de visuels, à votre marque.</p></div>
+      <div class="bcard"><div class="v">Valeur 497 €</div><h4>Spécialistes Email</h4><p>Séquences de bienvenue, relances panier, campagnes de lancement qui convertissent.</p></div>
+      <div class="bcard"><div class="v">Sprint</div><h4>Maîtriser Claude Cowork</h4><p>Claude gère vos docs, emails, fichiers et recherches — depuis une seule session.</p></div>
+      <div class="bcard"><div class="v">Sprint</div><h4>Claude MCP</h4><p>Connectez Claude à Gmail, HubSpot et plus — il envoie, planifie et met à jour tout seul.</p></div>
+      <div class="bcard"><div class="v">Sprint</div><h4>Build-to-Sell</h4><p>Concevez et vendez des assistants IA à d'autres entreprises. Cas d'usage réels.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="offre">
+  <div class="wrap">
+    <div class="kicker">Prix de lancement — -80 %</div>
+    <h2>Un seul paiement. Vos générateurs. À vie.</h2>
+    <p class="lead">Pas d'abonnement. Pas de facture mensuelle. Vous installez une fois et produisez chaque jour.</p>
+    <div class="prices">
+      <div class="price">
+        <div class="name">Pack Essentiel</div>
+        <div class="tag">Générateur de Pubs Image</div>
+        <div><span class="old">97 €</span><span class="now gold">27 €</span></div>
+        <div class="save">Économisez 70 € — paiement unique</div>
+        <ul>
+          <li><b>Générateur de pubs image complet</b> — recherche, planning et production de A à Z</li>
+          <li>Guide vidéo pas à pas</li>
+          <li>Recherche audience — segments, douleurs, désirs</li>
+          <li>Concepts + briefs créatifs</li>
+          <li>Analyse concurrentielle</li>
+          <li>URL → pubs image &nbsp;|&nbsp; Screenshot → pubs</li>
+          <li>Writer de hooks (10 par pub)</li>
+          <li>Copywriter Meta (titre + texte + CTA)</li>
+          <li>Générateur de formats (1:1, 4:5, 9:16)</li>
+          <li>40+ templates image + pack 50 prompts</li>
+        </ul>
+        <a href="https://buy.stripe.com/cNi00kbeI9fBg1gdU4fYY0l" class="btn btn-ghost">Choisir l'Essentiel</a>
+      </div>
+      <div class="price best">
+        <span class="badge">★ Meilleure valeur</span>
+        <div class="name">Pack Complet</div>
+        <div class="tag">Image + Vidéo</div>
+        <div><span class="old">247 €</span><span class="now gold">57 €</span></div>
+        <div class="save">Économisez 190 € — paiement unique</div>
+        <ul>
+          <li><b>✦ Tout le Pack Essentiel</b></li>
+          <li><b>Générateur de pubs vidéo complet</b> — de A à Z</li>
+          <li>Guide vidéo pas à pas</li>
+          <li>10+ templates vidéo courte</li>
+          <li>URL → pubs vidéo &nbsp;|&nbsp; Screenshot → pubs vidéo</li>
+          <li>Multiplicateur de variantes (1 → 10)</li>
+          <li><b>BONUS</b> — Les 70 Spécialistes IA (97 €)</li>
+          <li><b>BONUS</b> — Designers d'images + Spécialistes Email</li>
+          <li><b>BONUS</b> — 4 Sprints Claude (Cowork, Skills, MCP, Build-to-Sell)</li>
+          <li>Accès prioritaire aux mises à jour</li>
+        </ul>
+        <a href="https://buy.stripe.com/dRmfZifuY4ZleXc03efYY0m" class="btn">Choisir le Complet →</a>
+      </div>
+    </div>
+    <p class="take">⚠️ Prix de lancement limité. L'Essentiel repasse à 97 €, le Complet à 247 €. Garantie 14 jours satisfait ou remboursé.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Ils l'utilisent déjà</div>
+    <h2>Ce qu'en disent les entrepreneurs.</h2>
+    <div class="tst">
+      <div class="quote"><div class="stars">★★★★★</div>« Briefer un designer pour un jeu de pubs me prenait une après-midi entière. Maintenant je produis les versions image et vidéo le soir même et je publie le lendemain. »<div class="who">Marc — media buyer</div></div>
+      <div class="quote"><div class="stars">★★★★★</div>« Les pubs sortent vraiment à ma marque : bonnes polices, bonnes couleurs, hook intégré. Je démarre à 90 % au lieu d'une page blanche. »<div class="who">Priya — coach</div></div>
+      <div class="quote"><div class="stars">★★★★★</div>« Mon coût par créative a chuté. Je teste beaucoup plus d'angles maintenant, chacun coûte presque rien. »<div class="who">Daniel — e-commerce</div></div>
+      <div class="quote"><div class="stars">★★★★★</div>« Passé le week-end à faire mes créas — image, quelques cuts vidéo, des variantes en retard depuis des mois. Plus produit en 2 jours qu'en 2 semaines. 🤯 »<div class="who">Stéphane</div></div>
+      <div class="quote"><div class="stars">★★★★★</div>« Un vrai kit complet. Ça enlève la question du "quelle créa faire ensuite". Je découvre encore des templates que je n'avais pas testés. »<div class="who">Kellie</div></div>
+      <div class="quote"><div class="stars">★★★★★</div>« Installation en quelques minutes. Ce qui m'a convaincu : sortir 10 variantes de hook d'une pub gagnante en une nuit au lieu d'attendre une semaine. »<div class="who">Thomas</div></div>
+    </div>
+    <p class="take">Emplacements à remplacer par tes vrais témoignages dès les premières ventes.</p>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section>
+  <div class="wrap">
+    <div class="founder">
+      <div class="av">A</div>
+      <div class="kicker" style="margin-bottom:8px">Bonjour, moi c'est Arnaud — Monsieur IA</div>
+      <p style="color:var(--muted);font-size:16px">J'accompagne les entrepreneurs francophones à passer à une activité pilotée par l'IA. Quand Claude a lancé ses Skills et Plugins, j'ai vu ce que chaque acheteur média manquait : les outils SaaS et ChatGPT bloquent tous sur la même chose — la <span class="gold">marque</span>. Votre marque, votre offre, votre voix. J'ai donc construit 4 skills dans 2 générateurs jusqu'à ce que chacun produise des pubs qui sonnent vraiment comme la marque qui les diffuse. C'est tout l'intérêt.</p>
+      <div style="margin-top:26px"><a href="https://calendly.com/arnaud-monsieur-ia/30min" class="btn">Réserver un appel stratégie IA →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="kicker">Questions fréquentes</div>
+    <h2>Tout ce que vous devez savoir.</h2>
+    <div class="faq">
+      <details open><summary>Qu'est-ce que le Générateur de Pubs IA pour Claude ?</summary><p>Un plugin pour l'app Claude. Il installe deux générateurs — un pour l'image, un pour la vidéo — plus une suite de skills qui étudient votre audience, écrivent vos hooks et votre copy, designent vos créatives et produisent des pubs prêtes à lancer, à votre marque. Tout tourne dans Claude.</p></details>
+      <details><summary>Comment je l'installe et je l'utilise ?</summary><p>Trois étapes : téléchargez le ZIP, installez-le dans Claude desktop, puis lancez le Routeur Principal — la seule commande à retenir. Un guide vidéo pas à pas vous accompagne, impossible de rester bloqué.</p></details>
+      <details><summary>C'est pour qui ?</summary><p>Entrepreneurs, TPE/PME, freelances, marketeurs, media buyers et agences. Si vous faites de la pub payante — ou voulez vous y mettre — et qu'il vous faut des pubs image et vidéo à votre marque sans rebriefer une agence à chaque lancement, c'est fait pour vous.</p></details>
+      <details><summary>Comment ça marche techniquement ?</summary><p>Vous connectez un fournisseur d'API (on recommande Kie.ai : le plus complet et le plus économique, il supporte tous les derniers modèles image et vidéo) et achetez vos crédits directement chez lui. Un guide vidéo montre le setup exact.</p></details>
+      <details><summary>Combien coûte la génération d'une pub image ?</summary><p>Ça dépend du modèle, du volume et de la qualité. Une pub image ≈ 0,02–0,19 €. → 10 pubs : 0,20–1,90 € • 100 pubs : 2–19 € • 500 pubs : 10–95 €.</p></details>
+      <details><summary>Combien coûte la génération d'une pub vidéo ?</summary><p>Une pub vidéo ≈ 0,40–1,20 €. → 10 vidéos : 4–12 € • 100 vidéos : 40–120 € • 500 vidéos : 200–600 €.</p></details>
+      <details><summary>Il me faut un compte Claude payant ?</summary><p>Ça fonctionne avec Claude Free, Pro et Max. Pro offre la meilleure expérience (plus de projets simultanés), mais Free suffit pour démarrer aujourd'hui.</p></details>
+      <details><summary>Y a-t-il une garantie ?</summary><p>Oui — garantie 14 jours satisfait ou remboursé. Zéro risque.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2>Vos concurrents paient encore 99 €/mois. Vous, vous installez une fois.</h2>
+    <p class="lead">Produisez des pubs image et vidéo à votre marque, jusqu'à 8× plus vite et 90 % moins cher.</p>
+    <a href="#offre" class="btn">Obtenir l'accès — -80 % →</a>
+    <div class="guar">Garantie 14 jours satisfait ou remboursé.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Maîtrise IA — Générateur de Pubs IA pour Claude · <a href="https://calendly.com/arnaud-monsieur-ia/30min">Réserver un appel</a></div>
+</footer>
+
+</body>
+</html>
