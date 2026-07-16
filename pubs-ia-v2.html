@@ -165,6 +165,45 @@ header .container{display:flex;align-items:center;justify-content:space-between}
 .final p{color:#a1a1a6;font-size:18px;max-width:640px;margin:18px auto 34px}
 footer{padding:34px 0;text-align:center;color:var(--gray);font-size:14px}
 footer a{color:var(--gold-dark)}
+/* --- mock chat Claude (hero) --- */
+.chat{background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.10);padding:20px;text-align:left}
+.chat .bar{display:flex;align-items:center;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.chat .dot{width:10px;height:10px;border-radius:50%}
+.chat .bar span{margin-left:8px;font-size:13px;font-weight:600;color:var(--gray)}
+.bubble-u{background:var(--card);border-radius:14px 14px 4px 14px;padding:12px 16px;font-size:14px;max-width:85%;margin-left:auto;margin-bottom:14px}
+.bubble-a{font-size:13.5px;color:var(--gray);margin-bottom:12px}
+.bubble-a b{color:var(--ink)}
+.chat .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{font-size:11.5px;font-weight:700;color:var(--gold-dark);background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:999px;padding:4px 11px}
+/* --- fausses pubs (galerie) --- */
+.miniad{border-radius:16px;overflow:hidden;aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:#fff;position:relative;text-align:left}
+.miniad .brand{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.miniad .head{font-size:21px;font-weight:800;line-height:1.2;margin-top:8px}
+.miniad .sub2{font-size:12.5px;opacity:.75;margin-top:6px}
+.miniad .cta{align-self:flex-start;background:#fff;color:#111;font-size:12.5px;font-weight:700;border-radius:999px;padding:8px 16px;margin-top:12px}
+.miniad .stars2{font-size:12px;color:#f5c76a;margin-top:10px;letter-spacing:1px}
+.miniad .deco{position:absolute;border-radius:50%;filter:blur(2px);opacity:.5}
+.miniad.dark{background:linear-gradient(160deg,#1b2140,#0c0f22)}
+.miniad.green{background:linear-gradient(160deg,#eaf4ec,#cfe6d4);color:#1e3b28}
+.miniad.green .cta{background:#1e5c33;color:#fff}
+.miniad.cream{background:linear-gradient(160deg,#faf3e7,#f0dfc2);color:#503c1d}
+.miniad.cream .cta{background:#c2571b;color:#fff}
+.miniad.blue{background:linear-gradient(160deg,#141a3a,#2b1e5e)}
+.vidad{border-radius:16px;overflow:hidden;aspect-ratio:9/14;position:relative;display:flex;align-items:center;justify-content:center;color:#fff}
+.vidad .play{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(4px);border:1.5px solid rgba(255,255,255,.65);display:flex;align-items:center;justify-content:center;font-size:19px}
+.vidad .cap{position:absolute;left:14px;right:14px;bottom:30px;font-size:13.5px;font-weight:700;line-height:1.35;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.vidad .prog{position:absolute;left:14px;right:14px;bottom:14px;height:3px;background:rgba(255,255,255,.3);border-radius:3px}
+.vidad .prog::before{content:"";display:block;width:62%;height:100%;background:#fff;border-radius:3px}
+.vidad .tag{position:absolute;top:14px;left:14px;font-size:10.5px;font-weight:800;letter-spacing:.12em;background:rgba(0,0,0,.35);border-radius:999px;padding:4px 10px}
+.vidad.rose{background:linear-gradient(170deg,#e8b4c0,#9c4f63)}
+.vidad.gold{background:linear-gradient(170deg,#c9a45f,#6e5427)}
+.vidad.teal{background:linear-gradient(170deg,#7fc6bd,#2c6b62)}
+.vidad.violet{background:linear-gradient(170deg,#8d79d8,#3d2e77)}
+/* --- outputs minis --- */
+.doc-mock{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;aspect-ratio:16/10;text-align:left;overflow:hidden}
+.doc-mock .l{height:9px;border-radius:5px;background:#ececf1;margin-bottom:9px}
+.doc-mock .l.g{background:var(--gold-bg);border:1px solid var(--gold-border)}
+.doc-mock .title2{font-size:12.5px;font-weight:800;color:var(--gold-dark);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase}
 /* responsive */
 @media(max-width:980px){
   .hero .container{grid-template-columns:1fr}
@@ -213,9 +252,25 @@ footer a{color:var(--gold-dark)}
   <a class="btn" href="#offre"><span class="ic">⬇</span>Obtenir l'accès immédiat</a>
   <p class="guarantee">Zéro risque — garantie satisfait ou remboursé 14 jours.</p>
 </div>
-<div class="product-visual">
-  <div class="main">[ Visuel produit — coffret doré "Générateur de Pubs IA" à générer avec le produit ]</div>
-  <div class="thumbs"><div></div><div></div><div></div><div></div></div>
+<div class="chat">
+  <div class="bar">
+    <div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div><div class="dot" style="background:#28c840"></div>
+    <span>Claude — Générateur de Pubs IA</span>
+  </div>
+  <div class="bubble-u">Crée-moi une pub Meta pour mon offre coaching à 490 €, angle avant/après</div>
+  <div class="bubble-a"><b>✦ Concept validé.</b> Je génère ta créative…</div>
+  <div class="miniad dark" style="max-width:290px;margin:0 auto">
+    <div>
+      <div class="brand">Studio Kinés</div>
+      <div class="head">−12 kg en 90 jours, sans salle de sport</div>
+      <div class="sub2">La méthode suivie par 400+ clients</div>
+    </div>
+    <div>
+      <div class="cta">Je commence →</div>
+      <div class="stars2">★★★★★ 4,9/5 — 214 avis</div>
+    </div>
+  </div>
+  <div class="meta"><span class="chip">✓ 1:1</span><span class="chip">✓ 4:5</span><span class="chip">✓ 9:16</span><span class="chip">Coût : 0,04 €</span><span class="chip">⏱ 4 min</span></div>
 </div>
 </div></section>
 
@@ -224,19 +279,31 @@ footer a{color:var(--gold-dark)}
 <h2>Vous avez déjà vu des pubs comme celles-ci.<br>Vous ne saviez juste pas que c'était Claude.</h2>
 <div class="gal-label">Pubs image</div>
 <div class="gal">
-  <div class="ad">[ Créa — complément sommeil ]</div>
-  <div class="ad">[ Créa — app finance ]</div>
-  <div class="ad">[ Créa — app productivité ]</div>
-  <div class="ad">[ Créa — SaaS B2B ]</div>
+  <div class="miniad dark">
+    <div><div class="brand">Somnia</div><div class="head">Endormi en 12 minutes</div><div class="sub2">La gummy sommeil validée par 40 000 clients</div></div>
+    <div><div class="cta">Essayer sans risque</div><div class="stars2">★★★★★ 4,9/5 — 12 000 avis</div></div>
+  </div>
+  <div class="miniad green">
+    <div><div class="brand">Budgeto</div><div class="head">Économisez 500 €/mois sans y penser</div><div class="sub2">L'app budget qui travaille pour vous</div></div>
+    <div><div class="cta">Commencer gratuitement →</div><div class="stars2" style="color:#1e5c33">★★★★★ 250 000 utilisateurs</div></div>
+  </div>
+  <div class="miniad cream">
+    <div><div class="brand">FocusLab</div><div class="head">Battez la procrastination. Pour de bon.</div><div class="sub2">Sessions deep-focus appuyées par les neurosciences</div></div>
+    <div><div class="cta">Télécharger l'app</div><div class="stars2" style="color:#c2571b">★ 4,8 — App du jour</div></div>
+  </div>
+  <div class="miniad blue">
+    <div><div class="brand">Pipeline</div><div class="head">Closez 2× plus de deals</div><div class="sub2">Le CRM que vos commerciaux utiliseront vraiment</div></div>
+    <div><div class="cta">Essai gratuit →</div><div class="stars2">★★★★★ 8 000+ équipes</div></div>
+  </div>
 </div>
 <div class="gal-label">Pubs vidéo</div>
 <div class="gal video">
-  <div class="ad">[ Vidéo — skincare ]</div>
-  <div class="ad">[ Vidéo — formation ]</div>
-  <div class="ad">[ Vidéo — e-commerce ]</div>
-  <div class="ad">[ Vidéo — coaching ]</div>
+  <div class="vidad rose"><span class="tag">UGC</span><div class="play">▶</div><div class="cap">« J'ai testé ce sérum pendant 30 jours… voilà le résultat »</div><div class="prog"></div></div>
+  <div class="vidad gold"><span class="tag">FORMATION</span><div class="play">▶</div><div class="cap">« Ce métier n'existait pas il y a 2 ans. Il paie déjà mieux que le tien »</div><div class="prog"></div></div>
+  <div class="vidad teal"><span class="tag">E-COMMERCE</span><div class="play">▶</div><div class="cap">Unboxing : pourquoi 30 000 personnes ont adopté cette gourde</div><div class="prog"></div></div>
+  <div class="vidad violet"><span class="tag">COACHING</span><div class="play">▶</div><div class="cap">« Avant / après : 90 jours qui ont tout changé »</div><div class="prog"></div></div>
 </div>
-<p class="replace-note">↑ Emplacements à remplacer par tes vraies créatives générées avec le produit (double usage : tests + preuves).</p>
+<p class="replace-note">Exemples de créatives générées — remplace-les par les tiennes au fil des campagnes.</p>
 </div></section>
 
 <!-- PRODUCTION GAP -->
@@ -354,9 +421,15 @@ footer a{color:var(--gold-dark)}
 <span class="eyebrow">Ce que le générateur produit</span>
 <h2>Concepts, pubs image, pubs vidéo — de bout en bout.</h2>
 <div class="grid-3">
-<div class="card"><div class="ph">[ Concepts & briefs ]</div><h3>Concepts de pubs</h3><p>Des angles gagnants et des briefs production-ready, classés avant de dépenser un crédit.</p></div>
-<div class="card"><div class="ph">[ Pubs image ]</div><h3>Pubs image</h3><p>Dans tous les formats, hook et CTA intégrés au visuel, à votre marque.</p></div>
-<div class="card"><div class="ph">[ Pubs vidéo ]</div><h3>Pubs vidéo</h3><p>Reels, TikTok, Shorts — du hook au CTA avec sous-titres, voix et musique synchronisés.</p></div>
+<div class="card">
+  <div class="doc-mock"><div class="title2">Brief — Concept 3</div><div class="l g" style="width:70%"></div><div class="l" style="width:95%"></div><div class="l" style="width:88%"></div><div class="l" style="width:60%"></div><div class="l g" style="width:45%"></div><div class="l" style="width:80%"></div></div>
+  <h3 style="margin-top:20px">Concepts de pubs</h3><p>Des angles gagnants et des briefs production-ready, classés avant de dépenser un crédit.</p></div>
+<div class="card">
+  <div class="miniad cream" style="aspect-ratio:16/10;padding:16px"><div><div class="brand">FocusLab</div><div class="head" style="font-size:17px">Battez la procrastination</div></div><div class="cta" style="font-size:11px;padding:6px 12px">Télécharger</div></div>
+  <h3 style="margin-top:20px">Pubs image</h3><p>Dans tous les formats, hook et CTA intégrés au visuel, à votre marque.</p></div>
+<div class="card">
+  <div class="vidad violet" style="aspect-ratio:16/10"><div class="play">▶</div><div class="cap" style="bottom:22px;font-size:12px">« 90 jours qui ont tout changé »</div><div class="prog" style="bottom:10px"></div></div>
+  <h3 style="margin-top:20px">Pubs vidéo</h3><p>Reels, TikTok, Shorts — du hook au CTA avec sous-titres, voix et musique synchronisés.</p></div>
 </div>
 </div></section>
 
