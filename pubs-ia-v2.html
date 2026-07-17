@@ -609,6 +609,15 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
     });
   },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   targets.forEach(el=>io.observe(el));
+  // Sécurité : si l'observer ne se déclenche pas (vieux navigateur, renderer occupé), tout afficher
+  setTimeout(()=>{
+    if(!document.querySelector('.reveal.in')){
+      targets.forEach(el=>{el.style.transitionDelay='0ms';el.classList.add('in')});
+      io.disconnect();
+    }
+  },1200);
+  // Filet ultime : après 4 s, plus rien ne doit être masqué
+  setTimeout(()=>{targets.forEach(el=>el.classList.add('in'))},4000);
 })();
 </script>
 </body>
