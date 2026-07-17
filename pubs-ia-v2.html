@@ -204,6 +204,36 @@ footer a{color:var(--gold-dark)}
 .doc-mock .l{height:9px;border-radius:5px;background:#ececf1;margin-bottom:9px}
 .doc-mock .l.g{background:var(--gold-bg);border:1px solid var(--gold-border)}
 .doc-mock .title2{font-size:12.5px;font-weight:800;color:var(--gold-dark);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase}
+/* --- système "sans boîtes" : listes premium, filets fins, icônes SVG or --- */
+.icn{width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:11px;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold-dark)}
+.icn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rows{max-width:840px;margin:52px auto 0}
+.row{display:flex;gap:20px;align-items:flex-start;padding:24px 6px;border-top:1px solid var(--border)}
+.row:last-child{border-bottom:1px solid var(--border)}
+.row h3{font-size:17.5px;margin-bottom:5px}
+.row p{color:var(--gray);font-size:15px;max-width:520px}
+.row .meta{margin-left:auto;flex-shrink:0;padding-top:4px}
+.pill-val{font-size:12.5px;font-weight:700;color:var(--gold-dark);background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:999px;padding:5px 14px;white-space:nowrap}
+.rows .total{display:flex;justify-content:space-between;align-items:center;padding:22px 6px 0;font-weight:800;font-size:17px}
+.rows .total span:last-child{color:var(--gold-dark)}
+.plain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 40px;margin-top:60px}
+.pitem{border-top:1px solid var(--border);padding-top:22px}
+.pitem h3{font-size:18px;margin:16px 0 8px}
+.pitem p{color:var(--gray);font-size:15px}
+.steps2{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:60px}
+.step2{border-top:1px solid var(--border);padding-top:20px}
+.step2 .num{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.16em;display:block;margin-bottom:12px}
+.step2 h3{font-size:17.5px;margin-bottom:8px}
+.step2 p{color:var(--gray);font-size:14.5px}
+.stats2{display:flex;justify-content:center;gap:90px;margin-top:56px;text-align:center;flex-wrap:wrap}
+.stats2 .n{font-size:58px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.stats2 .n em{font-style:normal;color:var(--gold-dark)}
+.stats2 p{color:var(--gray);font-size:15px;max-width:300px;margin-top:6px}
+.checks2{max-width:840px;margin:52px auto 0;columns:2;column-gap:56px}
+.checks2 div{break-inside:avoid;display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border);font-size:15.5px;font-weight:600}
+.checks2 div::before{content:"✓";color:var(--gold);font-weight:800;flex-shrink:0}
+@media(max-width:980px){.plain-grid{grid-template-columns:1fr 1fr}.steps2{grid-template-columns:1fr 1fr}.checks2{columns:1}}
+@media(max-width:640px){.plain-grid,.steps2{grid-template-columns:1fr}.stats2{gap:40px}.row{flex-wrap:wrap}.row .meta{margin-left:60px;padding-top:0}}
 /* --- motion (principes Apple / Emil Kowalski : discret, rapide, interruptible) --- */
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease-out,transform .45s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
@@ -372,13 +402,13 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <section style="background:var(--card)"><div class="container">
 <span class="eyebrow">Pour qui c'est fait</span>
 <h2>Si vous avez besoin d'un flux régulier de pubs,<br>c'est construit pour vous.</h2>
-<div class="grid-3">
-<div class="card" style="background:#fff"><span class="emoji">🏪</span><h3>TPE / commerces</h3><p>Lancez des pubs Meta et Insta pro en minutes, sans agence ni designer. Vos couleurs, votre offre, votre voix.</p></div>
-<div class="card" style="background:#fff"><span class="emoji">🛒</span><h3>E-commerçants</h3><p>Testez des dizaines d'angles chaque semaine à un coût par créative dérisoire. Le volume que demandent les vrais comptes pub.</p></div>
-<div class="card" style="background:#fff"><span class="emoji">🎓</span><h3>Coachs & formateurs</h3><p>Des pubs qui convertissent en continu, à votre marque, sans rebriefer personne à chaque lancement.</p></div>
-<div class="card" style="background:#fff"><span class="emoji">🏢</span><h3>Agences</h3><p>Livrez des pubs image et vidéo à l'échelle, tout en protégeant vos marges. Facturez la stratégie, pas la production.</p></div>
-<div class="card" style="background:#fff"><span class="emoji">🏠</span><h3>Immobilier</h3><p>Annoncez biens et portes ouvertes avec des visuels et vidéos soignés, prêts en quelques minutes.</p></div>
-<div class="card" style="background:#fff"><span class="emoji">💼</span><h3>Freelances / media buyers</h3><p>Multipliez votre production sans ajouter d'heures à votre semaine. Votre équipe créative dans Claude.</p></div>
+<div class="plain-grid">
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M3 9l1-5h16l1 5M4 9v11h16V9M9 20v-6h6v6"/></svg></span><h3>TPE / commerces</h3><p>Lancez des pubs Meta et Insta pro en minutes, sans agence ni designer. Vos couleurs, votre offre, votre voix.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.5 11h10L20 7H6"/></svg></span><h3>E-commerçants</h3><p>Testez des dizaines d'angles chaque semaine à un coût par créative dérisoire. Le volume que demandent les vrais comptes pub.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></span><h3>Coachs & formateurs</h3><p>Des pubs qui convertissent en continu, à votre marque, sans rebriefer personne à chaque lancement.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg></span><h3>Agences</h3><p>Livrez des pubs image et vidéo à l'échelle, tout en protégeant vos marges. Facturez la stratégie, pas la production.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><h3>Immobilier</h3><p>Annoncez biens et portes ouvertes avec des visuels et vidéos soignés, prêts en quelques minutes.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a2 2 0 012-2h2a2 2 0 012 2v2"/></svg></span><h3>Freelances / media buyers</h3><p>Multipliez votre production sans ajouter d'heures à votre semaine. Votre équipe créative dans Claude.</p></div>
 </div>
 </div></section>
 
@@ -387,7 +417,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <span class="eyebrow">Fonctionnalités</span>
 <h2>Les superpouvoirs que vous débloquez dès le jour 1</h2>
 <p class="sub">Chaque skill est pré-configuré. Ouvrez le générateur, collez votre offre, obtenez une pub prête à lancer.</p>
-<div class="checks">
+<div class="checks2">
 <div>Produire une pub statique en 1:1, 4:5 et 9:16 depuis un seul prompt</div>
 <div>Scripter une vidéo UGC de 30 s qui ne sonne pas « IA »</div>
 <div>Générer une vidéo sans caméra ni acteur</div>
@@ -404,16 +434,16 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <!-- FEATURES GRID -->
 <section style="padding-top:0"><div class="container">
 <h2>Tout votre studio créatif, à l'intérieur de Claude.</h2>
-<div class="grid-3">
-<div class="card"><span class="emoji">🎯</span><h3>2 générateurs en 1</h3><p>Un pour l'image, un pour la vidéo — toute votre équipe pub vit dans Claude.</p></div>
-<div class="card"><span class="emoji">🖼️</span><h3>40+ templates image</h3><p>Hero, titre, comparatif, UGC, témoignage… des layouts éprouvés sur 38 types de produits.</p></div>
-<div class="card"><span class="emoji">🎬</span><h3>10+ templates vidéo</h3><p>Reels, TikToks, Shorts 15–60 s avec voix off et son intégrés — sans studio ni acteur.</p></div>
-<div class="card"><span class="emoji">🎨</span><h3>À votre marque à chaque fois</h3><p>Vos couleurs, votre police, votre logo, votre ton — verrouillés dans chaque création.</p></div>
-<div class="card"><span class="emoji">🤖</span><h3>Tous les modèles IA</h3><p>Les derniers modèles image et vidéo, au même endroit, sans jongler entre les outils.</p></div>
-<div class="card"><span class="emoji">📐</span><h3>Tous les formats</h3><p>1:1, 4:5, 9:16 — dimensionnés pour chaque plateforme, prêts pour le Gestionnaire de pubs.</p></div>
-<div class="card"><span class="emoji">✍️</span><h3>Copy qui convertit</h3><p>Titres et textes natifs Meta écrits dans votre voix — pas un texte robotique.</p></div>
-<div class="card"><span class="emoji">🔗</span><h3>Connectez toute API / MCP</h3><p>Branchez vos outils : Canva, Drive, votre fournisseur d'images et vidéos IA.</p></div>
-<div class="card"><span class="emoji">📄</span><h3>Fichier / URL → pubs</h3><p>Donnez-lui un brief, un PDF, un lien ou un screenshot — il en tire tout ce qu'il faut.</p></div>
+<div class="plain-grid">
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></span><h3>2 générateurs en 1</h3><p>Un pour l'image, un pour la vidéo — toute votre équipe pub vit dans Claude.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg></span><h3>40+ templates image</h3><p>Hero, titre, comparatif, UGC, témoignage… des layouts éprouvés sur 38 types de produits.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>10+ templates vidéo</h3><p>Reels, TikToks, Shorts 15–60 s avec voix off et son intégrés — sans studio ni acteur.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="15.5" cy="10" r="1"/><path d="M12 21c0-2.5 1.6-3.2 3.6-3.2 1.8 0 3.2-.9 3.3-2.6"/></svg></span><h3>À votre marque à chaque fois</h3><p>Vos couleurs, votre police, votre logo, votre ton — verrouillés dans chaque création.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><h3>Tous les modèles IA</h3><p>Les derniers modèles image et vidéo, au même endroit, sans jongler entre les outils.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><h3>Tous les formats</h3><p>1:1, 4:5, 9:16 — dimensionnés pour chaque plateforme, prêts pour le Gestionnaire de pubs.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><h3>Copy qui convertit</h3><p>Titres et textes natifs Meta écrits dans votre voix — pas un texte robotique.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 007.5.5l2-2a5 5 0 00-7-7l-1 1"/><path d="M14 10a5 5 0 00-7.5-.5l-2 2a5 5 0 007 7l1-1"/></svg></span><h3>Connectez toute API / MCP</h3><p>Branchez vos outils : Canva, Drive, votre fournisseur d'images et vidéos IA.</p></div>
+<div class="pitem"><span class="icn"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9l-6-6z"/><path d="M14 3v6h6"/></svg></span><h3>Fichier / URL → pubs</h3><p>Donnez-lui un brief, un PDF, un lien ou un screenshot — il en tire tout ce qu'il faut.</p></div>
 </div>
 </div></section>
 
@@ -422,11 +452,11 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <span class="eyebrow">Comment ça marche</span>
 <h2>Voici comment cette magie IA fonctionne.</h2>
 <p class="sub">De l'installation à votre première pub en moins de 10 minutes.</p>
-<div class="steps">
-<div class="step" style="background:#fff"><div class="num">01</div><h3>Installez le plugin</h3><p>Il s'ajoute à Claude en moins de 2 minutes. Aucune compétence technique.</p></div>
-<div class="step" style="background:#fff"><div class="num">02</div><h3>Lancez le Routeur</h3><p>La seule commande à retenir : /pubs-ia. Il prend le relais.</p></div>
-<div class="step" style="background:#fff"><div class="num">03</div><h3>Déposez vos infos</h3><p>Prompt, liens, docs, fichiers ou screenshots — comme vous voulez.</p></div>
-<div class="step" style="background:#fff"><div class="num">04</div><h3>Recevez vos créas</h3><p>Des pubs image et vidéo à votre marque, sizées, prêtes à lancer.</p></div>
+<div class="steps2">
+<div class="step2"><span class="num">ÉTAPE 01</span><h3>Installez le plugin</h3><p>Il s'ajoute à Claude en moins de 2 minutes. Aucune compétence technique.</p></div>
+<div class="step2"><span class="num">ÉTAPE 02</span><h3>Lancez le Routeur</h3><p>La seule commande à retenir : /pubs-ia. Il prend le relais.</p></div>
+<div class="step2"><span class="num">ÉTAPE 03</span><h3>Déposez vos infos</h3><p>Prompt, liens, docs, fichiers ou screenshots — comme vous voulez.</p></div>
+<div class="step2"><span class="num">ÉTAPE 04</span><h3>Recevez vos créas</h3><p>Des pubs image et vidéo à votre marque, sizées, prêtes à lancer.</p></div>
 </div>
 </div></section>
 
@@ -434,15 +464,15 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <section><div class="container">
 <span class="eyebrow">Ce que le générateur produit</span>
 <h2>Concepts, pubs image, pubs vidéo — de bout en bout.</h2>
-<div class="grid-3">
-<div class="card">
-  <div class="doc-mock"><div class="title2">Brief — Concept 3</div><div class="l g" style="width:70%"></div><div class="l" style="width:95%"></div><div class="l" style="width:88%"></div><div class="l" style="width:60%"></div><div class="l g" style="width:45%"></div><div class="l" style="width:80%"></div></div>
+<div class="plain-grid" style="margin-top:52px">
+<div class="pitem" style="border-top:none;padding-top:0">
+  <div class="doc-mock" style="border:1px solid var(--border);box-shadow:0 8px 26px rgba(0,0,0,.05)"><div class="title2">Brief — Concept 3</div><div class="l g" style="width:70%"></div><div class="l" style="width:95%"></div><div class="l" style="width:88%"></div><div class="l" style="width:60%"></div><div class="l g" style="width:45%"></div><div class="l" style="width:80%"></div></div>
   <h3 style="margin-top:20px">Concepts de pubs</h3><p>Des angles gagnants et des briefs production-ready, classés avant de dépenser un crédit.</p></div>
-<div class="card">
-  <div class="miniad cream" style="aspect-ratio:16/10;padding:16px"><div><div class="brand">FocusLab</div><div class="head" style="font-size:17px">Battez la procrastination</div></div><div class="cta" style="font-size:11px;padding:6px 12px">Télécharger</div></div>
+<div class="pitem" style="border-top:none;padding-top:0">
+  <div class="miniad cream" style="aspect-ratio:16/10;padding:16px;box-shadow:0 8px 26px rgba(0,0,0,.08)"><div><div class="brand">FocusLab</div><div class="head" style="font-size:17px">Battez la procrastination</div></div><div class="cta" style="font-size:11px;padding:6px 12px">Télécharger</div></div>
   <h3 style="margin-top:20px">Pubs image</h3><p>Dans tous les formats, hook et CTA intégrés au visuel, à votre marque.</p></div>
-<div class="card">
-  <div class="vidad violet" style="aspect-ratio:16/10"><div class="play">▶</div><div class="cap" style="bottom:22px;font-size:12px">« 90 jours qui ont tout changé »</div><div class="prog" style="bottom:10px"></div></div>
+<div class="pitem" style="border-top:none;padding-top:0">
+  <div class="vidad violet" style="aspect-ratio:16/10;box-shadow:0 8px 26px rgba(0,0,0,.08)"><div class="play">▶</div><div class="cap" style="bottom:22px;font-size:12px">« 90 jours qui ont tout changé »</div><div class="prog" style="bottom:10px"></div></div>
   <h3 style="margin-top:20px">Pubs vidéo</h3><p>Reels, TikTok, Shorts — du hook au CTA avec sous-titres, voix et musique synchronisés.</p></div>
 </div>
 </div></section>
@@ -452,9 +482,9 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <span class="eyebrow">Claude vit son moment ChatGPT</span>
 <h2>Les acheteurs média qui gagnent en 2026<br>ont un point commun.</h2>
 <p class="sub">Ils ont arrêté de payer des abonnements SaaS pour des créatives qui ne sonnent pas comme leur marque.</p>
-<div class="stats">
-<div class="stat" style="background:#fff"><div class="n">+42 %</div><p>Croissance des utilisateurs Claude sur un mois — pendant que d'autres plateformes déclinaient.</p></div>
-<div class="stat" style="background:#fff"><div class="n">2,5 M</div><p>Personnes ayant basculé vers Claude dans le mouvement #QuitGPT cette année.</p></div>
+<div class="stats2">
+<div><div class="n"><em>+42 %</em></div><p>Croissance des utilisateurs Claude sur un mois — pendant que d'autres plateformes déclinaient.</p></div>
+<div><div class="n"><em>2,5 M</em></div><p>Personnes ayant basculé vers Claude dans le mouvement #QuitGPT cette année.</p></div>
 </div>
 </div></section>
 
@@ -476,13 +506,14 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offs
 <span class="eyebrow">Inclus gratuitement</span>
 <h2>Plus de 2 000 € de bonus offerts.</h2>
 <p class="sub">Tout ce qu'il faut pour transformer vos générateurs en vraie machine de production.</p>
-<div class="grid-3">
-<div class="card bonus-card" style="background:#fff"><span class="val">Valeur 97 €</span><span class="emoji">🧠</span><h3>Les 70 Spécialistes IA</h3><p>70 experts autonomes dans Claude : copywriter, closer, stratège, community manager…</p></div>
-<div class="card bonus-card" style="background:#fff"><span class="val">Valeur 497 €</span><span class="emoji">🎨</span><h3>Designers d'images IA</h3><p>Mockups produits, bannières, miniatures YouTube… 15+ types de visuels, à votre marque.</p></div>
-<div class="card bonus-card" style="background:#fff"><span class="val">Valeur 497 €</span><span class="emoji">✉️</span><h3>Spécialistes Email</h3><p>Séquences de bienvenue, relances panier, campagnes de lancement qui convertissent.</p></div>
-<div class="card bonus-card" style="background:#fff"><span class="val">Sprint</span><span class="emoji">🖥️</span><h3>Maîtriser Claude Cowork</h3><p>Claude gère vos docs, emails, fichiers et recherches — depuis une seule session.</p></div>
-<div class="card bonus-card" style="background:#fff"><span class="val">Sprint</span><span class="emoji">🔌</span><h3>Claude MCP</h3><p>Connectez Claude à Gmail, HubSpot et plus — il envoie, planifie et met à jour tout seul.</p></div>
-<div class="card bonus-card" style="background:#fff"><span class="val">Sprint</span><span class="emoji">💼</span><h3>Build-to-Sell</h3><p>Concevez et vendez des assistants IA à d'autres entreprises. Cas d'usage réels.</p></div>
+<div class="rows">
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg></span><div><h3>Les 70 Spécialistes IA</h3><p>70 experts autonomes dans Claude : copywriter, closer, stratège, community manager…</p></div><span class="meta pill-val">Valeur 97 €</span></div>
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg></span><div><h3>Designers d'images IA</h3><p>Mockups produits, bannières, miniatures YouTube… 15+ types de visuels, à votre marque.</p></div><span class="meta pill-val">Valeur 497 €</span></div>
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><h3>Spécialistes Email</h3><p>Séquences de bienvenue, relances panier, campagnes de lancement qui convertissent.</p></div><span class="meta pill-val">Valeur 497 €</span></div>
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><div><h3>Sprint — Maîtriser Claude Cowork</h3><p>Claude gère vos docs, emails, fichiers et recherches — depuis une seule session.</p></div><span class="meta pill-val">Sprint</span></div>
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 01-10 0V8z"/><path d="M12 16v5"/></svg></span><div><h3>Sprint — Claude MCP</h3><p>Connectez Claude à Gmail, HubSpot et plus — il envoie, planifie et met à jour tout seul.</p></div><span class="meta pill-val">Sprint</span></div>
+<div class="row"><span class="icn"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a2 2 0 012-2h2a2 2 0 012 2v2"/></svg></span><div><h3>Sprint — Build-to-Sell</h3><p>Concevez et vendez des assistants IA à d'autres entreprises. Cas d'usage réels.</p></div><span class="meta pill-val">Sprint</span></div>
+<div class="total"><span>Valeur totale des bonus</span><span>2 091 € — offerts</span></div>
 </div>
 </div></section>
 
