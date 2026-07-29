@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 5 skills à installer sur Claude — Monsieur IA</title>
+<meta name="description" content="Les 5 skills Claude à installer en premier, avec les commandes d'installation exactes.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--v:#7c3aed;--v2:#a855f7;--green:#0f9d58;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--v);background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.18);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--v),var(--v2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:21px;color:var(--ink2);max-width:600px;margin:0 auto}
+
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--v);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px);background:var(--v)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--v);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+
+  .how{background:#f4f1fe;border:1px solid #e2d9fb;border-radius:18px;padding:24px 26px;margin-bottom:30px}
+  .how b{display:block;font-size:16px;margin-bottom:6px}
+  .how p{font-size:15.5px;color:#4b3a72}
+
+  .sk{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;margin-bottom:16px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .sk .h{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px}
+  .sk .n{width:34px;height:34px;border-radius:11px;background:var(--v);color:#fff;font-weight:800;font-size:15px;flex:none;display:flex;align-items:center;justify-content:center}
+  .sk h3{font-size:22px;letter-spacing:-.6px;font-weight:800;padding-top:3px}
+  .sk .by{font-size:13px;color:var(--ink3);font-weight:600;margin-bottom:12px;padding-left:48px}
+  .sk .d{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .cbox{position:relative;background:#0e0e14;border-radius:14px;padding:44px 20px 18px 20px;overflow-x:auto}
+  .cbox code{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13.5px;color:#e9e4ff;white-space:pre;line-height:1.8;display:block}
+  .cp{position:absolute;top:12px;right:12px;background:var(--v);border:0;color:#fff;font-size:11.5px;font-weight:700;font-family:inherit;padding:7px 13px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green)}
+  .src{margin-top:10px;font-size:12.5px}
+  .src a{color:var(--v);text-decoration:none;font-weight:600}
+  .src a:hover{text-decoration:underline}
+
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:24px}
+
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s;border:1px solid transparent}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#f7d488,#c8901b);color:#3a2905}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}header{padding:60px 0 40px}.sk .by{padding-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="pill">● 5 skills · gratuits · open-source</div>
+    <h1>Les 5 skills à installer<br>sur <em>Claude</em>.</h1>
+    <p class="lede">Sans skills, tu utilises 20% de ce que Claude sait faire. Voici les 5 à installer en premier, avec les commandes exactes.</p>
+  </header>
+
+  <div id="wall">
+    <div class="wallcard">
+      <h2>Reçois les 5 skills</h2>
+      <p>Entre ton email pour débloquer les commandes d'installation.</p>
+      <form class="wallform" id="wf">
+        <input type="email" id="em" placeholder="ton@email.com" required>
+        <button type="submit" id="sb">Débloquer</button>
+      </form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2× par semaine.</div>
+    </div>
+  </div>
+
+  <div id="content" class="locked">
+
+    <section>
+      <div class="how">
+        <b>Avant de commencer</b>
+        <p>Ces commandes s'utilisent dans <b>Claude Code</b>. Tu tapes la commande <code>marketplace add</code> (une fois par skill), puis la commande <code>install</code>. Redémarre Claude Code après installation.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Le pack</div>
+      <h2 class="st">Les 5 skills.</h2>
+
+      <div class="sk">
+        <div class="h"><div class="n">1</div><h3>Marketing Skills</h3></div>
+        <div class="by">par Corey Haines</div>
+        <div class="d">Installe une vingtaine d'agents marketing d'un coup : audit SEO, copywriting, séquences email, CRO, analytics, stratégie de contenu. Ensuite tu appelles <b>/seo-audit</b>, <b>/email-sequence</b>, <b>/performance-report</b>…</div>
+        <div class="cbox">
+          <button class="cp" data-copy="/plugin marketplace add coreyhaines31/marketingskills
+/plugin install marketing-skills">Copier</button>
+          <code>/plugin marketplace add coreyhaines31/marketingskills
+/plugin install marketing-skills</code>
+        </div>
+        <div class="src"><a href="https://github.com/coreyhaines31/marketingskills" target="_blank" rel="noopener">github.com/coreyhaines31/marketingskills →</a></div>
+      </div>
+
+      <div class="sk">
+        <div class="h"><div class="n">2</div><h3>Stop Slop</h3></div>
+        <div class="by">par Hardik Pandya</div>
+        <div class="d">Force Claude à humaniser ton écriture. Il vire les tirets cadratins, les « il est important de noter que », le jargon et toutes les tournures qui sentent l'IA à dix kilomètres.</div>
+        <div class="cbox">
+          <button class="cp" data-copy="/plugin marketplace add hardikpandya/stop-slop
+/plugin install stop-slop">Copier</button>
+          <code>/plugin marketplace add hardikpandya/stop-slop
+/plugin install stop-slop</code>
+        </div>
+        <div class="src"><a href="https://github.com/hardikpandya/stop-slop" target="_blank" rel="noopener">github.com/hardikpandya/stop-slop →</a></div>
+      </div>
+
+      <div class="sk">
+        <div class="h"><div class="n">3</div><h3>UI UX Pro Max</h3></div>
+        <div class="by">par Next Level Builder</div>
+        <div class="d">Donne à Claude une base de plus de 50 styles d'interface et des dizaines de règles UX (couleurs, typo, charts, accessibilité). Résultat : des designs qui ressemblent enfin à du travail de pro, pas à du template IA.</div>
+        <div class="cbox">
+          <button class="cp" data-copy="/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill">Copier</button>
+          <code>/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill</code>
+        </div>
+        <div class="src"><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">github.com/nextlevelbuilder/ui-ux-pro-max-skill →</a></div>
+      </div>
+
+      <div class="sk">
+        <div class="h"><div class="n">4</div><h3>Remotion</h3></div>
+        <div class="by">plugin officiel Remotion</div>
+        <div class="d">Permet à Claude de générer des vidéos entièrement animées, en code. Animations, transitions, sous-titres, graphiques animés. C'est le skill qui monte des vidéos comme celle que tu viens de voir.</div>
+        <div class="cbox">
+          <button class="cp" data-copy="claude plugin marketplace add remotion-dev/claude-code-plugin
+claude plugin install remotion@remotion">Copier</button>
+          <code>claude plugin marketplace add remotion-dev/claude-code-plugin
+claude plugin install remotion@remotion</code>
+        </div>
+        <div class="src"><a href="https://www.remotion.dev/docs/ai/claude-code-plugin" target="_blank" rel="noopener">remotion.dev — doc officielle →</a></div>
+      </div>
+
+      <div class="sk">
+        <div class="h"><div class="n">5</div><h3>Context Engineering Kit</h3></div>
+        <div class="by">par NeoLab</div>
+        <div class="d">Réduit le nombre de tokens que Claude consomme par réponse : compaction, compression, gestion de la mémoire. Traduction concrète : tu tapes beaucoup moins vite dans tes limites d'usage, et Claude reste précis plus longtemps.</div>
+        <div class="cbox">
+          <button class="cp" data-copy="/plugin marketplace add NeoLabHQ/context-engineering-kit">Copier</button>
+          <code>/plugin marketplace add NeoLabHQ/context-engineering-kit</code>
+        </div>
+        <div class="src"><a href="https://github.com/NeoLabHQ/context-engineering-kit" target="_blank" rel="noopener">github.com/NeoLabHQ/context-engineering-kit →</a></div>
+      </div>
+
+      <div class="note"><b>Astuce.</b> Après <code>/plugin marketplace add</code>, tape <code>/plugin</code> pour voir la liste et installer ce qui t'intéresse. Redémarre Claude Code pour que les skills soient chargés.</div>
+    </section>
+
+    <section>
+      <div class="kicker">Et maintenant ?</div>
+      <h2 class="st">Va plus loin.</h2>
+      <div class="ctas">
+        <a class="cta gold" href="/prompts">
+          <span><span class="t">Le pack 50 prompts Claude</span><span class="s">Mes prompts business les plus rentables — 50€</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Automatiser ton entreprise</span><span class="s">Appel stratégique gratuit de 30 min</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise — TPE, PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>Monsieur IA — Arnaud</footer>
+</div>
+
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead — page /skills5',from_name:'Monsieur IA · /skills5'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+</body>
+</html>
