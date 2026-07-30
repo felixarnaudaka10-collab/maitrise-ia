@@ -64,12 +64,23 @@
   .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
   .cta .arw{font-size:20px;flex:none}
   .cta.gold{background:linear-gradient(135deg,#f7d488,#c8901b);color:#3a2905}
+  .cta.purple{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;box-shadow:0 12px 32px rgba(124,58,237,.32)}
+
+  .obgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+  .ob{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .ob b{display:block;font-size:15.5px;font-weight:800;margin-bottom:3px}
+  .ob span{font-size:13.5px;color:var(--ink3);font-weight:500}
+  .obbanner{background:linear-gradient(135deg,#1a1030,#0d0720);color:#fff;border-radius:18px;padding:26px;text-align:center}
+  .obbanner .flag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;color:#d8c7ff;
+    background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.45);padding:6px 14px;border-radius:8px;margin-bottom:14px}
+  .obbanner b{display:block;font-size:22px;letter-spacing:-.7px;margin-bottom:6px}
+  .obbanner .sm{font-size:14px;color:#b9a9dd}
   .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
   .cta.black{background:var(--ink);color:#fff}
 
   footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
 
-  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}header{padding:60px 0 40px}.sk .by{padding-left:0}}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}header{padding:60px 0 40px}.sk .by{padding-left:0}.obgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -173,11 +184,23 @@ claude plugin install remotion@remotion</code>
     </section>
 
     <section>
-      <div class="kicker">Et maintenant ?</div>
-      <h2 class="st">Va plus loin.</h2>
+      <div class="kicker">Mon application</div>
+      <h2 class="st">J'ai construit OpenBound.</h2>
+      <p class="body">Les skills, c'est pour mieux travailler. OpenBound, c'est pour <b>remplir ton agenda</b>. C'est l'app que j'ai développée : elle sort tes prospects en 1 clic depuis l'annuaire officiel des entreprises françaises, elle <b>t'écoute pendant tes appels</b> et te souffle la réponse à chaque objection en direct, puis elle relance à ta place — dans ton style d'écriture.</p>
+      <div class="obgrid">
+        <div class="ob"><b>Tes prospects en 1 clic</b><span>Décris ton client idéal, la liste sort toute seule</span></div>
+        <div class="ob"><b>Coaching LIVE en appel</b><span>L'IA écoute et te souffle le traitement d'objection</span></div>
+        <div class="ob"><b>Relances automatiques</b><span>Dans TON style, elle apprend ta voix</span></div>
+        <div class="ob"><b>Conforme loi 11 août</b><span>Leads consentis, rappel en moins de 5 min</span></div>
+      </div>
+      <div class="obbanner">
+        <span class="flag">BÊTA PRIVÉE · 10 PLACES</span>
+        <b>100% gratuite pour les 10 testeurs.</b>
+        <span class="sm">Aucune carte demandée, puis tarif fondateur à vie.</span>
+      </div>
       <div class="ctas">
-        <a class="cta gold" href="/prompts">
-          <span><span class="t">Le pack 50 prompts Claude</span><span class="s">Mes prompts business les plus rentables — 50€</span></span>
+        <a class="cta purple" href="https://closeia.vercel.app/beta" target="_blank" rel="noopener">
+          <span><span class="t">Je veux ma place dans la bêta</span><span class="s">OpenBound — gratuit pour les 10 premiers testeurs</span></span>
           <span class="arw">→</span>
         </a>
         <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
