@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connecte Strava à Claude — le guide + le prompt — Monsieur IA</title>
+<meta name="description" content="Connecte Strava à Claude et obtiens une analyse d'entraînement de coach pro. Le guide complet et le prompt exact à copier.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--v:#7c3aed;--v2:#a855f7;--green:#0f9d58;--orange:#fc5200;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--orange);background:rgba(252,82,0,.08);border:1px solid rgba(252,82,0,.2);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--v),var(--v2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--v);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px);background:var(--v)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--v);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:12.5px;color:var(--ink3);font-weight:500;margin-top:3px}
+
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:11px;background:var(--v);color:#fff;font-weight:800;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step ol li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s}
+  .step a.lnk:hover{transform:translateY(-2px);background:var(--v)}
+
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#e2dcf7;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--v);border:0;color:#fff;font-size:11.5px;font-weight:700;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green)}
+
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s;border:1px solid transparent}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.purple{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;box-shadow:0 12px 32px rgba(124,58,237,.32)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+
+  .obgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+  .ob{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .ob b{display:block;font-size:15.5px;font-weight:800;margin-bottom:3px}
+  .ob span{font-size:13.5px;color:var(--ink3);font-weight:500}
+  .obbanner{background:linear-gradient(135deg,#1a1030,#0d0720);color:#fff;border-radius:18px;padding:26px;text-align:center}
+  .obbanner .flag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;color:#d8c7ff;background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.45);padding:6px 14px;border-radius:8px;margin-bottom:14px}
+  .obbanner b{display:block;font-size:22px;letter-spacing:-.7px;margin-bottom:6px}
+  .obbanner .sm{font-size:14px;color:#b9a9dd}
+
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2,.obgrid{grid-template-columns:1fr}header{padding:60px 0 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="pill">● Connecteur officiel Strava · MCP</div>
+    <h1>Ton coach, c'est<br><em>Claude</em>.</h1>
+    <p class="lede">Connecte Strava à Claude et obtiens en 2 minutes l'analyse d'entraînement que tu payais à un coach. Sur tes vraies données.</p>
+  </header>
+
+  <div id="wall">
+    <div class="wallcard">
+      <h2>Reçois le guide + le prompt</h2>
+      <p>Entre ton email pour débloquer le tuto et le prompt exact à copier-coller.</p>
+      <form class="wallform" id="wf">
+        <input type="email" id="em" placeholder="ton@email.com" required>
+        <button type="submit" id="sb">Débloquer</button>
+      </form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2× par semaine.</div>
+    </div>
+  </div>
+
+  <div id="content" class="locked">
+
+    <section>
+      <div class="kicker">Ce que tu obtiens</div>
+      <h2 class="st">Un vrai bilan, pas trois chiffres.</h2>
+      <p class="body">Strava te montre distance, temps et allure. Claude, lui, lit tout le reste.</p>
+      <div class="grid2">
+        <div class="fact">Fitness / Fatigue / Forme<span>Les courbes CTL, ATL et TSB</span></div>
+        <div class="fact">Volume hebdomadaire<span>Et ton dénivelé cumulé</span></div>
+        <div class="fact">Progression au seuil<span>Est-ce que tu progresses vraiment ?</span></div>
+        <div class="fact">Records personnels<span>1K, 5K, 10K, semi</span></div>
+        <div class="fact">Répartition des allures<span>Tes footings sont-ils trop rapides ?</span></div>
+        <div class="fact">Ajustements concrets<span>Quoi changer dans ton plan</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Installation</div>
+      <h2 class="st">2 étapes. 3 minutes.</h2>
+
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Connecte Strava dans Claude</h3>
+        <ol>
+          <li>Ouvre Claude (application ou navigateur)</li>
+          <li>Va dans <b>Réglages → Connecteurs</b></li>
+          <li>Cherche <b>Strava</b> dans le répertoire</li>
+          <li>Clique sur Connecter et autorise avec ton compte Strava</li>
+        </ol>
+        <a class="lnk" href="https://claude.ai/settings/connectors" target="_blank" rel="noopener">Ouvrir mes connecteurs Claude →</a>
+        <div class="note"><b>Deux choses à savoir.</b> Le connecteur Strava demande un <b>abonnement Strava payant</b>. Et l'accès est en <b>lecture seule</b> : Claude peut lire tes activités mais ne peut rien modifier sur ton compte. Tu peux révoquer l'accès à tout moment depuis Strava.</div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Colle ce prompt</h3>
+        <p>C'est exactement celui que j'utilise dans la vidéo. Il produit le dashboard complet.</p>
+        <div class="promptbox">
+          <button class="cp" data-copy="Mon compte Strava est connecté via le connecteur MCP officiel.
+
+Récupère TOUTES mes activités des 16 dernières semaines et fais-moi une analyse d'entraînement complète de coach professionnel.
+
+DONNÉES À EXTRAIRE PAR ACTIVITÉ :
+- Date, type de séance, distance (km), durée de déplacement vs durée totale
+- Allure moyenne (min/km) et vitesse moyenne
+- Dénivelé positif et négatif
+- Fréquence cardiaque moyenne et max, répartition par zone (Z1 à Z5)
+- Cadence moyenne, effort relatif / suffer score, calories
+- Splits kilométriques (allure + FC par km)
+- Allure ajustée à la déclivité (GAP) quand disponible
+
+ANALYSES À CALCULER :
+1. Courbe Fitness / Fatigue / Forme façon Strava (CTL 42j, ATL 7j, TSB = CTL - ATL), semaine par semaine
+2. Volume hebdomadaire et dénivelé cumulé, avec identification des semaines de récupération
+3. Répartition polarisée : % du temps en endurance fondamentale vs seuil vs intensité
+4. Progression de mon allure au seuil sur la période
+5. Records personnels battus (1K, 5K, 10K, semi) et leur évolution
+6. VMA et VO2max estimés, avec évolution
+7. Dérive cardiaque sur les sorties longues (indicateur d'endurance)
+
+RÉPONDS AUX 3 QUESTIONS SUIVANTES, chiffres à l'appui :
+- Est-ce que ma condition physique a RÉELLEMENT progressé, ou est-ce que je stagne ?
+- Est-ce que mes sorties faciles sont à la bonne allure, ou est-ce que je cours trop vite en récup ?
+- Est-ce que je suis en train de sur-entraîner ou j'ai de la marge ?
+
+FORMAT DE SORTIE — IMPORTANT :
+Crée un ARTEFACT HTML unique, dense et visuel, façon dashboard premium :
+- Bandeau de KPI en haut (volume total, nb de sorties, allure moyenne, D+ total, forme actuelle)
+- Graphique en courbes Fitness / Fatigue / Forme (CTL / ATL / TSB) sur les 16 semaines
+- Graphique en barres du volume hebdomadaire avec le dénivelé en courbe superposée
+- Graphique de progression de l'allure au seuil
+- Tableau des records personnels battus
+- Un bloc VERDICT qui répond franchement aux 3 questions
+- Un bloc 3 AJUSTEMENTS À FAIRE concrets sur mon plan d'entraînement
+
+Utilise Chart.js, fond clair, design épuré et lisible sur mobile.
+Si une donnée manque dans Strava, dis-le clairement plutôt que d'inventer.">Copier le prompt</button>
+          <pre>Mon compte Strava est connecté via le connecteur MCP officiel.
+
+Récupère TOUTES mes activités des 16 dernières semaines et
+fais-moi une analyse d'entraînement complète de coach
+professionnel.
+
+DONNÉES À EXTRAIRE PAR ACTIVITÉ :
+- Date, type de séance, distance, durée de déplacement
+- Allure moyenne (min/km) et vitesse moyenne
+- Dénivelé positif et négatif
+- FC moyenne et max, répartition par zone (Z1 à Z5)
+- Cadence, effort relatif / suffer score, calories
+- Splits kilométriques (allure + FC par km)
+- Allure ajustée à la déclivité (GAP) quand disponible
+
+ANALYSES À CALCULER :
+1. Courbe Fitness / Fatigue / Forme façon Strava
+   (CTL 42j, ATL 7j, TSB = CTL - ATL), semaine par semaine
+2. Volume hebdomadaire et dénivelé cumulé
+3. Répartition polarisée : endurance vs seuil vs intensité
+4. Progression de mon allure au seuil
+5. Records personnels battus (1K, 5K, 10K, semi)
+6. VMA et VO2max estimés
+7. Dérive cardiaque sur les sorties longues
+
+RÉPONDS AUX 3 QUESTIONS, chiffres à l'appui :
+- Est-ce que ma condition physique a RÉELLEMENT progressé ?
+- Est-ce que mes sorties faciles sont à la bonne allure ?
+- Est-ce que je sur-entraîne ou j'ai de la marge ?
+
+FORMAT DE SORTIE — IMPORTANT :
+Crée un ARTEFACT HTML unique, dense et visuel :
+- Bandeau de KPI en haut
+- Graphique en courbes CTL / ATL / TSB sur 16 semaines
+- Graphique en barres du volume hebdo + dénivelé
+- Graphique de progression de l'allure au seuil
+- Tableau des records personnels battus
+- Un bloc VERDICT qui répond aux 3 questions
+- Un bloc 3 AJUSTEMENTS À FAIRE sur mon plan
+
+Utilise Chart.js, fond clair, lisible sur mobile.
+Si une donnée manque dans Strava, dis-le clairement
+plutôt que d'inventer.</pre>
+        </div>
+        <div class="note"><b>Change ce que tu veux.</b> Remplace 16 semaines par la période de ton choix, ajoute ton objectif (« je vise un marathon en 3h45 »), ou demande-lui carrément de te construire ton plan des 8 prochaines semaines.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Va plus loin</div>
+      <h2 class="st">3 autres prompts qui marchent bien.</h2>
+      <div class="step">
+        <div class="promptbox">
+          <button class="cp" data-copy="À partir de mes données Strava des 3 derniers mois, construis-moi un plan d'entraînement sur les 8 prochaines semaines pour préparer un 10 km. Base-toi sur mon volume actuel, ma progression réelle et mes zones de FC. Donne-moi le plan semaine par semaine, séance par séance, avec les allures cibles précises pour chaque séance.">Copier</button>
+          <pre>À partir de mes données Strava des 3 derniers mois,
+construis-moi un plan d'entraînement sur les 8 prochaines
+semaines pour préparer un 10 km. Base-toi sur mon volume
+actuel, ma progression réelle et mes zones de FC. Donne-moi
+le plan semaine par semaine, séance par séance, avec les
+allures cibles précises.</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="promptbox">
+          <button class="cp" data-copy="Analyse mes 10 dernières sorties longues sur Strava. Calcule ma dérive cardiaque sur chacune (évolution de la FC à allure constante entre la première et la seconde moitié). Est-ce que mon endurance s'améliore ? Est-ce que je suis capable de tenir l'allure marathon ? Sois franc.">Copier</button>
+          <pre>Analyse mes 10 dernières sorties longues sur Strava.
+Calcule ma dérive cardiaque sur chacune (évolution de la FC
+à allure constante entre la première et la seconde moitié).
+Est-ce que mon endurance s'améliore ? Est-ce que je suis
+capable de tenir l'allure marathon ? Sois franc.</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="promptbox">
+          <button class="cp" data-copy="Regarde mes activités Strava des 6 dernières semaines et dis-moi si je suis en risque de blessure ou de surentraînement. Analyse : la progression de mon volume semaine par semaine (règle des 10%), le ratio charge aiguë / charge chronique, ma répartition d'intensité, et mes jours de repos. Donne-moi un niveau de risque et ce que je dois changer cette semaine.">Copier</button>
+          <pre>Regarde mes activités Strava des 6 dernières semaines et
+dis-moi si je suis en risque de blessure ou de
+surentraînement. Analyse : la progression de mon volume
+(règle des 10%), le ratio charge aiguë / charge chronique,
+ma répartition d'intensité, et mes jours de repos. Donne-moi
+un niveau de risque et ce que je dois changer cette semaine.</pre>
+        </div>
+      </div>
+      <div class="note"><b>Rappel de bon sens.</b> Claude analyse des données, il ne remplace pas un médecin ni un coach diplômé. En cas de douleur ou de doute sur ta santé, consulte un professionnel.</div>
+    </section>
+
+    <section>
+      <div class="kicker">Mon application</div>
+      <h2 class="st">J'ai construit OpenBound.</h2>
+      <p class="body">Ce que Claude fait ici pour ton entraînement, OpenBound le fait pour <b>ta prospection</b>. C'est l'app que j'ai développée : elle sort tes prospects en 1 clic depuis l'annuaire officiel des entreprises françaises, elle <b>t'écoute pendant tes appels</b> et te souffle la réponse à chaque objection en direct, puis elle relance à ta place, dans ton style d'écriture.</p>
+      <div class="obgrid">
+        <div class="ob"><b>Tes prospects en 1 clic</b><span>Décris ton client idéal, la liste sort toute seule</span></div>
+        <div class="ob"><b>Coaching LIVE en appel</b><span>L'IA écoute et te souffle le traitement d'objection</span></div>
+        <div class="ob"><b>Relances automatiques</b><span>Dans TON style, elle apprend ta voix</span></div>
+        <div class="ob"><b>Conforme loi 11 août</b><span>Leads consentis, rappel en moins de 5 min</span></div>
+      </div>
+      <div class="obbanner">
+        <span class="flag">BÊTA PRIVÉE · 10 PLACES</span>
+        <b>100% gratuite pour les 10 testeurs.</b>
+        <span class="sm">Aucune carte demandée, puis tarif fondateur à vie.</span>
+      </div>
+      <div class="ctas">
+        <a class="cta purple" href="https://closeia.vercel.app/beta" target="_blank" rel="noopener">
+          <span><span class="t">Je veux ma place dans la bêta</span><span class="s">OpenBound — gratuit pour les 10 premiers testeurs</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Automatiser ton entreprise</span><span class="s">Appel stratégique gratuit de 30 min</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise — TPE, PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Monsieur IA — Arnaud
+    <div class="legal">Strava est une marque tierce. Le connecteur nécessite un abonnement Strava et fonctionne en lecture seule. Les analyses produites sont informatives et ne remplacent pas l'avis d'un professionnel de santé ou d'un entraîneur diplômé.</div>
+  </footer>
+</div>
+
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead — page /strava',from_name:'Monsieur IA · /strava'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+</body>
+</html>
