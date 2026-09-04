@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trouver tes clients avec Claude — Monsieur IA</title>
+<meta name="description" content="Comment Claude sort tes prospects depuis l'annuaire officiel des entreprises françaises, te coache pendant l'appel et relance à ta place.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--v:#7c3aed;--v2:#a855f7;--red:#d92d20;--green:#0f9d58;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--v);background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.18);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--v),var(--v2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--v);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px);background:var(--v)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--v);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:16px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:11px;background:var(--v);color:#fff;font-weight:800;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2)}
+
+  .demo{background:#0e0e14;border-radius:16px;padding:20px;margin-top:18px}
+  .demo .dh{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:1.2px;margin-bottom:12px}
+  .demo .dh .l{color:#c084fc}.demo .dh .r{color:#4ade80}
+  .demo .row{display:flex;justify-content:space-between;background:#1a0f2e;border-radius:9px;padding:10px 14px;margin-bottom:7px;font-size:14px}
+  .demo .row .n{color:#fff;font-weight:700}
+  .demo .row .c{color:#c084fc;font-weight:600;font-family:monospace;font-size:13px}
+  .demo .tot{text-align:center;color:#4ade80;font-weight:800;font-size:16px;margin-top:12px}
+
+  .chat{margin-top:18px}
+  .msg{border-radius:14px;padding:13px 17px;font-size:15px;font-weight:600;margin-bottom:9px;max-width:85%}
+  .msg.them{background:#f2f1f6;color:var(--ink2)}
+  .msg.ai{background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;margin-left:auto}
+  .msg.ai .lab{display:block;font-size:9.5px;font-weight:900;letter-spacing:1.2px;opacity:.85;margin-bottom:4px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:12.5px;color:var(--ink3);font-weight:500;margin-top:3px}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .cc{border-radius:18px;padding:24px;text-align:center}
+  .cc.bad{background:#fff;border:1px solid var(--line)}
+  .cc.bad .amt{font-size:30px;font-weight:900;color:var(--red);letter-spacing:-1px;text-decoration:line-through}
+  .cc.good{background:linear-gradient(135deg,var(--v),#6d28d9);color:#fff}
+  .cc.good .amt{font-size:26px;font-weight:900;letter-spacing:-1px}
+  .cc .lbl{font-size:12px;font-weight:800;letter-spacing:1px;opacity:.7;margin-bottom:8px}
+
+  .lawbox{background:#fff9ec;border:1px solid #f2e2be;border-radius:18px;padding:26px}
+  .lawbox b.d{display:block;font-size:26px;font-weight:900;color:#b45309;letter-spacing:-1px;margin-bottom:8px}
+  .lawbox p{font-size:16px;color:#6b5320}
+
+  .obgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+  .ob{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .ob b{display:block;font-size:15.5px;font-weight:800;margin-bottom:3px}
+  .ob span{font-size:13.5px;color:var(--ink3);font-weight:500}
+  .obbanner{background:linear-gradient(135deg,#1a1030,#0d0720);color:#fff;border-radius:18px;padding:26px;text-align:center}
+  .obbanner .flag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;color:#d8c7ff;background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.45);padding:6px 14px;border-radius:8px;margin-bottom:14px}
+  .obbanner b{display:block;font-size:22px;letter-spacing:-.7px;margin-bottom:6px}
+  .obbanner .sm{font-size:14px;color:#b9a9dd}
+
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s;border:1px solid transparent}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.purple{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;box-shadow:0 12px 32px rgba(124,58,237,.32)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2,.obgrid,.compare{grid-template-columns:1fr}header{padding:60px 0 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="pill">● Annuaire officiel · 2 millions d'entreprises</div>
+    <h1>Claude te trouve<br><em>tes clients</em>.</h1>
+    <p class="lede">Une ville, un métier, et il sort la liste. Puis il te coache pendant l'appel et relance à ta place. Voici comment ça marche.</p>
+  </header>
+
+  <div id="wall">
+    <div class="wallcard">
+      <h2>Débloque l'accès</h2>
+      <p>Entre ton email pour voir le système complet.</p>
+      <form class="wallform" id="wf">
+        <input type="email" id="em" placeholder="ton@email.com" required>
+        <button type="submit" id="sb">Débloquer</button>
+      </form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2× par semaine.</div>
+    </div>
+  </div>
+
+  <div id="content" class="locked">
+
+    <section>
+      <div class="kicker">Le système</div>
+      <h2 class="st">Trois choses, en une seule.</h2>
+
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Il sort la liste</h3>
+        <p>Tu donnes une ville et un métier. Il va chercher dans l'annuaire officiel des entreprises françaises — deux millions d'entreprises déclarées — et te ramène les noms, téléphones, emails et décideurs.</p>
+        <div class="demo">
+          <div class="dh"><span class="l">PLOMBIERS · BORDEAUX</span><span class="r">READY ✓</span></div>
+          <div class="row"><span class="n">Plomberie Chartrons</span><span class="c">+33 5…</span></div>
+          <div class="row"><span class="n">SARL Aquitaine Sanitaire</span><span class="c">contact@…</span></div>
+          <div class="row"><span class="n">Dépannage Victoire</span><span class="c">+33 6…</span></div>
+          <div class="tot">+ 214 entreprises</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Il t'écoute pendant l'appel</h3>
+        <p>C'est la partie que personne ne fait. Quand tu appelles, l'IA écoute la conversation en direct. Le prospect sort une objection ? La réponse s'affiche à l'écran, immédiatement.</p>
+        <div class="chat">
+          <div class="msg them">« C'est trop cher pour nous. »</div>
+          <div class="msg ai"><span class="lab">CLAUDE TE SOUFFLE</span>« Trop cher par rapport à quoi ? »</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Il relance à ta place</h3>
+        <p>Le prospect ne répond pas ? Les relances partent toutes seules, à J+3, J+7 et J+14. Et elles sont écrites dans ton style : l'IA apprend tes tournures et ton ton à partir de tes propres messages.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Ce que ça remplace</div>
+      <h2 class="st">Trois outils, un seul abonnement.</h2>
+      <p class="body">La plupart des indépendants paient trois logiciels séparés : un pour les listes, un pour trouver les emails, un pour les séquences de relance.</p>
+      <div class="compare">
+        <div class="cc bad"><div class="lbl">3 OUTILS SÉPARÉS</div><div class="amt">300€/mois</div></div>
+        <div class="cc good"><div class="lbl">LE SYSTÈME COMPLET</div><div class="amt">tout en un</div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">À savoir</div>
+      <h2 class="st">La loi a changé le 11 août.</h2>
+      <div class="lawbox">
+        <b class="d">11 août 2026</b>
+        <p>Depuis cette date, en France, <b>plus aucun démarchage téléphonique sans consentement préalable</b> du consommateur. Bloctel disparaît, on passe à l'opt-in obligatoire. Ceux qui n'ont que des listes froides achetées ne peuvent plus les appeler.</p>
+        <p style="margin-top:12px">C'est pour ça que le système intègre les leads consentis : tu importes tes leads publicitaires, ils sont rappelés en moins de cinq minutes, et tu restes dans les clous.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="kicker">Le logiciel</div>
+      <h2 class="st">Ça s'appelle OpenBound.</h2>
+      <p class="body">C'est l'application que j'ai construite. Tout ce que tu viens de voir est dedans : la recherche de prospects, le coaching en direct pendant les appels, les relances automatiques dans ton style, et l'import des leads consentis.</p>
+      <div class="obgrid">
+        <div class="ob"><b>Tes prospects en 1 clic</b><span>Décris ton client idéal, la liste sort toute seule</span></div>
+        <div class="ob"><b>Coaching LIVE en appel</b><span>L'IA écoute et te souffle le traitement d'objection</span></div>
+        <div class="ob"><b>Appels depuis l'app</b><span>Ton vrai numéro, et un débrief noté après chaque appel</span></div>
+        <div class="ob"><b>Relances automatiques</b><span>Dans TON style, elle apprend ta voix</span></div>
+        <div class="ob"><b>Un cerveau qui apprend</b><span>Chaque appel le rend plus fort sur TON secteur</span></div>
+        <div class="ob"><b>Conforme loi 11 août</b><span>Leads consentis, rappel en moins de 5 min</span></div>
+      </div>
+      <div class="obbanner">
+        <span class="flag">BÊTA PRIVÉE · 10 PLACES</span>
+        <b>100% gratuite pour les 10 testeurs.</b>
+        <span class="sm">Aucune carte demandée, puis tarif fondateur à vie.</span>
+      </div>
+      <div class="ctas">
+        <a class="cta purple" href="https://closeia.vercel.app/beta" target="_blank" rel="noopener">
+          <span><span class="t">Je veux ma place dans la bêta</span><span class="s">OpenBound — gratuit pour les 10 premiers testeurs</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Automatiser ton entreprise</span><span class="s">Appel stratégique gratuit de 30 min</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise — TPE, PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Monsieur IA — Arnaud
+    <div class="legal">Les données d'entreprises proviennent de sources publiques officielles. Utilise la prospection dans le respect du RGPD et de la réglementation sur le démarchage commercial en vigueur.</div>
+  </footer>
+</div>
+
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead — page /chasse',from_name:'Monsieur IA · /chasse'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
