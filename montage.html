@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monte tes Reels avec Claude et HyperFrames | Monsieur IA</title>
+<meta name="description" content="Coupes, sous-titres, animations, effets sonores : la méthode complète pour que Claude monte tes vidéos avec HyperFrames, un outil gratuit et open source.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="pill">● Le guide de la vidéo · 5 étapes</div>
+    <h1>Cette vidéo, c'est <em>Claude</em><br>qui l'a montée.</h1>
+    <p class="lede">La méthode complète pour que Claude monte tes Reels de A à Z avec HyperFrames, un outil 100 % gratuit et open source. Avec les instructions à copier-coller.</p>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois la méthode complète</h2>
+      <p>Entre ton email pour débloquer la méthode et les instructions prêtes à copier.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer</button></form>
+      <div class="wallnote">Zéro spam. Juste mes meilleurs systèmes IA, 1 à 2 fois par semaine.</div>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Ce que Claude fait</div>
+      <h2 class="st">Du rush au Reel fini, sans logiciel de montage.</h2>
+      <div class="grid2">
+        <div class="fact">Les coupes<span>Silences, reprises et hésitations</span></div>
+        <div class="fact">Les sous-titres<span>Mot à mot, calés sur ta voix</span></div>
+        <div class="fact">Les animations<span>Logos, compteurs, écrans animés</span></div>
+        <div class="fact">Les effets sonores<span>Pop, whoosh, ding, musique</span></div>
+      </div>
+    </section>
+    <section>
+      <div class="kicker">La méthode</div>
+      <h2 class="st">Étape par étape.</h2>
+      <div class="step"><div class="num">1</div><h3>Claude + un agent qui travaille sur tes fichiers</h3>
+        <p>Deux options : <b>Claude Code</b> (dans le terminal) ou <b>Cowork</b> dans l'app Claude pour ordinateur (c'est ce que j'utilise : je dépose mes rushs dans un dossier, Claude me rend le montage). Il faut un abonnement payant Claude.</p>
+        <p>Installer Claude Code (Mac / Linux) :</p><div class="promptbox"><button class="cp" data-copy="curl -fsSL https://claude.ai/install.sh | bash">Copier</button><pre>curl -fsSL https://claude.ai/install.sh | bash</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://code.claude.com/docs/en/setup">Documentation Claude Code →</a></div>
+      <div class="step"><div class="num">2</div><h3>Installe HyperFrames</h3>
+        <p>HyperFrames transforme du HTML animé en vraie vidéo MP4. Open source (licence Apache 2.0), sans frais par rendu, créé par HeyGen. Il te faut <b>Node.js 22+</b> et <b>FFmpeg</b> (sur Mac : brew install ffmpeg).</p>
+        <p>Dans Claude Code :</p><div class="promptbox"><button class="cp" data-copy="claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes">Copier</button><pre>claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes</pre></div>
+        <p>Ou pour n'importe quel agent :</p><div class="promptbox"><button class="cp" data-copy="npx skills add heygen-com/hyperframes">Copier</button><pre>npx skills add heygen-com/hyperframes</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://github.com/heygen-com/hyperframes">HyperFrames sur GitHub →</a>
+        <div class="note"><b>Pourquoi pas Remotion ?</b> Remotion est très bien aussi, mais sa licence gratuite est réservée aux structures de 3 personnes maximum. HyperFrames est gratuit sans condition.</div></div>
+      <div class="step"><div class="num">3</div><h3>Tourne tes vidéos en batch</h3>
+        <ul><li>Téléphone à la verticale, <b>mode Normal (pas HDR)</b>, micro-cravate si possible.</li><li>Refais tes phrases autant que tu veux : Claude garde la meilleure prise.</li><li>Dépose tous tes rushs dans un seul dossier.</li></ul></div>
+      <div class="step"><div class="num">4</div><h3>Demande le montage</h3><div class="promptbox"><button class="cp" data-copy="Dans ce dossier, j'ai mes rushs vidéo (face caméra, format vertical). Monte-moi un Reel Instagram de 30 à 60 s avec HyperFrames :
+1. Transcris l'audio mot à mot (Whisper), garde la meilleure prise quand je me répète, coupe les silences de plus de 0,35 s, les faux départs et les hésitations.
+2. Écran scindé : en haut, des animations qui illustrent ce que je dis (cartes, logos réels des marques citées, compteurs animés) ; en bas, ma face caméra, tête en haut du cadre.
+3. Sous-titres mot à mot en MAJUSCULES, texte noir sur fond jaune, calés sur ma voix.
+4. Effets sonores : pop à chaque apparition, whoosh à chaque changement de scène, clavier quand du texte s'écrit. Musique de fond très basse. Voix normalisée à -14 LUFS.
+5. Rendu MP4 1080x1920, puis montre-moi 6 images clés avant de me livrer la vidéo.">Copier le prompt</button><pre>Dans ce dossier, j'ai mes rushs vidéo (face caméra, format vertical). Monte-moi un Reel Instagram de 30 à 60 s avec HyperFrames :
+1. Transcris l'audio mot à mot (Whisper), garde la meilleure prise quand je me répète, coupe les silences de plus de 0,35 s, les faux départs et les hésitations.
+2. Écran scindé : en haut, des animations qui illustrent ce que je dis (cartes, logos réels des marques citées, compteurs animés) ; en bas, ma face caméra, tête en haut du cadre.
+3. Sous-titres mot à mot en MAJUSCULES, texte noir sur fond jaune, calés sur ma voix.
+4. Effets sonores : pop à chaque apparition, whoosh à chaque changement de scène, clavier quand du texte s'écrit. Musique de fond très basse. Voix normalisée à -14 LUFS.
+5. Rendu MP4 1080x1920, puis montre-moi 6 images clés avant de me livrer la vidéo.</pre></div></div>
+      <div class="step"><div class="num">5</div><h3>Fais-lui retenir ton style</h3><div class="promptbox"><button class="cp" data-copy="Garde en mémoire ma charte de montage (couleurs, police, style des sous-titres, cadrage, effets sonores) dans un fichier CHARTE-MONTAGE.md, et applique-la automatiquement à chaque nouveau Reel que je dépose dans ce dossier.">Copier le prompt</button><pre>Garde en mémoire ma charte de montage (couleurs, police, style des sous-titres, cadrage, effets sonores) dans un fichier CHARTE-MONTAGE.md, et applique-la automatiquement à chaque nouveau Reel que je dépose dans ce dossier.</pre></div>
+        <div class="note"><b>Mon astuce :</b> à chaque retour (« tête trop zoomée », « plus d'effets sonores »), dis-lui de mettre à jour la charte. Au bout de 3 vidéos, le montage sort quasiment parfait du premier coup.</div></div>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
+      <p class="body">J'ai une agence d'automatisation : on installe ce type d'assistant et on automatise les process de dizaines d'entreprises. Et si ta priorité, c'est de trouver des clients, j'ai construit OpenBound pour ça.</p>
+      <div class="ctas">
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
+          <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Tu veux automatiser ton business ?</span><span class="s">On en parle 30 minutes, gratuitement</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">Claude, Claude Code et Cowork sont des produits d'Anthropic. HyperFrames est un projet open source initié par HeyGen (licence Apache 2.0). Remotion est une marque tierce. Un abonnement Claude payant est nécessaire.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /montage',from_name:'Monsieur IA · /montage'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+</body>
+</html>
