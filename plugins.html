@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 plugins qui transforment Claude en expert SEO | Monsieur IA</title>
+<meta name="description" content="GSC MCP, OpenSEO et GEO Optimizer : les 3 plugins open source pour faire ton SEO avec Claude, sans abonnement à 3 000 €. Installation et prompts prêts à copier.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="pill">● Le guide de la vidéo · 3 plugins</div>
+    <h1><em>Claude</em> vient de tuer<br>ton abonnement SEO.</h1>
+    <p class="lede">Les 3 plugins open source qui transforment Claude en expert SEO : Google Search Console, recherche de mots-clés et visibilité dans les IA. Avec les prompts à copier.</p>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois la méthode complète</h2>
+      <p>Entre ton email pour débloquer les 3 plugins, l'installation et les prompts.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer</button></form>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Vue d'ensemble</div>
+      <h2 class="st">3 plugins. Claude devient ton expert SEO.</h2>
+      <div class="map" style="grid-template-columns:repeat(3,1fr)"><div><b>1</b>GSC MCP</div><div><b>2</b>OpenSEO</div><div><b>3</b>GEO Optimizer</div></div>
+      <div class="note"><b>Ce qu'il te faut :</b> Claude (abonnement payant) avec Claude Code installé. Ces plugins sont des serveurs MCP : ils branchent Claude sur des outils SEO.</div>
+    </section>
+    <section>
+      <div class="kicker">Le guide</div>
+      <h2 class="st">Installation et premiers prompts.</h2>
+      <div class="step"><div class="num">1</div><h3>GSC MCP : Claude lit ta Google Search Console</h3>
+        <p>Claude lit tes positions, repère les mots-clés où tu es juste derrière la première page, et te dit quoi corriger pour passer devant. Gratuit et open source (licence MIT).</p>
+        <p>Colle ce prompt dans Claude Code, il fait l'installation avec toi :</p><div class="promptbox"><button class="cp" data-copy="Installe le serveur MCP Google Search Console « mcp-gsc » (github.com/AminForou/mcp-gsc) dans Claude Code. Guide-moi pas à pas pour créer les identifiants Google (Google Cloud Console, API Search Console, client OAuth) et relie-le à mon site [MON-SITE.FR].">Copier le prompt</button><pre>Installe le serveur MCP Google Search Console « mcp-gsc » (github.com/AminForou/mcp-gsc) dans Claude Code. Guide-moi pas à pas pour créer les identifiants Google (Google Cloud Console, API Search Console, client OAuth) et relie-le à mon site [MON-SITE.FR].</pre></div>
+        <p>Ensuite, ton premier prompt :</p><div class="promptbox"><button class="cp" data-copy="Avec Google Search Console, liste tous mes mots-clés en position 8 à 20 sur les 3 derniers mois, avec impressions et clics. Pour les 10 plus prometteurs, dis-moi exactement quoi corriger sur la page concernée (titre, contenu, maillage interne) pour passer en première page.">Copier le prompt</button><pre>Avec Google Search Console, liste tous mes mots-clés en position 8 à 20 sur les 3 derniers mois, avec impressions et clics. Pour les 10 plus prometteurs, dis-moi exactement quoi corriger sur la page concernée (titre, contenu, maillage interne) pour passer en première page.</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://github.com/AminForou/mcp-gsc">GSC MCP sur GitHub →</a></div>
+      <div class="step"><div class="num">2</div><h3>OpenSEO : l'alternative open source à Semrush et Ahrefs</h3>
+        <p>Recherche de mots-clés, suivi de positions, backlinks et audit complet, directement dans Claude grâce à son serveur MCP.</p>
+        <ul><li><b>Version hébergée</b> sur openseo.so (abonnement mensuel), ou <b>auto-hébergée</b> gratuitement (Docker ou Cloudflare).</li><li>Les données SEO viennent de <b>DataForSEO</b> : tu paies à l'usage, sans abonnement fixe.</li></ul>
+        <p>Suis le guide MCP officiel, puis teste :</p><div class="promptbox"><button class="cp" data-copy="Avec OpenSEO, fais une recherche de mots-clés autour de [MON ACTIVITÉ] à [MA VILLE] : volume, difficulté, intention. Puis analyse les backlinks de mes 3 concurrents [URL 1], [URL 2], [URL 3] et propose-moi un plan de contenu sur 30 jours.">Copier le prompt</button><pre>Avec OpenSEO, fais une recherche de mots-clés autour de [MON ACTIVITÉ] à [MA VILLE] : volume, difficulté, intention. Puis analyse les backlinks de mes 3 concurrents [URL 1], [URL 2], [URL 3] et propose-moi un plan de contenu sur 30 jours.</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://openseo.so/docs/mcp">Guide MCP OpenSEO →</a><a class="lnk" target="_blank" rel="noopener" href="https://github.com/every-app/open-seo">OpenSEO sur GitHub →</a></div>
+      <div class="step"><div class="num">3</div><h3>GEO Optimizer : pour que les IA recommandent TON site</h3>
+        <p>Il n'optimise pas pour Google : il mesure et améliore ta visibilité dans ChatGPT, Claude, Perplexity, Gemini et les AI Overviews de Google. Score sur 100 et corrections concrètes. Gratuit et open source (licence MIT).</p>
+        <p>Dans le Terminal (Python requis) :</p><div class="promptbox"><button class="cp" data-copy="pip install &quot;geo-optimizer-skill[mcp]&quot;
+claude mcp add geo-optimizer -- geo-mcp">Copier</button><pre>pip install "geo-optimizer-skill[mcp]"
+claude mcp add geo-optimizer -- geo-mcp</pre></div>
+        <p>Puis dans Claude Code :</p><div class="promptbox"><button class="cp" data-copy="Avec GEO Optimizer, audite [MON-SITE.FR] : donne-moi son score de visibilité dans les IA (ChatGPT, Claude, Perplexity), puis corrige ce qui manque : llms.txt, robots.txt pour les robots IA, données structurées, FAQ. Montre-moi chaque modification avant de l'appliquer.">Copier le prompt</button><pre>Avec GEO Optimizer, audite [MON-SITE.FR] : donne-moi son score de visibilité dans les IA (ChatGPT, Claude, Perplexity), puis corrige ce qui manque : llms.txt, robots.txt pour les robots IA, données structurées, FAQ. Montre-moi chaque modification avant de l'appliquer.</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://github.com/Auriti-Labs/geo-optimizer-skill">GEO Optimizer sur GitHub →</a>
+        <div class="note"><b>Pourquoi c'est important :</b> de plus en plus de clients demandent directement à une IA « quel est le meilleur [métier] à [ville] ? ». Être premier sur Google ne suffit plus, il faut être celui que l'IA recommande.</div></div>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
+      <p class="body">J'ai une agence d'automatisation : on installe ce type d'assistant et on automatise les process de dizaines d'entreprises. Et si ta priorité, c'est de trouver des clients, j'ai construit OpenBound pour ça.</p>
+      <div class="ctas">
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
+          <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Tu veux automatiser ton business ?</span><span class="s">On en parle 30 minutes, gratuitement</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">Claude et Claude Code sont des produits d'Anthropic. GSC MCP, OpenSEO et GEO Optimizer sont des projets open source tiers (licence MIT), non affiliés à Monsieur IA. Semrush, Ahrefs, Google Search Console et DataForSEO sont des marques de leurs éditeurs. Certains services tiers sont payants à l'usage.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /plugins',from_name:'Monsieur IA · /plugins'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+</body>
+</html>
