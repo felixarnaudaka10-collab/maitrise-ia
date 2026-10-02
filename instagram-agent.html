@@ -143,7 +143,7 @@ cp -r instagram-agent-skill/skills/ig-* ~/.claude/skills/</pre></div>
     const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
     if(!email) return; btn.textContent='...'; btn.disabled=true;
     try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /skills',from_name:'Monsieur IA · /skills'})});}catch(err){}
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /instagram-agent',from_name:'Monsieur IA · /instagram-agent'})});}catch(err){}
     localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
   });
   document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
