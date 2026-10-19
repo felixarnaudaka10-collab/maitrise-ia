@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Mods : les 2 réglages qui l'empêchent d'oublier ton travail | Monsieur IA</title>
+<meta name="description" content="Claude Code Mods : active « You should know » et crée un mod qui passe le relais à une nouvelle session avant que Claude ne compresse sa mémoire.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="pill">● Le guide de la vidéo · Claude Code Mods</div>
+    <h1><em>Claude Code</em> n'oublie<br>plus ton travail.</h1>
+    <p class="lede">Les mods sont arrivés dans Claude Code. Deux à activer : un deuxième cerveau qui surveille ce que Claude rate, et un relais qui sauve ton travail avant que la mémoire déborde.</p>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois la méthode complète</h2>
+      <p>Entre ton email pour débloquer les 2 réglages et les prompts.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer</button></form>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Vue d'ensemble</div>
+      <h2 class="st">2 mods à activer.</h2>
+      <div class="map" style="grid-template-columns:repeat(3,1fr)"><div><b>1</b>Mettre à jour</div><div><b>2</b>You should know</div><div><b>3</b>Le relais</div></div>
+      <div class="note"><b>Ce qu'il te faut :</b> Claude Code version 2.1.287 ou plus récente (terminal), ou l'onglet Code de l'appli Claude Desktop. Gratuit, rien à connecter.</div>
+    </section>
+    <section>
+      <div class="kicker">Le guide</div>
+      <h2 class="st">Installation et premiers prompts.</h2>
+      <div class="step"><div class="num">1</div><h3>Mettre Claude Code à jour</h3><p>Dans ton Terminal, vérifie ta version :</p><div class="promptbox"><button class="cp" data-copy="claude --version">Copier</button><pre>claude --version</pre></div><p>Si elle est plus ancienne que 2.1.287, mets à jour :</p><div class="promptbox"><button class="cp" data-copy="claude update">Copier</button><pre>claude update</pre></div></div><div class="step"><div class="num">2</div><h3>Mod 1 : « You should know » (déjà intégré)</h3><p>Une deuxième IA relit la conversation pendant que Claude travaille et t'affiche une note quand elle repère quelque chose que tu as pu rater : un choix fait sans te prévenir, un résultat bizarre. Elle n'a aucun outil, elle ne peut rien modifier.</p><p>Dans Claude Code, tape :</p><div class="promptbox"><button class="cp" data-copy="/plugin enable cc-plugin-you-should-know@builtin">Copier</button><pre>/plugin enable cc-plugin-you-should-know@builtin</pre></div><div class="note"><b>À savoir :</b> chaque vérification consomme un peu de ton forfait. Pour l'éteindre : <code>/plugin</code> puis désactive-le.</div></div><div class="step"><div class="num">3</div><h3>Mod 2 : le relais avant compression</h3><p>Sur une longue session, la mémoire de Claude se remplit et il se compresse. C'est là que des infos importantes disparaissent. Ce mod se déclenche juste avant, écrit un résumé (ce qui est fait, les décisions, la suite) et te permet de repartir dans une session neuve exactement où tu t'étais arrêté.</p><p>Claude Code sait écrire ses propres mods. Colle ce message :</p><div class="promptbox"><button class="cp" data-copy="Crée-moi un mod Claude Code appelé &quot;relais&quot; : quand le contexte dépasse 80 %, écris un fichier RELAIS.md avec ce qui est fait, les décisions prises, les fichiers modifiés et les prochaines étapes, puis affiche une note pour me proposer d&#x27;ouvrir une nouvelle session qui commence par lire RELAIS.md. Montre-moi le code avant de l&#x27;installer.">Copier</button><pre>Crée-moi un mod Claude Code appelé &quot;relais&quot; : quand le contexte dépasse 80 %, écris un fichier RELAIS.md avec ce qui est fait, les décisions prises, les fichiers modifiés et les prochaines étapes, puis affiche une note pour me proposer d&#x27;ouvrir une nouvelle session qui commence par lire RELAIS.md. Montre-moi le code avant de l&#x27;installer.</pre></div><a class="lnk" target="_blank" rel="noopener" href="https://code.claude.com/docs/en/plugins/mods/overview">La doc officielle des mods →</a><div class="note"><b>Sécurité :</b> un skill ou un plugin, ce sont des instructions et du code qui tournent sur ta machine. Avant d'installer, demande à Claude de le relire : <i>« Lis ce dépôt et dis-moi s'il fait quelque chose de risqué (réseau, fichiers, clés API) »</i>.</div></div><div class="step"><div class="num">4</div><h3>Bonus : 3 mods d'exemple d'Anthropic</h3><ul><li><b>token-weather</b> : une météo de ta mémoire au-dessus du champ de saisie</li><li><b>blast-radius</b> : bloque une commande risquée (suppression, force push) et te montre ce qu'elle changerait</li><li><b>replay-theater</b> : rejoue les modifications de fichiers du dernier tour</li></ul><a class="lnk" target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods">Les mods d'exemple →</a></div>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
+      <p class="body">LinkedIn, c'est bien pour être vu. Pour signer des clients, il faut aussi aller les chercher. J'ai construit OpenBound pour ça, et mon agence installe ce type d'assistant dans les entreprises.</p>
+      <div class="ctas">
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
+          <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Tu veux automatiser ton business ?</span><span class="s">On en parle 30 minutes, gratuitement</span></span>
+          <span class="arw">→</span>
+        </a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener">
+          <span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">Claude et Claude Code sont des produits d'Anthropic. Monsieur IA n'est pas affilié à Anthropic.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /mods',from_name:'Monsieur IA · /mods'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+</body>
+</html>
