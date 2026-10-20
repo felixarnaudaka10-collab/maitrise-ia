@@ -53,6 +53,12 @@
   .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
   .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
   .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
   .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
   .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
   .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
@@ -107,6 +113,14 @@ cp -r linkedin-agent-skill/skills/li-* ~/.claude/skills/</pre></div>
         <p><b>Le humanizer</b> sur n'importe quel texte :</p><div class="promptbox"><button class="cp" data-copy="/li-human Nettoie ce texte : enlève les tirets longs, le blabla d'IA et les caractères invisibles, puis donne-moi le score des 5 détecteurs avant et après. Texte : [COLLE TON TEXTE]">Copier le prompt</button><pre>/li-human Nettoie ce texte : enlève les tirets longs, le blabla d'IA et les caractères invisibles, puis donne-moi le score des 5 détecteurs avant et après. Texte : [COLLE TON TEXTE]</pre></div></div>
       <div class="step"><div class="num">4</div><h3>Les 11 skills en un coup d'œil</h3><ul><li><b>/li-post</b> : une idée devient un post : 3 accroches tirées de 21 formules qui ont fait leurs preuves, puis le post complet</li><li><b>/li-comment</b> : commente les posts des autres avec un vrai avis (jamais « Super post ! »)</li><li><b>/li-reply</b> : prépare les réponses à tous les commentaires sous tes posts, en commençant par les prospects</li><li><b>/li-profile</b> : note ton profil sur 100 et réécrit titre, infos, expériences, sélection et bannière</li><li><b>/li-plan</b> : ta semaine : quoi poster, quand le poster, et les 10 personnes avec qui interagir</li><li><b>/li-human</b> : le humanizer : enlève tirets longs, blabla d'IA, mots typiques d'IA et caractères invisibles, puis passe ton texte dans 5 détecteurs</li><li><b>/li-carousel</b> : les carrousels : texte de chaque slide, couverture et PDF à publier</li><li><b>/li-repurpose</b> : une vidéo, une newsletter ou un appel client devient une semaine de posts</li><li><b>/li-dm</b> : la note d'invitation de 200 caractères, le premier message et 2 relances</li><li><b>/li-inbox</b> : trie ta messagerie : prospects, recruteurs, pairs, demandes, spam</li><li><b>/li-audit</b> : analyse ce que tu as déjà publié : ce qui marche et ce qu'il faut arrêter</li></ul>
         <div class="note"><b>Important :</b> ces skills écrivent, toi tu publies. Rien n'est posté sur LinkedIn sans ta validation, et c'est voulu : les outils qui publient ou commentent automatiquement à ta place enfreignent les règles de LinkedIn et font restreindre les comptes.</div></div>
+    </section>
+    <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
     </section>
     <section>
       <div class="kicker">Aller plus vite</div>
