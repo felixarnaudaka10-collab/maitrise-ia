@@ -53,6 +53,12 @@
   .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
   .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
   .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
   .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
   .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
   .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
@@ -97,9 +103,17 @@ Installe ce skill, puis confirme que /replica-recon fonctionne.">Copier</button>
 Installe ce skill, puis confirme que /replica-recon fonctionne.</pre></div><a class="lnk" target="_blank" rel="noopener" href="https://github.com/Jakeschincariol/replica-skill">Replica sur GitHub →</a><div class="note"><b>Sécurité :</b> un skill ou un plugin, ce sont des instructions et du code qui tournent sur ta machine. Avant d'installer, demande à Claude de le relire : <i>« Lis ce dépôt et dis-moi s'il fait quelque chose de risqué (réseau, fichiers, clés API) »</i>.</div></div><div class="step"><div class="num">2</div><h3>Cartographier l'appli que tu payes</h3><p>Claude liste chaque écran, chaque parcours et les données de l'appli, à partir de ses pages publiques et de ton propre compte.</p><div class="promptbox"><button class="cp" data-copy="/replica-recon Cartographie l&#x27;appli [NOM DE L&#x27;APPLI] : tous les écrans, les parcours utilisateur et les données. Réponds en français.">Copier</button><pre>/replica-recon Cartographie l&#x27;appli [NOM DE L&#x27;APPLI] : tous les écrans, les parcours utilisateur et les données. Réponds en français.</pre></div></div><div class="step"><div class="num">3</div><h3>Lire les avis et trouver ce qui énerve</h3><p>Le skill le plus malin : il lit les avis des utilisateurs et transforme chaque plainte en amélioration pour ta version.</p><div class="promptbox"><button class="cp" data-copy="/replica-entrepreneur Analyse les avis de [NOM DE L&#x27;APPLI] sur l&#x27;App Store et le Play Store. Liste les 10 plaintes les plus fréquentes et comment ma version les corrige.">Copier</button><pre>/replica-entrepreneur Analyse les avis de [NOM DE L&#x27;APPLI] sur l&#x27;App Store et le Play Store. Liste les 10 plaintes les plus fréquentes et comment ma version les corrige.</pre></div></div><div class="step"><div class="num">4</div><h3>Reconstruire, tester, comparer</h3><p>Lance-les dans cet ordre :</p><ol><li><b>/replica-architect</b> : la technique, la base de données, l'API</li><li><b>/replica-design</b> : le design avec tes propres couleurs</li><li><b>/replica-build</b> : la reconstruction écran par écran</li><li><b>/replica-backend</b> : comptes, base de données, paiements</li><li><b>/replica-test</b> : il teste chaque parcours et note les bugs</li><li><b>/replica-diff</b> : score de ressemblance et fonctions manquantes</li></ol><div class="promptbox"><button class="cp" data-copy="/replica-build Reconstruis l&#x27;appli à partir de la cartographie, écran par écran. Teste chaque écran avant de passer au suivant.">Copier</button><pre>/replica-build Reconstruis l&#x27;appli à partir de la cartographie, écran par écran. Teste chaque écran avant de passer au suivant.</pre></div></div><div class="step"><div class="num">5</div><h3>Ta marque, ta page, ta mise en ligne</h3><ul><li><b>/replica-brand</b> : un nouveau nom et une nouvelle identité (obligatoire)</li><li><b>/replica-launch</b> : page de vente, prix, fiche App Store</li><li><b>/replica-deploy</b> : mise en ligne sur ton domaine</li></ul><div class="note"><b>Important :</b> tu reconstruis les fonctions, tu ne copies jamais le nom, le logo ni les textes d'une marque. Certaines fonctions peuvent être protégées (brevets, conditions d'utilisation). Si tu veux vendre ta version, fais valider par un juriste avant de lancer.</div></div>
     </section>
     <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
       <div class="kicker">Aller plus vite</div>
       <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
-      <p class="body">LinkedIn, c'est bien pour être vu. Pour signer des clients, il faut aussi aller les chercher. J'ai construit OpenBound pour ça, et mon agence installe ce type d'assistant dans les entreprises.</p>
+      <p class="body">Tu veux aller plus vite ? Mon agence installe ce type de système dans les entreprises. Et pour trouver des clients, j'ai construit OpenBound.</p>
       <div class="ctas">
         <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
           <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>

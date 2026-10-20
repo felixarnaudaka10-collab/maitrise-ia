@@ -53,6 +53,12 @@
   .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
   .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
   .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
   .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
   .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
   .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
@@ -91,9 +97,17 @@
       <div class="step"><div class="num">1</div><h3>Mettre Claude Code à jour</h3><p>Dans ton Terminal, vérifie ta version :</p><div class="promptbox"><button class="cp" data-copy="claude --version">Copier</button><pre>claude --version</pre></div><p>Si elle est plus ancienne que 2.1.287, mets à jour :</p><div class="promptbox"><button class="cp" data-copy="claude update">Copier</button><pre>claude update</pre></div></div><div class="step"><div class="num">2</div><h3>Mod 1 : « You should know » (déjà intégré)</h3><p>Une deuxième IA relit la conversation pendant que Claude travaille et t'affiche une note quand elle repère quelque chose que tu as pu rater : un choix fait sans te prévenir, un résultat bizarre. Elle n'a aucun outil, elle ne peut rien modifier.</p><p>Dans Claude Code, tape :</p><div class="promptbox"><button class="cp" data-copy="/plugin enable cc-plugin-you-should-know@builtin">Copier</button><pre>/plugin enable cc-plugin-you-should-know@builtin</pre></div><div class="note"><b>À savoir :</b> chaque vérification consomme un peu de ton forfait. Pour l'éteindre : <code>/plugin</code> puis désactive-le.</div></div><div class="step"><div class="num">3</div><h3>Mod 2 : le relais avant compression</h3><p>Sur une longue session, la mémoire de Claude se remplit et il se compresse. C'est là que des infos importantes disparaissent. Ce mod se déclenche juste avant, écrit un résumé (ce qui est fait, les décisions, la suite) et te permet de repartir dans une session neuve exactement où tu t'étais arrêté.</p><p>Claude Code sait écrire ses propres mods. Colle ce message :</p><div class="promptbox"><button class="cp" data-copy="Crée-moi un mod Claude Code appelé &quot;relais&quot; : quand le contexte dépasse 80 %, écris un fichier RELAIS.md avec ce qui est fait, les décisions prises, les fichiers modifiés et les prochaines étapes, puis affiche une note pour me proposer d&#x27;ouvrir une nouvelle session qui commence par lire RELAIS.md. Montre-moi le code avant de l&#x27;installer.">Copier</button><pre>Crée-moi un mod Claude Code appelé &quot;relais&quot; : quand le contexte dépasse 80 %, écris un fichier RELAIS.md avec ce qui est fait, les décisions prises, les fichiers modifiés et les prochaines étapes, puis affiche une note pour me proposer d&#x27;ouvrir une nouvelle session qui commence par lire RELAIS.md. Montre-moi le code avant de l&#x27;installer.</pre></div><a class="lnk" target="_blank" rel="noopener" href="https://code.claude.com/docs/en/plugins/mods/overview">La doc officielle des mods →</a><div class="note"><b>Sécurité :</b> un skill ou un plugin, ce sont des instructions et du code qui tournent sur ta machine. Avant d'installer, demande à Claude de le relire : <i>« Lis ce dépôt et dis-moi s'il fait quelque chose de risqué (réseau, fichiers, clés API) »</i>.</div></div><div class="step"><div class="num">4</div><h3>Bonus : 3 mods d'exemple d'Anthropic</h3><ul><li><b>token-weather</b> : une météo de ta mémoire au-dessus du champ de saisie</li><li><b>blast-radius</b> : bloque une commande risquée (suppression, force push) et te montre ce qu'elle changerait</li><li><b>replay-theater</b> : rejoue les modifications de fichiers du dernier tour</li></ul><a class="lnk" target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods">Les mods d'exemple →</a></div>
     </section>
     <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
       <div class="kicker">Aller plus vite</div>
       <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
-      <p class="body">LinkedIn, c'est bien pour être vu. Pour signer des clients, il faut aussi aller les chercher. J'ai construit OpenBound pour ça, et mon agence installe ce type d'assistant dans les entreprises.</p>
+      <p class="body">Tu veux aller plus vite ? Mon agence installe ce type de système dans les entreprises. Et pour trouver des clients, j'ai construit OpenBound.</p>
       <div class="ctas">
         <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
           <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>

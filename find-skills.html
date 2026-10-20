@@ -53,6 +53,12 @@
   .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
   .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
   .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
   .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
   .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
   .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
@@ -91,9 +97,17 @@
       <div class="step"><div class="num">1</div><h3>Installer Find Skills</h3><p>Dans ton Terminal :</p><div class="promptbox"><button class="cp" data-copy="npx skills add vercel-labs/skills --skill find-skills">Copier</button><pre>npx skills add vercel-labs/skills --skill find-skills</pre></div><p>Ou colle ce message dans Claude Code :</p><div class="promptbox"><button class="cp" data-copy="Installe le skill find-skills de vercel-labs/skills (npx skills add vercel-labs/skills), puis confirme qu&#x27;il fonctionne.">Copier</button><pre>Installe le skill find-skills de vercel-labs/skills (npx skills add vercel-labs/skills), puis confirme qu&#x27;il fonctionne.</pre></div><a class="lnk" target="_blank" rel="noopener" href="https://skills.sh">Le classement skills.sh →</a></div><div class="step"><div class="num">2</div><h3>Lui demander le bon skill</h3><p>Décris ce que tu fais, il cherche, compare et installe :</p><div class="promptbox"><button class="cp" data-copy="Trouve-moi le meilleur skill pour [monter mes vidéos / écrire mes emails / faire mes devis]. Compare les 3 premiers et installe le plus fiable.">Copier</button><pre>Trouve-moi le meilleur skill pour [monter mes vidéos / écrire mes emails / faire mes devis]. Compare les 3 premiers et installe le plus fiable.</pre></div></div><div class="step"><div class="num">3</div><h3>Toujours vérifier avant d'installer</h3><p>N'importe qui peut publier un skill. Avant d'en garder un, fais-le relire :</p><div class="promptbox"><button class="cp" data-copy="Relis le skill [NOM] que tu viens d&#x27;installer : liste tout ce qu&#x27;il fait sur ma machine (fichiers, réseau, commandes, clés API) et dis-moi s&#x27;il y a un risque. Si oui, désinstalle-le.">Copier</button><pre>Relis le skill [NOM] que tu viens d&#x27;installer : liste tout ce qu&#x27;il fait sur ma machine (fichiers, réseau, commandes, clés API) et dis-moi s&#x27;il y a un risque. Si oui, désinstalle-le.</pre></div><div class="note"><b>Sécurité :</b> un skill ou un plugin, ce sont des instructions et du code qui tournent sur ta machine. Avant d'installer, demande à Claude de le relire : <i>« Lis ce dépôt et dis-moi s'il fait quelque chose de risqué (réseau, fichiers, clés API) »</i>.</div></div>
     </section>
     <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
       <div class="kicker">Aller plus vite</div>
       <h2 class="st">Tu veux ce système dans ton entreprise ?</h2>
-      <p class="body">LinkedIn, c'est bien pour être vu. Pour signer des clients, il faut aussi aller les chercher. J'ai construit OpenBound pour ça, et mon agence installe ce type d'assistant dans les entreprises.</p>
+      <p class="body">Tu veux aller plus vite ? Mon agence installe ce type de système dans les entreprises. Et pour trouver des clients, j'ai construit OpenBound.</p>
       <div class="ctas">
         <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener">
           <span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés. Coach IA en direct pendant tes appels.</span></span>
