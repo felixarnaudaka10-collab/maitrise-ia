@@ -65,6 +65,7 @@
   footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
   @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
 </style>
+<link rel="stylesheet" href="/agentiques.css">
 </head>
 <body>
 <div class="wrap">
@@ -77,6 +78,8 @@
 
   <div id="wall">
     <div class="wallcard">
+      <div class="ag-vid" onclick="var v=this.querySelector('video');v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.loop=false}v.play();this.querySelector('.snd').style.display=v.muted?'':'none'"><video autoplay muted loop playsinline preload="metadata" poster="https://lesagentiques.netlify.app/club/poster.jpg?v=2"><source src="https://lesagentiques.netlify.app/club/lancement.mp4?v=2" type="video/mp4"></video><span class="snd">🔊 Touche pour le son</span></div>
+      
       <h2>Reçois le guide complet</h2>
       <p>Entre ton email pour débloquer les 7 étapes et les prompts prêts à copier.</p>
       <form class="wallform" id="wf">

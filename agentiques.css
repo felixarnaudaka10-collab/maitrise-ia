@@ -1,0 +1,56 @@
+/* Charte « Les Agentiques » — identique à lesagentiques.netlify.app/club/
+   Se charge APRÈS le <style> de la page : <link rel="stylesheet" href="/agentiques.css">
+   Fond sombre, dégradé orange #F7A35C → #E8622A, titres Inter Tight 800, étiquettes Geist Mono. */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@500;600&display=swap');
+
+:root{
+  --ink:#F5EFE6;--ink2:#CFC5B9;--ink3:#8F857B;--bg:#0A0908;--card:#14110F;--line:rgba(255,255,255,.09);
+  --y:#F7A35C;--y2:#E8622A;--claude:#F7A35C;--green:#22C55E;
+  --ag-grad:linear-gradient(90deg,#F7A35C,#E8622A);--ag-dark:#140E0A
+}
+html{background:#0A0908}
+body{background:
+  radial-gradient(900px 520px at 50% -120px,rgba(232,98,42,.22),rgba(232,98,42,0) 70%),
+  #0A0908 !important;color:var(--ink)}
+h1,h2,h3,.st,.wallcard h2{font-family:'Inter Tight',Inter,system-ui,sans-serif !important;font-weight:800;letter-spacing:-.036em !important;color:#fff}
+h1 em{background:var(--ag-grad);-webkit-background-clip:text;background-clip:text;color:transparent !important}
+.lede,p.body{color:var(--ink2)}
+
+/* Étiquettes */
+.pill{background:transparent !important;color:#F7A35C !important;border:1px solid rgba(247,163,92,.45);font-family:'Geist Mono',ui-monospace,monospace;font-weight:600;font-size:12px !important;letter-spacing:.08em;text-transform:uppercase}
+.pill *{background:#F7A35C !important;color:#F7A35C}
+.kicker{font-family:'Geist Mono',ui-monospace,monospace;color:#F7A35C !important;letter-spacing:.12em}
+
+/* Mur email */
+.wallcard{background:radial-gradient(120% 140% at 100% 0%,rgba(232,98,42,.22),rgba(232,98,42,0) 60%),#14110F !important;border:1px solid rgba(232,98,42,.45) !important;box-shadow:0 30px 70px -30px rgba(232,98,42,.45) !important}
+.wallform input{background:#1E1A17 !important;color:#fff !important;border:1px solid rgba(255,255,255,.16) !important}
+.wallform input::placeholder{color:#8F857B}
+.wallform input:focus{border-color:#F7A35C !important;box-shadow:0 0 0 4px rgba(247,163,92,.25) !important}
+.wallform button{background:var(--ag-grad) !important;color:var(--ag-dark) !important;font-weight:800}
+
+/* Vidéo du Club au-dessus du formulaire */
+.ag-vid{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:16/9;margin:0 0 26px;cursor:pointer;border:1px solid rgba(247,163,92,.35)}
+.ag-vid video{display:block;width:100%;height:100%;object-fit:cover}
+.ag-vid .snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.72);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}
+
+/* Contenu */
+.step,.map div,.fact{background:#14110F !important;border:1px solid var(--line) !important;box-shadow:none !important;color:var(--ink)}
+.step h3{color:#fff}
+.step p,.step ul,.step ol{color:var(--ink2)}
+.step .num{background:var(--ag-grad) !important;color:var(--ag-dark) !important}
+.step a.lnk{background:var(--ag-grad) !important;color:var(--ag-dark) !important}
+.promptbox{background:#0A0908 !important;border:1px solid rgba(255,255,255,.08)}
+.promptbox pre{color:#F3E9DA !important}
+.cp{background:var(--ag-grad) !important;color:var(--ag-dark) !important}
+.cp.ok{background:#22C55E !important;color:#04301c !important}
+.note{background:rgba(247,163,92,.08) !important;border:1px solid rgba(247,163,92,.3) !important;color:#F3D9BF !important}
+.fact span{color:var(--ink3)}
+.fact.no{background:rgba(232,98,42,.08) !important;border-color:rgba(232,98,42,.3) !important}
+a{color:#F7A35C}
+
+/* Offres en bas */
+.cta.gold{background:var(--ag-grad) !important;color:var(--ag-dark) !important;box-shadow:0 14px 34px -14px rgba(232,98,42,.6) !important}
+.cta.black{background:#1B1714 !important;color:var(--ink) !important;border:1px solid var(--line)}
+.cta:hover{box-shadow:0 14px 34px -14px rgba(232,98,42,.5) !important}
+footer{border-top:1px solid var(--line) !important;color:var(--ink3)}
+footer a{color:var(--ink2)}

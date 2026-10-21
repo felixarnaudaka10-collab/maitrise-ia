@@ -93,14 +93,14 @@
   card.innerHTML = '<span class="tg">Places fondateurs · prévente le 2 novembre</span>'
     + "<h3>Tu as aimé ce tuto ? Le Club des Agentiques arrive.</h3>"
     + "<p>La formation + communauté pour faire bosser Claude dans ton business, avec des workflows prêts à importer, puis apprendre à le vendre.</p>"
-    + '<div class="vw"><video muted playsinline loop preload="none" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><span class="snd">🔊 Touche pour le son</span></div>'
+    + (document.querySelector(".ag-vid") ? "" : '<div class="vw"><video muted playsinline loop preload="none" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><span class="snd">🔊 Touche pour le son</span></div>')
     + '<div class="act"></div>';
   var vid = card.querySelector("video"), vw = card.querySelector(".vw");
-  vw.addEventListener("click", function () {
+  if (vw) vw.addEventListener("click", function () {
     vid.muted = !vid.muted; if (!vid.muted) { vid.currentTime = 0; vid.loop = false; }
     vid.play().catch(function () {}); card.querySelector(".snd").style.display = vid.muted ? "" : "none";
   });
-  if ("IntersectionObserver" in window) {
+  if (vw && "IntersectionObserver" in window) {
     new IntersectionObserver(function (en) { en.forEach(function (x) {
       if (x.isIntersecting) vid.play().catch(function () {}); else vid.pause(); }); }, { threshold: 0.5 }).observe(vw);
   }
