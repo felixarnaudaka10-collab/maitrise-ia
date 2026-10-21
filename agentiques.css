@@ -60,3 +60,7 @@ footer a{color:var(--ink2)}
 
 /* Mur email : un seul gros bouton, pleine largeur sur mobile */
 @media (max-width:640px){.wallform{flex-direction:column}.wallform input,.wallform button{width:100%;min-width:0}}
+
+/* Décision 21/10 : pas de vidéo sur le mur email (le formulaire doit être visible sans défiler).
+   La vidéo du Club est dans la carte juste après le tuto. Supprimer cette règle pour la remettre. */
+.wallcard .ag-vid{display:none !important}
