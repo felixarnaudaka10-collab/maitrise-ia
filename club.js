@@ -40,9 +40,9 @@
     + ".cdac p{margin:0 0 14px;color:#D9D1C7;font-size:15px}"
     + ".cdac .vw{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;margin:4px 0 16px;cursor:pointer}"
     + ".cdac video{display:block;width:100%;height:100%;object-fit:cover}"
-    + ".ag-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;border:0;cursor:pointer;white-space:nowrap;"
-    + "background:linear-gradient(90deg,#F7A35C,#E8622A);color:#140E0A;font:800 15px Inter,system-ui,sans-serif;padding:13px 20px 13px 14px;border-radius:99px;box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 6px rgba(247,163,92,.18);animation:agp 1.8s ease-in-out infinite}"
-    + ".ag-play span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#140E0A;color:#F7A35C;font-size:12px}"
+    + ".ag-play{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap;"
+    + "background:rgba(10,9,8,.72);color:#F5EFE6;border:1px solid rgba(247,163,92,.5);font:700 13px Inter,system-ui,sans-serif;padding:7px 14px 7px 8px;border-radius:99px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}"
+    + ".ag-play span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(90deg,#F7A35C,#E8622A);color:#140E0A;font-size:10px}"
     + ".ag-play.hide{display:none}"
     + "@keyframes agp{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 6px rgba(247,163,92,.18)}50%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 12px rgba(247,163,92,.06)}}"
     + ".cdac .snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}"
@@ -164,6 +164,17 @@
     + '<a class="go" href="#club-agentiques">Réserver ma place</a>'
     + '<button type="button" aria-label="Fermer">×</button>';
   document.body.appendChild(bar);
+  // Une seule action sur la page de capture : tant que le mur email est visible, la barre est cachée
+  function wallOpen() {
+    var fs = document.querySelectorAll("form");
+    for (var i = 0; i < fs.length; i++) { var f = fs[i];
+      if (f.closest(".cdac") || !f.querySelector('input[type="email"]')) continue;
+      if (f.offsetParent !== null) return true; }
+    return false;
+  }
+  var cardSeen = false;
+  function syncBar() { if (document.body.contains(bar)) bar.classList.toggle("on", !wallOpen() && !cardSeen); }
+  setInterval(syncBar, 700);
   function hideBar() { bar.classList.remove("on"); setTimeout(function () { bar.remove(); }, 500); }
   bar.querySelector("a.go").addEventListener("click", function (e) {
     e.preventDefault(); if (card.offsetParent === null) { window.open(QUIZ, "_blank", "noopener"); return; } card.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -173,6 +184,6 @@
   // La barre disparaît quand la carte est à l'écran (pas de doublon)
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (en) { en.forEach(function (x) {
-      if (!document.body.contains(bar)) return; bar.classList.toggle("on", !x.isIntersecting); }); }, { threshold: 0.15 }).observe(card);
-  } else setTimeout(function () { bar.classList.add("on"); }, 1200);
+      if (!document.body.contains(bar)) return; cardSeen = x.isIntersecting; syncBar(); }); }, { threshold: 0.15 }).observe(card);
+  } else setTimeout(syncBar, 1200);
 })();
