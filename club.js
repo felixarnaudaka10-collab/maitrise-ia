@@ -40,6 +40,11 @@
     + ".cdac p{margin:0 0 14px;color:#D9D1C7;font-size:15px}"
     + ".cdac .vw{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;margin:4px 0 16px;cursor:pointer}"
     + ".cdac video{display:block;width:100%;height:100%;object-fit:cover}"
+    + ".ag-play{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;border:0;cursor:pointer;white-space:nowrap;"
+    + "background:linear-gradient(90deg,#F7A35C,#E8622A);color:#140E0A;font:800 15px Inter,system-ui,sans-serif;padding:13px 20px 13px 14px;border-radius:99px;box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 6px rgba(247,163,92,.18);animation:agp 1.8s ease-in-out infinite}"
+    + ".ag-play span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#140E0A;color:#F7A35C;font-size:12px}"
+    + ".ag-play.hide{display:none}"
+    + "@keyframes agp{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 6px rgba(247,163,92,.18)}50%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 12px rgba(247,163,92,.06)}}"
     + ".cdac .snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}"
     + ".cdac form{display:flex;gap:8px;flex-wrap:wrap;margin:0}"
     + ".cdac input{flex:1 1 200px;min-width:0;height:50px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:#1E1A17;color:#fff;padding:0 14px;font:inherit;font-size:16px}"
@@ -93,17 +98,28 @@
   card.innerHTML = '<span class="tg">Places fondateurs · prévente le 2 novembre</span>'
     + "<h3>Tu as aimé ce tuto ? Le Club des Agentiques arrive.</h3>"
     + "<p>La formation + communauté pour faire bosser Claude dans ton business, avec des workflows prêts à importer, puis apprendre à le vendre.</p>"
-    + (document.querySelector(".ag-vid") ? "" : '<div class="vw"><video muted playsinline loop preload="none" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><span class="snd">🔊 Touche pour le son</span></div>')
+    + '<div class="vw"><video muted playsinline loop preload="metadata" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><button type="button" class="ag-play" aria-label="Regarder la vidéo avec le son"><span>▶</span> Regarder avec le son</button></div>'
     + '<div class="act"></div>';
   var vid = card.querySelector("video"), vw = card.querySelector(".vw");
-  if (vw) vw.addEventListener("click", function () {
-    vid.muted = !vid.muted; if (!vid.muted) { vid.currentTime = 0; vid.loop = false; }
-    vid.play().catch(function () {}); card.querySelector(".snd").style.display = vid.muted ? "" : "none";
+
+  // Vidéos du Club (haut de page + carte) : 1 tap sur le bouton = lecture depuis le début AVEC le son.
+  // (Les navigateurs interdisent le son automatique sans geste de la personne.)
+  [].forEach.call(document.querySelectorAll(".ag-vid, .cdac .vw"), function (box) {
+    var v = box.querySelector("video"), b = box.querySelector(".ag-play"); if (!v || !b) return;
+    function go() {
+      [].forEach.call(document.querySelectorAll("video"), function (o) { if (o !== v) { o.pause(); o.muted = true; } });
+      v.muted = false; v.loop = false; v.currentTime = 0; v.controls = true; b.classList.add("hide");
+      var p = v.play(); if (p && p.catch) p.catch(function () { v.muted = true; v.play().catch(function () {}); b.classList.remove("hide"); });
+    }
+    b.addEventListener("click", function (e) { e.stopPropagation(); go(); });
+    v.addEventListener("ended", function () { v.controls = false; b.innerHTML = "<span>↺</span> Revoir"; b.classList.remove("hide"); });
+    // Hors écran (ou caché, ex. mur email débloqué) = pause ; à l'écran = aperçu muet tant que la personne n'a pas lancé le son
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { en.forEach(function (x) {
+      if (!x.isIntersecting) { v.pause(); return; }
+      if (b.classList.contains("hide")) return;
+      v.muted = true; v.loop = true; v.play().catch(function () {});
+    }); }, { threshold: 0.4 }).observe(box);
   });
-  if (vw && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (en) { en.forEach(function (x) {
-      if (x.isIntersecting) vid.play().catch(function () {}); else vid.pause(); }); }, { threshold: 0.5 }).observe(vw);
-  }
 
   function reserve(email, btn) {
     btn.disabled = true; btn.textContent = "Réservation…";

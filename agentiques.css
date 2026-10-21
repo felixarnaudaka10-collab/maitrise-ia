@@ -54,3 +54,6 @@ a{color:#F7A35C}
 .cta:hover{box-shadow:0 14px 34px -14px rgba(232,98,42,.5) !important}
 footer{border-top:1px solid var(--line) !important;color:var(--ink3)}
 footer a{color:var(--ink2)}
+
+/* Bouton « Regarder avec le son » (1 seul tap : démarre depuis le début avec le son) */
+.ag-vid .snd{display:none}
