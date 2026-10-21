@@ -43,6 +43,10 @@
     + ".ag-play{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap;"
     + "background:rgba(10,9,8,.72);color:#F5EFE6;border:1px solid rgba(247,163,92,.5);font:700 13px Inter,system-ui,sans-serif;padding:7px 14px 7px 8px;border-radius:99px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}"
     + ".ag-play span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(90deg,#F7A35C,#E8622A);color:#140E0A;font-size:10px}"
+    + ".cdw{max-width:440px;margin:12px auto 0;text-align:center}"
+    + ".cdw-b{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:transparent;color:#F7A35C;border:1.5px solid rgba(247,163,92,.6);border-radius:14px;padding:14px 16px;font:800 15px Inter,system-ui,sans-serif;cursor:pointer}"
+    + ".cdw-b span{color:#F7A35C}.cdw-b:disabled{opacity:.6}"
+    + ".cdw small{display:block;margin-top:7px;font:500 12px Inter,system-ui,sans-serif;color:#9C9187}"
     + ".ag-play.hide{display:none}"
     + "@keyframes agp{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 6px rgba(247,163,92,.18)}50%{box-shadow:0 12px 30px rgba(0,0,0,.45),0 0 0 12px rgba(247,163,92,.06)}}"
     + ".cdac .snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}"
@@ -153,6 +157,28 @@
     }
   }
   render();
+
+  // Mur email : 2e bouton « Réserver ma place au Club » sous « Débloquer le guide ».
+  // Il réserve la place avec l'email tapé ET débloque le guide (personne ne perd son tuto).
+  [].forEach.call(document.querySelectorAll("form"), function (f) {
+    var inp = f.querySelector('input[type="email"]');
+    if (!inp || f.closest(".cdac") || f.dataset.cdw) return; f.dataset.cdw = "1";
+    var w = document.createElement("div"); w.className = "cdw";
+    w.innerHTML = '<button type="button" class="cdw-b"><span>✦</span> Réserver ma place au Club des Agentiques</button>'
+      + '<small>Débloque aussi le guide · places fondateurs</small>';
+    f.parentNode.insertBefore(w, f.nextSibling);
+    var b = w.querySelector("button");
+    b.addEventListener("click", function () {
+      var v = (inp.value || "").trim();
+      if (!okMail(v)) { inp.focus(); inp.reportValidity && inp.reportValidity(); return; }
+      ls(K_MAIL, v); b.disabled = true; b.textContent = "Réservation…";
+      var d = { "form-name": "club-attente", email: v, prenom: "", objectif: "Inscrit depuis le mur email du tuto « " + page + " »", formule: "Réservée depuis le tuto « " + page + " » (quiz non fait)" };
+      fetch(SITE + "/", { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: Object.keys(d).map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(d[k]); }).join("&") }).catch(function () {});
+      ls(K_DONE, "1"); render();
+      if (f.requestSubmit) f.requestSubmit(); else f.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+    });
+  });
 
   // Barre fixe en bas : amène à la carte (même page, zéro changement d'onglet)
   var closed = false; try { closed = sessionStorage.getItem("cdab-x") === "1"; } catch (e) {}
