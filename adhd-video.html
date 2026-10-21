@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="robots" content="noindex">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Claude Mode ADHD — 7 prompts pour hacker ta dopamine · Mr.IA</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      border: 1px solid #e5e5e5;
+    }
+    .icon { font-size: 44px; margin-bottom: 18px; display: block; }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: normal; color: #C9A84C; font-weight: 800; }
+    .subtitle { font-size: 15px; color: #6e6e73; margin-bottom: 22px; line-height: 1.6; }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 26px;
+    }
+    #form-section input[type="email"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f5f5f7;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 12px;
+      color: #1d1d1f;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    #form-section input[type="email"]::placeholder { color: #aeaeb2; }
+    #form-section input[type="email"]:focus { border-color: #C9A84C; background: #fff; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #C9A84C;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: #A68A3E; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .proof {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #aeaeb2;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .proof strong { color: #1d1d1f; }
+
+    /* Confirm section */
+    #confirm-section { display: none; text-align: left; }
+    .confirm-header { text-align: center; margin-bottom: 28px; }
+    .check-icon { font-size: 44px; margin-bottom: 14px; display: block; }
+    .confirm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1d1d1f; letter-spacing: -0.3px; }
+    .confirm-intro { font-size: 14px; color: #6e6e73; line-height: 1.65; }
+
+    /* Ce que tu vas obtenir */
+    .obtenir-box {
+      background: #f5f5f7; border: 1px solid #e5e5e5;
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 24px;
+    }
+    .obtenir-title { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .obtenir-list { display: flex; flex-direction: column; gap: 8px; }
+    .obtenir-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #3d3d3f; line-height: 1.5; }
+    .obtenir-dot { color: #C9A84C; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
+    /* Prompts */
+    .prompts-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .prompt-card {
+      display: flex; align-items: flex-start; gap: 13px;
+      background: #f5f5f7; border-radius: 14px; padding: 14px 16px; border: 1px solid #e5e5e5;
+    }
+    .prompt-num {
+      width: 30px; height: 30px; background: #C9A84C; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; flex-shrink: 0; margin-top: 1px;
+    }
+    .prompt-body { flex: 1; }
+    .prompt-name { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 3px; line-height: 1.3; }
+    .prompt-desc { font-size: 12px; color: #6e6e73; line-height: 1.55; }
+    .prompt-tag {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      color: #C9A84C; background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.2); padding: 2px 8px;
+      border-radius: 6px; margin-top: 6px;
+    }
+
+    /* Prompt box */
+    .prompt-box {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 20px; margin-bottom: 24px;
+    }
+    .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #E2C66B; margin-bottom: 12px; }
+    .prompt-text { font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px; color: #e2e8f0; line-height: 1.8; white-space: pre-wrap; }
+    .prompt-text .cmd { color: #E2C66B; font-weight: 700; }
+    .prompt-copy-hint { font-size: 12px; color: #6b7280; text-align: center; margin-top: 12px; }
+
+    /* Prompt full (les 7 blocs copiables) */
+    .prompt-full {
+      background: #0d0d14; border: 1px solid rgba(201,168,76,.35);
+      border-radius: 16px; padding: 18px; margin-bottom: 14px; text-align: left;
+    }
+    .prompt-full-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .prompt-full-num {
+      width: 26px; height: 26px; background: #C9A84C; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; flex-shrink: 0;
+    }
+    .prompt-full-name { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.25; }
+    .prompt-full-tagline { font-size: 11px; color: #E2C66B; font-weight: 600; margin-bottom: 12px; font-style: italic; }
+    .prompt-full-text {
+      font-family: 'SF Mono','Menlo','Consolas',monospace; font-size: 12px;
+      color: #e2e8f0; line-height: 1.7; white-space: pre-wrap;
+      background: #060608; border-radius: 10px; padding: 14px; margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .prompt-full-text .ph { color: #9ca3af; font-style: italic; }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.35);
+      color: #E2C66B; font-size: 12px; font-weight: 700;
+      padding: 9px 16px; border-radius: 10px; cursor: pointer;
+      transition: all 0.15s; font-family: inherit; width: 100%; justify-content: center;
+    }
+    .btn-copy:hover { background: rgba(201,168,76,.22); }
+    .btn-copy.copied { background: #4ac55e; border-color: #4ac55e; color: #fff; }
+    .prompt-when { font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 10px; }
+    .prompt-when strong { color: #9ca3af; }
+
+    /* Ordre optimal */
+    .ordre-box {
+      background: #f5f5f7; border: 1px solid #e5e5e5;
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 24px; text-align: left;
+    }
+    .ordre-title { font-size: 13px; font-weight: 800; color: #1d1d1f; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ordre-item { display: flex; gap: 10px; font-size: 13px; color: #3d3d3f; line-height: 1.5; margin-bottom: 7px; }
+    .ordre-item:last-child { margin-bottom: 0; }
+    .ordre-step { color: #C9A84C; font-weight: 800; flex-shrink: 0; }
+
+    /* Result stat */
+    .result-stat {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      background: #060608; border: 1px solid rgba(201,168,76,.3);
+      border-radius: 16px; padding: 18px; margin-bottom: 24px;
+    }
+    .result-num { font-size: 42px; font-weight: 900; color: #C9A84C; line-height: 1; letter-spacing: -2px; }
+    .result-sep { width: 1px; height: 40px; background: rgba(201,168,76,.2); }
+    .result-text-wrap { text-align: left; }
+    .result-label { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.3; }
+    .result-sublabel { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+    /* Divider */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0 20px; color: #aeaeb2; font-size: 12px; font-weight: 600;
+    }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e5e5e5; }
+
+    /* 50 Spécialistes IA box */
+    .specialistes-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .specialistes-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .specialistes-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3);
+      color: #E2C66B; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .specialistes-stars { color: #C9A84C; font-size: 13px; margin-bottom: 4px; }
+    .specialistes-rating { font-size: 11px; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+    .specialistes-title {
+      font-size: 21px; font-weight: 900; color: #fff; line-height: 1.2;
+      margin-bottom: 10px; letter-spacing: -0.5px;
+    }
+    .specialistes-title em { font-style: normal; color: #E2C66B; }
+    .specialistes-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 16px; }
+    .specialistes-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
+    .specialistes-item {
+      background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.15);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .specialistes-item-icon { font-size: 16px; margin-bottom: 4px; }
+    .specialistes-item-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.7); }
+    .btn-specialistes {
+      display: block; width: 100%; padding: 16px;
+      background: #C9A84C; color: #fff;
+      font-size: 15px; font-weight: 800; border-radius: 14px;
+      text-decoration: none; text-align: center;
+      transition: background 0.2s; margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .btn-specialistes:hover { background: #A68A3E; }
+    .specialistes-note { font-size: 12px; color: rgba(255,255,255,.35); text-align: center; }
+
+    /* Skool box */
+    .skool-box { background: #0a0f0a; border: 1px solid rgba(74,197,94,.25); border-radius: 18px; padding: 22px 20px; margin-bottom: 16px; }
+    .skool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,197,94,.12); border: 1px solid rgba(74,197,94,.25); color: #4ac55e; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .skool-title { font-size: 20px; font-weight: 900; color: #fff; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.4px; }
+    .skool-title em { font-style: normal; color: #4ac55e; }
+    .skool-desc { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 16px; }
+    .skool-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .skool-check { font-size: 13px; color: rgba(255,255,255,.7); font-weight: 600; }
+    .btn-skool { display: block; width: 100%; padding: 15px; background: #4ac55e; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 6px; }
+    .btn-skool:hover { background: #3aad4d; }
+    .skool-note { font-size: 12px; color: #6b7280; text-align: center; }
+
+    /* Audit box */
+    .audit-box { background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 18px; padding: 22px 20px; margin-bottom: 12px; text-align: left; }
+    .audit-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .audit-title { font-size: 20px; font-weight: 900; color: #1d1d1f; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .audit-desc { font-size: 13px; color: #6e6e73; line-height: 1.65; margin-bottom: 16px; }
+    .btn-audit { display: block; width: 100%; padding: 15px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; margin-bottom: 10px; }
+    .btn-audit:hover { background: #333; }
+    .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; border-radius: 12px; text-decoration: none; text-align: center; transition: background 0.2s; }
+    .btn-whatsapp:hover { background: #1da851; }
+
+    .btn-secondary { display: block; width: 100%; padding: 13px; background: transparent; color: #1d1d1f; font-size: 14px; font-weight: 600; border: 1.5px solid #e5e5e5; border-radius: 12px; text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
+    .btn-secondary:hover { border-color: #C9A84C; color: #C9A84C; }
+
+    .credit { font-size: 12px; color: #aeaeb2; margin-top: 16px; text-align: center; }
+      .pv-vid{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:16/9;margin:6px 0 22px;cursor:pointer;box-shadow:0 14px 34px -14px rgba(232,98,42,.55)}
+    .pv-vid video{display:block;width:100%;height:100%;object-fit:cover}
+    .pv-snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Mr.IA · Arnaud Aka</div>
+
+  <!-- FORM -->
+  <div id="form-section">
+    <div class="pv-vid" onclick="var v=this.querySelector('video');v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.loop=false}v.play();this.querySelector('.pv-snd').style.display=v.muted?'':'none'">
+      <video autoplay muted loop playsinline preload="auto" poster="https://lesagentiques.netlify.app/club/poster.jpg?v=2"><source src="https://lesagentiques.netlify.app/club/lancement.mp4?v=2" type="video/mp4"></video>
+      <span class="pv-snd">🔊 Touche pour le son</span>
+    </div>
+    <h1>Claude a un mode secret<br><em>pour ton cerveau ADHD</em></h1>
+    <p class="subtitle">7 prompts pour hacker ta dopamine et finir une semaine de boulot en 4h. Pour recevoir le tuto, entre ton email : les 7 prompts complets se débloquent juste en dessous, prêts à coller dans Claude.</p>
+    <div class="stat">⚡ Gratuit · Prêts à coller · Accès immédiat</div>
+    <form id="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" id="email-input" placeholder="ton@email.com" required autocomplete="email" />
+      <button type="submit" class="btn-primary" id="submit-btn">Débloquer les 7 prompts →</button>
+    </form>
+  </div>
+
+  <!-- CONFIRM -->
+  <div id="confirm-section">
+    <div class="confirm-header">
+      <span class="check-icon">🧠</span>
+      <p class="confirm-title">Les 7 prompts ADHD</p>
+      <p class="confirm-intro">Les voici, complets. Clique sur "Copier" et colle directement dans Claude. Pas de setup, pas d'outil externe — juste Claude et ton cerveau qui cartonne.</p>
+    </div>
+
+    <div class="result-stat">
+      <div class="result-num">4H</div>
+      <div class="result-sep"></div>
+      <div class="result-text-wrap">
+        <div class="result-label">= une semaine de boulot</div>
+        <div class="result-sublabel">avec les 7 prompts ADHD dans Claude</div>
+      </div>
+    </div>
+
+    <div class="obtenir-box">
+      <div class="obtenir-title">Ce que ces 7 prompts font pour toi</div>
+      <div class="obtenir-list">
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Vident ton cerveau de toutes les "boucles ouvertes"</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Créent un menu dopamine calibré pour ton énergie du moment</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Simulent un partenaire de travail qui te check toutes les 10 min</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Transforment les tâches chiantes en quêtes gamifiées</div>
+        <div class="obtenir-item"><span class="obtenir-dot">→</span> Calculent des deadlines réalistes (fini le "ça prend 20 min")</div>
+      </div>
+    </div>
+
+    <div class="prompts-list">
+
+      <div class="prompt-card">
+        <div class="prompt-num">1</div>
+        <div class="prompt-body">
+          <div class="prompt-name">L'externalisateur de fonctions exécutives</div>
+          <div class="prompt-desc">Tu listes tout ce qui tourne dans ta tête. Claude classe : Maintenant / Plus tard / Poubelle. Une seule action concrète pour commencer.</div>
+          <div class="prompt-tag">🧹 Vide ton cerveau en 30 sec</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">2</div>
+        <div class="prompt-body">
+          <div class="prompt-name">L'architecte du menu dopamine</div>
+          <div class="prompt-desc">Claude crée un menu d'activités calibré pour TON cerveau : 5 min de mouvement, 20 min de deep work, 10 min de jeu créatif.</div>
+          <div class="prompt-tag">⚡ Cerveau engagé non-stop</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">3</div>
+        <div class="prompt-body">
+          <div class="prompt-name">Le simulateur de body doubling</div>
+          <div class="prompt-desc">Claude devient ton partenaire de travail virtuel. Il te check toutes les 10 minutes pour maintenir ton attention ancrée. Ça paraît con — ça marche vraiment.</div>
+          <div class="prompt-tag">🤝 Attention maintenue</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">4</div>
+        <div class="prompt-body">
+          <div class="prompt-name">Le guide de changement de contexte</div>
+          <div class="prompt-desc">Cerveau bloqué entre deux tâches ? Claude conçoit une routine mentale de 3 minutes pour switcher sans perte d'énergie.</div>
+          <div class="prompt-tag">🔄 Zéro perte d'énergie</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">5</div>
+        <div class="prompt-body">
+          <div class="prompt-name">Le filtre basé sur les intérêts</div>
+          <div class="prompt-desc">La tâche chiante devient une quête. Claude la connecte à ton hyperfixation du moment et crée une structure de récompense pour avancer.</div>
+          <div class="prompt-tag">🎮 Tâche = jeu</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">6</div>
+        <div class="prompt-body">
+          <div class="prompt-name">L'auditeur de cécité temporelle</div>
+          <div class="prompt-desc">"Ça prend 20 min" mais en vrai 2h. Claude identifie les 3 sous-tâches cachées que tu oublies toujours — pour des deadlines enfin réalistes.</div>
+          <div class="prompt-tag">⏱ Deadline réaliste</div>
+        </div>
+      </div>
+
+      <div class="prompt-card">
+        <div class="prompt-num">7</div>
+        <div class="prompt-body">
+          <div class="prompt-name">Le déclencheur de démarrage</div>
+          <div class="prompt-desc">Tu sais quoi faire mais tu ne commences pas. Claude identifie le micro-obstacle qui bloque le démarrage et te donne une seule action de 2 minutes.</div>
+          <div class="prompt-tag">🚀 De zéro à en action</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prompt-label" style="text-align:center; margin-bottom:16px; font-size:13px;">💬 Les 7 prompts complets — clique pour copier</div>
+
+    <!-- PROMPT 1 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">1</div><div class="prompt-full-name">L'externalisateur de fonctions exécutives</div></div>
+      <div class="prompt-full-tagline">Vide ton cerveau en 30 secondes</div>
+      <div class="prompt-full-text" id="p1">Mon cerveau est plein de "boucles ouvertes".
+Je vais lister tout ce qui me préoccupe.
+Classe ces éléments en "Maintenant", "Plus tard" et "Poubelle",
+puis écris une seule phrase de "prochaine action concrète"
+uniquement pour les éléments "Maintenant".
+<span class="ph">[Tu listes tout ce qui tourne dans ta tête]</span></div>
+      <button class="btn-copy" onclick="copyPrompt('p1', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> dès le matin, avant de commencer à bosser. Ou quand tu te sens paralysé face à 15 choses à faire.</div>
+    </div>
+
+    <!-- PROMPT 2 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">2</div><div class="prompt-full-name">L'architecte du menu dopamine</div></div>
+      <div class="prompt-full-tagline">Cerveau engagé non-stop</div>
+      <div class="prompt-full-text" id="p2">Je suis en mode ADHD aujourd'hui. Mon niveau d'énergie est <span class="ph">[faible/moyen/élevé]</span>.
+Mes tâches à faire sont : <span class="ph">[liste tes tâches]</span>.
+Crée-moi un "menu dopamine" : un planning séquencé qui alterne
+des micro-récompenses entre les blocs de travail.
+Format : blocs de 20 minutes de travail, 5 minutes de mouvement,
+10 minutes de créativité. Adapte selon mon énergie du moment.</div>
+      <button class="btn-copy" onclick="copyPrompt('p2', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> quand tu as du mal à maintenir l'attention sur une longue période.</div>
+    </div>
+
+    <!-- PROMPT 3 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">3</div><div class="prompt-full-name">Le simulateur de body doubling</div></div>
+      <div class="prompt-full-tagline">Attention maintenue</div>
+      <div class="prompt-full-text" id="p3">Tu vas jouer le rôle de mon partenaire de travail virtuel.
+Je commence à travailler sur : <span class="ph">[décris ta tâche]</span>.
+Durée prévue : <span class="ph">[X minutes]</span>.
+Check avec moi toutes les 10 minutes.
+À chaque check-in, pose-moi 2 questions :
+1. Où en es-tu sur ta tâche ?
+2. Quel est ton prochain micro-objectif pour les 10 prochaines minutes ?
+Si je dévie, rappelle-moi gentiment ce sur quoi je travaille.
+On commence. Lance le premier check-in.</div>
+      <button class="btn-copy" onclick="copyPrompt('p3', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> pour les tâches longues ou chiantes. Body doubling = travailler "en présence" de quelqu'un. Ça paraît con. Ça marche vraiment.</div>
+    </div>
+
+    <!-- PROMPT 4 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">4</div><div class="prompt-full-name">Le guide de changement de contexte</div></div>
+      <div class="prompt-full-tagline">Zéro perte d'énergie entre deux tâches</div>
+      <div class="prompt-full-text" id="p4">Je viens de terminer <span class="ph">[tâche A]</span> et je dois passer à <span class="ph">[tâche B]</span>.
+Mon cerveau a du mal à switcher entre ces deux contextes très différents.
+Crée-moi une routine de transition mentale de 3 minutes maximum
+qui inclut : un exercice de respiration, une phrase d'intention,
+et une action physique symbolique pour "fermer" la première tâche
+et "ouvrir" la seconde.</div>
+      <button class="btn-copy" onclick="copyPrompt('p4', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> entre deux tâches qui n'ont rien à voir. Meeting → rédaction, appel client → comptabilité, etc.</div>
+    </div>
+
+    <!-- PROMPT 5 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">5</div><div class="prompt-full-name">Le filtre basé sur les intérêts</div></div>
+      <div class="prompt-full-tagline">La tâche chiante devient une quête</div>
+      <div class="prompt-full-text" id="p5">J'ai cette tâche à faire que je repousse depuis <span class="ph">[X jours]</span> : <span class="ph">[décris la tâche]</span>.
+Ce que j'aime par-dessus tout en ce moment : <span class="ph">[ton hyperfixation du moment]</span>.
+Reformule cette tâche comme une quête ou un défi qui connecte
+ce que j'aime avec ce que je dois faire.
+Crée ensuite un système de récompense à 3 niveaux :
+- Récompense immédiate après 20 minutes de travail dessus
+- Récompense intermédiaire à mi-tâche
+- Récompense finale à la completion</div>
+      <button class="btn-copy" onclick="copyPrompt('p5', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> pour les tâches que tu repousses depuis des jours (procrastination chronique).</div>
+    </div>
+
+    <!-- PROMPT 6 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">6</div><div class="prompt-full-name">L'auditeur de cécité temporelle</div></div>
+      <div class="prompt-full-tagline">Des deadlines enfin réalistes</div>
+      <div class="prompt-full-text" id="p6">Je dois accomplir cette tâche : <span class="ph">[décris la tâche]</span>.
+Je pense que ça prend <span class="ph">[X minutes/heures]</span>.
+Analyse cette estimation. Identifie les 3 à 5 sous-tâches cachées
+que je n'ai probablement pas prises en compte.
+Donne-moi une estimation réaliste du temps total.
+Puis découpe la tâche en blocs de 25 minutes avec une pause de 5 minutes
+entre chaque bloc. Identifie aussi le moment probable où je vais
+vouloir abandonner et comment l'anticiper.</div>
+      <button class="btn-copy" onclick="copyPrompt('p6', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> avant chaque tâche importante pour éviter la sous-estimation chronique (le classique "ça prend 20 minutes" qui en prend 2 heures).</div>
+    </div>
+
+    <!-- PROMPT 7 -->
+    <div class="prompt-full">
+      <div class="prompt-full-head"><div class="prompt-full-num">7</div><div class="prompt-full-name">Le déclencheur de démarrage</div></div>
+      <div class="prompt-full-tagline">De zéro à en action en 2 minutes</div>
+      <div class="prompt-full-text" id="p7">Je sais exactement quoi faire mais je n'arrive pas à commencer : <span class="ph">[décris la tâche]</span>.
+Voici comment je me sens en ce moment : <span class="ph">[décris ton état : anxieux, submergé, fatigué, distrait...]</span>.
+Identifie le micro-obstacle précis qui bloque mon démarrage
+(peur de l'échec, tâche trop vague, manque d'énergie, environnement non-optimal...).
+Puis donne-moi UNE SEULE action de maximum 2 minutes
+pour briser l'inertie et commencer.
+Rien de plus. Juste la première action.</div>
+      <button class="btn-copy" onclick="copyPrompt('p7', this)">📋 Copier le prompt</button>
+      <div class="prompt-when"><strong>Quand l'utiliser :</strong> quand tu es en mode "je tourne autour" sans jamais commencer.</div>
+    </div>
+
+    <!-- ORDRE OPTIMAL -->
+    <div class="ordre-box">
+      <div class="ordre-title">📋 L'ordre optimal pour une journée de feu</div>
+      <div class="ordre-item"><span class="ordre-step">Matin :</span> Prompt 1 → vide le cerveau</div>
+      <div class="ordre-item"><span class="ordre-step">Début de session :</span> Prompt 2 → crée ton menu dopamine</div>
+      <div class="ordre-item"><span class="ordre-step">Pendant le travail :</span> Prompt 3 → body doubling actif</div>
+      <div class="ordre-item"><span class="ordre-step">Entre deux tâches :</span> Prompt 4 → transition propre</div>
+      <div class="ordre-item"><span class="ordre-step">Tâche repoussée :</span> Prompt 5 → gamification</div>
+      <div class="ordre-item"><span class="ordre-step">Avant une grosse tâche :</span> Prompt 6 → estimation réaliste</div>
+      <div class="ordre-item"><span class="ordre-step">Blocage de démarrage :</span> Prompt 7 → anti-procrastination</div>
+    </div>
+
+    <div class="divider">Tu veux aller plus loin ?</div>
+
+    <!-- 50 Spécialistes IA -->
+    <div class="specialistes-box">
+      <div class="specialistes-glow"></div>
+      <div class="specialistes-badge">⭐ NOUVEAU</div>
+      <div class="specialistes-stars">★★★★★</div>
+      <div class="specialistes-rating">4.9 · Entrepreneurs francophones</div>
+      <div class="specialistes-title">Transformez Claude en une<br><em>équipe IA haute performance</em></div>
+      <div class="specialistes-desc">70 spécialistes autonomes à installer dans Claude. Un pour chaque partie de ton business — ils bossent en automatique sur des workflows complets.</div>
+      <div class="specialistes-grid">
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">🧠</div>
+          <div class="specialistes-item-label">Productivité</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">🎯</div>
+          <div class="specialistes-item-label">Stratège business</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">✍️</div>
+          <div class="specialistes-item-label">Copywriter</div>
+        </div>
+        <div class="specialistes-item">
+          <div class="specialistes-item-icon">📱</div>
+          <div class="specialistes-item-label">Réseaux sociaux</div>
+        </div>
+      </div>
+      <a href="https://70-specialistes-ia.netlify.app" target="_blank" class="btn-specialistes">Découvrir les 70 spécialistes →</a>
+      <div class="specialistes-note">Un paiement unique · Pas d'abonnement · Résultats dès le premier message</div>
+    </div>
+
+    <!-- Skool community -->
+    <div class="skool-box">
+      <div class="skool-badge">🟢 COMMUNAUTÉ GRATUITE</div>
+      <div class="skool-title">Rejoins le <em>Claude Business Lab</em></div>
+      <div class="skool-desc">Une communauté d'entrepreneurs qui intègrent Claude dans leur business. On partage nos réussites, nos workflows, nos astuces. Je poste des tutos et des vidéos de formation en accès direct.</div>
+      <div class="skool-checks">
+        <div class="skool-check">✓ Workflows concrets partagés chaque semaine</div>
+        <div class="skool-check">✓ Vidéos de formation exclusives</div>
+        <div class="skool-check">✓ Entraide entre entrepreneurs qui avancent</div>
+      </div>
+      <a href="https://www.skool.com/claude-business-lab-5890" target="_blank" class="btn-skool">Rejoindre la communauté gratuite →</a>
+      <div class="skool-note">Accès gratuit · Communauté privée · Arnaud présent</div>
+    </div>
+
+    <!-- Audit box -->
+    <div class="audit-box">
+      <div class="audit-badge">⚡ ON AUTOMATISE TOUTE TA BOÎTE</div>
+      <div class="audit-title">Tes process. Ton contenu. Ta prospection.</div>
+      <div class="audit-desc">Tu passes encore des heures sur des tâches que Claude pourrait faire en 2 minutes ? On cartographie ensemble ce qui peut être automatisé dans ton business, et on met ça en place.</div>
+      <a href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" class="btn-audit">📞 Réserver un audit gratuit →</a>
+      <a href="https://wa.me/33786940245" target="_blank" class="btn-whatsapp">💬 Me contacter sur WhatsApp</a>
+    </div>
+
+    <a href="https://www.instagram.com/monsieur.ia.2.1" target="_blank" class="btn-secondary">Suivre @monsieur.ia.2.1</a>
+
+    <p class="credit">Mr.IA · Arnaud Aka · @monsieur.ia.2.1</p>
+  </div>
+</div>
+
+<script>
+  const WEB3FORMS_KEY = '038b1035-ecbd-4506-bd90-5a6421828169';
+  const STORAGE_KEY = 'mia_email_submitted';
+
+  // Migration clé ancienne page adhd
+  if (localStorage.getItem('mia_adhd_submitted')) {
+    localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  if (localStorage.getItem(STORAGE_KEY)) {
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+  }
+
+  function copyPrompt(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    const done = () => {
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '✓ Copié !';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (_) {}
+    document.body.removeChild(ta);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nouveau lead — Guide ADHD Claude',
+          replyto: email,
+          message: 'Nouveau lead depuis maitrise-ia.vercel.app/adhd\nEmail : ' + email
+        })
+      });
+    } catch (_) {}
+
+    localStorage.setItem(STORAGE_KEY, '1');
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('confirm-section').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+<script src="/club.js" defer></script>
+</body>
+</html>

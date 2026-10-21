@@ -53,10 +53,28 @@
   // Carte : remplace l'ancien bloc .club s'il existe, sinon se place après le contenu du tuto
   var card = document.createElement("div");
   card.className = "cdac"; card.id = "club-agentiques";
+  // Placement : juste après la fin du tuto, AVANT les blocs « Tu veux aller plus loin ? » (70 Spécialistes, Skool, Calendly, OpenBound…)
+  var all = document.body.getElementsByTagName("*"), N = all.length || 1, idx = new Map();
+  for (var ii = 0; ii < all.length; ii++) idx.set(all[ii], ii);
+  function late(el) { return (idx.get(el) || 0) / N > 0.45; }
+  function blockOf(el) {
+    var sec = el.closest("section");
+    if (sec && sec.parentNode !== document.body && sec.getElementsByTagName("*").length < N * 0.25) return sec;
+    var b = el; while (b.parentElement && b.parentElement !== document.body && b.parentElement.children.length === 1) b = b.parentElement;
+    return b;
+  }
+  var cands = [];
+  [].forEach.call(document.querySelectorAll("div,p,span,h2,h3,h4"), function (el) {
+    var t = (el.textContent || "").trim();
+    if (t.length < 60 && el.children.length === 0 && /^(tu veux aller plus loin|pour aller plus loin|aller plus vite|envie d'aller plus loin)/i.test(t)) cands.push(el);
+  });
+  [].forEach.call(document.querySelectorAll('[class*="specialistes"],a[href*="70-specialistes"],a[href*="skool.com"],a[href*="calendly.com"],a[href*="openbound"],a[href*="closeia"]'), function (el) { if (late(el)) cands.push(el); });
   var old = document.querySelector("a.club");
-  if (old) {
-    var sec = old.closest("section"); var tgt = (sec && sec.children.length === 1) ? sec : old;
-    tgt.parentNode.replaceChild(card, tgt);
+  if (old) { var os = old.closest("section"); (os && os.children.length === 1 ? os : old).remove(); }
+  cands = cands.filter(function (el) { return document.body.contains(el); });
+  cands.sort(function (x, y) { return x.compareDocumentPosition(y) & 4 ? -1 : 1; });
+  if (cands.length) {
+    var blk = blockOf(cands[0]); blk.parentNode.insertBefore(card, blk);
   } else {
     var secs = document.querySelectorAll("section"), last = secs.length ? secs[secs.length - 1] : null;
     if (last && last.parentNode && last.parentNode !== document.body) {
@@ -132,7 +150,7 @@
   document.body.appendChild(bar);
   function hideBar() { bar.classList.remove("on"); setTimeout(function () { bar.remove(); }, 500); }
   bar.querySelector("a.go").addEventListener("click", function (e) {
-    e.preventDefault(); card.scrollIntoView({ behavior: "smooth", block: "start" });
+    e.preventDefault(); if (card.offsetParent === null) { window.open(QUIZ, "_blank", "noopener"); return; } card.scrollIntoView({ behavior: "smooth", block: "start" });
     var i = card.querySelector("input"); if (i) setTimeout(function () { i.focus({ preventScroll: true }); }, 600);
   });
   bar.querySelector("button").addEventListener("click", function () { try { sessionStorage.setItem("cdab-x", "1"); } catch (e) {} hideBar(); });
