@@ -1,41 +1,63 @@
-/* Promo « Le Club des Agentiques » — injectée sur toutes les pages tutos.
+/* Promo « Le Club des Agentiques » — injectée sur toutes les pages tutos (v2, zéro friction).
    À inclure avant </body> : <script src="/club.js" defer></script>
-   Ajoute : 1) une barre fixe en bas de l'écran (fermable), 2) une carte en fin de tuto
-   si la page n'a pas déjà son propre bloc .club. Aucun prix affiché : il se découvre à la fin du quiz. */
+   - Carte en fin de tuto : vidéo de lancement + réservation de place en 1 clic, sans quitter la page.
+     Si la page a déjà capté l'email (mur email du tuto), le bouton réserve directement avec cet email.
+   - Barre fixe en bas : fait défiler jusqu'à la carte.
+   - Les inscriptions arrivent dans Netlify Forms « club-attente » (site lesagentiques), comme celles du quiz.
+   Aucun prix affiché : il se découvre à la fin du quiz. */
 (function () {
   if (window.__clubPromo) return; window.__clubPromo = true;
+  var SITE = "https://lesagentiques.netlify.app";
   var page = (location.pathname.replace(/^\/|\.html$/g, "").replace(/\//g, "-")) || "accueil";
-  var URL = "https://lesagentiques.netlify.app/club/?src=" + encodeURIComponent(page) + "#quiz";
+  var QUIZ = SITE + "/club/?src=" + encodeURIComponent(page) + "#quiz";
+  var K_MAIL = "cdab-email", K_DONE = "cdab-reserve";
+  function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var okMail = function (m) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m || ""); };
+
+  // Retient l'email tapé dans le mur email du tuto (aucun envoi, juste pour pré-remplir la réservation)
+  document.addEventListener("change", function (e) {
+    var t = e.target; if (t && t.type === "email" && !t.closest(".cdac") && okMail(t.value.trim())) { ls(K_MAIL, t.value.trim()); render(); }
+  }, true);
 
   var css = ""
     + ".cdab{position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483000;display:flex;align-items:center;gap:12px;"
     + "max-width:640px;margin:0 auto;padding:10px 10px 10px 16px;border-radius:18px;background:#14110F;color:#F5EFE6;"
     + "border:1px solid rgba(232,98,42,.55);box-shadow:0 18px 40px -12px rgba(0,0,0,.55),0 0 0 4px rgba(232,98,42,.08);"
-    + "font:500 14px/1.3 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}"
+    + "font:500 14px/1.3 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.8,.2,1);text-align:left}"
     + ".cdab.on{transform:none}"
     + ".cdab .sp{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#F7A35C,#E8622A);color:#fff;font-size:16px}"
     + ".cdab .tx{flex:1;min-width:0}.cdab .tx b{display:block;font-size:14px;font-weight:800}.cdab .tx small{display:block;font-size:12px;color:#B9AFA3;margin-top:1px}"
     + ".cdab a.go{flex:none;text-decoration:none;font-weight:800;font-size:14px;color:#140E0A;background:linear-gradient(90deg,#F7A35C,#E8622A);padding:11px 14px;border-radius:12px;white-space:nowrap}"
     + ".cdab button{flex:none;background:none;border:0;color:#8A8077;font-size:20px;line-height:1;padding:4px 6px;cursor:pointer}"
     + "@media (max-width:420px){.cdab .tx small{display:none}.cdab a.go{padding:10px 12px}}"
-    + ".cdac{display:block;text-decoration:none;color:#F5EFE6;margin:36px auto;max-width:760px;border-radius:22px;padding:26px;"
+    + ".cdac{display:block;color:#F5EFE6;margin:36px auto;max-width:760px;width:100%;box-sizing:border-box;border-radius:22px;padding:22px;text-align:left;"
     + "background:radial-gradient(120% 140% at 100% 0%,rgba(232,98,42,.28),rgba(232,98,42,0) 60%),#14110F;border:1px solid rgba(232,98,42,.5);"
-    + "font:400 15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;box-sizing:border-box;width:100%}"
+    + "font:400 15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;scroll-margin-top:20px}"
+    + ".cdac *{box-sizing:border-box}"
     + ".cdac .tg{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#F7A35C;border:1px solid rgba(247,163,92,.45);padding:5px 10px;border-radius:99px}"
-    + ".cdac h3{font-size:24px;line-height:1.2;margin:14px 0 8px;color:#fff;font-weight:800}"
-    + ".cdac p{margin:0 0 16px;color:#D9D1C7}"
-    + ".cdac .go{display:inline-block;font-weight:800;color:#140E0A;background:linear-gradient(90deg,#F7A35C,#E8622A);padding:13px 18px;border-radius:14px}";
+    + ".cdac h3{font-size:23px;line-height:1.2;margin:12px 0 6px;color:#fff;font-weight:800}"
+    + ".cdac p{margin:0 0 14px;color:#D9D1C7;font-size:15px}"
+    + ".cdac .vw{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;margin:4px 0 16px;cursor:pointer}"
+    + ".cdac video{display:block;width:100%;height:100%;object-fit:cover}"
+    + ".cdac .snd{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;pointer-events:none}"
+    + ".cdac form{display:flex;gap:8px;flex-wrap:wrap;margin:0}"
+    + ".cdac input{flex:1 1 200px;min-width:0;height:50px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:#1E1A17;color:#fff;padding:0 14px;font:inherit;font-size:16px}"
+    + ".cdac button.rs{flex:1 1 200px;height:50px;border:0;border-radius:14px;cursor:pointer;font:800 15px Inter,system-ui,sans-serif;color:#140E0A;background:linear-gradient(90deg,#F7A35C,#E8622A)}"
+    + ".cdac button.rs:disabled{opacity:.6;cursor:default}"
+    + ".cdac .sm{display:block;margin-top:9px;font-size:12.5px;color:#9C9187}.cdac .sm a{color:#F7A35C;cursor:pointer;text-decoration:underline}"
+    + ".cdac .ok{font-size:15px;color:#86EFAC;font-weight:600;margin:0 0 10px}"
+    + ".cdac a.qz{display:inline-block;color:#F7A35C;font-weight:800;text-decoration:none}";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
-  // 1) Carte en fin de tuto (sauf si la page a déjà son bloc Club)
-  if (!document.querySelector('a.club, a[href*="lesagentiques.netlify.app/club"]')) {
-    var card = document.createElement("a");
-    card.className = "cdac"; card.href = URL; card.target = "_blank"; card.rel = "noopener";
-    card.innerHTML = '<span class="tg">Liste d\'attente · places fondateurs</span>'
-      + "<h3>Tu as aimé ce tuto ? Le Club des Agentiques arrive.</h3>"
-      + "<p>La formation + communauté pour faire bosser Claude dans ton business, avec des workflows prêts à importer, puis apprendre à le vendre. Fais le quiz de 45 secondes : ton plan sur mesure et ton prix fondateur s'affichent à la fin.</p>"
-      + '<span class="go">Faire le quiz et réserver ma place →</span>';
-    // Place la carte dans le conteneur principal du tuto (jamais comme enfant direct d'un body en flex/grid)
+  // Carte : remplace l'ancien bloc .club s'il existe, sinon se place après le contenu du tuto
+  var card = document.createElement("div");
+  card.className = "cdac"; card.id = "club-agentiques";
+  var old = document.querySelector("a.club");
+  if (old) {
+    var sec = old.closest("section"); var tgt = (sec && sec.children.length === 1) ? sec : old;
+    tgt.parentNode.replaceChild(card, tgt);
+  } else {
     var secs = document.querySelectorAll("section"), last = secs.length ? secs[secs.length - 1] : null;
     if (last && last.parentNode && last.parentNode !== document.body) {
       last.parentNode.insertBefore(card, last.nextSibling);
@@ -50,19 +72,73 @@
     }
   }
 
-  // 2) Barre fixe en bas (fermée = cachée pour la session)
+  card.innerHTML = '<span class="tg">Places fondateurs · prévente le 2 novembre</span>'
+    + "<h3>Tu as aimé ce tuto ? Le Club des Agentiques arrive.</h3>"
+    + "<p>La formation + communauté pour faire bosser Claude dans ton business, avec des workflows prêts à importer, puis apprendre à le vendre.</p>"
+    + '<div class="vw"><video muted playsinline loop preload="none" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><span class="snd">🔊 Touche pour le son</span></div>'
+    + '<div class="act"></div>';
+  var vid = card.querySelector("video"), vw = card.querySelector(".vw");
+  vw.addEventListener("click", function () {
+    vid.muted = !vid.muted; if (!vid.muted) { vid.currentTime = 0; vid.loop = false; }
+    vid.play().catch(function () {}); card.querySelector(".snd").style.display = vid.muted ? "" : "none";
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (en) { en.forEach(function (x) {
+      if (x.isIntersecting) vid.play().catch(function () {}); else vid.pause(); }); }, { threshold: 0.5 }).observe(vw);
+  }
+
+  function reserve(email, btn) {
+    btn.disabled = true; btn.textContent = "Réservation…";
+    var d = { "form-name": "club-attente", email: email, prenom: "", objectif: "Inscrit depuis le tuto « " + page + " »", formule: "Réservée depuis le tuto « " + page + " » (quiz non fait)" };
+    var body = Object.keys(d).map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(d[k]); }).join("&");
+    fetch(SITE + "/", { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
+      .catch(function () {}).then(function () { ls(K_MAIL, email); ls(K_DONE, "1"); render(); });
+  }
+
+  function render() {
+    var act = card.querySelector(".act"), mail = ls(K_MAIL);
+    if (ls(K_DONE) === "1") {
+      act.innerHTML = '<p class="ok">✓ Ta place est réservée. Le lundi 2 novembre à 9h, tu reçois ton lien de prévente avant tout le monde.</p>'
+        + '<a class="qz" href="' + QUIZ + '" target="_blank" rel="noopener">Découvre ton plan sur mesure et ton prix fondateur (45 s) →</a>';
+      return;
+    }
+    if (okMail(mail)) {
+      act.innerHTML = '<form><button class="rs" type="submit">Réserver ma place →</button></form>'
+        + '<span class="sm">Avec ' + esc(mail) + ' · <a data-chg>changer</a> · Gratuit, sans engagement</span>';
+      act.querySelector("[data-chg]").onclick = function () { try { localStorage.removeItem(K_MAIL); } catch (e) {} render(); };
+      act.querySelector("form").onsubmit = function (e) { e.preventDefault(); reserve(mail, act.querySelector("button")); };
+    } else {
+      act.innerHTML = '<form><input type="email" inputmode="email" autocomplete="email" placeholder="ton@email.com" aria-label="Ton email" required>'
+        + '<button class="rs" type="submit">Réserver ma place →</button></form>'
+        + '<span class="sm">Gratuit, sans engagement · ou <a href="' + QUIZ + '" target="_blank" rel="noopener">fais le quiz pour ton plan sur mesure</a></span>';
+      act.querySelector("form").onsubmit = function (e) {
+        e.preventDefault(); var v = act.querySelector("input").value.trim();
+        if (!okMail(v)) { act.querySelector("input").focus(); return; }
+        reserve(v, act.querySelector("button"));
+      };
+    }
+  }
+  render();
+
+  // Barre fixe en bas : amène à la carte (même page, zéro changement d'onglet)
   var closed = false; try { closed = sessionStorage.getItem("cdab-x") === "1"; } catch (e) {}
-  if (closed) return;
+  if (closed || ls(K_DONE) === "1") return;
   var bar = document.createElement("div");
   bar.className = "cdab"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Le Club des Agentiques");
   bar.innerHTML = '<span class="sp" aria-hidden="true">✦</span>'
     + '<span class="tx"><b>Le Club des Agentiques</b><small>Places fondateurs · prévente le 2 novembre</small></span>'
-    + '<a class="go" href="' + URL + '" target="_blank" rel="noopener">Réserver ma place</a>'
+    + '<a class="go" href="#club-agentiques">Réserver ma place</a>'
     + '<button type="button" aria-label="Fermer">×</button>';
   document.body.appendChild(bar);
-  bar.querySelector("button").addEventListener("click", function () {
-    bar.classList.remove("on"); try { sessionStorage.setItem("cdab-x", "1"); } catch (e) {}
-    setTimeout(function () { bar.remove(); }, 500);
+  function hideBar() { bar.classList.remove("on"); setTimeout(function () { bar.remove(); }, 500); }
+  bar.querySelector("a.go").addEventListener("click", function (e) {
+    e.preventDefault(); card.scrollIntoView({ behavior: "smooth", block: "start" });
+    var i = card.querySelector("input"); if (i) setTimeout(function () { i.focus({ preventScroll: true }); }, 600);
   });
-  setTimeout(function () { bar.classList.add("on"); }, 1200);
+  bar.querySelector("button").addEventListener("click", function () { try { sessionStorage.setItem("cdab-x", "1"); } catch (e) {} hideBar(); });
+  // La barre disparaît quand la carte est à l'écran (pas de doublon)
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (en) { en.forEach(function (x) {
+      if (!document.body.contains(bar)) return; bar.classList.toggle("on", !x.isIntersecting); }); }, { threshold: 0.15 }).observe(card);
+  } else setTimeout(function () { bar.classList.add("on"); }, 1200);
 })();
