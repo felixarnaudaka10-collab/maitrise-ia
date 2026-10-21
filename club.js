@@ -10,6 +10,7 @@
   var SITE = "https://lesagentiques.netlify.app";
   var page = (location.pathname.replace(/^\/|\.html$/g, "").replace(/\//g, "-")) || "accueil";
   var QUIZ = SITE + "/club/?src=" + encodeURIComponent(page) + "#quiz";
+  function quizUrl(m) { return SITE + "/club/?src=" + encodeURIComponent(page) + (m ? "&email=" + encodeURIComponent(m) : "") + "#quiz"; }
   var K_MAIL = "cdab-email", K_DONE = "cdab-reserve";
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -126,29 +127,29 @@
   });
 
   function reserve(email, btn) {
-    btn.disabled = true; btn.textContent = "Réservation…";
+    btn.disabled = true; btn.textContent = "Ouverture de ton plan…";
     var d = { "form-name": "club-attente", email: email, prenom: "", objectif: "Inscrit depuis le tuto « " + page + " »", formule: "Réservée depuis le tuto « " + page + " » (quiz non fait)" };
     var body = Object.keys(d).map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(d[k]); }).join("&");
     fetch(SITE + "/", { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
-      .catch(function () {}).then(function () { ls(K_MAIL, email); ls(K_DONE, "1"); render(); });
+      .catch(function () {}).then(function () { ls(K_MAIL, email); ls(K_DONE, "1"); location.href = quizUrl(email); });
   }
 
   function render() {
     var act = card.querySelector(".act"), mail = ls(K_MAIL);
     if (ls(K_DONE) === "1") {
-      act.innerHTML = '<p class="ok">✓ Place bloquée. Accès anticipé : 27 €/mois bloqué à vie (47 €/mois à l\'ouverture le 9 novembre).</p>'
-        + '<a class="qz" href="' + QUIZ + '" target="_blank" rel="noopener">Voir mon plan et prendre ma place à 27 € →</a>';
+      act.innerHTML = '<p class="ok">Accès anticipé : 27 €/mois bloqué à vie (47 €/mois à l\'ouverture le 9 novembre).</p>'
+        + '<a class="qz" href="' + quizUrl(ls(K_MAIL)) + '">Faire mon plan (45 s) et prendre ma place à 27 € →</a>';
       return;
     }
     if (okMail(mail)) {
-      act.innerHTML = '<form><button class="rs" type="submit">Réserver ma place →</button></form>'
+      act.innerHTML = '<form><button class="rs" type="submit">Voir mon plan et mon prix →</button></form>'
         + '<span class="sm">Avec ' + esc(mail) + ' · <a data-chg>changer</a> · Gratuit, sans engagement</span>';
       act.querySelector("[data-chg]").onclick = function () { try { localStorage.removeItem(K_MAIL); } catch (e) {} render(); };
       act.querySelector("form").onsubmit = function (e) { e.preventDefault(); reserve(mail, act.querySelector("button")); };
     } else {
       act.innerHTML = '<form><input type="email" inputmode="email" autocomplete="email" placeholder="ton@email.com" aria-label="Ton email" required>'
-        + '<button class="rs" type="submit">Réserver ma place →</button></form>'
-        + '<span class="sm">Gratuit, sans engagement · ou <a href="' + QUIZ + '" target="_blank" rel="noopener">fais le quiz pour ton plan sur mesure</a></span>';
+        + '<button class="rs" type="submit">Voir mon plan et mon prix →</button></form>'
+        + '<span class="sm">Ton plan sur mesure en 45 s · gratuit, sans engagement</span>';
       act.querySelector("form").onsubmit = function (e) {
         e.preventDefault(); var v = act.querySelector("input").value.trim();
         if (!okMail(v)) { act.querySelector("input").focus(); return; }
@@ -171,7 +172,7 @@
     b.addEventListener("click", function () {
       var v = (inp.value || "").trim();
       if (!okMail(v)) { inp.focus(); inp.reportValidity && inp.reportValidity(); return; }
-      ls(K_MAIL, v); b.disabled = true; b.textContent = "Réservation…";
+      ls(K_MAIL, v); window.open(quizUrl(v), "_blank"); b.disabled = true; b.textContent = "Plan ouvert dans un nouvel onglet ✓";
       var d = { "form-name": "club-attente", email: v, prenom: "", objectif: "Inscrit depuis le mur email du tuto « " + page + " »", formule: "Réservée depuis le tuto « " + page + " » (quiz non fait)" };
       fetch(SITE + "/", { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: Object.keys(d).map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(d[k]); }).join("&") }).catch(function () {});
