@@ -213,3 +213,12 @@
       if (!document.body.contains(bar)) return; cardSeen = x.isIntersecting; syncBar(); }); }, { threshold: 0.15 }).observe(card);
   } else setTimeout(syncBar, 1200);
 })();
+
+/* Flèche « Reçois le guide gratuit » : vers le formulaire, ou directement vers le tuto s'il est déjà débloqué */
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest(".ag-down"); if (!a) return;
+  e.preventDefault();
+  var w = document.getElementById("wall");
+  var t = (w && w.offsetParent !== null) ? w : (document.getElementById("content") || document.querySelector(".step"));
+  if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+});
