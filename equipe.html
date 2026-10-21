@@ -157,5 +157,6 @@ h2{font-size:27px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 <script>
 document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){navigator.clipboard.writeText(b.getAttribute('data-c')).then(function(){var c=document.getElementById('copied');c.classList.add('show');setTimeout(function(){c.classList.remove('show');},1600);});});});
 </script>
+<script src="/club.js" defer></script>
 </body>
 </html>

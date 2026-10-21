@@ -155,5 +155,6 @@ Signale-moi les données incohérentes ou manquantes au lieu de les deviner. Le 
   });
   document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
 </script>
+<script src="/club.js" defer></script>
 </body>
 </html>
