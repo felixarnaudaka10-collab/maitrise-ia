@@ -296,7 +296,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
   var PHRASE="Tu maîtrises l'IA, mais pas encore les workflows agentiques. C'est là que se trouve ton plus gros gain de temps.";
 
   var A={},P={},step=0,xp=0,shown=false,segs=$("#segs"),SRC="";
-  try{var u=new URLSearchParams(location.search);SRC=u.get("utm_source")||u.get("src")||"";}catch(e){}
+  var KE="",KP="";
+  try{var u=new URLSearchParams(location.search);SRC=u.get("utm_source")||u.get("src")||"";
+    KE=(u.get("email")||"").trim();KP=(u.get("prenom")||u.get("first_name")||"").trim();
+    if(!/^[^\s@{}]+@[^\s@{}]+\.[^\s@{}]+$/.test(KE))KE="";if(/[{}]/.test(KP))KP="";}catch(e){}
   for(var i=0;i<Q.length;i++){var sp=document.createElement("span");sp.innerHTML="<i></i>";segs.appendChild(sp)}
   function prog(){segs.querySelectorAll("i").forEach(function(el,i){el.style.width=i<step?"100%":(i===step?"35%":"0")})}
   function bump(n){var box=$(".xp"),from=xp,to=xp+n,t0=performance.now();xp=to;var p=document.createElement("span");p.className="xpop";p.textContent="+"+n+" XP";box.appendChild(p);setTimeout(function(){p.remove()},1000);box.classList.add("pulse");setTimeout(function(){box.classList.remove("pulse")},250);(function f(now){var k=Math.min(1,(now-t0)/400);$("#xp").textContent=Math.round(from+(to-from)*k);if(k<1)requestAnimationFrame(f)})(t0)}
@@ -369,16 +372,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
     var tip=TIPS[A.blocage]?'<p class="tip"><b>Ton blocage :</b> '+esc(A.blocage.charAt(0).toLowerCase()+A.blocage.slice(1))+'. '+TIPS[A.blocage]+'</p>':'';
     $("#qbody").innerHTML='<div class="res"><div><span class="mono" style="color:var(--o);font-size:13px">Ton résultat</span><h2 style="text-align:left;margin:10px 0 0;font-size:clamp(32px,4.4vw,52px)">Ton niveau : <em>'+L.n+'</em></h2>'+
       '<div class="lvlcard"><div class="top"><span class="nm">Niveau '+(l+1)+' sur 4</span><span class="sc">Score <b>'+s+'</b> / '+MAX+'</span></div><div class="lvlbar">'+bar+'</div><div class="lvllab">'+lab+'</div><p>'+L.d+'</p></div>'+
-      '<div class="phrase">'+phrase(l)+'</div><a class="cta mjump" href="#wl" style="margin-top:16px;justify-content:space-between">Rejoindre la liste d\'attente '+ARR+'</a>'+
+      '<div class="phrase">'+phrase(l)+'</div><a class="cta mjump" href="#wl" style="margin-top:16px;justify-content:space-between">'+(KE?"Réserver ma place":"Rejoindre la liste d\'attente")+' '+ARR+'</a>'+
       '<h3 class="t" style="margin:34px 0 0;font-size:28px">Ton plan de progression</h3>'+ps+tip+'</div>'+
       '<aside class="pbox" id="wl"><span class="mono" style="color:var(--o);font-size:13px">Le Club des Agentiques · liste d\'attente</span><h3>Passe au niveau suivant <em>avec nous</em>.</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Le Club des Agentiques ouvre bientôt : formation et communauté pour construire tes propres workflows agentiques, étape par étape. Inscris-toi pour être prévenu en premier.</p>'+
-      '<form class="qform" id="lead" novalidate><label for="qp">Ton prénom</label><input id="qp" autocomplete="given-name" placeholder="Ex : Julie" required><label for="qe">Ton email</label><input id="qe" type="email" autocomplete="email" placeholder="julie@exemple.fr" required><p class="qsmall" id="qerr" style="color:#F87171;display:none">Indique ton prénom et un email valide.</p><button class="cta big" type="submit" style="justify-content:space-between;margin-top:6px">Rejoindre la liste d\'attente '+ARR+'</button><p class="qsmall">Seulement les infos du lancement. Désinscription en un clic.</p></form>'+
+      (KE?'<div class="qform" id="lead1"><button class="cta big" type="button" id="oneclick" style="justify-content:space-between;margin-top:6px">Réserver ma place '+ARR+'</button><p class="qsmall">Un clic suffit, on a déjà ton email. Tu seras prévenu en premier à l\'ouverture.</p></div>':'<form class="qform" id="lead" novalidate><label for="qp">Ton prénom</label><input id="qp" autocomplete="given-name" placeholder="Ex : Julie" required><label for="qe">Ton email</label><input id="qe" type="email" autocomplete="email" placeholder="julie@exemple.fr" required><p class="qsmall" id="qerr" style="color:#F87171;display:none">Indique ton prénom et un email valide.</p><button class="cta big" type="submit" style="justify-content:space-between;margin-top:6px">Rejoindre la liste d\'attente '+ARR+'</button><p class="qsmall">Seulement les infos du lancement. Désinscription en un clic.</p></form>')+
       '<ul><li>Accès prioritaire à l\'ouverture</li><li>Ton plan '+L.n.toLowerCase()+' adapté dans le Club</li><li>Des workflows prêts à importer</li></ul></aside></div>';
-    $("#lead").addEventListener("submit",function(e){e.preventDefault();var p=$("#qp").value.trim(),m=$("#qe").value.trim();
+    function joined(p,m){bump(30);$("#wl").innerHTML='<div class="done"><span class="ok2">✓</span><h3>C\'est noté'+(p?', <em>'+esc(p)+'</em>':'')+' !</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Tu es sur la liste d\'attente du Club des Agentiques. Tu recevras les infos du lancement à <b style="color:var(--txt)">'+esc(m)+'</b>.</p><a href="https://www.instagram.com/monsieur.ia.1/" target="_blank" rel="noopener" style="font-weight:700;color:var(--o)">En attendant, suis @monsieur.ia.1 →</a></div>'}
+    if(KE){$("#oneclick").addEventListener("click",function(e){var b=e.currentTarget;b.disabled=true;A.prenom=KP;A.email=KE;send().catch(function(){}).then(function(){joined(KP,KE)})})}
+    else{$("#lead").addEventListener("submit",function(e){e.preventDefault();var p=$("#qp").value.trim(),m=$("#qe").value.trim();
       if(!p||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){$("#qerr").style.display="block";return}
       A.prenom=p;A.email=m;var btn=e.target.querySelector("button");btn.disabled=true;
-      send().catch(function(){}).then(function(){bump(30);$("#wl").innerHTML='<div class="done"><span class="ok2">✓</span><h3>C\'est noté, <em>'+esc(p)+'</em> !</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Tu es sur la liste d\'attente du Club des Agentiques. Tu recevras les infos du lancement à <b style="color:var(--txt)">'+esc(m)+'</b>.</p><a href="https://www.instagram.com/monsieur.ia.1/" target="_blank" rel="noopener" style="font-weight:700;color:var(--o)">En attendant, suis @monsieur.ia.1 →</a></div>'});
-    });
+      send().catch(function(){}).then(function(){joined(p,m)});
+    })}
     $("#quiz").scrollTop=0;
   }
 })();
