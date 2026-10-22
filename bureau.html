@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bureau des agents — Mr.IA</title>
+<meta name="description" content="Installe le Bureau des agents : Claude Code transformé en bureau en pixel art où chaque robot est un vrai agent IA. Gratuit et open source.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+<link rel="stylesheet" href="/agentiques.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="ag-top">
+      <div class="ag-vid"><video autoplay muted loop playsinline preload="metadata" poster="https://lesagentiques.netlify.app/club/poster.jpg?v=2"><source src="https://lesagentiques.netlify.app/club/lancement.mp4?v=2" type="video/mp4"></video><button type="button" class="ag-play" aria-label="Regarder la vidéo avec le son"><span>▶</span> Regarder avec le son</button></div>
+      <a class="ag-club" href="https://lesagentiques.netlify.app/club/?src=bureau#quiz" target="_blank" rel="noopener"><span>✦</span> Réserver ma place au Club des Agentiques →</a>
+      <div class="ag-open">Prévente ouverte · places fondateurs</div>
+    </div>
+    <div class="pill">● Le guide de la vidéo · Bureau</div>
+    <h1>Claude Code transformé en <em>bureau d'agents</em>.</h1>
+    <p class="lede">Un bureau en pixel art où chaque petit robot est un vrai agent Claude Code. Tu donnes une mission au chef, il recrute son équipe et tu regardes tout le monde bosser. Gratuit et open source.</p>
+    <a class="ag-down" href="#wall">↓ Reçois le guide gratuit</a>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois le guide d'installation</h2>
+      <p>Entre ton email pour débloquer l'installation en 2 minutes, la mission à copier et les raccourcis pour filmer.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer le guide →</button></form>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Avant de commencer</div>
+      <h2 class="st">Ce qu'il te faut.</h2>
+      <div class="grid2">
+        <div class="fact">Claude Code installé<span>Avec un abonnement Claude Pro ou Max</span></div>
+        <div class="fact">Node.js 22 ou plus<span>nodejs.org, version LTS</span></div>
+        <div class="fact">Un Mac (testé dessus)<span>Le bureau tourne en local sur ton ordi</span></div>
+        <div class="fact">Environ 2 à 3 % de ta limite de 5 h<span>Pour une mission de 7 agents</span></div>
+      </div>
+    </section>
+    <section>
+      <div class="kicker">Installation</div>
+      <h2 class="st">Le plus simple : Claude l'installe pour toi.</h2>
+      <div class="step"><div class="num">1</div><h3>Colle ça dans Claude Code</h3>
+        <p>Ouvre ton terminal, tape <b>claude</b>, puis colle :</p>
+        <div class="promptbox"><button class="cp" data-copy="Installe et lance le Bureau des agents : https://github.com/devlikemasta/bureau-des-agents">Copier</button><pre>Installe et lance le Bureau des agents : https://github.com/devlikemasta/bureau-des-agents</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://github.com/devlikemasta/bureau-des-agents">Le projet sur GitHub →</a></div>
+      <div class="step"><div class="num">2</div><h3>Ou à la main, en 3 commandes</h3>
+        <div class="promptbox"><button class="cp" data-copy="git clone https://github.com/devlikemasta/bureau-des-agents
+cd bureau-des-agents
+npm install &amp;&amp; npm start">Copier</button><pre>git clone https://github.com/devlikemasta/bureau-des-agents
+cd bureau-des-agents
+npm install &amp;&amp; npm start</pre></div>
+        <p>Puis ouvre <b>http://localhost:4848</b> dans ton navigateur.</p></div>
+      <div class="step"><div class="num">3</div><h3>Remplis « Le règlement du bureau »</h3>
+        <p>Explique qui tu es et ce que fait ta boîte. Les agents s'en servent pour chaque mission.</p></div>
+      <div class="step"><div class="num">4</div><h3>Donne ta mission au chef</h3>
+        <p>Remplace ce qui est entre crochets :</p>
+        <div class="promptbox"><button class="cp" data-copy="Je lance [ton projet, ex : ma formation sur Claude et l&#x27;IA]. Analyse 5 concurrents, un agent par concurrent : [concurrent 1], [concurrent 2], [concurrent 3], [concurrent 4], [concurrent 5]. Pour chacun : prix, ce qui est inclus, avis clients, ce que les clients aiment et détestent. Compare tout dans un tableau, puis crée ma page de vente avec une offre qui fait mieux que tous les concurrents.">Copier</button><pre>Je lance [ton projet, ex : ma formation sur Claude et l&#x27;IA]. Analyse 5 concurrents, un agent par concurrent : [concurrent 1], [concurrent 2], [concurrent 3], [concurrent 4], [concurrent 5]. Pour chacun : prix, ce qui est inclus, avis clients, ce que les clients aiment et détestent. Compare tout dans un tableau, puis crée ma page de vente avec une offre qui fait mieux que tous les concurrents.</pre></div></div>
+    </section>
+    <section>
+      <div class="kicker">Pour filmer</div>
+      <h2 class="st">Les raccourcis que j'utilise.</h2>
+      <div class="step">
+        <ul>
+          <li><b>V</b> : format vertical 9:16 (Reels, TikTok)</li>
+          <li><b>F</b> : mode tournage, sans les menus</li>
+          <li><b>N</b> : passe en soirée (pour la fête de fin de mission)</li>
+          <li><b>J</b> : le jukebox, puis « Mode soirée »</li>
+          <li><b>H</b> puis « Rejouer » : rejoue une mission sans consommer ton abonnement</li>
+        </ul>
+        <div class="note"><b>Erreur « API Error 400 » (tool definitions trop lourdes) ?</b> Arrête le serveur (Ctrl+C) et relance-le avec :</div>
+        <div class="promptbox"><button class="cp" data-copy="ENABLE_CLAUDEAI_MCP_SERVERS=false npm start">Copier</button><pre>ENABLE_CLAUDEAI_MCP_SERVERS=false npm start</pre></div>
+        <div class="note"><b>« Claude Code introuvable » ?</b> Installe-le puis relance le serveur :</div>
+        <div class="promptbox"><button class="cp" data-copy="curl -fsSL https://claude.ai/install.sh | bash">Copier</button><pre>curl -fsSL https://claude.ai/install.sh | bash</pre></div>
+      </div>
+    </section>
+    <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux des agents qui bossent vraiment pour ta boîte ?</h2>
+      <p class="body">J'ai une agence d'automatisation et d'acquisition client. On peut mettre en place tes agents et tes automatisations. Et si ta priorité, c'est de trouver des clients, j'ai construit OpenBound pour ça.</p>
+      <div class="ctas">
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">On en parle 30 minutes</span><span class="s">Gratuit, sans engagement</span></span><span class="arw">→</span></a>
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener"><span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés.</span></span><span class="arw">→</span></a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span><span class="arw">→</span></a>
+      </div>
+    </section>
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">Le Bureau des agents est un projet open source (licence MIT) créé par VibesMoney : github.com/devlikemasta/bureau-des-agents. Claude et Claude Code sont des produits d'Anthropic. Monsieur IA n'est affilié à aucun d'eux.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /bureau',from_name:'Monsieur IA · /bureau'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+<script src="/club.js" defer></script>
+</body>
+</html>
