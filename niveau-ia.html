@@ -351,7 +351,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
   function send(){var s=score(),lv=LV[level(s)].n,
     det="Score "+s+"/"+MAX+" · Fréquence : "+(A.frequence||"")+" · Outil : "+(A.outil||"")+" · Agent : "+(A.agent||"")+" · Automatisation : "+(A.automatisation||"")+" · Skills/Claude Code : "+(A.skills||"")+" · Workflow agentique : "+(A.workflow_agentique||"");
     var d={"form-name":"club-attente",prenom:A.prenom,email:A.email,niveau:lv,formule:"QUIZ NIVEAU IA"+(SRC?" · source "+SRC:""),plan:det,objectif:A.interet,frein:A.blocage,activite:"Communauté : "+(A.communaute||""),abonnement:A.outil,temps:A.frequence,"bot-field":""};
-    return fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:Object.keys(d).map(function(k){return encodeURIComponent(k)+"="+encodeURIComponent(d[k]||"")}).join("&")});
+    return new Promise(function(res){
+      var name="nf"+Date.now(),ifr=document.createElement("iframe");ifr.name=name;ifr.style.display="none";document.body.appendChild(ifr);
+      var f=document.createElement("form");f.method="POST";f.action=ENDPOINT;f.target=name;f.acceptCharset="UTF-8";f.style.display="none";
+      Object.keys(d).forEach(function(k){var i=document.createElement("input");i.type="hidden";i.name=k;i.value=d[k]||"";f.appendChild(i)});
+      document.body.appendChild(f);var done=false,fin=function(){if(!done){done=true;res()}};ifr.onload=fin;setTimeout(fin,2500);f.submit();
+    });
   }
   function loading(){step=Q.length;prog();$("#qback").hidden=true;$("#qbody").innerHTML='<div class="loading"><div class="spin" aria-hidden="true"></div><h2 style="font-size:clamp(26px,4vw,44px)">Je calcule <em>ton niveau</em>…</h2><p class="sub" id="lt">Analyse de tes réponses…</p></div>';
     var t=["Analyse de tes réponses…","Calcul de ton score…","Construction de ton plan de progression…"],i=0,iv=setInterval(function(){i++;if(i<t.length)$("#lt").textContent=t[i]},650);
