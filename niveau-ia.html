@@ -211,6 +211,35 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
 .tip b{color:#E6DED3}
 .pbox .qform{max-width:none;margin:0}
 .pbox h3{margin:0;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.03em;line-height:1.1}
+.pbox.offer{position:static}
+.pbox.offer .cta.big{justify-content:space-between;white-space:nowrap;font-size:18px}
+.ofbadge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:rgba(232,98,42,.14);border:1px solid rgba(232,98,42,.45);color:#FFC9A0;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.ofbadge i{width:7px;height:7px;border-radius:99px;background:var(--o);box-shadow:0 0 0 4px rgba(240,138,60,.22);animation:pul 1.6s infinite}
+@keyframes pul{50%{box-shadow:0 0 0 7px rgba(240,138,60,0)}}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cd div{background:#0F0D0B;border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center}
+.cd b{display:block;font-family:'Inter Tight',sans-serif;font-size:22px;font-weight:800;color:var(--txt);line-height:1.1}
+.cd span{font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+.plans{display:flex;flex-direction:column;gap:10px}
+.plan{position:relative;display:flex;align-items:center;gap:14px;text-align:left;width:100%;cursor:pointer;font:inherit;color:var(--txt);background:#0F0D0B;border:1.5px solid var(--line2);border-radius:18px;padding:14px 16px;transition:border-color .15s,background .15s}
+.plan:hover{border-color:rgba(232,98,42,.55)}
+.plan.on{border-color:var(--o);background:linear-gradient(180deg,rgba(232,98,42,.12),rgba(232,98,42,.04))}
+.plan .rd{width:20px;height:20px;border-radius:99px;border:2px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center}
+.plan.on .rd{border-color:var(--o)}
+.plan.on .rd::after{content:"";width:10px;height:10px;border-radius:99px;background:var(--o)}
+.plan .nm2{flex:1;min-width:0}
+.plan .nm2 b{display:block;font-size:16px}
+.plan .nm2 small{display:block;color:var(--mut);font-size:13px;line-height:1.4;margin-top:2px}
+.plan .pr{text-align:right;flex:none}
+.plan .pr b{display:block;font-family:'Inter Tight',sans-serif;font-size:24px;font-weight:800;line-height:1}
+.plan .pr s{color:var(--soft);font-size:13px}
+.plan .tag{position:absolute;top:-10px;right:14px;background:linear-gradient(180deg,#F8A660,#E8682E);color:#1B0F06;font-size:11px;font-weight:800;border-radius:99px;padding:3px 10px;letter-spacing:.03em}
+.inc{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px;color:#E6DED3;line-height:1.45}
+.inc li::before{content:"✓  ";color:var(--o);font-weight:800}
+.guar{display:flex;gap:12px;align-items:flex-start;border:1px dashed var(--line2);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--mut);line-height:1.5}
+.guar b{color:var(--txt)}
+.wlink{background:none;border:0;padding:0;font:inherit;font-size:13.5px;color:var(--mut);text-decoration:underline;cursor:pointer;align-self:center}
+.wlink:hover{color:var(--txt)}
 .pbox h3 em{font-style:normal;background:linear-gradient(90deg,var(--o1),var(--o2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .done{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .done .ok2{width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,var(--o1),var(--o2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px}
@@ -350,16 +379,68 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
     if(A.outil==="ChatGPT"||A.outil==="Gemini") st[0]=[st[0][0],st[0][1]+" On t'aide aussi à passer de "+A.outil+" à Claude, plus à l'aise avec les agents et les connecteurs."];
     return st;
   }
-  var ENDPOINT="https://lesagentiques.netlify.app/";
+  var ENDPOINT="https://lesagentiques.netlify.app/",FORMULE="";
   function send(){var s=score(),lv=LV[level(s)].n,
     det="Score "+s+"/"+MAX+" · Fréquence : "+(A.frequence||"")+" · Outil : "+(A.outil||"")+" · Agent : "+(A.agent||"")+" · Automatisation : "+(A.automatisation||"")+" · Skills/Claude Code : "+(A.skills||"")+" · Workflow agentique : "+(A.workflow_agentique||"");
-    var d={"form-name":"club-attente",prenom:A.prenom,email:A.email,niveau:lv,formule:"QUIZ NIVEAU IA"+(SRC?" · source "+SRC:""),plan:det,objectif:A.interet,frein:A.blocage,activite:"Communauté : "+(A.communaute||""),abonnement:A.outil,temps:A.frequence,"bot-field":""};
+    var d={"form-name":"club-attente",prenom:A.prenom,email:A.email,niveau:lv,formule:"QUIZ NIVEAU IA · "+FORMULE+(SRC?" · source "+SRC:""),plan:det,objectif:A.interet,frein:A.blocage,activite:"Communauté : "+(A.communaute||""),abonnement:A.outil,temps:A.frequence,"bot-field":""};
     return new Promise(function(res){
       var name="nf"+Date.now(),ifr=document.createElement("iframe");ifr.name=name;ifr.style.display="none";document.body.appendChild(ifr);
       var f=document.createElement("form");f.method="POST";f.action=ENDPOINT;f.target=name;f.acceptCharset="UTF-8";f.style.display="none";
       Object.keys(d).forEach(function(k){var i=document.createElement("input");i.type="hidden";i.name=k;i.value=d[k]||"";f.appendChild(i)});
       document.body.appendChild(f);var done=false,fin=function(){if(!done){done=true;res()}};ifr.onload=fin;setTimeout(fin,2500);f.submit();
     });
+  }
+
+  /* ===== Offre fondateur (prévente) ===== */
+  var LINKS={mensuel:"https://buy.stripe.com/5kQbJ24QkgI3g1g03efYY1c",vie:"https://buy.stripe.com/28EdRa0A4bnJdT89DOfYY1b"};
+  var DEADLINE=new Date("2026-11-05T23:59:59+01:00").getTime();
+  var PLANS={
+    mensuel:{nom:"Fondateur mensuel",sous:"27 €/mois bloqué à vie. Sans engagement, résiliable en un clic.",prix:"27 €",unit:"/mois",barre:"47 €/mois",btn:"Je rejoins · 27 €/mois",tag:"Prix fondateur"},
+    vie:{nom:"Accès à vie",sous:"Un seul paiement, zéro abonnement. Toutes les mises à jour incluses.",prix:"147 €",unit:"une fois",barre:"",btn:"Je rejoins · 147 € à vie",tag:"Zéro abonnement"}
+  };
+  var CHOIX="mensuel";
+  function offerBox(L){
+    var pl=Object.keys(PLANS).map(function(k){var x=PLANS[k];return '<button type="button" class="plan'+(k===CHOIX?" on":"")+'" data-k="'+k+'"><span class="tag">'+x.tag+'</span><span class="rd"></span><span class="nm2"><b>'+x.nom+'</b><small>'+x.sous+'</small></span><span class="pr"><b>'+x.prix+'</b>'+(x.barre?'<s>'+x.barre+'</s>':'<span class="qsmall">'+x.unit+'</span>')+'</span></button>'}).join("");
+    var form=KE?'<div class="qform" id="lead1"><p class="qsmall">Ton accès sera envoyé à <b style="color:var(--txt)">'+esc(KE)+'</b>.</p><button class="cta big" type="button" id="paybtn" style="justify-content:space-between">'+PLANS[CHOIX].btn+' '+ARR+'</button></div>'
+      :'<form class="qform" id="lead" novalidate><label for="qp">Ton prénom</label><input id="qp" autocomplete="given-name" placeholder="Ex : Julie" required><label for="qe">Ton email (pour recevoir ton accès)</label><input id="qe" type="email" autocomplete="email" placeholder="julie@exemple.fr" required><p class="qsmall" id="qerr" style="color:#F87171;display:none">Indique ton prénom et un email valide.</p><button class="cta big" type="submit" id="paybtn" style="justify-content:space-between;margin-top:6px">'+PLANS[CHOIX].btn+' '+ARR+'</button></form>';
+    return '<aside class="pbox offer" id="wl"><span class="ofbadge"><i></i>Offre fondateur · 100 places</span>'+
+      '<h3>Passe au niveau suivant <em>avec nous</em>.</h3>'+
+      '<p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Le Club des Agentiques, c\'est l\'endroit où l\'on apprend <b style="color:var(--txt)">ensemble</b> à faire travailler Claude à sa place. Tu ne regardes pas des vidéos : tu repars avec des systèmes qui tournent. Ouverture le <b style="color:var(--txt)">lundi 2 novembre</b>.</p>'+
+      '<div><p class="qsmall" style="margin-bottom:8px">Le prix fondateur se termine dans :</p><div class="cd" id="cd"><div><b id="cdd">0</b><span>jours</span></div><div><b id="cdh">0</b><span>heures</span></div><div><b id="cdm">0</b><span>min</span></div><div><b id="cds">0</b><span>sec</span></div></div></div>'+
+      '<div class="plans" id="plans">'+pl+'</div>'+
+      form+
+      '<div class="guar"><span style="font-size:20px">🛡️</span><span><b>Garantie 7 jours.</b> Si le Club ne te convient pas, tu es remboursé, sans justification.</span></div>'+
+      '<div><p class="mono" style="color:var(--o);font-size:12.5px;margin:0 0 10px">Ce qui t\'attend dans le Club</p><ul class="inc">'+
+        '<li>Ton plan <b>'+L.n.toLowerCase()+'</b> : initiation à Claude, puis parcours avancé Claude Code et GitHub</li>'+
+        '<li>Créer sans coder avec Cowork : ma méthode pour tout construire (newsletter, pages, vidéos…)</li>'+
+        '<li>Ton Jarvis perso 24h/24 et ton assistant WhatsApp</li>'+
+        '<li>Agents IA et workflows n8n prêts à l\'emploi : tu copies, tu colles, ça tourne</li>'+
+        '<li>Vidéos en motion design avec Claude et publication automatique sur Instagram</li>'+
+        '<li>Vendre ce que tu construis : trouver des clients, faire une démo qui fait « waouh »</li>'+
+        '<li>Chaque tuto avec son dépôt GitHub, de nouveaux skills chaque semaine</li>'+
+        '<li>Des défis chaque mois et une communauté d\'entraide</li>'+
+      '</ul></div>'+
+      '<button type="button" class="wlink" id="justwl">Pas encore prêt ? Garde juste ma place sur la liste d\'attente</button>'+
+    '</aside>';
+  }
+  function tick(){var d=Math.max(0,DEADLINE-Date.now()),el=$("#cdd");if(!el)return;
+    $("#cdd").textContent=Math.floor(d/864e5);$("#cdh").textContent=Math.floor(d/36e5)%24;$("#cdm").textContent=Math.floor(d/6e4)%60;$("#cds").textContent=Math.floor(d/1e3)%60}
+  function payUrl(m){return LINKS[CHOIX]+(m?"?prefilled_email="+encodeURIComponent(m):"")}
+  function wireOffer(L){
+    tick();var iv=setInterval(function(){if(!$("#cdd")){clearInterval(iv);return}tick()},1000);
+    $("#plans").addEventListener("click",function(e){var b=e.target.closest(".plan");if(!b)return;CHOIX=b.getAttribute("data-k");
+      $("#plans").querySelectorAll(".plan").forEach(function(x){x.classList.toggle("on",x===b)});
+      $("#paybtn").innerHTML=PLANS[CHOIX].btn+' '+ARR});
+    function go(p,m,btn){A.prenom=p;A.email=m;btn.disabled=true;btn.innerHTML='Redirection vers le paiement sécurisé…';
+      FORMULE="CHECKOUT "+(CHOIX==="vie"?"147 € à vie":"27 €/mois");
+      send().catch(function(){}).then(function(){location.href=payUrl(m)})}
+    function getLead(){if(KE)return [KP,KE];var p=$("#qp").value.trim(),m=$("#qe").value.trim();
+      if(!p||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){$("#qerr").style.display="block";return null}return [p,m]}
+    if(KE){$("#paybtn").addEventListener("click",function(e){go(KP,KE,e.currentTarget)})}
+    else{$("#lead").addEventListener("submit",function(e){e.preventDefault();var r=getLead();if(r)go(r[0],r[1],$("#paybtn"))})}
+    $("#justwl").addEventListener("click",function(e){var r=getLead();if(!r){var i=$("#qp");if(i)i.focus();return}
+      var b=e.currentTarget;b.disabled=true;A.prenom=r[0];A.email=r[1];FORMULE="LISTE D'ATTENTE";
+      send().catch(function(){}).then(function(){bump(30);$("#wl").innerHTML='<div class="done"><span class="ok2">✓</span><h3>C\'est noté'+(r[0]?', <em>'+esc(r[0])+'</em>':'')+' !</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Ta place est gardée sur la liste d\'attente. Tu recevras les infos du lancement à <b style="color:var(--txt)">'+esc(r[1])+'</b>. Le prix fondateur reste valable jusqu\'au jeudi 5 novembre à 23h59.</p><a href="'+payUrl(r[1])+'" style="font-weight:700;color:var(--o)">Finalement, je prends ma place maintenant →</a></div>'})});
   }
   function loading(){step=Q.length;prog();$("#qback").hidden=true;$("#qbody").innerHTML='<div class="loading"><div class="spin" aria-hidden="true"></div><h2 style="font-size:clamp(26px,4vw,44px)">Je calcule <em>ton niveau</em>…</h2><p class="sub" id="lt">Analyse de tes réponses…</p></div>';
     var t=["Analyse de tes réponses…","Calcul de ton score…","Construction de ton plan de progression…"],i=0,iv=setInterval(function(){i++;if(i<t.length)$("#lt").textContent=t[i]},650);
@@ -372,18 +453,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
     var tip=TIPS[A.blocage]?'<p class="tip"><b>Ton blocage :</b> '+esc(A.blocage.charAt(0).toLowerCase()+A.blocage.slice(1))+'. '+TIPS[A.blocage]+'</p>':'';
     $("#qbody").innerHTML='<div class="res"><div><span class="mono" style="color:var(--o);font-size:13px">Ton résultat</span><h2 style="text-align:left;margin:10px 0 0;font-size:clamp(32px,4.4vw,52px)">Ton niveau : <em>'+L.n+'</em></h2>'+
       '<div class="lvlcard"><div class="top"><span class="nm">Niveau '+(l+1)+' sur 4</span><span class="sc">Score <b>'+s+'</b> / '+MAX+'</span></div><div class="lvlbar">'+bar+'</div><div class="lvllab">'+lab+'</div><p>'+L.d+'</p></div>'+
-      '<div class="phrase">'+phrase(l)+'</div><a class="cta mjump" href="#wl" style="margin-top:16px;justify-content:space-between">'+(KE?"Réserver ma place":"Rejoindre la liste d\'attente")+' '+ARR+'</a>'+
+      '<div class="phrase">'+phrase(l)+'</div><a class="cta mjump" href="#wl" style="margin-top:16px;justify-content:space-between">Voir l\'offre fondateur '+ARR+'</a>'+
       '<h3 class="t" style="margin:34px 0 0;font-size:28px">Ton plan de progression</h3>'+ps+tip+'</div>'+
-      '<aside class="pbox" id="wl"><span class="mono" style="color:var(--o);font-size:13px">Le Club des Agentiques · liste d\'attente</span><h3>Passe au niveau suivant <em>avec nous</em>.</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Le Club des Agentiques ouvre bientôt : formation et communauté pour construire tes propres workflows agentiques, étape par étape. Inscris-toi pour être prévenu en premier.</p>'+
-      (KE?'<div class="qform" id="lead1"><button class="cta big" type="button" id="oneclick" style="justify-content:space-between;margin-top:6px">Réserver ma place '+ARR+'</button><p class="qsmall">Un clic suffit, on a déjà ton email. Tu seras prévenu en premier à l\'ouverture.</p></div>':'<form class="qform" id="lead" novalidate><label for="qp">Ton prénom</label><input id="qp" autocomplete="given-name" placeholder="Ex : Julie" required><label for="qe">Ton email</label><input id="qe" type="email" autocomplete="email" placeholder="julie@exemple.fr" required><p class="qsmall" id="qerr" style="color:#F87171;display:none">Indique ton prénom et un email valide.</p><button class="cta big" type="submit" style="justify-content:space-between;margin-top:6px">Rejoindre la liste d\'attente '+ARR+'</button><p class="qsmall">Seulement les infos du lancement. Désinscription en un clic.</p></form>')+
-      '<ul><li>Accès prioritaire à l\'ouverture</li><li>Ton plan '+L.n.toLowerCase()+' adapté dans le Club</li><li>Des workflows prêts à importer</li></ul></aside></div>';
-    function joined(p,m){bump(30);$("#wl").innerHTML='<div class="done"><span class="ok2">✓</span><h3>C\'est noté'+(p?', <em>'+esc(p)+'</em>':'')+' !</h3><p style="margin:0;color:var(--mut);line-height:1.55;font-size:15px">Tu es sur la liste d\'attente du Club des Agentiques. Tu recevras les infos du lancement à <b style="color:var(--txt)">'+esc(m)+'</b>.</p><a href="https://www.instagram.com/monsieur.ia.1/" target="_blank" rel="noopener" style="font-weight:700;color:var(--o)">En attendant, suis @monsieur.ia.1 →</a></div>'}
-    if(KE){$("#oneclick").addEventListener("click",function(e){var b=e.currentTarget;b.disabled=true;A.prenom=KP;A.email=KE;send().catch(function(){}).then(function(){joined(KP,KE)})})}
-    else{$("#lead").addEventListener("submit",function(e){e.preventDefault();var p=$("#qp").value.trim(),m=$("#qe").value.trim();
-      if(!p||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){$("#qerr").style.display="block";return}
-      A.prenom=p;A.email=m;var btn=e.target.querySelector("button");btn.disabled=true;
-      send().catch(function(){}).then(function(){joined(p,m)});
-    })}
+      offerBox(L)+'</div>';
+    wireOffer(L);
     $("#quiz").scrollTop=0;
   }
 })();
