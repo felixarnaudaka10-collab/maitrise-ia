@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ton dessin animé avec Claude — Mr.IA</title>
+<meta name="description" content="Le setup complet pour créer des dessins animés pour YouTube avec Claude : histoire, scènes en code, narrateur, bruitages et rendu MP4.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+<link rel="stylesheet" href="/agentiques.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="ag-top">
+      <div class="ag-vid"><video autoplay muted loop playsinline preload="metadata" poster="https://lesagentiques.netlify.app/club/poster.jpg?v=2"><source src="https://lesagentiques.netlify.app/club/lancement.mp4?v=2" type="video/mp4"></video><button type="button" class="ag-play" aria-label="Regarder la vidéo avec le son"><span>▶</span> Regarder avec le son</button></div>
+      <a class="ag-club" href="https://lesagentiques.netlify.app/club/?src=cartoon#quiz" target="_blank" rel="noopener"><span>✦</span> Réserver ma place au Club des Agentiques →</a>
+      <div class="ag-open">Ouverture mardi 27/10 · prix fondateur jusqu'au 30/10</div>
+    </div>
+    <div class="pill">● Le guide de la vidéo · Dessin animé</div>
+    <h1>Ton dessin animé pour YouTube, <em>fait par Claude</em>.</h1>
+    <p class="lede">Une idée, et Claude écrit l'histoire, crée les personnages, code chaque scène, ajoute un narrateur et des bruitages. Voici mon setup complet, avec les prompts à copier.</p>
+    <a class="ag-down" href="#wall">↓ Reçois le guide gratuit</a>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois le setup complet</h2>
+      <p>Entre ton email pour débloquer les 5 prompts, la méthode de rendu et les réglages YouTube.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer le guide →</button></form>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Avant de commencer</div>
+      <h2 class="st">Ce qu'il te faut.</h2>
+      <div class="grid2">
+        <div class="fact">Claude (Pro ou Max)<span>Dans l'app Claude avec Cowork, ou Claude Code</span></div>
+        <div class="fact">Un compte ElevenLabs<span>Pour la voix du narrateur (offre gratuite pour tester)</span></div>
+        <div class="fact">Une chaîne YouTube<span>Gratuite</span></div>
+        <div class="fact">Une idée d'histoire<span>Une phrase suffit</span></div>
+      </div>
+      <div class="note"><b>Le principe :</b> Claude ne « génère » pas une vidéo d'un coup. Il écrit l'histoire, puis il <b>code chaque scène</b> comme une petite page web animée, la filme image par image et assemble le tout. Résultat : des scènes nettes, toujours les mêmes personnages, et tu peux tout modifier en une phrase.</div>
+    </section>
+    <section>
+      <div class="kicker">Étape par étape</div>
+      <h2 class="st">De l'idée à l'épisode.</h2>
+      <div class="step"><div class="num">1</div><h3>L'histoire, les personnages et les scènes</h3>
+        <p>Ouvre un nouveau projet dans Claude et colle ce prompt. Remplace ce qui est entre crochets.</p>
+        <div class="promptbox"><button class="cp" data-copy="Tu es scénariste de dessins animés pour enfants de 3 à 7 ans.
+Mon idée : [ton idée, ex : un petit hérisson qui a peur du noir et qui découvre les étoiles].
+Écris :
+1. L&#x27;histoire complète en 3 actes, ton calme et rassurant, pour un épisode de [10] minutes.
+2. La fiche de chaque personnage : nom, caractère, couleurs, forme, comment il bouge.
+3. Le découpage en scènes : pour chaque scène, le décor, ce qui bouge à l&#x27;écran, la phrase du narrateur et la durée.
+Style visuel : papier découpé et feutrine, couleurs douces, formes simples.">Copier</button><pre>Tu es scénariste de dessins animés pour enfants de 3 à 7 ans.
+Mon idée : [ton idée, ex : un petit hérisson qui a peur du noir et qui découvre les étoiles].
+Écris :
+1. L'histoire complète en 3 actes, ton calme et rassurant, pour un épisode de [10] minutes.
+2. La fiche de chaque personnage : nom, caractère, couleurs, forme, comment il bouge.
+3. Le découpage en scènes : pour chaque scène, le décor, ce qui bouge à l'écran, la phrase du narrateur et la durée.
+Style visuel : papier découpé et feutrine, couleurs douces, formes simples.</pre></div></div>
+      <div class="step"><div class="num">2</div><h3>Chaque scène en code</h3>
+        <p>Une scène à la fois. Claude te montre l'aperçu : tu corriges en une phrase (« plus lent », « le hérisson plus petit »).</p>
+        <div class="promptbox"><button class="cp" data-copy="Construis la scène [1] en une seule page HTML animée (SVG + JavaScript), au format 16:9 (1920 x 1080).
+- Style papier découpé et feutrine : textures douces, coutures en pointillés, petites ombres.
+- Tout est piloté par une fonction R(t) qui dessine l&#x27;état exact de la scène à l&#x27;instant t (pas d&#x27;animations CSS, pas de hasard sans graine), pour qu&#x27;on puisse la filmer image par image.
+- Mouvements lents et doux : nuages qui dérivent, étoiles qui scintillent, personnages qui respirent.
+- Durée : [40] secondes.
+Respecte la fiche personnage et le découpage écrits plus haut.">Copier</button><pre>Construis la scène [1] en une seule page HTML animée (SVG + JavaScript), au format 16:9 (1920 x 1080).
+- Style papier découpé et feutrine : textures douces, coutures en pointillés, petites ombres.
+- Tout est piloté par une fonction R(t) qui dessine l'état exact de la scène à l'instant t (pas d'animations CSS, pas de hasard sans graine), pour qu'on puisse la filmer image par image.
+- Mouvements lents et doux : nuages qui dérivent, étoiles qui scintillent, personnages qui respirent.
+- Durée : [40] secondes.
+Respecte la fiche personnage et le découpage écrits plus haut.</pre></div></div>
+      <div class="step"><div class="num">3</div><h3>Le narrateur</h3>
+        <p>Claude écrit le texte, tu le colles dans ElevenLabs (voix calme, modèle v3 ou plus récent) et tu télécharges un fichier audio par scène.</p>
+        <div class="promptbox"><button class="cp" data-copy="Écris le texte du narrateur de toute l&#x27;histoire, scène par scène, pour une voix calme et chaleureuse :
+- phrases courtes, faciles à comprendre pour un enfant de 4 ans ;
+- une pause « ... » entre chaque scène ;
+- termine par une phrase douce qui donne envie de dormir.">Copier</button><pre>Écris le texte du narrateur de toute l'histoire, scène par scène, pour une voix calme et chaleureuse :
+- phrases courtes, faciles à comprendre pour un enfant de 4 ans ;
+- une pause « ... » entre chaque scène ;
+- termine par une phrase douce qui donne envie de dormir.</pre></div>
+        <a class="lnk" target="_blank" rel="noopener" href="https://elevenlabs.io">ElevenLabs →</a></div>
+      <div class="step"><div class="num">4</div><h3>Filmer et assembler l'épisode</h3>
+        <p>Dans Cowork ou Claude Code, Claude installe lui-même ce qu'il faut (Playwright, ffmpeg) et fait le rendu.</p>
+        <div class="promptbox"><button class="cp" data-copy="Filme chaque scène en vidéo :
+1. Avec Playwright, ouvre chaque page HTML, appelle R(t) pour chaque image (30 images par seconde) et capture l&#x27;écran.
+2. Assemble les images avec ffmpeg en MP4 (H.264).
+3. Ajoute la voix du narrateur (fichiers audio de chaque scène) et des petits bruitages doux (vent, pas, étoiles).
+4. Colle toutes les scènes bout à bout en un seul fichier : episode-01.mp4.
+Fais un test sur 5 secondes avant de tout rendre.">Copier</button><pre>Filme chaque scène en vidéo :
+1. Avec Playwright, ouvre chaque page HTML, appelle R(t) pour chaque image (30 images par seconde) et capture l'écran.
+2. Assemble les images avec ffmpeg en MP4 (H.264).
+3. Ajoute la voix du narrateur (fichiers audio de chaque scène) et des petits bruitages doux (vent, pas, étoiles).
+4. Colle toutes les scènes bout à bout en un seul fichier : episode-01.mp4.
+Fais un test sur 5 secondes avant de tout rendre.</pre></div></div>
+      <div class="step"><div class="num">5</div><h3>Une modification ? Une phrase.</h3>
+        <p>C'est l'avantage du code : tu changes l'ambiance sans tout refaire.</p>
+        <div class="promptbox"><button class="cp" data-copy="Fais-la de nuit : ciel bleu nuit, lune, étoiles qui scintillent, fenêtres et lanternes allumées, couleurs plus douces. Garde exactement les mêmes personnages et les mêmes mouvements.">Copier</button><pre>Fais-la de nuit : ciel bleu nuit, lune, étoiles qui scintillent, fenêtres et lanternes allumées, couleurs plus douces. Garde exactement les mêmes personnages et les mêmes mouvements.</pre></div></div>
+      <div class="step"><div class="num">6</div><h3>Une heure de dessin animé</h3>
+        <p>Un épisode d'une heure, c'est simplement plus de scènes. Demande à Claude un découpage en 60 à 90 scènes, puis fais-les par lots de 10 dans le même projet pour qu'il garde les mêmes personnages.</p></div>
+    </section>
+    <section>
+      <div class="kicker">Avant de publier</div>
+      <h2 class="st">Les réglages YouTube à ne pas rater.</h2>
+      <div class="step"><ul>
+        <li><b>Contenu conçu pour les enfants :</b> coche « Oui » si ta vidéo s'adresse aux enfants. C'est obligatoire.</li>
+        <li><b>Une vraie histoire à chaque épisode :</b> YouTube ne rémunère pas les vidéos produites en masse et répétitives. Varie les histoires, les décors et les personnages.</li>
+        <li><b>Miniature :</b> demande à Claude une scène fixe en 1280 x 720 avec ton personnage en gros plan.</li>
+        <li><b>Titre :</b> simple, avec le moment de la journée (« Histoire du soir », « Pour s'endormir »).</li>
+      </ul></div>
+    </section>
+
+    <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux des agents qui bossent vraiment pour ta boîte ?</h2>
+      <p class="body">J'ai une agence d'automatisation et d'acquisition client. On peut mettre en place tes agents et tes automatisations. Et si ta priorité, c'est de trouver des clients, j'ai construit OpenBound pour ça.</p>
+      <div class="ctas">
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">On en parle 30 minutes</span><span class="s">Gratuit, sans engagement</span></span><span class="arw">→</span></a>
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener"><span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés.</span></span><span class="arw">→</span></a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span><span class="arw">→</span></a>
+      </div>
+    </section>
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">Claude et Claude Code sont des produits d'Anthropic. ElevenLabs et YouTube sont des marques de leurs propriétaires. Monsieur IA n'est affilié à aucun d'eux.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /cartoon',from_name:'Monsieur IA · /cartoon'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+<script src="/club.js" defer></script>
+</body>
+</html>
