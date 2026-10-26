@@ -88,7 +88,7 @@
   </header>
   <div id="wall"><div class="wallcard">
       <h2>Reçois les liens des 4 astuces</h2>
-      <p>Entre ton email pour débloquer tous les liens de la vidéo.</p>
+      <p>Entre ton email pour débloquer tous les liens et les prompts de la vidéo.</p>
       <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer le guide →</button></form>
   </div></div>
   <div id="content" class="locked">
@@ -96,37 +96,39 @@
       <div class="kicker">Astuce 1</div>
       <h2 class="st">Les effets open source.</h2>
       <p class="body">Claude sait reprendre des projets qui existent déjà. Tu lui donnes le lien GitHub, il l'intègre à ton animation.</p>
-      <div class="step"><div class="num">1</div><h3>p5.brush : des textures peintes</h3><p>Des coups de pinceau, aquarelles et hachures générés en code. Donne le lien à Claude, il l'adapte à ta vidéo.</p><a class="lnk" target="_blank" rel="noopener" href="https://github.com/acamposuribe/p5.brush">p5.brush sur GitHub →</a></div><div class="step"><div class="num">2</div><h3>thinking-orbs : des orbes de particules</h3><p>Des sphères de particules animées, parfaites pour un écran « l'IA réfléchit ».</p><a class="lnk" target="_blank" rel="noopener" href="https://github.com/Jakubantalik/thinking-orbs">thinking-orbs sur GitHub →</a></div>
+      <div class="step"><div class="num">A</div><h3>p5.brush : des textures peintes</h3><p>Des coups de pinceau, aquarelles et hachures générés en code.</p><a class="lnk" target="_blank" rel="noopener" href="https://github.com/acamposuribe/p5.brush">p5.brush sur GitHub →</a><div class="promptbox"><button class="cp" data-copy="Utilise p5.brush (https://github.com/acamposuribe/p5.brush) pour cette animation : les formes et les textes arrivent comme peints au pinceau, texture aquarelle, couleurs de ma charte. Garde tout synchronisé sur la timeline de la vidéo.">Copier</button><pre>Utilise p5.brush (https://github.com/acamposuribe/p5.brush) pour cette animation : les formes et les textes arrivent comme peints au pinceau, texture aquarelle, couleurs de ma charte. Garde tout synchronisé sur la timeline de la vidéo.</pre></div></div><div class="step"><div class="num">B</div><h3>thinking-orbs : des orbes de particules</h3><p>Des sphères de particules animées, parfaites pour un écran « l'IA réfléchit ».</p><a class="lnk" target="_blank" rel="noopener" href="https://github.com/Jakubantalik/thinking-orbs">thinking-orbs sur GitHub →</a><div class="promptbox"><button class="cp" data-copy="Ajoute une orbe de particules thinking-orbs (https://github.com/Jakubantalik/thinking-orbs) au centre de la scène pendant que je dis [la phrase]. Elle grossit doucement, tourne, puis éclate en particules au moment où j&#x27;annonce la réponse.">Copier</button><pre>Ajoute une orbe de particules thinking-orbs (https://github.com/Jakubantalik/thinking-orbs) au centre de la scène pendant que je dis [la phrase]. Elle grossit doucement, tourne, puis éclate en particules au moment où j'annonce la réponse.</pre></div></div>
     </section>
     <section>
-      <div class="kicker">Astuces 2 et 3</div>
-      <h2 class="st">Ta musique et ta charte.</h2>
+      <div class="kicker">Astuce 2</div>
+      <h2 class="st">Ta propre musique.</h2>
       
-      <div class="step"><div class="num">2</div><h3>Ta propre musique</h3><p>C'est elle qui donne le rythme et l'ambiance. Dis à Claude sur quel temps doit tomber le gros mouvement (ex. « le logo arrive sur le drop à 22 s »).</p></div><div class="step"><div class="num">3</div><h3>Ta charte</h3><p>Couleurs, polices, façons de bouger : donne-lui tes visuels <b>avant</b> de commencer, pas après.</p></div>
+      <div class="step"><div class="num">2</div><h3>La musique donne le rythme</h3><p>Donne à Claude ta musique (ou demande-lui d'en générer une), puis dis-lui où tombent les gros mouvements :</p><div class="promptbox"><button class="cp" data-copy="Voici ma musique : [fichier]. Analyse son tempo (BPM) et repère les temps forts et le drop.
+Cale l&#x27;animation dessus : chaque apparition tombe sur un temps, les transitions sur les débuts de mesure, et le gros mouvement (le logo / le titre) exactement sur le drop à [ex : 22 s].
+Montre-moi la liste des moments calés avant de faire le rendu.">Copier</button><pre>Voici ma musique : [fichier]. Analyse son tempo (BPM) et repère les temps forts et le drop.
+Cale l'animation dessus : chaque apparition tombe sur un temps, les transitions sur les débuts de mesure, et le gros mouvement (le logo / le titre) exactement sur le drop à [ex : 22 s].
+Montre-moi la liste des moments calés avant de faire le rendu.</pre></div></div>
+    </section>
+    <section>
+      <div class="kicker">Astuce 3</div>
+      <h2 class="st">Ta charte.</h2>
+      
+      <div class="step"><div class="num">3</div><h3>Donne-la avant de commencer, pas après</h3><p>Envoie tes visuels (logo, captures, posts) et :</p><div class="promptbox"><button class="cp" data-copy="Avant de créer quoi que ce soit, construis ma charte motion à partir de ces visuels :
+- couleurs (hex), polices (titres / textes), tailles ;
+- style de mouvement (doux et lent, ou rapide et punchy), durées types, courbes d&#x27;accélération ;
+- 3 choses à ne jamais faire.
+Enregistre-la dans charte-motion.md et respecte-la dans toutes mes vidéos.">Copier</button><pre>Avant de créer quoi que ce soit, construis ma charte motion à partir de ces visuels :
+- couleurs (hex), polices (titres / textes), tailles ;
+- style de mouvement (doux et lent, ou rapide et punchy), durées types, courbes d'accélération ;
+- 3 choses à ne jamais faire.
+Enregistre-la dans charte-motion.md et respecte-la dans toutes mes vidéos.</pre></div></div>
     </section>
     <section>
       <div class="kicker">Astuce 4</div>
       <h2 class="st">Les galeries de vidéos… avec leurs prompts.</h2>
       
-      <div class="step"><a class="lnk" target="_blank" rel="noopener" href="https://fliki.ai/features/claude-motion-graphics">Galerie Claude Motion Graphics →</a><a class="lnk" target="_blank" rel="noopener" href="https://carat.im/en/prompt-gallery">Carat Prompt Gallery →</a><p style="margin-top:14px">Trouve une vidéo qui te plaît, récupère son prompt et adapte-le à ton sujet.</p></div>
+      <div class="step"><a class="lnk" target="_blank" rel="noopener" href="https://fliki.ai/features/claude-motion-graphics">Galerie Claude Motion Graphics →</a><a class="lnk" target="_blank" rel="noopener" href="https://carat.im/en/prompt-gallery">Carat Prompt Gallery →</a><p style="margin-top:14px">Trouve une vidéo qui te plaît, copie son prompt, puis :</p><div class="promptbox"><button class="cp" data-copy="Voici le prompt d&#x27;une vidéo que j&#x27;aime : [colle le prompt]. Adapte-le à mon sujet : [ton sujet], avec ma charte (charte-motion.md) et ma musique. Garde la même structure de scènes et le même rythme.">Copier</button><pre>Voici le prompt d'une vidéo que j'aime : [colle le prompt]. Adapte-le à mon sujet : [ton sujet], avec ma charte (charte-motion.md) et ma musique. Garde la même structure de scènes et le même rythme.</pre></div></div>
     </section>
-<section>
-      <div class="kicker">Mon setup complet</div>
-      <h2 class="st">Le skill Motion Video Director.</h2>
-      <div class="step">
-        <p>Ces 4 astuces font la différence. La méthode complète que j'utilise pour mes vidéos (moteur d'animation, synchro voix, musique, bruitages, rendu) est dans mon skill :</p>
-        <ul>
-          <li>Le skill complet (SKILL.md + scripts de rendu, de voix, de musique et de bruitages)</li>
-          <li>Les modèles de scènes prêts à l'emploi et des vidéos d'exemple à décortiquer</li>
-          <li>Le guide d'installation pas à pas (Claude Code ou l'app Claude)</li>
-          <li>Reels 9:16, pubs, vidéos YouTube 16:9</li>
-        </ul>
-        <p style="font-size:30px;font-weight:900;letter-spacing:-1px;margin:6px 0 14px">19 € <span style="font-size:17px;color:var(--ink3);font-weight:600;text-decoration:line-through">29 €</span> <span style="font-size:14px;color:var(--ink3);font-weight:600">· paiement unique · prix de lancement</span></p>
-        <a class="lnk" style="background:var(--claude)" target="_blank" rel="noopener" href="https://buy.stripe.com/bJe28s5Uo9fBcP43fqfYY1d">Je prends le skill à 19 € →</a>
-        <a class="lnk" style="background:#fff;color:var(--ink);border:1px solid var(--line)" target="_blank" rel="noopener" href="https://skill-motion-agentiques.netlify.app">Voir la démo complète</a>
-        <div class="note">Membre du Club des Agentiques ? Le skill est déjà inclus, avec un nouveau skill et des workflows chaque semaine.</div>
-      </div>
-    </section>
+
     <section>
       <a class="club" href="https://lesagentiques.netlify.app/club/?src=motion#quiz" target="_blank" rel="noopener">
         <span class="tag">Ouverture mardi 27/10 · places fondateurs</span>

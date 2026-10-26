@@ -88,7 +88,7 @@
   </header>
   <div id="wall"><div class="wallcard">
       <h2>Reçois le guide du monteur IA</h2>
-      <p>Entre ton email pour débloquer les 4 étapes, les liens des 5 outils et le prompt à copier.</p>
+      <p>Entre ton email pour débloquer les 4 étapes, les liens des 5 outils et tous les prompts à copier.</p>
       <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer le guide →</button></form>
   </div></div>
   <div id="content" class="locked">
@@ -123,28 +123,52 @@ Vérifie que chaque outil fonctionne, puis dis-moi quand tout est prêt.">Copier
 Vérifie que chaque outil fonctionne, puis dis-moi quand tout est prêt.</pre></div><a class="lnk" target="_blank" rel="noopener" href="https://www.remotion.dev">Remotion</a><a class="lnk" target="_blank" rel="noopener" href="https://github.com/heygen-com/hyperframes">HyperFrames</a><a class="lnk" target="_blank" rel="noopener" href="https://ffmpeg.org">FFmpeg</a><a class="lnk" target="_blank" rel="noopener" href="https://github.com/openai/whisper">Whisper</a><a class="lnk" target="_blank" rel="noopener" href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></div>
     </section>
     <section>
-      <div class="kicker">Étapes 3 et 4</div>
-      <h2 class="st">Ton style, puis ta vidéo.</h2>
+      <div class="kicker">Étape 3</div>
+      <h2 class="st">Ton style : ta charte de montage.</h2>
       
-      <div class="step"><div class="num">3</div><h3>Donne-lui ton style</h3><p>Mets 3 à 5 vidéos dans <b>références</b> (ou colle leurs liens). Claude les étudie et en sort ta charte de montage : couleurs, polices, rythme des coupes, sous-titres.</p></div><div class="step"><div class="num">4</div><h3>Tourne, dépose, demande</h3><p>Mets tes rushes dans <b>rushes</b>, puis :</p><div class="promptbox"><button class="cp" data-copy="Monte-moi la vidéo qui est dans le dossier rushes, en suivant ma charte de montage. Commence par me proposer un storyboard à valider.">Copier</button><pre>Monte-moi la vidéo qui est dans le dossier rushes, en suivant ma charte de montage. Commence par me proposer un storyboard à valider.</pre></div><p>Un truc ne te plaît pas ? Tu lui dis, comme à un vrai monteur : « le hook est trop petit, grossis-le ».</p></div>
+      <div class="step"><div class="num">3</div><h3>Donne-lui 3 à 5 vidéos de référence</h3><p>Mets-les dans <b>références</b> (ou colle leurs liens Instagram / TikTok / YouTube), puis :</p><div class="promptbox"><button class="cp" data-copy="Étudie les vidéos du dossier références (si ce sont des liens, télécharge-les avec yt-dlp). Pour chacune, analyse :
+- le hook des 3 premières secondes (texte à l&#x27;écran, zoom, son) ;
+- le rythme des coupes (une coupe toutes les combien de secondes) ;
+- les sous-titres (police, taille, couleur, mot clé mis en avant, position) ;
+- les animations et transitions (zooms, cartes, textes qui pop, B-roll) ;
+- la musique et les bruitages (ambiance, volume sous la voix) ;
+- les couleurs et l&#x27;étalonnage.
+Puis écris ma charte de montage dans un fichier charte-montage.md : règles claires, valeurs précises (tailles, couleurs en hex, durées), et ce qu&#x27;il ne faut jamais faire. Je validerai avant le premier montage.">Copier</button><pre>Étudie les vidéos du dossier références (si ce sont des liens, télécharge-les avec yt-dlp). Pour chacune, analyse :
+- le hook des 3 premières secondes (texte à l'écran, zoom, son) ;
+- le rythme des coupes (une coupe toutes les combien de secondes) ;
+- les sous-titres (police, taille, couleur, mot clé mis en avant, position) ;
+- les animations et transitions (zooms, cartes, textes qui pop, B-roll) ;
+- la musique et les bruitages (ambiance, volume sous la voix) ;
+- les couleurs et l'étalonnage.
+Puis écris ma charte de montage dans un fichier charte-montage.md : règles claires, valeurs précises (tailles, couleurs en hex, durées), et ce qu'il ne faut jamais faire. Je validerai avant le premier montage.</pre></div></div>
     </section>
-<section>
-      <div class="kicker">Mon setup complet</div>
-      <h2 class="st">Le skill Motion Video Director.</h2>
-      <div class="step">
-        <p>Les étapes ci-dessus te donnent un monteur qui fonctionne. Les prompts de la charte de montage, du storyboard, des coupes, de la musique et des animations que j'utilise pour mes Reels sont dans mon skill :</p>
-        <ul>
-          <li>Le skill complet (SKILL.md + scripts de rendu, de voix, de musique et de bruitages)</li>
-          <li>Les modèles de scènes prêts à l'emploi et des vidéos d'exemple à décortiquer</li>
-          <li>Le guide d'installation pas à pas (Claude Code ou l'app Claude)</li>
-          <li>Reels 9:16, pubs, vidéos YouTube 16:9</li>
-        </ul>
-        <p style="font-size:30px;font-weight:900;letter-spacing:-1px;margin:6px 0 14px">19 € <span style="font-size:17px;color:var(--ink3);font-weight:600;text-decoration:line-through">29 €</span> <span style="font-size:14px;color:var(--ink3);font-weight:600">· paiement unique · prix de lancement</span></p>
-        <a class="lnk" style="background:var(--claude)" target="_blank" rel="noopener" href="https://buy.stripe.com/bJe28s5Uo9fBcP43fqfYY1d">Je prends le skill à 19 € →</a>
-        <a class="lnk" style="background:#fff;color:var(--ink);border:1px solid var(--line)" target="_blank" rel="noopener" href="https://skill-motion-agentiques.netlify.app">Voir la démo complète</a>
-        <div class="note">Membre du Club des Agentiques ? Le skill est déjà inclus, avec un nouveau skill et des workflows chaque semaine.</div>
-      </div>
+    <section>
+      <div class="kicker">Étape 4</div>
+      <h2 class="st">Tu tournes, il monte.</h2>
+      
+      <div class="step"><div class="num">4</div><h3>Dépose tes rushes et lance le montage</h3><p>Mets tes rushes dans <b>rushes</b>, puis :</p><div class="promptbox"><button class="cp" data-copy="Monte la vidéo du dossier rushes en suivant charte-montage.md :
+1. Transcris avec Whisper (horodatage au mot).
+2. Coupe les blancs, les hésitations et les phrases reprises (garde toujours la dernière prise) — ne change jamais mes phrases.
+3. Propose-moi d&#x27;abord un storyboard : pour chaque passage, ce qui s&#x27;affiche à l&#x27;écran (texte, animation, B-roll, zoom). Attends ma validation.
+4. Après validation : sous-titres mot à mot, animations avec HyperFrames ou Remotion, petite musique de fond sous la voix, bruitage sur chaque animation.
+5. Exporte en 1080x1920, 30 i/s, dans exports.">Copier</button><pre>Monte la vidéo du dossier rushes en suivant charte-montage.md :
+1. Transcris avec Whisper (horodatage au mot).
+2. Coupe les blancs, les hésitations et les phrases reprises (garde toujours la dernière prise) — ne change jamais mes phrases.
+3. Propose-moi d'abord un storyboard : pour chaque passage, ce qui s'affiche à l'écran (texte, animation, B-roll, zoom). Attends ma validation.
+4. Après validation : sous-titres mot à mot, animations avec HyperFrames ou Remotion, petite musique de fond sous la voix, bruitage sur chaque animation.
+5. Exporte en 1080x1920, 30 i/s, dans exports.</pre></div><p>Ensuite tu corriges comme avec un vrai monteur :</p><div class="promptbox"><button class="cp" data-copy="Le hook est trop petit : grossis le texte des 3 premières secondes et ajoute un zoom.
+Entre 0:12 et 0:18 il ne se passe rien à l&#x27;écran : ajoute une animation qui illustre ce que je dis.
+La musique couvre ma voix : baisse-la de moitié.">Copier</button><pre>Le hook est trop petit : grossis le texte des 3 premières secondes et ajoute un zoom.
+Entre 0:12 et 0:18 il ne se passe rien à l'écran : ajoute une animation qui illustre ce que je dis.
+La musique couvre ma voix : baisse-la de moitié.</pre></div></div>
     </section>
+    <section>
+      <div class="kicker">Bonus</div>
+      <h2 class="st">Les prompts pour aller plus loin.</h2>
+      
+      <div class="step"><div class="num">★</div><h3>Garde ton style pour toutes tes vidéos</h3><div class="promptbox"><button class="cp" data-copy="Transforme tout ce qu&#x27;on vient de faire en skill réutilisable : crée un skill « mon-monteur » (SKILL.md + scripts) qui applique ma charte de montage et ces étapes, pour que je n&#x27;aie plus qu&#x27;à dire « monte la vidéo du dossier rushes ».">Copier</button><pre>Transforme tout ce qu'on vient de faire en skill réutilisable : crée un skill « mon-monteur » (SKILL.md + scripts) qui applique ma charte de montage et ces étapes, pour que je n'aie plus qu'à dire « monte la vidéo du dossier rushes ».</pre></div></div>
+    </section>
+
     <section>
       <a class="club" href="https://lesagentiques.netlify.app/club/?src=monteur#quiz" target="_blank" rel="noopener">
         <span class="tag">Ouverture mardi 27/10 · places fondateurs</span>
