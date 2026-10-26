@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 codes magiques pour ChatGPT — Mr.IA</title>
+<meta name="description" content="Les 5 codes magiques pour ChatGPT : frise chronologique, explication en manga, fiche de révision, vue éclatée et carte mentale. Prompts prêts à copier.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{--ink:#0b0b0f;--ink2:#4a4a55;--ink3:#8a8a96;--bg:#fbfbfd;--card:#fff;--line:#e8e8ee;--y:#FFE83D;--y2:#f5d000;--green:#0f9d58;--claude:#D97757}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:90px 0 52px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--y);padding:8px 16px;border-radius:100px;margin-bottom:28px}
+  h1{font-size:54px;line-height:1.05;letter-spacing:-2.2px;font-weight:800;margin-bottom:22px}
+  h1 em{font-style:normal;color:var(--claude)}
+  .lede{font-size:21px;color:var(--ink2);max-width:610px;margin:0 auto}
+  #wall{margin:54px 0 0}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:44px 36px;text-align:center;box-shadow:0 22px 60px rgba(11,11,15,.07)}
+  .wallcard h2{font-size:27px;letter-spacing:-.8px;font-weight:800;margin-bottom:10px}
+  .wallcard p{color:var(--ink2);font-size:16px;margin-bottom:26px}
+  .wallform{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap}
+  .wallform input{flex:1;min-width:220px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-family:inherit;background:#fafafc;outline:none;transition:.2s}
+  .wallform input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,232,61,.45)}
+  .wallform button{padding:16px 26px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:16px;font-family:inherit;cursor:pointer;transition:.2s}
+  .wallform button:hover{transform:translateY(-1px)}
+  .wallnote{font-size:12.5px;color:var(--ink3);margin-top:16px}
+  #content{margin-top:60px}
+  #content.locked{filter:blur(9px);pointer-events:none;user-select:none;opacity:.5}
+  section{margin-bottom:52px}
+  .kicker{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  h2.st{font-size:32px;letter-spacing:-1.1px;font-weight:800;margin-bottom:14px}
+  p.body{font-size:17.5px;color:var(--ink2);margin-bottom:20px}
+  .map{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:22px}
+  .map div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:700}
+  .map b{display:block;font-size:20px;margin-bottom:4px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;margin-bottom:18px;box-shadow:0 10px 34px rgba(11,11,15,.05)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--y);color:var(--ink);font-weight:900;font-size:15px;margin-bottom:16px}
+  .step h3{font-size:22px;letter-spacing:-.6px;font-weight:800;margin-bottom:8px}
+  .step p{font-size:16px;color:var(--ink2);margin-bottom:16px}
+  .step ul,.step ol{margin:0 0 16px 20px;font-size:16px;color:var(--ink2)}
+  .step li{margin-bottom:7px}
+  .step a.lnk{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;transition:.2s;margin:4px 6px 4px 0}
+  .step a.lnk:hover{transform:translateY(-2px)}
+  .promptbox{background:#0e0e14;border-radius:14px;padding:52px 20px 20px 20px;position:relative;margin-bottom:14px}
+  .promptbox pre{font-family:'JetBrains Mono','SF Mono',monospace;font-size:13px;color:#f3efd9;white-space:pre-wrap;line-height:1.7;margin:0}
+  .cp{position:absolute;top:13px;right:13px;background:var(--y);border:0;color:var(--ink);font-size:11.5px;font-weight:800;font-family:inherit;padding:8px 15px;border-radius:8px;cursor:pointer;transition:.2s}
+  .cp.ok{background:var(--green);color:#fff}
+  .note{background:#fff9ec;border:1px solid #f2e2be;border-radius:14px;padding:16px 18px;font-size:14.5px;color:#6b5320;margin-top:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;font-weight:600}
+  .fact span{display:block;font-size:13px;color:var(--ink3);font-weight:500;margin-top:3px}
+  .fact.no{border-color:#f3d4cf;background:#fff8f7}
+  .club{display:block;text-decoration:none;color:#fff;border-radius:22px;padding:26px 26px 24px;background:linear-gradient(135deg,#6D4AFF,#4F2BD9 55%,#2E1A8A);box-shadow:0 16px 40px rgba(79,43,217,.32);transition:.2s}
+  .club:hover{transform:translateY(-2px)}
+  .club .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:6px 11px;border-radius:99px}
+  .club h3{font-size:24px;line-height:1.2;margin:14px 0 8px}
+  .club p{font-size:15px;opacity:.9;margin:0 0 16px}
+  .club .go{display:inline-block;background:#fff;color:#2E1A8A;font-weight:800;padding:13px 20px;border-radius:14px}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .cta{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;border-radius:18px;padding:22px 26px;font-weight:700;transition:.2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(11,11,15,.13)}
+  .cta .t{font-size:17px}.cta .s{font-size:13.5px;font-weight:500;opacity:.82;display:block;margin-top:2px}
+  .cta .arw{font-size:20px;flex:none}
+  .cta.gold{background:linear-gradient(135deg,#F3DCA0,#D9B551 60%,#B8912E);color:#2a1f05;box-shadow:0 12px 32px rgba(217,181,81,.35)}
+  .cta.green{background:linear-gradient(135deg,#34d399,#0f9d58);color:#04301c}
+  .cta.black{background:var(--ink);color:#fff}
+  footer{padding:50px 0 70px;text-align:center;color:var(--ink3);font-size:13px;border-top:1px solid var(--line);margin-top:70px}
+  footer .legal{max-width:600px;margin:14px auto 0;font-size:12px;line-height:1.6}
+  @media(max-width:640px){h1{font-size:37px;letter-spacing:-1.4px}.lede{font-size:18px}.st{font-size:26px}.grid2{grid-template-columns:1fr}.map{grid-template-columns:repeat(4,1fr)}header{padding:60px 0 40px}}
+</style>
+<link rel="stylesheet" href="/agentiques.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="ag-top">
+      <div class="ag-vid"><video autoplay muted loop playsinline preload="metadata" poster="https://lesagentiques.netlify.app/club/poster.jpg?v=2"><source src="https://lesagentiques.netlify.app/club/lancement.mp4?v=2" type="video/mp4"></video><button type="button" class="ag-play" aria-label="Regarder la vidéo avec le son"><span>▶</span> Regarder avec le son</button></div>
+      <a class="ag-club" href="https://lesagentiques.netlify.app/club/?src=visuel#quiz" target="_blank" rel="noopener"><span>✦</span> Réserver ma place au Club des Agentiques →</a>
+      <div class="ag-open">Ouverture mardi 3/11 · prix fondateur jusqu'au 6/11</div>
+    </div>
+    <div class="pill">● Le guide de la vidéo · Visuel</div>
+    <h1>5 codes magiques pour <em>ChatGPT</em>.</h1>
+    <p class="lede">Frise chronologique, explication en manga, fiche de révision, vue éclatée et carte mentale : tape un code, ton sujet, et l'IA te fait le visuel.</p>
+    <a class="ag-down" href="#wall">↓ Reçois le guide gratuit</a>
+  </header>
+  <div id="wall"><div class="wallcard">
+      <h2>Reçois les 5 codes</h2>
+      <p>Entre ton email pour débloquer les 5 codes, les prompts complets à copier et mes astuces.</p>
+      <form class="wallform" id="wf"><input type="email" id="em" placeholder="ton@email.com" required><button type="submit" id="sb">Débloquer le guide →</button></form>
+  </div></div>
+  <div id="content" class="locked">
+    <section>
+      <div class="kicker">Comment ça marche</div>
+      <h2 class="st">Un code, un sujet, et c'est tout.</h2>
+      <p class="body">Tape le code au début de ton message, puis ton sujet. Ça marche dans ChatGPT (création d'image) et aussi dans Claude, Gemini ou n'importe quelle IA qui crée des images.</p>
+      <div class="note"><b>Bon à savoir :</b> ces codes ne sont pas des commandes officielles. Ce sont des raccourcis que l'IA comprend très bien. Si le résultat ne te plaît pas, colle le <b>prompt complet</b> donné sous chaque code : il marche à tous les coups.</div>
+    </section>
+    <section>
+      <div class="kicker">Les 5 codes</div>
+      <h2 class="st">Copie, colle, change le sujet.</h2>
+      <div class="step"><div class="num">1</div><h3>/timelineview · Une frise chronologique</h3>
+        <p>Tape le code devant ton sujet : ChatGPT crée une frise avec les dates clés.</p>
+        <div class="promptbox"><button class="cp" data-copy="/timelineview La guerre de Sécession">Copier</button><pre>/timelineview La guerre de Sécession</pre></div>
+        <p style="margin-top:6px"><b>Le prompt complet</b> (si tu veux un résultat parfait) :</p>
+        <div class="promptbox"><button class="cp" data-copy="Crée une image : une frise chronologique claire sur [ton sujet]. Style infographie noir et blanc, fond blanc, une ligne horizontale avec 5 à 8 dates clés, un titre court sous chaque date et une petite icône. Titre en haut avec les années de début et de fin. Texte en français, lisible, sans faute.">Copier</button><pre>Crée une image : une frise chronologique claire sur [ton sujet]. Style infographie noir et blanc, fond blanc, une ligne horizontale avec 5 à 8 dates clés, un titre court sous chaque date et une petite icône. Titre en haut avec les années de début et de fin. Texte en français, lisible, sans faute.</pre></div></div>
+      <div class="step"><div class="num">2</div><h3>/anime-explainer · Le sujet en manga</h3>
+        <p>Le sujet expliqué en 3 à 6 cases façon manga : parfait pour comprendre une histoire ou un concept.</p>
+        <div class="promptbox"><button class="cp" data-copy="/anime-explainer Roméo et Juliette">Copier</button><pre>/anime-explainer Roméo et Juliette</pre></div>
+        <p style="margin-top:6px"><b>Le prompt complet</b> (si tu veux un résultat parfait) :</p>
+        <div class="promptbox"><button class="cp" data-copy="Crée une image : une planche de manga en noir et blanc qui explique [ton sujet] en 3 à 6 cases. Chaque case a un titre court en bas (1. ..., 2. ..., 3. ...) et montre une étape clé. Personnages expressifs, traits nets, fond blanc. Titre en haut. Texte en français.">Copier</button><pre>Crée une image : une planche de manga en noir et blanc qui explique [ton sujet] en 3 à 6 cases. Chaque case a un titre court en bas (1. ..., 2. ..., 3. ...) et montre une étape clé. Personnages expressifs, traits nets, fond blanc. Titre en haut. Texte en français.</pre></div></div>
+      <div class="step"><div class="num">3</div><h3>/visualcheatsheet · Une page pour réviser</h3>
+        <p>Une fiche unique qui résume tout le chapitre : notions, formules et petits schémas.</p>
+        <div class="promptbox"><button class="cp" data-copy="/visualcheatsheet La physique au lycée">Copier</button><pre>/visualcheatsheet La physique au lycée</pre></div>
+        <p style="margin-top:6px"><b>Le prompt complet</b> (si tu veux un résultat parfait) :</p>
+        <div class="promptbox"><button class="cp" data-copy="Crée une image : une fiche de révision visuelle sur une seule page pour [ton sujet / chapitre]. Grille de 6 à 9 cases numérotées, chacune avec le nom de la notion, la formule ou la règle à retenir et un mini-schéma. Style épuré noir et blanc, très lisible. Titre en haut. Texte en français, sans faute.">Copier</button><pre>Crée une image : une fiche de révision visuelle sur une seule page pour [ton sujet / chapitre]. Grille de 6 à 9 cases numérotées, chacune avec le nom de la notion, la formule ou la règle à retenir et un mini-schéma. Style épuré noir et blanc, très lisible. Titre en haut. Texte en français, sans faute.</pre></div></div>
+      <div class="step"><div class="num">4</div><h3>/explodedview · Un schéma éclaté</h3>
+        <p>Un objet ou un bâtiment « démonté » couche par couche, avec chaque partie légendée.</p>
+        <div class="promptbox"><button class="cp" data-copy="/explodedview La grande pyramide">Copier</button><pre>/explodedview La grande pyramide</pre></div>
+        <p style="margin-top:6px"><b>Le prompt complet</b> (si tu veux un résultat parfait) :</p>
+        <div class="promptbox"><button class="cp" data-copy="Crée une image : une vue éclatée de [ton objet ou sujet]. Les éléments sont séparés et empilés pour montrer comment ils s&#x27;assemblent, chacun relié à une étiquette par un trait fin. Style dessin technique noir et blanc, fond blanc. Titre en haut. Légendes en français.">Copier</button><pre>Crée une image : une vue éclatée de [ton objet ou sujet]. Les éléments sont séparés et empilés pour montrer comment ils s'assemblent, chacun relié à une étiquette par un trait fin. Style dessin technique noir et blanc, fond blanc. Titre en haut. Légendes en français.</pre></div></div>
+      <div class="step"><div class="num">5</div><h3>/mindmap · Une carte mentale</h3>
+        <p>Toutes les idées autour d'un sujet, et comment elles sont reliées entre elles.</p>
+        <div class="promptbox"><button class="cp" data-copy="/mindmap Les métiers de la santé">Copier</button><pre>/mindmap Les métiers de la santé</pre></div>
+        <p style="margin-top:6px"><b>Le prompt complet</b> (si tu veux un résultat parfait) :</p>
+        <div class="promptbox"><button class="cp" data-copy="Crée une image : une carte mentale sur [ton sujet]. Le sujet au centre dans une bulle noire, 6 à 8 branches avec des bulles blanches, et des sous-idées si utile. Traits courbes, style épuré noir et blanc, fond blanc. Texte en français, lisible.">Copier</button><pre>Crée une image : une carte mentale sur [ton sujet]. Le sujet au centre dans une bulle noire, 6 à 8 branches avec des bulles blanches, et des sous-idées si utile. Traits courbes, style épuré noir et blanc, fond blanc. Texte en français, lisible.</pre></div></div>
+    </section>
+    <section>
+      <div class="kicker">Astuce</div>
+      <h2 class="st">Pour réviser ou apprendre plus vite.</h2>
+      <div class="step"><ul>
+        <li>Enchaîne les codes sur le même sujet : frise, puis carte mentale, puis fiche de révision.</li>
+        <li>Demande « en format vertical 9:16 » pour l'imprimer ou la garder en fond d'écran.</li>
+        <li>Si un mot est mal écrit dans l'image, réponds : « Corrige l'orthographe, garde exactement le même visuel. »</li>
+      </ul></div>
+    </section>
+    <section>
+      <a class="club" href="https://lesagentiques.netlify.app/club/#quiz" target="_blank" rel="noopener">
+        <span class="tag">Liste d'attente · places fondateurs</span>
+        <h3>Le Club des Agentiques arrive.</h3>
+        <p>La formation + communauté pour maîtriser Claude et l'IA, puis savoir la vendre. Prix fondateur réservé à la liste d'attente.</p>
+        <span class="go">Rejoindre la liste d'attente →</span>
+      </a>
+    </section>
+    <section>
+      <div class="kicker">Aller plus vite</div>
+      <h2 class="st">Tu veux des agents qui bossent vraiment pour ta boîte ?</h2>
+      <p class="body">J'ai une agence d'automatisation et d'acquisition client. On peut mettre en place tes agents et tes automatisations. Et si ta priorité, c'est de trouver des clients, j'ai construit OpenBound pour ça.</p>
+      <div class="ctas">
+        <a class="cta green" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">On en parle 30 minutes</span><span class="s">Gratuit, sans engagement</span></span><span class="arw">→</span></a>
+        <a class="cta gold" href="https://openbound.fr" target="_blank" rel="noopener"><span><span class="t">OpenBound : ta prospection en pilote automatique</span><span class="s">Chaque matin, de nouveaux prospects trouvés, enrichis et contactés.</span></span><span class="arw">→</span></a>
+        <a class="cta black" href="https://calendly.com/arnaud-monsieur-ia/30min" target="_blank" rel="noopener"><span><span class="t">Former ton équipe à Claude</span><span class="s">Formation IA en entreprise, TPE et PME</span></span><span class="arw">→</span></a>
+      </div>
+    </section>
+  </div>
+  <footer>
+    Monsieur IA · Arnaud
+    <div class="legal">ChatGPT est un produit d'OpenAI. Claude est un produit d'Anthropic. Monsieur IA n'est affilié à aucun d'eux.</div>
+  </footer>
+</div>
+<script>
+  const KEY='mia_email_submitted';
+  const content=document.getElementById('content');const wall=document.getElementById('wall');
+  function unlock(){content.classList.remove('locked');wall.style.display='none';}
+  if(localStorage.getItem(KEY)) unlock();
+  document.getElementById('wf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email=document.getElementById('em').value.trim();const btn=document.getElementById('sb');
+    if(!email) return; btn.textContent='...'; btn.disabled=true;
+    try{await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'038b1035-ecbd-4506-bd90-5a6421828169',email:email,subject:'Nouveau lead : page /visuel',from_name:'Monsieur IA · /visuel'})});}catch(err){}
+    localStorage.setItem(KEY,'1');unlock();content.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.cp').forEach(b=>{b.addEventListener('click',()=>{navigator.clipboard.writeText(b.dataset.copy).then(()=>{const o=b.textContent;b.textContent='Copié ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=o;b.classList.remove('ok');},1600);});});});
+</script>
+<script src="/club.js" defer></script>
+</body>
+</html>
