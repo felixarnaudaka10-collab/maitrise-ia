@@ -137,7 +137,7 @@
   function render() {
     var act = card.querySelector(".act"), mail = ls(K_MAIL);
     if (ls(K_DONE) === "1") {
-      act.innerHTML = '<p class="ok">Accès anticipé : 27 €/mois bloqué à vie (jusqu\'au vendredi 30 octobre minuit, puis 47 €/mois).</p>'
+      act.innerHTML = '<p class="ok">Accès anticipé : 27 €/mois bloqué à vie (jusqu\'au vendredi 6 novembre minuit, puis 47 €/mois).</p>'
         + '<a class="qz" href="' + quizUrl(ls(K_MAIL)) + '">Faire mon plan (45 s) et prendre ma place à 27 € →</a>';
       return;
     }
