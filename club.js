@@ -100,7 +100,7 @@
     }
   }
 
-  card.innerHTML = '<span class="tg">Accès anticipé ouvert · 27 €/mois · 100 places</span>'
+  card.innerHTML = '<span class="tg">Prix fondateur · 27 €/mois · 200 places</span>'
     + "<h3>Tu as aimé ce tuto ? Le Club des Agentiques arrive.</h3>"
     + "<p>La formation + communauté pour faire bosser Claude dans ton business, avec des workflows prêts à importer, puis apprendre à le vendre.</p>"
     + '<div class="vw"><video muted playsinline loop preload="metadata" poster="' + SITE + '/club/poster.jpg?v=2"><source src="' + SITE + '/club/lancement.mp4?v=2" type="video/mp4"></video><button type="button" class="ag-play" aria-label="Regarder la vidéo avec le son"><span>▶</span> Regarder avec le son</button></div>'
@@ -137,7 +137,7 @@
   function render() {
     var act = card.querySelector(".act"), mail = ls(K_MAIL);
     if (ls(K_DONE) === "1") {
-      act.innerHTML = '<p class="ok">Accès anticipé : 27 €/mois bloqué à vie (jusqu\'au vendredi 6 novembre minuit, puis 47 €/mois).</p>'
+      act.innerHTML = '<p class="ok">Prix fondateur : 27 €/mois, bloqué à vie. Fermeture à 200 membres ou à la sortie du Club. Ensuite 37 €/mois, puis 97 €/mois.</p>'
         + '<a class="qz" href="' + quizUrl(ls(K_MAIL)) + '">Faire mon plan (45 s) et prendre ma place à 27 € →</a>';
       return;
     }
@@ -187,7 +187,7 @@
   var bar = document.createElement("div");
   bar.className = "cdab"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Le Club des Agentiques");
   bar.innerHTML = '<span class="sp" aria-hidden="true">✦</span>'
-    + '<span class="tx"><b>Le Club des Agentiques</b><small>Accès anticipé ouvert · 27 €/mois · 100 places</small></span>'
+    + '<span class="tx"><b>Le Club des Agentiques</b><small>Prix fondateur · 27 €/mois · 200 places</small></span>'
     + '<a class="go" href="#club-agentiques">Réserver ma place</a>'
     + '<button type="button" aria-label="Fermer">×</button>';
   document.body.appendChild(bar);
